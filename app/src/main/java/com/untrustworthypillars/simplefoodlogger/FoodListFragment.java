@@ -142,7 +142,7 @@ public class FoodListFragment extends Fragment {
         });
 
         /* When FAB is clicked, launching the dialog for adding new food to the database.
-         * If the activity is AddLogActivity, then hide the FAB button.
+         * If the activity is AddLogActivity, then hide the FAB.
          */
         mAddFoodFAB = (FloatingActionButton) v.findViewById(R.id.floating_button_createfood);
         if (mIsCalledByAddLogActivity) {
