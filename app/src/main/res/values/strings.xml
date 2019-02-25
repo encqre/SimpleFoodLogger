@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Simple Food Logger</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_foods">Food Items</string>
+    <string name="menu_stats">Summary</string>
+    <string name="menu_settings">Settings</string>
+    <string name="calories">Calories</string>
+    <string name="protein">Protein</string>
+    <string name="carbs">Carbs</string>
+    <string name="fat">Fat</string>
+    <string name="previous_day">Previous Day</string>
+    <string name="next_day">Next Day</string>
+    <string name="select">Select</string>
+    <string name="recent">Recent</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string-array name="food_categories_array">
+        <item>Meals</item>
+        <item>Dairy</item>
+        <item>Meat</item>
+        <item>Grains</item>
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Nuts/Seeds</item>
+        <item>Snacks</item>
+        <item>Drinks</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="units">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
+</resources>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_date_buttons"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+       >
+
+        <ImageButton
+            android:id="@+id/image_button_previousday"
+            style="@android:style/Widget.Holo.Light.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/previous_day"
+            android:src="@drawable/arrow_left"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/date_picker_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/date_picker_button" />
+
+        <Button
+            android:id="@+id/date_picker_button"
+            style="@android:style/Widget.Material.Button.Inset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/image_button_nextday"
+            app:layout_constraintStart_toEndOf="@+id/image_button_previousday" />
+
+        <ImageButton
+            android:id="@+id/image_button_nextday"
+            style="@android:style/Widget.Holo.Light.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/next_day"
+            android:src="@drawable/arrow_right"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/date_picker_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/date_picker_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="?android:listSeparatorTextViewStyle"
+        android:id="@+id/layout_day_counters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:layout_below="@id/layout_date_buttons">
+
+        <TextView
+            android:id="@+id/textview_calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Calories: 756 / 3090"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_calories"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:max="2500"
+            android:progress="1650"
+            app:layout_constraintEnd_toEndOf="@+id/textview_calories"
+            app:layout_constraintStart_toStartOf="@+id/textview_calories"
+            app:layout_constraintTop_toBottomOf="@+id/textview_calories" />
+
+        <TextView
+            android:id="@+id/textview_protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Protein: 12/180g"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/textview_carbs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_protein"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:max="200"
+            android:progress="120"
+            app:layout_constraintEnd_toEndOf="@+id/textview_protein"
+            app:layout_constraintStart_toStartOf="@+id/textview_protein"
+            app:layout_constraintTop_toBottomOf="@+id/textview_protein" />
+
+        <TextView
+            android:id="@+id/textview_carbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Carbs: 75/225g"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/textview_calories"
+            app:layout_constraintStart_toStartOf="@+id/textview_calories"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_carbs"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:max="300"
+            android:progress="50"
+            app:layout_constraintEnd_toEndOf="@+id/textview_calories"
+            app:layout_constraintStart_toStartOf="@+id/textview_calories"
+            app:layout_constraintTop_toBottomOf="@+id/textview_carbs" />
+
+        <TextView
+            android:id="@+id/textview_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Fat: 30/95g"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textview_carbs"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_fat"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:max="100"
+            android:progress="40"
+            app:layout_constraintEnd_toEndOf="@+id/textview_fat"
+            app:layout_constraintStart_toStartOf="@+id/textview_fat"
+            app:layout_constraintTop_toBottomOf="@+id/textview_fat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/log_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_day_counters">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_button_logmeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/plus_sign"
+        android:tint="@color/white"
+        app:backgroundTint="@color/colorPrimary"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:borderWidth="2dp"
+        app:useCompatPadding="true" />
+
+</RelativeLayout>

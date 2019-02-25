@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/food_list_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_alignParentTop="true"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabPaddingTop="0dp"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/darkGray"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_recent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recent" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/favorites" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <SearchView
+        android:id="@+id/searchview_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/food_list_tabs"
+        android:queryHint="Enter food name"
+        android:iconifiedByDefault="false">
+
+    </SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/food_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchview_food">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_button_createfood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/plus_sign"
+        android:tint="@color/white"
+        app:backgroundTint="@color/colorPrimary"
+        app:borderWidth="2dp"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:useCompatPadding="true" />
+
+</RelativeLayout>

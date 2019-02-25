@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="top"
+        android:background="@color/lightGray"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabPaddingTop="0dp"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextAppearance="@style/TabThingy"
+        app:tabTextColor="@color/darkGray"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/tab_icon_home"
+            android:text="@string/menu_home" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_foods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/tab_icon_foods"
+            android:text="@string/menu_foods" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/tab_icon_stats"
+            android:text="@string/menu_stats" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/tab_icon_settings"
+            android:text="@string/menu_settings" />
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Here will lie a fragment" />
+    </FrameLayout>
+
+</LinearLayout>

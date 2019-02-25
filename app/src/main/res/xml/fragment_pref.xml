@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory
+        app:key="goals_category"
+        app:title="Daily Targets">
+
+
+        <EditTextPreference
+            app:key="pref_calories"
+            app:title="Set daily calories target"
+            app:summary="Current target: 2500 kcal"/>
+        <EditTextPreference
+            app:key="pref_protein"
+            app:title="Set daily protein target"
+            app:summary="Current target: 200g"/>
+        <EditTextPreference
+            app:key="pref_carbs"
+            app:title="Set daily carbs target"
+            app:summary="Current target: 300g"/>
+        <EditTextPreference
+            app:key="pref_fat"
+            app:title="Set daily fat target"
+            app:summary="Current target: 90g"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="units_category"
+        app:title="Unit settings">
+
+        <ListPreference
+            app:key="pref_units"
+            app:title="Select preferred units"
+            app:entries="@array/units"
+            app:entryValues="@array/units"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="backups_category"
+        app:title="Database File Management">
+
+        <Preference
+            app:key="pref_backup"
+            app:title="Backup database files to SD card"
+            app:summary="Last backup date: 2018 December 12"/>
+
+        <Preference
+            app:key="pref_import"
+            app:title="Import exported files"
+            app:summary="Imports the latest Database Backup file. Asks permission to add any new food/log database entries"/>
+    </PreferenceCategory>
+
+
+
+
+
+</androidx.preference.PreferenceScreen>
