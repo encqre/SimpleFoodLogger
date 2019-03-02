@@ -72,6 +72,63 @@ public class Calculations {
         return result;
     }
 
+    public static String dateToDateText(Date date) {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        Integer year = cal.get(Calendar.YEAR);
+        Integer month = cal.get(Calendar.MONTH);
+        Integer day = cal.get(Calendar.DAY_OF_MONTH);
+        String dateText = year.toString() + month.toString() + day.toString();
+
+        return dateText;
+    }
+
+    public static Date incrementDay(Date date, Integer amount) {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, amount);
+
+        return cal.getTime();
+    }
+
+    public static Log summarizeDayLogs(List<Log> logs, Date logDate) {
+
+        Float kcal = 0f;
+        Float protein = 0f;
+        Float carbs = 0f;
+        Float fat = 0f;
+
+        Calendar cal =  Calendar.getInstance();
+        cal.setTime(logDate);
+        Integer year = cal.get(Calendar.YEAR);
+        Integer month = cal.get(Calendar.MONTH) + 1;
+        Integer day = cal.get(Calendar.DAY_OF_MONTH);
+        String dateText = year.toString() + "." + month.toString() + "." + day.toString();
+
+
+        for (int i = 0; i<logs.size(); i++) {
+            Log log = logs.get(i);
+            kcal = kcal + log.getKcal();
+            protein = protein + log.getProtein();
+            carbs = carbs + log.getCarbs();
+            fat = fat + log.getFat();
+        }
+
+        Log daysLog = new Log();
+        daysLog.setKcal(kcal);
+        daysLog.setProtein(protein);
+        daysLog.setCarbs(carbs);
+        daysLog.setFat(fat);
+        daysLog.setDate(logDate);
+        daysLog.setDateText(dateText);
+
+
+
+        return daysLog;
+    }
+
 
 
 }

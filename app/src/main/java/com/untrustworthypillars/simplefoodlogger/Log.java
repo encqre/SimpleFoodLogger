@@ -46,6 +46,10 @@ public class Log {
         mDateText = year.toString() + month.toString() + day.toString();
     }
 
+    public void setDateText(String text) {
+        mDateText = text;
+    }
+
     public void setDate(Date date) {
         mDate = date;
     }

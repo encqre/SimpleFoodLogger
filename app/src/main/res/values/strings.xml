@@ -2,7 +2,7 @@
     <string name="app_name">Simple Food Logger</string>
     <string name="menu_home">Home</string>
     <string name="menu_foods">Food Items</string>
-    <string name="menu_stats">Summary</string>
+    <string name="menu_stats">Statistics</string>
     <string name="menu_settings">Settings</string>
     <string name="calories">Calories</string>
     <string name="protein">Protein</string>
@@ -14,6 +14,8 @@
     <string name="recent">Recent</string>
     <string name="favorites">Favorites</string>
     <string name="search">Search</string>
+    <string name="summary_tab_summary">Day Summary</string>
+    <string name="summary_tab_foods">Food Summary</string>
     <string-array name="food_categories_array">
         <item>Meals</item>
         <item>Dairy</item>
@@ -25,6 +27,24 @@
         <item>Snacks</item>
         <item>Drinks</item>
         <item>Other</item>
+    </string-array>
+    <string-array name="spinner_period_options">
+        <item>Past 30 days</item>
+        <item>Past 90 days</item>
+        <item>Past year</item>
+        <item>Custom period</item>
+    </string-array>
+    <string-array name="spinner_day_sort_options">
+        <item>Date</item>
+        <item>Calories</item>
+        <item>Protein</item>
+        <item>Carbs</item>
+        <item>Fat</item>
+    </string-array>
+    <string-array name="spinner_food_sort_options">
+        <item>Number of entries</item>
+        <item>Weight consumed</item>
+        <item>Calories consumed</item>
     </string-array>
     <string-array name="units">
         <item>Metric</item>

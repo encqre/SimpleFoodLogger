@@ -1,20 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/summary_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_alignParentTop="true"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabPaddingTop="0dp"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/darkGray"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/summary_tab_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/summary_tab_summary" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/summary_tab_foods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/summary_tab_foods" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <TextView
-        android:id="@+id/temp_summary"
+        android:id="@+id/summary_text_select_period"
+        android:text="Selected time period:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Summary and statistics right here boi"/>
-
-    <ImageView
+        android:padding="2dp"
+        android:layout_below="@id/summary_tabs" />
+    <Spinner
+        android:id="@+id/summary_spinner_period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cutie"
-        />
+        android:layout_below="@id/summary_tabs"
+        android:layout_toEndOf="@+id/summary_text_select_period" />
+
+    <TextView
+        android:id="@+id/summary_text_sortby"
+        android:text="Sort by:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:layout_below="@+id/summary_text_select_period"/>
+    <Spinner
+        android:id="@+id/summary_spinner_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/summary_text_sortby"
+        android:layout_below="@+id/summary_text_select_period"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        android:layout_below="@+id/summary_text_sortby"/>
 
 
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/summary_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/summary_text_sortby">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>
