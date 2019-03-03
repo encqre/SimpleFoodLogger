@@ -14,8 +14,8 @@
     <string name="recent">Recent</string>
     <string name="favorites">Favorites</string>
     <string name="search">Search</string>
-    <string name="summary_tab_summary">Day Summary</string>
-    <string name="summary_tab_foods">Food Summary</string>
+    <string name="summary_tab_summary">Summary</string>
+    <string name="summary_tab_foods">Food Stats</string>
     <string-array name="food_categories_array">
         <item>Meals</item>
         <item>Dairy</item>
@@ -29,6 +29,7 @@
         <item>Other</item>
     </string-array>
     <string-array name="spinner_period_options">
+        <item>Past 7 days</item>
         <item>Past 30 days</item>
         <item>Past 90 days</item>
         <item>Past year</item>

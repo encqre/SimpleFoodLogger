@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/list_item_summary_food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Kalakuto krutinele, karstai rukyta, Pikok" />
+
+    <TextView
+        android:id="@+id/list_item_summary_food_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/list_item_summary_food_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/list_item_summary_food_name"
+        tools:text="Count: 59" />
+
+    <TextView
+        android:id="@+id/list_item_summary_food_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_item_summary_food_name"
+        tools:text="69680 kcal" />
+
+    <TextView
+        android:id="@+id/list_item_summary_food_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/darkGray"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/list_item_summary_food_calories"
+        app:layout_constraintTop_toBottomOf="@+id/list_item_summary_food_name"
+        tools:text="25.2 kg" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

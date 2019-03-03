@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Calculations {
 
-
     /**
      * Returns formated date string for the provided Date object. If the year is not current year,
      * then the year is included in the string. If the date is today, then TODAY is returned instead
@@ -72,6 +71,11 @@ public class Calculations {
         return result;
     }
 
+    /**
+     * Converts date into a String in the format which is used in the Log Object (and used for database queries)
+     * @param date
+     * @return date in the string format - for example 2019.03.25 would be 20190225
+     */
     public static String dateToDateText(Date date) {
 
         Calendar cal = Calendar.getInstance();
@@ -84,6 +88,12 @@ public class Calculations {
         return dateText;
     }
 
+    /**
+     * Increments or decrements Date object by number of days specified by the amount variable
+     * @param date
+     * @param amount - amount of days by which to increment (or decrement) provided date
+     * @return date which is incremented(decremented) by the specified number of days
+     */
     public static Date incrementDay(Date date, Integer amount) {
 
         Calendar cal = Calendar.getInstance();
@@ -93,6 +103,13 @@ public class Calculations {
         return cal.getTime();
     }
 
+    /**
+     * Summarizes List of Log objects (from the same day!!) into one summary Log object.
+     * @param logs
+     * @param logDate
+     * @return summary Log object, which will contain total amount of calories, protein, carbs and fat.
+     * Also will contain Date object of the day and DateText in the format of (for example) 2019.03.05 for march 5th.
+     */
     public static Log summarizeDayLogs(List<Log> logs, Date logDate) {
 
         Float kcal = 0f;
@@ -104,8 +121,10 @@ public class Calculations {
         cal.setTime(logDate);
         Integer year = cal.get(Calendar.YEAR);
         Integer month = cal.get(Calendar.MONTH) + 1;
+        String monthString = month < 10 ? "0"+month.toString() : month.toString();
         Integer day = cal.get(Calendar.DAY_OF_MONTH);
-        String dateText = year.toString() + "." + month.toString() + "." + day.toString();
+        String dayString = day < 10 ? "0"+day.toString() : day.toString();
+        String dateText = year.toString() + "." + monthString + "." + dayString;
 
 
         for (int i = 0; i<logs.size(); i++) {
@@ -124,11 +143,7 @@ public class Calculations {
         daysLog.setDate(logDate);
         daysLog.setDateText(dateText);
 
-
-
         return daysLog;
     }
-
-
 
 }

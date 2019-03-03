@@ -65,12 +65,26 @@
         android:background="?android:attr/listDivider"
         android:layout_below="@+id/summary_text_sortby"/>
 
+    <TextView
+        android:id="@+id/summary_text_summary"
+        android:text="Daily averages between 2019.02.25 - 2019.03.02\nCalories: 2436 kcal (-64 kcal compared to daily target)\nProtein: 205g, Carbs: 265g, Fat: 85g"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/summary_text_sortby"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        android:layout_below="@+id/summary_text_summary"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/summary_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary_text_sortby">
+        android:layout_below="@+id/summary_text_summary">
 
     </androidx.recyclerview.widget.RecyclerView>
 
