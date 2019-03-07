@@ -88,6 +88,34 @@ public class Calculations {
         return dateText;
     }
 
+    public static Integer dateToDateTextEqualLengthInteger(Date date) {
+        Calendar cal =  Calendar.getInstance();
+        cal.setTime(date);
+        Integer year = cal.get(Calendar.YEAR);
+        Integer month = cal.get(Calendar.MONTH) + 1;
+        String monthString = month < 10 ? "0"+month.toString() : month.toString();
+        Integer day = cal.get(Calendar.DAY_OF_MONTH);
+        String dayString = day < 10 ? "0"+day.toString() : day.toString();
+        String dateText = year.toString() + monthString + dayString;
+
+        return Integer.parseInt(dateText);
+
+    }
+
+    public static String dateToDateTextEqualLengthString(Date date) {
+        Calendar cal =  Calendar.getInstance();
+        cal.setTime(date);
+        Integer year = cal.get(Calendar.YEAR);
+        Integer month = cal.get(Calendar.MONTH) + 1;
+        String monthString = month < 10 ? "0"+month.toString() : month.toString();
+        Integer day = cal.get(Calendar.DAY_OF_MONTH);
+        String dayString = day < 10 ? "0"+day.toString() : day.toString();
+        String dateText = year.toString() + "." + monthString + "." + dayString;
+
+        return dateText;
+
+    }
+
     /**
      * Increments or decrements Date object by number of days specified by the amount variable
      * @param date

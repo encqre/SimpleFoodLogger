@@ -1,5 +1,7 @@
 package com.untrustworthypillars.simplefoodlogger;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +42,11 @@ public class SummaryFragment extends Fragment {
     public static final int SPINNER_PERIOD_90_DAYS = 2;
     public static final int SPINNER_PERIOD_YEAR = 3;
     public static final int SPINNER_PERIOD_CUSTOM = 4;
+
+    private static final int REQUEST_START_DATE = 0;
+    private static final int REQUEST_END_DATE = 1;
+
+    private static final String DIALOG_DATE = "DialogDate";
 
 
     private LogManager mLogManager;
@@ -93,6 +101,10 @@ public class SummaryFragment extends Fragment {
             }
         });
 
+        mLogManager = LogManager.get(getContext());
+        mSummaryRecyclerView = (RecyclerView) v.findViewById(R.id.summary_recycler);
+        mSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         mPeriodSpinner = (Spinner) v.findViewById(R.id.summary_spinner_period); //Spinner that provides selections for time periods
 
         //Creating adapter for period spinner, using resources array as list of items and default android layout for single spinner item
@@ -102,37 +114,38 @@ public class SummaryFragment extends Fragment {
         // Specify the layout to use when the list of choices appears
         mPeriodSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPeriodSpinner.setAdapter(mPeriodSpinnerAdapter);
-        mPeriodSpinner.setSelection(0);
 
         mPeriodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch(position) {
                     case SPINNER_PERIOD_7_DAYS:
-                        mStartDate = Calculations.incrementDay(new Date(), -6);
-                        mEndDate = Calculations.incrementDay(new Date(), 1);
+                        mStartDate = Calculations.incrementDay(new Date(), -7);
+                        mEndDate = new Date();
                         updatePeriod();
                         break;
                     case SPINNER_PERIOD_30_DAYS:
-                        mStartDate = Calculations.incrementDay(new Date(), -29);
-                        mEndDate = Calculations.incrementDay(new Date(), 1);
+                        mStartDate = Calculations.incrementDay(new Date(), -30);
+                        mEndDate = new Date();
                         updatePeriod();
                         break;
                     case SPINNER_PERIOD_90_DAYS:
-                        mStartDate = Calculations.incrementDay(new Date(), -89);
-                        mEndDate = Calculations.incrementDay(new Date(), 1);
+                        mStartDate = Calculations.incrementDay(new Date(), -90);
+                        mEndDate = new Date();
                         updatePeriod();
                         break;
                     case SPINNER_PERIOD_YEAR:
-                        mStartDate = Calculations.incrementDay(new Date(), -364);
-                        mEndDate = Calculations.incrementDay(new Date(), 1);
+                        mStartDate = Calculations.incrementDay(new Date(), -365);
+                        mEndDate = new Date();
                         updatePeriod();
                         break;
                     case SPINNER_PERIOD_CUSTOM:
-                        //TODO implement custom length
-                        mStartDate = Calculations.incrementDay(new Date(), -29);
-                        mEndDate = Calculations.incrementDay(new Date(), 1);
-                        updatePeriod();
+                        mStartDate = Calculations.incrementDay(new Date(), -7); //setting start and end for 1 week period just in case
+                        mEndDate = new Date(); //setting start and end for 1 week period just in case
+                        FragmentManager fm = getFragmentManager();
+                        DatePickerDialog dialog = DatePickerDialog.newInstance(new Date(), "Select start date");
+                        dialog.setTargetFragment(SummaryFragment.this, REQUEST_START_DATE);
+                        dialog.show(fm, DIALOG_DATE);
                         break;
                 }
             }
@@ -141,6 +154,7 @@ public class SummaryFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
         });
 
         //TODO implement sorting
@@ -157,24 +171,36 @@ public class SummaryFragment extends Fragment {
         mDaySortSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mFoodSortSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mSortSpinner.setAdapter(mDaySortSpinnerAdapter); //By default set day summary adapter, because it's the first ttab
-        mSortSpinner.setSelection(0);
+        mSortSpinner.setAdapter(mDaySortSpinnerAdapter); //By default set day summary adapter, because it's the first tab
 
         mSummaryText = (TextView) v.findViewById(R.id.summary_text_summary);
 
-        mSummaryRecyclerView = (RecyclerView) v.findViewById(R.id.summary_recycler);
-        mSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mLogManager = LogManager.get(getContext());
-
-        //By default first time period option is selected - 7 days
-        mStartDate = Calculations.incrementDay(new Date(), -6);
-        mEndDate = Calculations.incrementDay(new Date(), 1);
-
-        mDaySummaryAdapter = new DaySummaryAdapter(summarizeLogs(mStartDate, mEndDate));
-        mSummaryRecyclerView.setAdapter(mDaySummaryAdapter);
-
+        //TODO add option to ignore 0 kcal days
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            /**If setting the custom date fails, default to 1 week and call updatePeriod()*/
+                mStartDate = Calculations.incrementDay(new Date(), -7);
+                mEndDate = new Date();
+                mPeriodSpinner.setSelection(0);
+                updatePeriod();
+                return;
+        }
+        if (requestCode == REQUEST_START_DATE) {
+            mStartDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
+            FragmentManager fm = getFragmentManager();
+            DatePickerDialog dialog = DatePickerDialog.newInstance(new Date(), "Select end date", mStartDate);
+            dialog.setTargetFragment(SummaryFragment.this, REQUEST_END_DATE);
+            dialog.show(fm, DIALOG_DATE);
+        }
+        if (requestCode == REQUEST_END_DATE) {
+            mEndDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
+            mEndDate = Calculations.incrementDay(mEndDate, 1);
+            updatePeriod();
+        }
     }
 
     /**RecyclerView Holder and Adapter for day summary entries*/
@@ -232,6 +258,7 @@ public class SummaryFragment extends Fragment {
         private TextView mCountText;
         private TextView mCaloriesText;
         private TextView mWeightText;
+        private TextView mDateText;
 
 
         public FoodSummaryHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -242,6 +269,7 @@ public class SummaryFragment extends Fragment {
             mCountText = (TextView) itemView.findViewById(R.id.list_item_summary_food_count);
             mCaloriesText = (TextView) itemView.findViewById(R.id.list_item_summary_food_calories);
             mWeightText = (TextView) itemView.findViewById(R.id.list_item_summary_food_weight);
+            mDateText = (TextView) itemView.findViewById(R.id.list_item_summary_food_date);
         }
 
         public void bind(FoodSummary summaryFood) {
@@ -249,6 +277,7 @@ public class SummaryFragment extends Fragment {
             mCountText.setText("Count: " + summaryFood.getCount());
             mCaloriesText.setText(summaryFood.getCalories().intValue() + " kcal");
             mWeightText.setText(String.format("%.1f", summaryFood.getWeight()/1000) + " kg");
+            mDateText.setText("Last consumed: " + Calculations.dateToDateTextEqualLengthString(summaryFood.getLastConsumed()));
         }
 
     }
@@ -270,6 +299,11 @@ public class SummaryFragment extends Fragment {
         @Override
         public void onBindViewHolder(FoodSummaryHolder holder, int position) {
             holder.bind(mSelectedPeriodFoods.get(position));
+            if(position %2 == 1) {
+                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+            } else {
+                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+            }
         }
 
         @Override

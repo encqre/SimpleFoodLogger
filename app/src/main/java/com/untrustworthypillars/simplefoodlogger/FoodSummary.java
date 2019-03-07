@@ -9,6 +9,7 @@ public class FoodSummary {
     private Float mWeight;
     private Float mCalories;
     private Date mLastConsumed;
+    private Integer mLastConsumedInteger;
 
     public FoodSummary(String name) {
         mName = name;
@@ -56,5 +57,10 @@ public class FoodSummary {
 
     public void setLastConsumed(Date lastConsumed) {
         mLastConsumed = lastConsumed;
+        mLastConsumedInteger = Calculations.dateToDateTextEqualLengthInteger(lastConsumed);
+    }
+
+    public Integer getLastConsumedInteger() {
+        return mLastConsumedInteger;
     }
 }

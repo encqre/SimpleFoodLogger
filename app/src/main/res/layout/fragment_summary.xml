@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -67,7 +68,7 @@
 
     <TextView
         android:id="@+id/summary_text_summary"
-        android:text="Daily averages between 2019.02.25 - 2019.03.02\nCalories: 2436 kcal (-64 kcal compared to daily target)\nProtein: 205g, Carbs: 265g, Fat: 85g"
+        tools:text="Daily averages between 2019.02.25 - 2019.03.02\nCalories: 2436 kcal (-64 kcal compared to daily target)\nProtein: 205g, Carbs: 265g, Fat: 85g"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
