@@ -75,6 +75,7 @@
         android:layout_below="@+id/summary_text_sortby"/>
 
     <View
+        android:id="@+id/summary_text_divider2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="?android:attr/listDivider"
@@ -85,7 +86,7 @@
         android:id="@+id/summary_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary_text_summary">
+        android:layout_below="@+id/summary_text_divider2">
 
     </androidx.recyclerview.widget.RecyclerView>
 

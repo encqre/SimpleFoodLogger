@@ -48,14 +48,14 @@
         <item>Fat: low to high</item>
     </string-array>
     <string-array name="spinner_food_sort_options">
-        <item>Last consumed: newest first</item>
-        <item>Last consumed: oldest first</item>
         <item>Count: high to low</item>
         <item>Count: low to high</item>
         <item>Calories consumed: high to low</item>
         <item>Calories consumed: low to high</item>
         <item>Weight consumed: high to low</item>
         <item>Weight consumed: low to high</item>
+        <item>Last consumed: newest first</item>
+        <item>Last consumed: oldest first</item>
     </string-array>
     <string-array name="units">
         <item>Metric</item>

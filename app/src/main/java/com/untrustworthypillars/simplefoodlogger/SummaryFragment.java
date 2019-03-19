@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +45,26 @@ public class SummaryFragment extends Fragment {
     public static final int SPINNER_PERIOD_YEAR = 3;
     public static final int SPINNER_PERIOD_CUSTOM = 4;
 
+    public static final int SPINNER_SORT_DAY_DATE_OLD = 0;
+    public static final int SPINNER_SORT_DAY_DATE_NEW = 1;
+    public static final int SPINNER_SORT_DAY_KCAL_HIGH = 2;
+    public static final int SPINNER_SORT_DAY_KCAL_LOW = 3;
+    public static final int SPINNER_SORT_DAY_PROTEIN_HIGH = 4;
+    public static final int SPINNER_SORT_DAY_PROTEIN_LOW = 5;
+    public static final int SPINNER_SORT_DAY_CARBS_HIGH = 6;
+    public static final int SPINNER_SORT_DAY_CARBS_LOW = 7;
+    public static final int SPINNER_SORT_DAY_FAT_HIGH = 8;
+    public static final int SPINNER_SORT_DAY_FAT_LOW = 9;
+
+    public static final int SPINNER_SORT_FOOD_COUNT_HIGH = 0;
+    public static final int SPINNER_SORT_FOOD_COUNT_LOW = 1;
+    public static final int SPINNER_SORT_FOOD_KCAL_HIGH = 2;
+    public static final int SPINNER_SORT_FOOD_KCAL_LOW = 3;
+    public static final int SPINNER_SORT_FOOD_WEIGHT_HIGH = 4;
+    public static final int SPINNER_SORT_FOOD_WEIGHT_LOW = 5;
+    public static final int SPINNER_SORT_FOOD_DATE_NEW = 6;
+    public static final int SPINNER_SORT_FOOD_DATE_OLD = 7;
+
     private static final int REQUEST_START_DATE = 0;
     private static final int REQUEST_END_DATE = 1;
 
@@ -62,6 +84,8 @@ public class SummaryFragment extends Fragment {
     private ArrayAdapter<CharSequence> mFoodSortSpinnerAdapter;
     private Date mStartDate;
     private Date mEndDate;
+    private List<FoodSummary> mFoodSummaryList;
+    private List<Log> mLogSummaryList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,15 +98,15 @@ public class SummaryFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (mTabLayout.getSelectedTabPosition()) {
                     case TAB_DAY_SUMMARY:
-                        mSummaryText.setVisibility(View.VISIBLE);
-                        mDaySummaryAdapter = new DaySummaryAdapter(summarizeLogs(mStartDate, mEndDate));
+                        mLogSummaryList = summarizeLogs(mStartDate, mEndDate);
+                        mDaySummaryAdapter = new DaySummaryAdapter(mLogSummaryList);
                         mSummaryRecyclerView.setAdapter(mDaySummaryAdapter);
                         mSortSpinner.setAdapter(mDaySortSpinnerAdapter);
                         mSortSpinner.setSelection(0);
                         break;
                     case TAB_FOOD_SUMMARY:
-                        mSummaryText.setVisibility(View.GONE);
-                        mFoodSummaryAdapter = new FoodSummaryAdapter(summarizeFoods(mStartDate, mEndDate));
+                        mFoodSummaryList = summarizeFoods(mStartDate, mEndDate);
+                        mFoodSummaryAdapter = new FoodSummaryAdapter(mFoodSummaryList);
                         mSummaryRecyclerView.setAdapter(mFoodSummaryAdapter);
                         mSortSpinner.setAdapter(mFoodSortSpinnerAdapter);
                         mSortSpinner.setSelection(0);
@@ -157,7 +181,6 @@ public class SummaryFragment extends Fragment {
 
         });
 
-        //TODO implement sorting
         mSortSpinner = (Spinner) v.findViewById(R.id.summary_spinner_sort); //Spinner that provides selections for sort methods
 
         //Creating adapters for sort spinner, using resources array as list of items and default android layout for single spinner item,
@@ -172,6 +195,18 @@ public class SummaryFragment extends Fragment {
         mFoodSortSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         mSortSpinner.setAdapter(mDaySortSpinnerAdapter); //By default set day summary adapter, because it's the first tab
+
+        mSortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updatePeriod(); //Calling update period, which in turn will call updateSorting() and will set up the adapter.
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         mSummaryText = (TextView) v.findViewById(R.id.summary_text_summary);
 
@@ -316,12 +351,83 @@ public class SummaryFragment extends Fragment {
     private void updatePeriod() {
         switch (mTabLayout.getSelectedTabPosition()) {
             case TAB_DAY_SUMMARY:
-                mDaySummaryAdapter = new DaySummaryAdapter(summarizeLogs(mStartDate, mEndDate));
+                mLogSummaryList = summarizeLogs(mStartDate, mEndDate);
+                updateSorting(mSortSpinner.getSelectedItemPosition());
+                mDaySummaryAdapter = new DaySummaryAdapter(mLogSummaryList);
                 mSummaryRecyclerView.setAdapter(mDaySummaryAdapter);
                 break;
             case TAB_FOOD_SUMMARY:
-                mFoodSummaryAdapter = new FoodSummaryAdapter(summarizeFoods(mStartDate, mEndDate));
+                mFoodSummaryList = summarizeFoods(mStartDate, mEndDate);
+                updateSorting(mSortSpinner.getSelectedItemPosition());
+                mFoodSummaryAdapter = new FoodSummaryAdapter(mFoodSummaryList);
                 mSummaryRecyclerView.setAdapter(mFoodSummaryAdapter);
+                break;
+        }
+    }
+
+    private void updateSorting(int position) {
+        switch (mTabLayout.getSelectedTabPosition()) {
+            case TAB_DAY_SUMMARY:
+                switch(position) {
+                    case SPINNER_SORT_DAY_DATE_OLD:
+                        mLogSummaryList = Log.sortByDateOld(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_DATE_NEW:
+                        mLogSummaryList = Log.sortByDateNew(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_KCAL_HIGH:
+                        mLogSummaryList = Log.sortByKcalHigh(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_KCAL_LOW:
+                        mLogSummaryList = Log.sortByKcalLow(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_PROTEIN_HIGH:
+                        mLogSummaryList = Log.sortByProteinHigh(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_PROTEIN_LOW:
+                        mLogSummaryList = Log.sortByProteinLow(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_CARBS_HIGH:
+                        mLogSummaryList = Log.sortByCarbsHigh(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_CARBS_LOW:
+                        mLogSummaryList = Log.sortByCarbsLow(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_FAT_HIGH:
+                        mLogSummaryList = Log.sortByFatHigh(mLogSummaryList);
+                        break;
+                    case SPINNER_SORT_DAY_FAT_LOW:
+                        mLogSummaryList = Log.sortByFatLow(mLogSummaryList);
+                        break;
+                }
+                break;
+            case TAB_FOOD_SUMMARY:
+                switch(position) {
+                    case SPINNER_SORT_FOOD_COUNT_HIGH:
+                        mFoodSummaryList = FoodSummary.sortByCountHigh(mFoodSummaryList);
+                        break;
+                    case SPINNER_SORT_FOOD_COUNT_LOW:
+                        mFoodSummaryList = FoodSummary.sortByCountLow(mFoodSummaryList);
+                        break;
+                    case SPINNER_SORT_FOOD_KCAL_HIGH:
+                        mFoodSummaryList = FoodSummary.sortByKcalHigh(mFoodSummaryList);
+                        break;
+                    case SPINNER_SORT_FOOD_KCAL_LOW:
+                        mFoodSummaryList = FoodSummary.sortByKcalLow(mFoodSummaryList);
+                        break;
+                    case SPINNER_SORT_FOOD_WEIGHT_HIGH:
+                        mFoodSummaryList = FoodSummary.sortByWeightHigh(mFoodSummaryList);
+                        break;
+                    case SPINNER_SORT_FOOD_WEIGHT_LOW:
+                        mFoodSummaryList = FoodSummary.sortByWeightLow(mFoodSummaryList);
+                        break;
+                    case SPINNER_SORT_FOOD_DATE_NEW:
+                        mFoodSummaryList = FoodSummary.sortByDateNew(mFoodSummaryList);
+                        break;
+                    case SPINNER_SORT_FOOD_DATE_OLD:
+                        mFoodSummaryList = FoodSummary.sortByDateOld(mFoodSummaryList);
+                        break;
+                }
                 break;
         }
     }
@@ -383,6 +489,14 @@ public class SummaryFragment extends Fragment {
     public List<FoodSummary> summarizeFoods(Date start, Date end) {
         List<FoodSummary> summaryFoods = new ArrayList<>();
 
+        String text1 = "Food stats between ";
+        String text2 = Calculations.dateToDateTextEqualLengthString(start) + " - " + Calculations.dateToDateTextEqualLengthString(end);
+
+        //Spannable allows to color only certain part of Text/Textview
+        Spannable spannable = new SpannableString(text1 + text2);
+        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mSummaryText.setText(spannable, TextView.BufferType.SPANNABLE);
+
         String dayDateText = Calculations.dateToDateText(start); //convert to dateText to allow easy comparison
         String endDateText = Calculations.dateToDateText(end); //convert to dateText to allow easy comparison
 
@@ -421,6 +535,20 @@ public class SummaryFragment extends Fragment {
             start = Calculations.incrementDay(start, 1);
             dayDateText = Calculations.dateToDateText(start);
         }
+
+        //Sorting by count high to low as a default sort order
+        Collections.sort(summaryFoods, new Comparator<FoodSummary>() {
+            @Override
+            public int compare(FoodSummary o1, FoodSummary o2) {
+                if (o1.getCount() > o2.getCount()) {
+                    return -1;
+                } else if (o1.getCount() < o2.getCount()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
 
         return summaryFoods;
     }

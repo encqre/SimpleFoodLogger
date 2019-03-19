@@ -1,7 +1,10 @@
 package com.untrustworthypillars.simplefoodlogger;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class Log {
@@ -100,5 +103,169 @@ public class Log {
 
     public void setFat(Float fat) {
         mFat = fat;
+    }
+
+    public static List<Log> sortByDateOld(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                int o1date = Calculations.dateToDateTextEqualLengthInteger(o1.getDate());
+                int o2date = Calculations.dateToDateTextEqualLengthInteger(o2.getDate());
+                if (o1date > o2date) {
+                    return 1;
+                } else if (o1date < o2date) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByDateNew(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                int o1date = Calculations.dateToDateTextEqualLengthInteger(o1.getDate());
+                int o2date = Calculations.dateToDateTextEqualLengthInteger(o2.getDate());
+                if (o1date > o2date) {
+                    return -1;
+                } else if (o1date < o2date) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByKcalHigh(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getKcal() > o2.getKcal()) {
+                    return -1;
+                } else if (o1.getKcal() < o2.getKcal()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByKcalLow(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getKcal() > o2.getKcal()) {
+                    return 1;
+                } else if (o1.getKcal() < o2.getKcal()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByProteinHigh(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getProtein() > o2.getProtein()) {
+                    return -1;
+                } else if (o1.getProtein() < o2.getProtein()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByProteinLow(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getProtein() > o2.getProtein()) {
+                    return 1;
+                } else if (o1.getProtein() < o2.getProtein()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByCarbsHigh(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getCarbs() > o2.getCarbs()) {
+                    return -1;
+                } else if (o1.getCarbs() < o2.getCarbs()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByCarbsLow(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getCarbs() > o2.getCarbs()) {
+                    return 1;
+                } else if (o1.getCarbs() < o2.getCarbs()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByFatHigh(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getFat() > o2.getFat()) {
+                    return -1;
+                } else if (o1.getFat() < o2.getFat()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
+    }
+
+    public static List<Log> sortByFatLow(List<Log> summaryLogs) {
+        Collections.sort(summaryLogs, new Comparator<Log>() {
+            @Override
+            public int compare(Log o1, Log o2) {
+                if (o1.getFat() > o2.getFat()) {
+                    return 1;
+                } else if (o1.getFat() < o2.getFat()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return summaryLogs;
     }
 }
