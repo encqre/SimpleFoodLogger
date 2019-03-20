@@ -2,6 +2,7 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -70,7 +71,6 @@ public class SummaryFragment extends Fragment {
 
     private static final String DIALOG_DATE = "DialogDate";
 
-
     private LogManager mLogManager;
     private TabLayout mTabLayout;
     private RecyclerView mSummaryRecyclerView;
@@ -86,6 +86,8 @@ public class SummaryFragment extends Fragment {
     private Date mEndDate;
     private List<FoodSummary> mFoodSummaryList;
     private List<Log> mLogSummaryList;
+
+    private SharedPreferences mPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -125,6 +127,7 @@ public class SummaryFragment extends Fragment {
             }
         });
 
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mLogManager = LogManager.get(getContext());
         mSummaryRecyclerView = (RecyclerView) v.findViewById(R.id.summary_recycler);
         mSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -210,7 +213,6 @@ public class SummaryFragment extends Fragment {
 
         mSummaryText = (TextView) v.findViewById(R.id.summary_text_summary);
 
-        //TODO add option to ignore 0 kcal days
         return v;
     }
 
@@ -452,33 +454,52 @@ public class SummaryFragment extends Fragment {
         Float protein = 0f;
         Float carbs= 0f;
         Float fat = 0f;
+        int zeroKcalDays = 0;
 
-        for (int i = 0; i<summaryLogs.size(); i++) {
-            kcal += summaryLogs.get(i).getKcal();
-            protein += summaryLogs.get(i).getProtein();
-            carbs += summaryLogs.get(i).getCarbs();
-            fat += summaryLogs.get(i).getFat();
+        if (mPreferences.getBoolean("pref_stats_ignore_zero_kcal_days", false)) {
+            for (int i = 0; i < summaryLogs.size(); i++) {
+                if (summaryLogs.get(i).getKcal() == 0) {
+                    zeroKcalDays++;
+                } else {
+                    kcal += summaryLogs.get(i).getKcal();
+                    protein += summaryLogs.get(i).getProtein();
+                    carbs += summaryLogs.get(i).getCarbs();
+                    fat += summaryLogs.get(i).getFat();
+                }
+            }
 
+        } else {
+            for (int i = 0; i < summaryLogs.size(); i++) {
+                kcal += summaryLogs.get(i).getKcal();
+                protein += summaryLogs.get(i).getProtein();
+                carbs += summaryLogs.get(i).getCarbs();
+                fat += summaryLogs.get(i).getFat();
+
+            }
         }
         //Calculate averages for the list of Summary Logs
-        kcal = (kcal/summaryLogs.size());
+        kcal = (kcal/(summaryLogs.size() - zeroKcalDays));
         Integer avgKcal = kcal.intValue();
-        protein = protein/summaryLogs.size();
+        protein = protein/(summaryLogs.size() - zeroKcalDays);
         Integer avgProtein = protein.intValue();
-        carbs = carbs/summaryLogs.size();
+        carbs = carbs/(summaryLogs.size() - zeroKcalDays);
         Integer avgCarbs = carbs.intValue();
-        fat = fat/summaryLogs.size();
+        fat = fat/(summaryLogs.size() - zeroKcalDays);
         Integer avgFat = fat.intValue();
 
-        Integer kcalDelta = avgKcal - Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("pref_calories", "2500"));
+        Integer kcalDelta = avgKcal - Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
 
         String text1 = "Daily averages between ";
         String text2 = summaryLogs.get(0).getDateText() + " - " + summaryLogs.get(summaryLogs.size() - 1).getDateText() + "\n";
-        String text3 = "Calories: " + avgKcal.toString() + " kcal (" + kcalDelta.toString() + " kcal compared to daily target)\n";
-        String text4 = "Protein: " + avgProtein + "g, Carbs: " + avgCarbs + "g, Fat: " + avgFat + "g";
+        String text3 = "";
+        if (mPreferences.getBoolean("pref_stats_ignore_zero_kcal_days", false)) {
+            text3 = "(Ignoring days with 0 kcal)\n";
+        }
+        String text4 = "Calories: " + avgKcal.toString() + " kcal (" + kcalDelta.toString() + " kcal compared to daily target)\n";
+        String text5 = "Protein: " + avgProtein + "g, Carbs: " + avgCarbs + "g, Fat: " + avgFat + "g";
 
         //Spannable allows to color only certain part of Text/Textview
-        Spannable spannable = new SpannableString(text1 + text2 + text3 + text4);
+        Spannable spannable = new SpannableString(text1 + text2 + text3 + text4 + text5);
         spannable.setSpan(new ForegroundColorSpan(Color.BLUE), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mSummaryText.setText(spannable, TextView.BufferType.SPANNABLE);
 
@@ -490,7 +511,7 @@ public class SummaryFragment extends Fragment {
         List<FoodSummary> summaryFoods = new ArrayList<>();
 
         String text1 = "Food stats between ";
-        String text2 = Calculations.dateToDateTextEqualLengthString(start) + " - " + Calculations.dateToDateTextEqualLengthString(end);
+        String text2 = Calculations.dateToDateTextEqualLengthString(start) + " - " + Calculations.dateToDateTextEqualLengthString(Calculations.incrementDay(end, -1));
 
         //Spannable allows to color only certain part of Text/Textview
         Spannable spannable = new SpannableString(text1 + text2);

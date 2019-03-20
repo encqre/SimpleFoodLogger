@@ -25,6 +25,12 @@
             app:title="Set daily fat target"
             app:summary="Current target: 90g"/>
 
+        <Preference
+            app:key="pref_macros"
+            app:title="Set macros"
+            app:summary="Protein: 200g (30%)\nCarbs: 300g (40%)\nFat: 100g (30%)"
+            />
+
 
     </PreferenceCategory>
 
@@ -37,6 +43,19 @@
             app:title="Select preferred units"
             app:entries="@array/units"
             app:entryValues="@array/units"/>
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="statistics_category"
+        app:title="Statistics settings">
+
+        <CheckBoxPreference
+            app:key="pref_stats_ignore_zero_kcal_days"
+            app:title="Ignore days with 0 calories"
+            app:summary="When calculating average calories and macronutrients for selected time period, ignore days with 0 calories consumed"
+            />
 
 
     </PreferenceCategory>

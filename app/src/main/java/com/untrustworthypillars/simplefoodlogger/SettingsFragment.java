@@ -7,13 +7,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import android.text.InputType;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -42,11 +47,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private Preference mBackup;
     private Preference mImport;
+    private Preference mMacros;
 
     private EditTextPreference mCaloriesTarget;
     private EditTextPreference mProteinTarget;
     private EditTextPreference mCarbsTarget;
-    private EditTextPreference mFatTarget;  //TODO automatic calculation of macro targets based on Kcal target (by percentages which can be selected)
+    private EditTextPreference mFatTarget;
+
+    private CheckBoxPreference mStatsIgnoreZeroKcalDays;
 
     //TODO Unit selection
 
@@ -79,17 +87,56 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        mCaloriesTarget = (EditTextPreference) findPreference("pref_calories"); //TODO need to limit input to numbers
+        mCaloriesTarget = (EditTextPreference) findPreference("pref_calories");
+        mCaloriesTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
+            @Override
+            public void onBindEditText(@NonNull EditText editText) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+            }
+        });
         mCaloriesTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
 
+        mMacros = (Preference) findPreference("pref_macros"); //TODO finish implementing dialog to set macros based on percentages
+        mMacros.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                FragmentManager fm = getFragmentManager();
+                SetMacrosDialog dialog = SetMacrosDialog.newInstance();
+                dialog.setTargetFragment(SettingsFragment.this, 0);
+                dialog.show(fm, "SetMacros");
+                return true;
+            }
+        });
+
         mProteinTarget = (EditTextPreference) findPreference("pref_protein");
+        mProteinTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
+            @Override
+            public void onBindEditText(@NonNull EditText editText) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+            }
+        });
         mProteinTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
 
         mCarbsTarget = (EditTextPreference) findPreference("pref_carbs");
+        mCarbsTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
+            @Override
+            public void onBindEditText(@NonNull EditText editText) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+            }
+        });
         mCarbsTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
 
         mFatTarget = (EditTextPreference) findPreference("pref_fat");
+        mFatTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
+            @Override
+            public void onBindEditText(@NonNull EditText editText) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+            }
+        });
         mFatTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
+
+        mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
+
     }
 
 
