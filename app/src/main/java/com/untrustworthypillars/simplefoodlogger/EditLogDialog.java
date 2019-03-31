@@ -125,6 +125,7 @@ public class EditLogDialog extends DialogFragment {
                         mLog.setCarbs(mLog.getCarbs()/mLog.getSize() * weight);
                         mLog.setFat(mLog.getFat()/mLog.getSize() * weight);
                         mLog.setSize(weight);
+                        mLog.setSizeImperial(weight/28.35f);
                         lm.get(getActivity()).updateLog(mLog);
                         Toast.makeText(getActivity(), "Meal log updated!", Toast.LENGTH_SHORT).show();
                         sendResult(Activity.RESULT_OK);

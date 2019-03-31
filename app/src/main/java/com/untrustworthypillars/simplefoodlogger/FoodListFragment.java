@@ -38,15 +38,20 @@ public class FoodListFragment extends Fragment {
     private static final int REQUEST_ADD_FOOD = 1;
 
     public static final String[] FOOD_CATEGORIES = new String[]{
-            "Meals",
-            "Dairy",
+            "Dairy & Eggs",
             "Meat",
-            "Grains",
+            "Breads & Cereals",
+            "Fast Food",
+            "Meals & Soups",
             "Vegetables",
             "Fruits",
-            "Nuts/Seeds",
-            "Snacks",
+            "Beans & Legumes",
+            "Pasta & Rice",
+            "Fish & Seafood",
+            "Sweets & Snacks",
             "Drinks",
+            "Nuts & Seeds",
+            "Sauces, Spices, Oils",
             "Other"
     };
 
@@ -161,7 +166,7 @@ public class FoodListFragment extends Fragment {
         /*By default SearchView is made invisible and gone (because first tab by default is categories)*/
         mSearchView = (SearchView) v.findViewById(R.id.searchview_food);
         mSearchView.setVisibility(View.GONE);
-        mSearchView.setQueryHint("Start entering food name to search");
+        mSearchView.setQueryHint("Start entering food name to search"); //TODO separate words with AND, example - search term "pica chees" should search for foods that contain both "pica" AND "chees", no matter what order
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

@@ -5,26 +5,25 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
-import com.untrustworthypillars.simplefoodlogger.database.DbSchema;
 import com.untrustworthypillars.simplefoodlogger.database.FoodCursorWrapper;
-import com.untrustworthypillars.simplefoodlogger.database.FoodDbHelper;
-import com.untrustworthypillars.simplefoodlogger.database.DbSchema.FoodTable;
+import com.untrustworthypillars.simplefoodlogger.database.CustomFoodDbHelper;
+import com.untrustworthypillars.simplefoodlogger.database.DbSchema.CustomFoodTable;
+import com.untrustworthypillars.simplefoodlogger.database.DbSchema.CommonFoodTable;
+import com.untrustworthypillars.simplefoodlogger.database.DbSchema.ExtendedFoodTable;
+
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class FoodManager {
     private static FoodManager sFoodManager;
 
     private Context mContext;
-    private SQLiteDatabase mFoodDatabase;
+    private SQLiteDatabase mCustomFoodDatabase;
 
-    private int recentsFoodLength = 5;
+    private int recentsFoodLength = 5; //TODO should make an option in settings
 
     public static FoodManager get(Context context) {
         if (sFoodManager == null) {
@@ -35,24 +34,25 @@ public class FoodManager {
 
     private FoodManager(Context context) {
         mContext = context.getApplicationContext();
-        mFoodDatabase = new FoodDbHelper(mContext).getWritableDatabase();
+        mCustomFoodDatabase = new CustomFoodDbHelper(mContext).getWritableDatabase();
     }
 
+    //Add a custom food to CustomFoodDatabase
     public void addFood(Food f) {
         ContentValues values = getContentValues(f);
 
-        mFoodDatabase.insert(FoodTable.NAME, null, values);
+        mCustomFoodDatabase.insert(CustomFoodTable.NAME, null, values);
     }
 
-    public List<Food> getFoods() {
+    public List<Food> getCustomFoods() {
         List<Food> foods = new ArrayList<>();
 
-        FoodCursorWrapper cursor = queryFoods(null, null);
+        FoodCursorWrapper cursor = queryCustomFoods(null, null);
 
         try {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
-                foods.add(cursor.getFood());
+                foods.add(cursor.getCustomFood());
                 cursor.moveToNext();
             }
         } finally {
@@ -64,34 +64,40 @@ public class FoodManager {
     public List<Food> getFoodsCategory(String category) {
         List<Food> foods = new ArrayList<>();
 
-        FoodCursorWrapper cursor = queryFoods(FoodTable.Cols.CATEGORY + " = ?", new String[] {category});
+        FoodCursorWrapper cursor = queryCustomFoods(CustomFoodTable.Cols.CATEGORY + " = ?", new String[] {category});
 
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                foods.add(cursor.getFood());
+                foods.add(cursor.getCustomFood());
                 cursor.moveToNext();
             }
         } finally {
             cursor.close();
         }
+
+        //TODO add another cursor here for common foods and add them to the same arraylist
+
         return foods;
     }
 
     public List<Food> getFoodsFavorite() {
         List<Food> foods = new ArrayList<>();
 
-        FoodCursorWrapper cursor = queryFoods(FoodTable.Cols.FAVORITE + " = 1", null);
+        FoodCursorWrapper cursor = queryCustomFoods(CustomFoodTable.Cols.FAVORITE + " = 1", null);
 
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                foods.add(cursor.getFood());
+                foods.add(cursor.getCustomFood());
                 cursor.moveToNext();
             }
         } finally {
             cursor.close();
         }
+
+        //TODO add another cursor here to also query common and extended tables for favorites
+
         return foods;
     }
 
@@ -100,51 +106,53 @@ public class FoodManager {
 
         String q = "%" + searchString + "%";
 
-        FoodCursorWrapper cursor = queryFoods(FoodTable.Cols.TITLE + " LIKE ?", new String[] {q});
+        FoodCursorWrapper cursor = queryCustomFoods(CustomFoodTable.Cols.TITLE + " LIKE ?", new String[] {q});
 
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                foods.add(cursor.getFood());
+                foods.add(cursor.getCustomFood());
                 cursor.moveToNext();
             }
         } finally {
             cursor.close();
         }
 
+        //TODO add another cursor for common foods. Also will need a checkbox to also search extended library, so if that one is checked will need cursor for extended db (maybe a different method then)
+
         return foods;
     }
 
-    public Food getFood(UUID id) {
-        FoodCursorWrapper cursor = queryFoods(FoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
+    public Food getCustomFood(UUID id) {
+        FoodCursorWrapper cursor = queryCustomFoods(CustomFoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
 
         try {
             if(cursor.getCount() == 0) {
                 return null;
             }
             cursor.moveToFirst();
-            return cursor.getFood();
+            return cursor.getCustomFood();
         } finally {
             cursor.close();
         }
     }
 
-    public void updateFood(Food food) {
+    public void updateCustomFood(Food food) {
         String uuidString = food.getFoodId().toString();
         ContentValues values = getContentValues(food);
 
-        mFoodDatabase.update(FoodTable.NAME, values, FoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+        mCustomFoodDatabase.update(CustomFoodTable.NAME, values, CustomFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
     }
 
-    public void deleteFood(Food food) {
+    public void deleteCustomFood(Food food) {
         String uuidString = food.getFoodId().toString();
 
-        mFoodDatabase.delete(FoodTable.NAME, FoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+        mCustomFoodDatabase.delete(CustomFoodTable.NAME, CustomFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
     }
 
-    private FoodCursorWrapper queryFoods(String whereClause, String[] whereArgs) {
-        Cursor cursor = mFoodDatabase.query(
-                FoodTable.NAME,
+    private FoodCursorWrapper queryCustomFoods(String whereClause, String[] whereArgs) {
+        Cursor cursor = mCustomFoodDatabase.query(
+                CustomFoodTable.NAME,
                 null, //columns - null selects all columns
                 whereClause,
                 whereArgs,
@@ -157,14 +165,26 @@ public class FoodManager {
 
     private static ContentValues getContentValues(Food food) {
         ContentValues values = new ContentValues();
-        values.put(FoodTable.Cols.FOODID, food.getFoodId().toString());
-        values.put(FoodTable.Cols.TITLE, food.getTitle());
-        values.put(FoodTable.Cols.CATEGORY, food.getCategory());
-        values.put(FoodTable.Cols.KCAL, food.getKcal());
-        values.put(FoodTable.Cols.PROTEIN, food.getProtein());
-        values.put(FoodTable.Cols.CARBS, food.getCarbs());
-        values.put(FoodTable.Cols.FAT, food.getFat());
-        values.put(FoodTable.Cols.FAVORITE, food.isFavorite() ? 1 : 0);
+
+        values.put(CustomFoodTable.Cols.FOODID, food.getFoodId().toString());
+        values.put(CustomFoodTable.Cols.SORTID, food.getSortID());
+        values.put(CustomFoodTable.Cols.TITLE, food.getTitle());
+        values.put(CustomFoodTable.Cols.CATEGORY, food.getCategory());
+        values.put(CustomFoodTable.Cols.KCAL, food.getKcal());
+        values.put(CustomFoodTable.Cols.PROTEIN, food.getProtein());
+        values.put(CustomFoodTable.Cols.CARBS, food.getCarbs());
+        values.put(CustomFoodTable.Cols.FAT, food.getFat());
+        values.put(CustomFoodTable.Cols.FAVORITE, food.isFavorite() ? 1 : 0);
+        values.put(CustomFoodTable.Cols.HIDDEN, food.isHidden() ? 1 : 0);
+        values.put(CustomFoodTable.Cols.PORTION1NAME, food.getPortion1Name());
+        values.put(CustomFoodTable.Cols.PORTION1SIZEMETRIC, food.getPortion1SizeMetric());
+        values.put(CustomFoodTable.Cols.PORTION1SIZEIMPERIAL, food.getPortion1SizeImperial());
+        values.put(CustomFoodTable.Cols.PORTION2NAME, food.getPortion2Name());
+        values.put(CustomFoodTable.Cols.PORTION2SIZEMETRIC, food.getPortion2SizeMetric());
+        values.put(CustomFoodTable.Cols.PORTION2SIZEIMPERIAL, food.getPortion2SizeImperial());
+        values.put(CustomFoodTable.Cols.PORTION3NAME, food.getPortion3Name());
+        values.put(CustomFoodTable.Cols.PORTION3SIZEMETRIC, food.getPortion3SizeMetric());
+        values.put(CustomFoodTable.Cols.PORTION3SIZEIMPERIAL, food.getPortion3SizeImperial());
 
         return values;
     }
@@ -222,7 +242,7 @@ public class FoodManager {
         if (recentFoodString != null) {
             String[] el = recentFoodString.split(";");
             for (int i =0; i<el.length; i++) {
-                recentFoodList.add(getFood(UUID.fromString(el[i])));
+                recentFoodList.add(getCustomFood(UUID.fromString(el[i]))); //TODO need to fix here: don't use getCustomFood method, but to use method to query all 3 tables/DBS - custom,common, and then extended if no find
             }
         }
 

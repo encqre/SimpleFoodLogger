@@ -70,7 +70,7 @@ public class EditFoodDialog extends DialogFragment {
         mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mFavorite = (CheckBox) v.findViewById(R.id.dialog_add_food_isfavorite);
 
-        food = FoodManager.get(getActivity()).getFood(mFoodId);
+        food = FoodManager.get(getActivity()).getCustomFood(mFoodId);
         mFoodTitle.setText(food.getTitle());
         mCalories.setText(food.getKcal().toString());
         mProtein.setText(food.getProtein().toString());
@@ -90,7 +90,7 @@ public class EditFoodDialog extends DialogFragment {
                 .setNeutralButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FoodManager.get(getActivity()).deleteFood(food);
+                        FoodManager.get(getActivity()).deleteCustomFood(food);
                         Toast.makeText(getActivity(), "Food item deleted from the database!", Toast.LENGTH_SHORT).show();
                         sendResult(Activity.RESULT_OK);
                     }
@@ -116,7 +116,8 @@ public class EditFoodDialog extends DialogFragment {
                         if (mFoodTitle.getText().toString().contains(";")) {
                             Toast.makeText(getActivity(), "Name contains illegal character ';'", Toast.LENGTH_SHORT).show();
                         } else {
-                            Food food = FoodManager.get(getActivity()).getFood(mFoodId);
+                            Food food = FoodManager.get(getActivity()).getCustomFood(mFoodId);
+                            food.setSortID(0);
                             food.setCategory(mSpinner.getSelectedItem().toString());
                             food.setTitle(mFoodTitle.getText().toString());
                             food.setKcal(Float.parseFloat(mCalories.getText().toString()));
@@ -124,7 +125,17 @@ public class EditFoodDialog extends DialogFragment {
                             food.setCarbs(Float.parseFloat(mCarbs.getText().toString()));
                             food.setFat(Float.parseFloat(mFat.getText().toString()));
                             food.setFavorite(mFavorite.isChecked());
-                            FoodManager.get(getActivity()).updateFood(food);
+                            food.setHidden(false);
+                            food.setPortion1Name("Small");
+                            food.setPortion1SizeMetric(50.0f);
+                            food.setPortion1SizeImperial(50.0f/28.35f);
+                            food.setPortion2Name("Medium");
+                            food.setPortion2SizeMetric(100.0f);
+                            food.setPortion2SizeImperial(100.0f/28.35f);
+                            food.setPortion3Name("Large");
+                            food.setPortion3SizeMetric(250.0f);
+                            food.setPortion3SizeImperial(250.0f/28.35f);
+                            FoodManager.get(getActivity()).updateCustomFood(food);
                             Toast.makeText(getActivity(), "Food item info updated!", Toast.LENGTH_SHORT).show();
 
                             sendResult(Activity.RESULT_OK);

@@ -19,7 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddLogActivity"
-            android:parentActivityName=".LoggerActivity"></activity>
+            android:parentActivityName=".LoggerActivity">
+        </activity>
+        <activity android:name=".InitialLaunchActivity">
+        </activity>
     </application>
 
 </manifest>

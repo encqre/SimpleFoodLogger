@@ -14,6 +14,7 @@ public class Log {
     private String mDateText;
     private String mFood;
     private Float mSize;
+    private Float mSizeImperial;
     private Float mKcal;
     private Float mProtein;
     private Float mCarbs;
@@ -71,6 +72,14 @@ public class Log {
 
     public void setSize(Float size) {
         mSize = size;
+    }
+
+    public Float getSizeImperial() {
+        return mSizeImperial;
+    }
+
+    public void setSizeImperial(Float sizeImperial) {
+        mSizeImperial = sizeImperial;
     }
 
     public Float getKcal() {

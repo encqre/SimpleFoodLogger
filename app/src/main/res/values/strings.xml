@@ -17,15 +17,20 @@
     <string name="summary_tab_summary">Summary</string>
     <string name="summary_tab_foods">Food Stats</string>
     <string-array name="food_categories_array">
-        <item>Meals</item>
-        <item>Dairy</item>
+        <item>Dairy &amp; Eggs</item>
         <item>Meat</item>
-        <item>Grains</item>
+        <item>Breads &amp; Cereals</item>
+        <item>Fast Food</item>
+        <item>Meals &amp; Soups</item>
         <item>Vegetables</item>
         <item>Fruits</item>
-        <item>Nuts/Seeds</item>
-        <item>Snacks</item>
+        <item>Beans &amp; Legumes</item>
+        <item>Pasta &amp; Rice</item>
+        <item>Fish &amp; Seafood</item>
+        <item>Sweets &amp; Snacks</item>
         <item>Drinks</item>
+        <item>Nuts &amp; Seeds</item>
+        <item>Sauces, Spices, Oils</item>
         <item>Other</item>
     </string-array>
     <string-array name="spinner_period_options">

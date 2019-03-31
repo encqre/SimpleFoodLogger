@@ -2,7 +2,11 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class LoggerActivity extends AppCompatActivity {
 
@@ -13,6 +17,7 @@ public class LoggerActivity extends AppCompatActivity {
     public static final int TAB_SETTINGS = 3;
 
     private TabLayout mTabLayout;
+    private SharedPreferences mPreferences;
 
     /** Method to change the selected Tab programmatically*/
     public void setTab(int i) {
@@ -24,6 +29,11 @@ public class LoggerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logger);
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (mPreferences.getBoolean("initial_launch", true)) {
+            Toast.makeText(this, "Initial Launch!", Toast.LENGTH_LONG).show();
+        }
 
 
         //this.getSupportActionBar().hide(); //Hiding the action bar/menu bar at the top

@@ -22,6 +22,7 @@ public class LogDbHelper extends SQLiteOpenHelper {
                 LogTable.Cols.DATETEXT + ", " +
                 LogTable.Cols.FOOD + ", " +
                 LogTable.Cols.SIZE + ", " +
+                LogTable.Cols.SIZEIMPERIAL + ", " +
                 LogTable.Cols.KCAL + ", " +
                 LogTable.Cols.PROTEIN + ", " +
                 LogTable.Cols.CARBS + ", " + LogTable.Cols.FAT + ")"

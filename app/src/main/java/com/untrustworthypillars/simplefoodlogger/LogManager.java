@@ -132,6 +132,7 @@ public class LogManager {
         values.put(LogTable.Cols.DATETEXT, log.getDateText());
         values.put(LogTable.Cols.FOOD, log.getFood());
         values.put(LogTable.Cols.SIZE, log.getSize());
+        values.put(LogTable.Cols.SIZEIMPERIAL, log.getSizeImperial());
         values.put(LogTable.Cols.KCAL, log.getKcal());
         values.put(LogTable.Cols.PROTEIN, log.getProtein());
         values.put(LogTable.Cols.CARBS, log.getCarbs());

@@ -56,7 +56,7 @@ public class AddLogDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         UUID uuid = (UUID) getArguments().getSerializable(ARG_FOOD);
         mDate = (Date) getArguments().getSerializable(ARG_DATE);
-        mFood = fm.getFood(uuid);
+        mFood = fm.getCustomFood(uuid);
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_log, null);
 
@@ -125,6 +125,7 @@ public class AddLogDialog extends DialogFragment {
                         log.setDateText();
                         log.setFood(mFood.getTitle());
                         log.setSize(weight);
+                        log.setSizeImperial(weight/28.35f);
                         log.setKcal(mFood.getKcal() * weight / 100 );
                         log.setProtein(mFood.getProtein() * weight / 100);
                         log.setCarbs(mFood.getCarbs() * weight / 100 );

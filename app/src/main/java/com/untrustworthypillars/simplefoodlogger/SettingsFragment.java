@@ -57,6 +57,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private CheckBoxPreference mStatsIgnoreZeroKcalDays;
 
     //TODO Unit selection
+    //TODO Initial launch dialogs / tutorials
+
 
 
     private List<Food> importedFoodList = new ArrayList<>();
@@ -144,7 +146,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         FoodManager fm = FoodManager.get(getContext());
         LogManager lm = LogManager.get(getContext());
 
-        List<Food> fullFoodList = fm.getFoods();
+        List<Food> fullFoodList = fm.getCustomFoods();
         List<Log> fullLogList = lm.getLogs();
 
         if(isExternalStorageWritable()) {
@@ -158,10 +160,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 PrintWriter pw = new PrintWriter(f);
                 for (int i = 0; i<fullFoodList.size(); i++) {
                     Food food = fullFoodList.get(i);
-                    pw.println(food.getFoodId().toString() + ";" + food.getTitle() + ";"
-                            + food.getCategory() + ";" + food.getKcal().toString() + ";"
-                            + food.getProtein().toString() + ";" + food.getCarbs().toString() + ";"
-                            + food.getFat().toString() + ";" + (food.isFavorite() ? 1 : 0));
+                    pw.println(food.getFoodId().toString() + ";" + food.getSortID() + ";"
+                            + food.getTitle() + ";" + food.getCategory() + ";"
+                            + food.getKcal().toString() + ";" + food.getProtein().toString() + ";"
+                            + food.getCarbs().toString() + ";" + food.getFat().toString() + ";"
+                            + (food.isFavorite() ? 1 : 0) + ";" + (food.isHidden() ? 1 : 0) + ";"
+                            + food.getPortion1Name() + ";" + food.getPortion1SizeMetric().toString() + ";" + food.getPortion1SizeImperial().toString() + ";"
+                            + food.getPortion2Name() + ";" + food.getPortion2SizeMetric().toString() + ";" + food.getPortion2SizeImperial().toString() + ";"
+                            + food.getPortion3Name() + ";" + food.getPortion3SizeMetric().toString() + ";" + food.getPortion3SizeImperial().toString() + ";");
                     pw.flush();
                 }
                 pw.close();
@@ -170,10 +176,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 pw = new PrintWriter(f);
                 for (int i = 0; i<fullLogList.size(); i++) {
                     Log log = fullLogList.get(i);
+                    Float impSize = log.getSize()/28.35f; //////////////////////////////////////////////////////TEMPORARY
                     pw.println(log.getLogId().toString() + ";" + log.getDate().getTime() + ";"
-                            + log.getDateText() + ";" + log.getFood() + ";" + log.getSize().toString()
-                            + ";" + log.getKcal().toString() + ";" + log.getProtein().toString()
-                            + ";" + log.getCarbs().toString() + ";" + log.getFat().toString());
+                            + log.getDateText() + ";" + log.getFood() + ";"
+                            + log.getSize().toString() + ";" + impSize.toString() + ";" ///////////////////////TEMPORARY
+                            + log.getKcal().toString() + ";" + log.getProtein().toString() + ";"
+                            + log.getCarbs().toString() + ";" + log.getFat().toString());
                     pw.flush();
                 }
                 pw.close();
@@ -193,7 +201,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         FoodManager fm = FoodManager.get(getContext());
         LogManager lm = LogManager.get(getContext());
 
-        List<Food> fullFoodList = fm.getFoods();
+        List<Food> fullFoodList = fm.getCustomFoods();
         List<Log> fullLogList = lm.getLogs();
 
         try {
@@ -216,13 +224,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
                 if (!found) {
                     Food foundNewFood = new Food(UUID.fromString(el[0]));
-                    foundNewFood.setTitle(el[1]);
-                    foundNewFood.setCategory(el[2]);
-                    foundNewFood.setKcal(Float.parseFloat(el[3]));
-                    foundNewFood.setProtein(Float.parseFloat(el[4]));
-                    foundNewFood.setCarbs(Float.parseFloat(el[5]));
-                    foundNewFood.setFat(Float.parseFloat(el[6]));
-                    foundNewFood.setFavorite(Integer.valueOf(el[7]) == 1);
+                    foundNewFood.setSortID(Integer.valueOf(el[1]));
+                    foundNewFood.setTitle(el[2]);
+                    foundNewFood.setCategory(el[3]);
+                    foundNewFood.setKcal(Float.parseFloat(el[4]));
+                    foundNewFood.setProtein(Float.parseFloat(el[5]));
+                    foundNewFood.setCarbs(Float.parseFloat(el[6]));
+                    foundNewFood.setFat(Float.parseFloat(el[7]));
+                    foundNewFood.setFavorite(Integer.valueOf(el[8]) == 1);
+                    foundNewFood.setHidden(Integer.valueOf(el[9]) == 1);
+                    foundNewFood.setPortion1Name(el[10]);
+                    foundNewFood.setPortion1SizeMetric(Float.parseFloat(el[11]));
+                    foundNewFood.setPortion1SizeImperial(Float.parseFloat(el[12]));
+                    foundNewFood.setPortion2Name(el[13]);
+                    foundNewFood.setPortion2SizeMetric(Float.parseFloat(el[14]));
+                    foundNewFood.setPortion2SizeImperial(Float.parseFloat(el[15]));
+                    foundNewFood.setPortion3Name(el[16]);
+                    foundNewFood.setPortion3SizeMetric(Float.parseFloat(el[17]));
+                    foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
                     importedFoodList.add(foundNewFood);
                     android.util.Log.e("Logger", el[1] + " was not found in DB, will ask to add");
                 }
@@ -247,10 +266,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     foundNewLog.setDateText();
                     foundNewLog.setFood(el[3]);
                     foundNewLog.setSize(Float.parseFloat(el[4]));
-                    foundNewLog.setKcal(Float.parseFloat(el[5]));
-                    foundNewLog.setProtein(Float.parseFloat(el[6]));
-                    foundNewLog.setCarbs(Float.parseFloat(el[7]));
-                    foundNewLog.setFat(Float.parseFloat(el[8]));
+                    foundNewLog.setSizeImperial(Float.parseFloat(el[5]));
+                    foundNewLog.setKcal(Float.parseFloat(el[6]));
+                    foundNewLog.setProtein(Float.parseFloat(el[7]));
+                    foundNewLog.setCarbs(Float.parseFloat(el[8]));
+                    foundNewLog.setFat(Float.parseFloat(el[9]));
                     importedLogList.add(foundNewLog);
                     android.util.Log.e("Logger", el[0] + " UUID log was not found in DB, will ask to add it");
                 }

@@ -20,6 +20,7 @@ public class LogCursorWrapper extends CursorWrapper {
         String datetext = getString(getColumnIndex(LogTable.Cols.DATETEXT));
         String food = getString(getColumnIndex(LogTable.Cols.FOOD));
         float size = getFloat(getColumnIndex(LogTable.Cols.SIZE));
+        float sizeImperial = getFloat(getColumnIndex(LogTable.Cols.SIZEIMPERIAL));
         float kcal = getFloat(getColumnIndex(LogTable.Cols.KCAL));
         float protein = getFloat(getColumnIndex(LogTable.Cols.PROTEIN));
         float carbs = getFloat(getColumnIndex(LogTable.Cols.CARBS));
@@ -30,6 +31,7 @@ public class LogCursorWrapper extends CursorWrapper {
         log.setDateText();
         log.setFood(food);
         log.setSize(size);
+        log.setSizeImperial(sizeImperial);
         log.setKcal(kcal);
         log.setProtein(protein);
         log.setCarbs(carbs);

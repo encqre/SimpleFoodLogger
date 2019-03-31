@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
+//TODO portion sizes
 public class AddFoodDialog extends DialogFragment {
 
     private static final String ARG_CATEGORY = "category";
@@ -114,6 +114,7 @@ public class AddFoodDialog extends DialogFragment {
                             Toast.makeText(getActivity(), "Name contains illegal character ';'", Toast.LENGTH_SHORT).show();
                         } else {
                             Food food = new Food();
+                            food.setSortID(0);
                             food.setCategory(mSpinner.getSelectedItem().toString());
                             food.setTitle(mFoodTitle.getText().toString());
                             food.setKcal(Float.parseFloat(mCalories.getText().toString()));
@@ -121,6 +122,16 @@ public class AddFoodDialog extends DialogFragment {
                             food.setCarbs(Float.parseFloat(mCarbs.getText().toString()));
                             food.setFat(Float.parseFloat(mFat.getText().toString()));
                             food.setFavorite(mFavorite.isChecked());
+                            food.setHidden(false);
+                            food.setPortion1Name("Small");
+                            food.setPortion1SizeMetric(50.0f);
+                            food.setPortion1SizeImperial(50.0f/28.35f);
+                            food.setPortion2Name("Medium");
+                            food.setPortion2SizeMetric(100.0f);
+                            food.setPortion2SizeImperial(100.0f/28.35f);
+                            food.setPortion3Name("Large");
+                            food.setPortion3SizeMetric(250.0f);
+                            food.setPortion3SizeImperial(250.0f/28.35f);
                             FoodManager.get(getActivity()).addFood(food);
                             Toast.makeText(getActivity(), "Food item added to the database!", Toast.LENGTH_SHORT).show();
 
