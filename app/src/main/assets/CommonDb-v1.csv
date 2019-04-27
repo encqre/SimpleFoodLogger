@@ -1,0 +1,488 @@
+9c05ae2a-f4b3-477b-91f0-ad93b1a7cd80;15123;Tuna, raw;Fish & Seafood;103;22;0;1.01;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+889da4ea-639a-416e-9206-e0da4685f281;1011;Cheese, colby;Dairy & Eggs;394;23.76;2.57;32.11;0;0;slice;28.0;1.0;cup, shredded;113.0;4.0;cup, diced;132.0;4.66
+e384e085-342f-4432-80f5-45c21331ebb2;1001;Butter;Dairy & Eggs;717;0.85;0.06;81.11;0;0;tbsp;14.2;0.5;stick;113.0;4.0;cup;227.0;8.0
+30e9df24-de1f-442a-a7a3-1ff1304f5ed0;1004;Cheese, blue;Dairy & Eggs;353;21.4;2.34;28.74;0;0;slice;28.0;1.0;2 slices;56.0;2.0;cup, crumbled;135.0;4.76
+17702b72-c48c-433b-8358-69b3549ae7da;1006;Cheese, brie;Dairy & Eggs;334;20.75;0.45;27.68;0;0;slice;28.0;1.0;cup, sliced;144.0;5.08;cup, melted;240.0;8.46
+f524d630-50de-4743-bb24-6742a1665bdc;1007;Cheese, camembert;Dairy & Eggs;300;19.8;0.46;24.26;0;0;slice;28.0;1.0;2 slices;56.0;2.0;cup;246.0;8.68
+221ca253-d4c6-4149-acea-352927a76af8;1009;Cheese, cheddar;Dairy & Eggs;403;22.87;3.37;33.31;0;0;slice;28.0;1.0;cup, shredded;113.0;4.0;cup, melted;244.0;8.6
+6158d619-9cf1-48f0-afa6-bff2b0ba1535;1012;Cheese, cottage;Dairy & Eggs;98;11.12;3.38;4.3;0;0;small serving;100.0;3.52;cup, not packed;210.0;7.4;large serving;300.0;10.58
+f71b8e98-9b56-4be2-a2ab-60c5483c866f;1016;Cheese, cottage, lowfat (1%);Dairy & Eggs;72;12.39;2.72;1.02;0;0;small serving;100.0;3.52;cup, not packed;210.0;7.4;large serving;300.0;10.58
+d4dc5579-7b33-4a72-842b-2b05fc7ec59b;1017;Cheese, cream;Dairy & Eggs;350;6.15;5.52;34.44;0;0;tbsp;14.5;0.51;small package;85.0;3.0;cup;232.0;8.18
+d1b9847b-1219-4107-bbb6-b7cab0723301;1019;Cheese, feta;Dairy & Eggs;265;14.21;3.88;21.49;0;0;slice;28.0;1.0;2 slices;56.0;2.0;cup, crumbled;150.0;5.29
+1dfe0fae-1f5b-48d2-929f-c859665d332c;1022;Cheese, gouda;Dairy & Eggs;356;24.94;2.22;27.44;0;0;slice;28.0;1.0;2 slices;56.0;2.0;package;198.0;7.0
+d16f6675-b56c-4020-9334-a39a78cda5e9;1026;Cheese, mozzarella;Dairy & Eggs;299;22.17;2.4;22.14;0;0;slice;28.0;1.0;2 slices;56.0;2.0;cup, shredded;112.0;3.95
+240c1d98-fff9-42a6-b5f4-ce7a8f2dbe62;1033;Cheese, parmesan;Dairy & Eggs;392;35.75;3.22;25;0;0;slice;28.0;1.0;2 slices;56.0;2.0;package;142.0;5.0
+e420e355-f270-493c-81e2-37f90160380b;1036;Cheese, ricotta;Dairy & Eggs;150;7.54;7.27;10.18;0;0;small serving;50.0;1.76;1/2 cup;124.0;4.37;cup;246.0;8.68
+7d4edea3-76c5-4efb-84a1-df5e1307f5de;1040;Cheese, swiss;Dairy & Eggs;393;26.96;1.44;30.99;0;0;slice;28.0;1.0;cup, shredded;108.0;3.8;cup, melted;244.0;8.6
+0428a3bc-69e1-493f-8f64-e06716b6c907;1041;Cheese, tilsit;Dairy & Eggs;340;24.41;1.88;25.98;0;0;slice;28.0;1.0;2 slices;56.0;2.0;package;170.0;6.0
+dcb8ab0f-6875-489f-a04e-962870ab71ab;1046;Cheese, american;Dairy & Eggs;330;16.86;8.56;25.63;0;0;slice;21.0;0.75;cup;113.0;4.0;package;227.0;8.0
+a8acc91c-271a-40e4-a7f1-3a232bf706e8;1053;Cream, heavy;Dairy & Eggs;340;2.84;2.84;36.08;0;0;tbsp;15.0;0.53;cup, whipped;120.0;4.23;cup, fluid;238.0;8.4
+9c93a51c-2109-4758-bc6e-b114f0ff5cb0;1050;Cream, light;Dairy & Eggs;195;2.96;3.66;19.1;0;0;tbsp;15.0;0.53;1/2 cup;120.0;4.23;cup;240.0;8.47
+e9aba386-43a7-4212-bbe4-b14bdce48bb4;1056;Sour cream;Dairy & Eggs;198;2.44;4.63;19.35;0;0;tbsp;12.0;0.42;1/2 cup;115.0;4.05;cup;230.0;8.11
+b2beb23d-c440-4bf2-b374-f598976c836a;1055;Sour cream, reduced fat;Dairy & Eggs;135;2.94;4.26;12;0;0;tbsp;15.0;0.53;1/2 cup;120.0;4.23;cup;240.0;8.47
+078f9c2a-cc24-421b-ad5b-86a62fe0ab9c;1077;Milk, whole (3.25%);Dairy & Eggs;61;3.15;4.8;3.25;0;0;tbsp;15.0;0.53;cup;244.0;8.6;2 cups;488.0;17.2
+9b96d4cf-d9ba-4ffd-ada0-3a51e16dfec2;1079;Milk, reduced fat (2%);Dairy & Eggs;50;3.3;4.8;1.98;0;0;tbsp;15.0;0.53;cup;244.0;8.6;2 cups;488.0;17.2
+f02fc48b-7006-4c6e-949e-cb9c29c2bee3;1082;Milk, lowfat (1%) ;Dairy & Eggs;42;3.37;4.99;0.97;0;0;tbsp;15.0;0.53;cup;244.0;8.6;2 cups;488.0;17.2
+b8297e08-31bb-49db-a268-5ace51a625fb;1085;Milk, nonfat;Dairy & Eggs;34;3.37;4.96;0.08;0;0;tbsp;15.0;0.53;cup;244.0;8.6;2 cups;488.0;17.2
+89ce0db2-48fc-4d38-ab65-1694dd7c0aeb;1256;Greek yogurt, plain, nonfat;Dairy & Eggs;59;10.19;3.6;0.39;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+1b032b1c-4b21-47f3-9026-655c82a88dc1;1287;Greek yogurt, plain, lowfat (2%);Dairy & Eggs;73;9.95;3.94;1.92;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+08569a6b-c36f-4bf8-b0b3-3c262c1b69c3;1293;Greek yogurt, plain, whole milk;Dairy & Eggs;97;9;3.98;5;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+8366ce72-27fd-454d-bb88-95f7baca16dd;1284;Greek yogurt, fruit;Dairy & Eggs;105;8.17;12.29;2.57;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+f3592bb6-7ce8-49fd-b922-400b7fe322ed;1285;Greek yogurt, fruit, nonfat;Dairy & Eggs;82;8.05;12.07;0.15;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+354bc031-d2a4-4a8c-b1fb-8bc9e6092f99;1095;Milk, condensed, sweetened;Dairy & Eggs;321;7.91;54.4;8.7;0;0;tbsp;18.0;0.63;1/2 cup;153.0;5.4;cup;306.0;10.8
+efb1e163-2345-4d6f-bb72-c5b84f8bbc9a;1103;Milk, chocolate;Dairy & Eggs;76;2.99;12.13;1.9;0;0;tbsp;15.0;0.53;cup;244.0;8.6;2 cups;488.0;17.2
+55703118-f267-4f23-b132-30024e01075d;1116;Yogurt, plain, whole milk;Dairy & Eggs;61;3.47;4.66;3.25;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+6df765d9-913e-4eb1-b3ed-47b6f9fcac66;1121;Yogurt, fruit;Dairy & Eggs;102;4.37;19.05;1.08;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+1d24e311-974c-4c57-8cd0-c08d8b4953cb;1123;Egg;Dairy & Eggs;143;12.56;0.72;9.51;0;0;small;38.0;1.34;medium;44.0;1.55;large;50.0;1.76
+a673f5df-cada-42e7-af1f-9a7558b7f8a3;1124;Egg, white;Dairy & Eggs;52;10.9;0.73;0.17;0;0;large;33.0;1.16;1/2 cup;122.0;4.28;cup;243.0;8.57
+2e8864c0-3832-4fab-8923-c54fdb8682a5;1125;Egg, yolk;Dairy & Eggs;322;15.86;3.59;26.54;0;0;large;17.0;0.6;1/2 cup;122.0;4.28;cup;243.0;8.57
+76bf00c0-ebe2-4024-b3cd-5fe53c070ad8;1236;Ice cream;Sweets & Snacks;222;4.1;22.2;13;0;0;1/2 cup;86.0;3.03;cup;172.0;6.06;large serving;250.0;8.82
+29a54234-d555-4c34-bef4-b914b93bb96e;2010;Cinnamon, ground;Sauces, Spices, Oils;247;3.99;80.59;1.24;0;0;tsp;2.6;0.09;tbsp;7.8;0.28;2 tbsp;15.6;0.56
+4f6dfc2e-6ad7-49e6-8b99-fff60d05c33a;2020;Garlic powder;Sauces, Spices, Oils;331;16.55;72.73;0.73;0;0;tsp;3.1;0.11;tbsp;9.7;0.34;2 tbsp;19.4;0.68
+81cbe27b-76c3-48ab-b1b7-2672451a4019;2030;Black pepper;Sauces, Spices, Oils;251;10.39;63.95;3.26;0;0;tsp, ground;2.3;0.08;tsp, whole;2.9;0.1;tbsp, ground;6.9;0.24
+88c1ed9c-487e-46d7-8691-c70c98b273e8;2033;Poppy seed;Sauces, Spices, Oils;525;17.99;28.13;41.56;0;0;tsp;2.8;0.1;tbsp;8.8;0.31;2 tbsp;17.6;0.62
+7c1c88a8-2ef4-4e56-bcfa-ea133419ce19;2046;Mustard;Sauces, Spices, Oils;60;3.74;5.83;3.34;0;0;tsp;5.0;0.18;packet;5.0;0.18;cup;249.0;8.78
+137d1dbe-c911-4d85-bd3e-46f2113db427;2048;Vinegar;Sauces, Spices, Oils;21;0;0.93;0;0;0;tsp;5.0;0.18;tbsp;14.9;0.53;cup;239.0;8.43
+a80f119d-6e25-4424-8496-43cccaccfcef;4002;Lard;Sauces, Spices, Oils;902;0;0;100;0;0;tbsp;12.8;0.45;2 tbsp;25.6;0.9;cup;205.0;7.23
+561c4ff7-6ff1-45cc-8382-aa34b8ffaeed;4025;Mayonnaise;Sauces, Spices, Oils;680;0.96;0.57;74.85;0;0;packet;10.0;0.35;tbsp;13.8;0.49;cup;220.0;7.76
+0e378131-b34e-43cd-ac2e-1a91235ee326;4641;Mayonnaise, light;Sauces, Spices, Oils;238;0.37;9.23;22.22;0;0;packet;10.0;0.35;tbsp;15.0;0.53;cup;220.0;7.76
+4a9ac4c1-404c-416e-9027-93579e9c391a;4047;Coconut oil;Sauces, Spices, Oils;892;0;0;99.06;0;0;tsp;4.5;0.16;tbsp;13.6;0.48;cup;220.0;7.76
+7b263535-0d09-4f35-90db-ae25f1a999a9;4053;Olive oil;Sauces, Spices, Oils;884;0;0;100;0;0;tsp;4.5;0.16;tbsp;13.5;0.48;cup;216.0;7.62
+82d6e391-cb80-4f45-9b9f-8b4fff5cc1e9;4055;Palm oil;Sauces, Spices, Oils;884;0;0;100;0;0;tsp;4.5;0.16;tbsp;13.5;0.48;cup;216.0;7.62
+822d3197-7b78-4623-aeaf-68616860922a;4060;Sunflower oil;Sauces, Spices, Oils;884;0;0;100;0;0;tsp;4.5;0.16;tbsp;13.5;0.48;cup;216.0;7.62
+2effa518-146e-4637-a4e2-c0757c0217d1;4073;Margarine;Sauces, Spices, Oils;719;0.9;0.9;80.5;0;0;tsp;4.7;0.17;tbsp;13.5;0.48;stick;113.0;4.0
+1ad61651-6370-4477-9598-0d3d0afa88b3;4581;Avocado oil;Sauces, Spices, Oils;884;0;0;100;0;0;tsp;4.5;0.16;tbsp;13.5;0.48;cup;216.0;7.62
+d3f9591c-5907-4e8b-ae22-a9639b6e3105;4589;Fish oil;Sauces, Spices, Oils;902;0;0;100;0;0;tsp;4.5;0.16;tbsp;13.5;0.48;cup;216.0;7.62
+42aac3f7-9799-40ac-b37e-a4bc2fd63c1e;4120;Salad dressing, french dressing;Sauces, Spices, Oils;419;0.87;18.79;39.07;0;0;packet;12.3;0.43;tbsp;16.0;0.56;cup;250.0;8.82
+68d2f97a-ffd8-4ee7-b4b7-e85da1ecfadc;4114;Salad dressing, italian dressing;Sauces, Spices, Oils;240;0.41;12.12;21.12;0;0;tbsp;14.7;0.52;2 tbsp;29.6;1.04;cup;235.0;8.29
+0e4b4b1b-bd7b-4ad6-94e2-e09ccf7689d9;4639;Salad dressing, ranch dressing;Sauces, Spices, Oils;430;1.32;5.9;44.54;0;0;tbsp;15.0;0.53;2 tbsp;30.0;1.06;cup;235.0;8.29
+c41d8f5e-2177-4d52-a02c-0e4709a9c4cd;4703;Honey mustard dressing;Sauces, Spices, Oils;464;0.87;23.33;40.83;0;0;tbsp;15.0;0.53;2 tbsp;30.0;1.06;cup;235.0;8.29
+75acdcf1-3610-4f07-bf0d-adc7f7a6ef9c;5057;Chicken, breast, meat and skin, raw;Meat;172;20.85;0;9.25;0;0;small serving;100.0;3.52;breast;145.0;5.11;large serving;250.0;8.82
+0b96d16c-1fea-4c8b-bf3e-d05d32f7c91d;5062;Chicken, breast, skinless, raw;Meat;120;22.5;0;2.62;0;0;small serving;100.0;3.52;breast;145.0;5.11;large serving;250.0;8.82
+b232b635-f9f0-406a-8414-29f67060f0c4;5064;Chicken, breast, skinless, cooked;Meat;165;31.02;0;3.57;0;0;breast;86.0;3.03;medium serving;175.0;6.17;large serving;250.0;8.82
+d48e2ecc-031e-42e9-b68a-e288fb5103b6;5060;Chicken, breast, meat and skin, cooked;Meat;197;29.8;0;7.78;0;0;breast;98.0;3.46;medium serving;175.0;6.17;large serving;250.0;8.82
+22fd98c4-a146-47c8-b611-fc6af7aa623c;5058;Chicken, breast, skinless, fried, batter;Meat;220;26;8.99;8.2;0;0;breast;98.0;3.46;medium serving;175.0;6.17;large serving;250.0;8.82
+6cf294e0-420d-4ea8-9747-c8b86dc18e74;5059;Chicken, breast, skinless, fried, flour;Meat;186;31.84;1.64;4.87;0;0;breast;98.0;3.46;medium serving;175.0;6.17;large serving;250.0;8.82
+d94cf1ef-5d7b-4cc0-892c-2b4654804923;5069;Chicken, drumstick, meat and skin, cooked;Meat;191;23.35;0;10.15;0;0;drumstick;105.0;3.7;2 drumsticks;210.0;7.4;3 drumsticks;315.0;11.1
+f5e77f88-1045-4bda-806d-c35a6ab587fb;5073;Chicken, drumstick, meat only, cooked;Meat;155;24.24;0;5.7;0;0;drumstick;96.0;3.38;2 drumsticks;192.0;6.76;3 drumsticks;288.0;10.14
+55c119fd-8290-420d-b5d0-bb26d559d79d;5067;Chicken, drumstick, meat and skin, fried, batter;Meat;268;21.95;8.28;15.75;0;0;drumstick, bone removed;72.0;2.54;2 drumsticks;144.0;5.08;3 drumsticks;216.0;7.62
+003a744e-c765-4955-8557-2bd921b40e5d;5094;Chicken, thigh, meat and skin, cooked;Meat;232;23.26;0;14.71;0;0;thigh;137.0;4.83;2 thighs;274.0;9.66;3 thighs;411.0;14.49
+d4b1a7b4-d8ac-480a-b20e-2ef9ccdb6756;5098;Chicken, thigh, meat only, cooked;Meat;179;24.76;0;8.15;0;0;thigh;116.0;4.09;2 thighs;232.0;8.18;3 thighs;348.0;12.27
+da55f096-3a1d-4f60-9a83-74286d6dd7fa;5092;Chicken, thigh, meat and skin, fried, batter;Meat;277;21.61;9.08;16.53;0;0;thigh, bone removed;86.0;3.03;2 thighs;172.0;6.06;3 thighs;258.0;9.09
+52d7ab9b-331e-48df-8ba4-f796503528e2;5103;Chicken, wing, meat and skin, cooked;Meat;254;23.79;0;16.87;0;0;piece;86.0;3.03;2 pieces;172.0;6.06;3 pieces;258.0;9.09
+086369a3-99f8-4552-aa2d-d2c0978e1b21;5107;Chicken, wing, meat only, cooked;Meat;203;30.46;0;8.13;0;0;wing, bone and skin removed;21.0;0.74;small serving;100.0;3.52;large serving;210.0;7.4
+0c141888-b72e-4abe-ab52-1c9f8ac30996;5140;Duck, meat and skin, cooked;Meat;337;18.99;0;28.35;0;0;small serving;100.0;3.52;large serving;200.0;7.05;duck;764.0;27.0
+28266378-588d-441b-bac8-2df22113bea6;5142;Duck, meat only, cooked;Meat;201;23.48;0;11.2;0;0;small serving;100.0;3.52;large serving;200.0;7.05;duck;442.0;15.59
+1ac1d72e-51d9-4236-9f3c-dcc9a7fb3a91;5165;Turkey, whole, meat and skin, raw;Meat;144;21.64;0.14;5.64;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+555ba648-5872-46e0-8725-82171ef7126e;5166;Turkey, whole, meat and skin, cooked;Meat;189;28.55;0.06;7.39;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+2bf372c8-b7d3-49d1-95bf-8eabf0d7e679;5167;Turkey, whole, meat only, raw;Meat;115;22.64;0.14;1.93;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+7125c29c-fc05-4690-8479-1b1a36bbbf05;5168;Turkey, whole, meat only, cooked;Meat;159;29.06;0;3.84;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+f7c7b9b4-f933-4008-822a-276b49c4f124;6008;Beef broth;Soups & Salads;7;1.14;0.04;0.22;0;0;cup;240.0;8.46;can;435.0;15.34;container;960.0;33.86
+b3b601b6-534c-47e5-8809-16b737ae318e;6009;Beef noodle soup, canned, condensed;Soups & Salads;67;3.85;7.16;2.46;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;305.0;10.76
+35d06056-0ed0-4ee4-8b57-ad523c377061;6013;Chicken broth, canned, condensed;Soups & Salads;31;4.42;0.75;1.04;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;305.0;10.76
+7171144f-3dae-4705-a357-587ea120087a;6019;Chicken noodle soup, canned, condensed;Soups & Salads;48;2.37;6.07;1.55;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;305.0;10.76
+f3a54d9d-343e-485f-821a-41491bf22637;6026;Chili beef soup, canned, condensed;Soups & Salads;117;5.09;18.86;2.53;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;305.0;10.76
+3cb6247c-cbde-4bb7-8bee-2c008c9f5930;6027;Clam chowder, canned, ready-to-serve;Soups & Salads;56;3.02;7.84;1.41;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;539.0;19.0
+d326ea97-eb37-4ea0-a672-85bcd7d6a0f6;6050;Pea soup, canned, ready-to-serve;Soups & Salads;77;4.62;11.17;1.66;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;539.0;19.0
+845e1c8d-fae5-43bd-9159-94cb305b016b;6068;Vegetable soup, canned, condensed;Soups & Salads;59;1.72;9.78;1.58;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;305.0;10.76
+02314351-20d4-43db-889a-b0b52a04d202;6112;Teriyaki sauce;Sauces, Spices, Oils;89;5.93;15.56;0.02;0;0;tbsp;18.0;0.63;2 tbsp;36.0;1.27;cup;288.0;10.16
+57e9f389-b8cf-4e30-a65a-6bed2e6e789e;6116;Gravy;Sauces, Spices, Oils;53;3.75;4.81;2.36;0;0;1/2 cup;116.0;4.1;cup;233.0;8.22;can;291.0;10.26
+ae5bce2c-af54-4f40-b9b2-fae673403017;6150;Barbecue sauce;Sauces, Spices, Oils;172;0.82;40.77;0.63;0;0;tbsp;17.0;0.6;1/2 cup;143.0;5.04;cup;279.0;9.84
+6322e03c-2912-40e2-9166-e9031f18750f;6159;Tomato soup, canned, condensed;Soups & Salads;66;1.46;15.22;0.44;0;0;1/2 cup;74.0;2.61;cup;148.0;5.22;can;294.0;10.37
+55ff087b-37e8-4029-a799-fb1e816c5d11;6164;Salsa sauce;Sauces, Spices, Oils;29;1.52;6.64;0.17;0;0;tbsp;18.0;0.63;1/2 cup;130.0;4.59;cup;259.0;9.14
+c9965301-3ba6-4a8c-b87b-21ee354407f1;6168;Hot sauce;Sauces, Spices, Oils;11;0.51;1.75;0.37;0;0;tsp;4.7;0.17;2 tsp;9.4;0.34;3 tsp;14.1;0.51
+4c8d545e-ee33-42a8-b3a5-28ec754beaeb;6172;Chicken soup;Soups & Salads;36;2.52;3.53;1.2;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;305.0;10.76
+b8f59b87-c9a8-4b55-b4a1-df5862f730ff;6285;Sweet and sour sauce;Sauces, Spices, Oils;79;1.84;16.72;0.58;0;0;tsp;4.7;0.17;tbsp;15.0;0.53;2 tbsp;30.0;1.06
+26a8bac9-6d9d-4751-8701-d23bdd8206d4;6158;Tomato bisque, canned, condensed;Soups & Salads;96;1.76;18.47;1.95;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;can;305.0;10.76
+4b7fd8a3-23d5-4799-b84a-4cb6892fc3a4;6583;Ramen noodle soup, dry;Soups & Salads;440;10.17;60.26;17.59;0;0;package;81.0;2.86;medium serving;175.0;6.17;large serving;250.0;8.82
+0b4f5e5d-789a-4ad7-a72b-113694122eb4;6626;Pesto sauce;Sauces, Spices, Oils;418;9.83;10.09;37.6;0;0;tbsp;16.0;0.56;1/2 cup;125.0;4.41;cup;250.0;8.82
+8db33f72-e8f8-4b8c-a89e-5c377144fdfc;7007;Beef bologna;Meat;299;10.91;4.29;26.13;0;0;slice;30.0;1.05;small serving;100.0;3.52;large serving;200.0;7.05
+869786ae-edeb-45aa-a48b-3f0d417a8548;7010;Pork bologna;Meat;247;15.3;0.73;19.87;0;0;slice;28.0;1.0;small serving;100.0;3.52;large serving;200.0;7.05
+174d66b0-3b61-4aae-ad84-10e4b7d66b37;7011;Turkey bologna;Meat;209;11.42;4.68;16.05;0;0;slice;28.0;1.0;small serving;100.0;3.52;large serving;200.0;7.05
+319241e9-cac1-4cce-b1f8-ecd1e671dcc5;7029;Ham, sliced;Meat;164;16.6;3.63;8.8;0;0;slice;28.0;1.0;small serving;100.0;3.52;large serving;200.0;7.05
+a5d6b920-9eef-42cc-8623-4842f327c88d;7043;Roast beef, deli style;Meat;115;18.62;0.64;3.69;0;0;slice;10.0;0.35;small serving;50.0;1.76;medium serving;100.0;3.52
+46402904-d801-4658-b13c-8bd0788a7a66;7057;Pepperoni;Meat;504;19.25;1.18;46.28;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+c4f05737-d719-46aa-8cb3-0323f656604f;7064;Pork sausage, cooked;Meat;325;18.53;1.42;27.25;0;0;patty;27.0;0.95;small serving;100.0;3.52;large serving;200.0;7.05
+c64bd503-098f-4ed1-b955-aad9d988520d;7068;Salami;Meat;261;12.6;1.9;22.2;0;0;slice;26.0;0.92;small serving;100.0;3.52;large serving;200.0;7.05
+c8a0b928-b4f6-48a1-9b41-e109692df794;7081;Turkey breast, deli style;Meat;106;14.81;2.2;3.77;0;0;slice;16.0;0.56;small serving;50.0;1.76;medium serving;100.0;3.52
+51acab02-7243-4550-bb2c-aa5bb1b46fe7;13355;Beef pastrami, cured;Meat;147;21.8;0.36;5.82;0;0;slice;28.0;1.0;package;71.0;2.5;large serving;150.0;5.29
+70f219be-291f-49d9-918b-09749509fd81;8120;Oats, dry;Breads & Cereals;379;13.15;67.7;6.52;0;0;1/2 cup;40.5;1.43;cup;81.0;2.86;2 cups;162.0;5.72
+827b7fb0-d24b-4e3a-b72f-009b41876c73;8160;Corn grits, dry;Breads & Cereals;371;8.8;79.6;1.2;0;0;tbsp;9.7;0.34;1/2 cup;78.0;2.75;cup;156.0;5.5
+a2b09a5d-5221-4f44-bd90-852eb384cd91;8506;Corn flakes;Breads & Cereals;384;5.9;88.01;0.91;0;0;cup (1 NLEA serving);28.35;1.0;2 cups;56.7;2.0;large serving;100.0;3.52
+3edda560-150a-46b6-8c9c-e54ff171e841;8029;Bran flakes;Breads & Cereals;328;9.9;80.5;2.1;0;0;cup (1 NLEA serving);30.0;1.06;2 cups;60.0;2.12;large serving;100.0;3.52
+12789319-bf6e-464d-bff0-38953bfca4a4;8491;Honey wheat cereal;Breads & Cereals;388;8.6;79.84;4.51;0;0;cup (1 NLEA serving);30.0;1.06;2 cups;60.0;2.12;large serving;100.0;3.52
+66f59763-e909-4a43-85dc-4cf72c2bda38;8177;Chocolate cereal;Breads & Cereals;363;10.6;79.55;0.82;0;0;3 tbsp (1 NLEA serving);35.0;1.23;6 tbsp;70.0;2.46;large serving;100.0;3.52
+0a560b10-e676-4c33-890c-f8a2db962951;9003;Apples;Fruits;52;0.26;13.81;0.17;0;0;small (2.75" diameter);149.0;5.25;medium (3" diameter);182.0;6.42;large (3.25" diameter);223.0;7.86
+60b3b59d-8672-44e3-8270-715838b639ac;9011;Apples, dried;Fruits;243;0.93;65.89;0.32;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+6e34e4a2-4ef9-42d1-9215-d25e350cdf9b;9016;Apple juice, unsweetened;Drinks;46;0.1;11.3;0.13;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+6110a3c6-1896-41b8-8fbb-d73acf65a0f0;9020;Applesauce, sweetened;Sauces, Spices, Oils;68;0.16;17.49;0.17;0;0;tbsp;16.0;0.56;1/2 cup;125.0;4.41;cup;250.0;8.82
+e7586d1d-5893-4504-8f09-d45a5b92c8f8;9021;Apricots;Fruits;48;1.4;11.12;0.39;0;0;apricot;35.0;1.23;2 apricots;70.0;2.46;cup, sliced;165.0;5.82
+fa646dbb-894a-44d4-8e71-d8c79f7c01dc;9037;Avocados;Fruits;160;2;8.53;14.66;0;0;cup, sliced;146.0;5.15;avocado;201.0;7.09;2 avocados;402.0;14.18
+ab1d67d2-6e98-43a8-9ef4-7afbb6c98557;9040;Bananas;Fruits;89;1.09;22.84;0.33;0;0;small (6-7 inch);100.0;3.52;medium (7-8 inch);118.0;4.16;large (8-9 inch);136.0;4.8
+5b5fd791-c15d-4572-a1ad-bffa03c4dfea;9042;Blackberries;Fruits;43;1.39;9.61;0.49;0;0;cup;144.0;5.08;medium serving;175.0;6.17;large serving;250.0;8.82
+8e7cf6ed-8dca-47a6-912f-16a47c8c6ff7;9050;Blueberries;Fruits;57;0.74;14.49;0.33;0;0;50 berries;68.0;2.4;cup;148.0;5.22;large serving;250.0;8.82
+1bb96cb4-61d0-47f6-9855-4842d68f349c;9070;Cherries;Fruits;63;1.06;16.01;0.2;0;0;cherry;8.2;0.29;serving;100.0;3.52;cup;148.0;5.22
+c4cfca1a-1110-48fc-87ed-8f857be465a4;9078;Cranberries;Fruits;46;0.46;11.97;0.13;0;0;cup;100.0;3.52;2 cups;200.0;7.05;3 cups;300.0;10.58
+90498472-8b13-4f0f-af59-eb117cacefb6;9081;Cranberry sauce;Sauces, Spices, Oils;159;0.9;40.4;0.15;0;0;1/4 cup;69.0;2.43;1/2 cup;138.5;4.89;cup;277.0;9.77
+ced81d2d-2099-4d6e-8e3b-290558d79b05;9089;Figs;Fruits;74;0.75;19.18;0.3;0;0;small (1.5" diameter);40.0;1.41;medium (2.25" diameter);50.0;1.76;large (2.5" diameter);64.0;2.25
+a60ce8d3-cabe-4a9f-96fc-ee48fea8817d;9099;Fruit cocktail;Fruits;57;0.4;14.93;0.07;0;0;1/2 cup;121.0;4.26;cup;242.0;8.53;2 cups;484.0;17.06
+c539cfba-65a7-4399-89b7-157054ead9da;9104;Fruit salad;Soups & Salads;58;0.34;15.14;0.07;0;0;small serving;100.0;3.52;cup;252.0;8.89;large serving;500.0;17.64
+2472661d-1d7f-49fb-8b24-170167330edb;9111;Grapefruit;Fruits;32;0.63;8.08;0.1;0;0;small (3.5" diameter);100.0;3.52;medium (4" diameter);128.0;4.51;large (4.5" diameter);166.0;5.85
+a2060c08-c577-44ad-aad1-c27fc4422afd;9124;Grapefruit juice;Drinks;46;0.58;11.13;0.09;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+a1906117-ddcd-4822-bb0b-3c0a82fbd19b;9132;Grapes;Fruits;69;0.72;18.1;0.16;0;0;10 grapes;49.0;1.72;NLEA serving;126.0;4.44;cup;151.0;5.32
+b544fb3b-eb36-4762-a7ec-e2ddb0075b79;9135;Grape juice;Drinks;60;0.37;14.77;0.13;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+76ea7fbe-8b38-410c-bab1-7ef546855830;9148;Kiwifruit;Fruits;61;1.14;14.66;0.52;0;0;fruit (2" diameter);69.0;2.43;NLEA serving;148.0;5.22;cup, sliced;180.0;6.34
+37b6b7ec-7718-4e30-8f0c-bb845bf7f69d;9150;Lemons;Fruits;29;1.1;9.32;0.3;0;0;wedge;7.0;0.24;fruit (2" diameter);58.0;2.05;fruit (2.5" diameter);84.0;3.0
+ae3682db-4daa-4e02-8236-f46e78841efc;9152;Lemon juice;Drinks;22;0.35;6.9;0.24;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+747ee6c7-00d1-4c70-a00f-f6ca7926d68e;9159;Limes;Fruits;30;0.7;10.54;0.2;0;0;fruit (2" diameter);67.0;2.36;small serving;100.0;3.52;medium serving;175.0;6.17
+65686478-38c9-48e2-8d6c-cce284de4e06;9176;Mangos;Fruits;60;0.82;14.98;0.38;0;0;cup pieces;165.0;5.82;serving;250.0;8.82;fruit without refuse;336.0;11.85
+e30a18a8-6731-4c1c-917b-54930fb87e15;9193;Olives, canned;Fruits;116;0.84;6.04;10.9;0;0;small;3.2;0.11;large;4.4;0.16;tbsp;8.4;0.29
+d45c307c-ad78-4213-84fb-9dac66df311d;9200;Oranges;Fruits;47;0.94;11.75;0.12;0;0;small;96.0;3.38;fruit (2.5" diameter);131.0;4.62;large;184.0;6.5
+f084cdb3-1179-4cd9-bddd-6495403e7160;9206;Orange juice;Drinks;45;0.7;10.4;0.2;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+bc457ce7-5f7d-4fad-a5ab-e59a756e0bd5;9226;Papayas;Fruits;43;0.47;10.82;0.26;0;0;small;157.0;5.54;cup, mashed;230.0;8.11;large;781.0;27.55
+8d5d8a28-d653-47b6-a064-0ad44901414a;9236;Peaches;Fruits;39;0.91;9.54;0.25;0;0;small (2.5" diameter);130.0;4.58;medium (2.66" diameter);150.0;5.29;large (2.75" diameter);175.0;6.17
+4756562f-6fc8-4af2-9f78-617b697985df;9240;Peaches, canned;Fruits;54;0.45;14.55;0.03;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup, halves or slices;251.0;8.85
+2487f1c0-18c3-41fb-be48-cac866286a1d;9252;Pears;Fruits;57;0.36;15.23;0.14;0;0;small;148.0;5.22;medium;178.0;6.28;large;230.0;8.11
+58cfc3d5-f702-407b-a57e-1e89d64f4629;9256;Pears, canned;Fruits;57;0.19;15.17;0.03;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup, halves;251.0;8.85
+4b3a375a-0ea3-4f26-85a6-522469f2a409;9266;Pineapple;Fruits;50;0.54;13.12;0.12;0;0;slice;84.0;2.96;cup, chunks;165.0;5.82;fruit;905.0;31.92
+56cfa85d-630e-49eb-a78e-f2752181f0cc;9269;Pineapple, canned;Fruits;52;0.36;13.45;0.12;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup, sliced or chunks;252.0;8.88
+bd3a3650-67a5-485e-a33b-2c240f2c90c0;9273;Pineapple juice;Drinks;53;0.36;12.87;0.12;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+389299ec-fedf-4993-86b6-79143c7f9e66;9279;Plums;Fruits;46;0.7;11.42;0.28;0;0;fruit (2" diameter);66.0;2.33;serving;100.0;3.52;cup, sliced;165.0;5.82
+5036c75b-1829-451a-9be4-ae9751f3448b;9283;Plums, canned;Fruits;63;0.37;16.28;0.1;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup;252.0;8.88
+49c902ac-645b-4f6f-894b-11e0ce20890f;9298;Raisins;Fruits;299;3.3;79.32;0.25;0;0;50 raisins;26.0;0.92;serving;100.0;3.52;cup, packed;165.0;5.82
+53403beb-a0ca-427c-8520-f876042ae590;9302;Raspberries;Fruits;52;1.2;11.94;0.65;0;0;10 raspberries;19.0;0.67;cup;123.0;4.34;serving;150.0;5.29
+1d245204-ca24-44d6-b67b-73ead373537b;9316;Strawberries;Fruits;32;0.67;7.68;0.3;0;0;small;10.0;0.35;large;20.0;0.7;cup, whole;144.0;5.08
+142f3432-8bf5-4c3c-a84d-7976aefb89bc;9326;Watermelon;Fruits;30;0.61;7.55;0.15;0;0;cup, diced;152.0;5.36;wedge (1/16 melon);286.0;10.0;melon;4518.0;159.36
+0cc35618-adef-4aa6-a2e3-c0e353d9406a;10218;Pork, tenderloin, raw;Meat;120;20.65;0;3.53;0;0;small serving;100.0;3.52;large serving;250.0;8.82;roast;505.0;17.81
+dd2fdcf3-bc85-4ced-8b38-a25a66615ed6;10222;Pork, tenderloin, cooked;Meat;147;26.04;0;3.96;0;0;small serving;100.0;3.52;large serving;250.0;8.82;roast;402.0;14.18
+9d3be9ab-2711-46bf-bff7-2a9e1a8d5e47;10179;Pork chops, cooked;Meat;238;27.63;0;13.32;0;0;small serving;100.0;3.52;chop;172.0;6.07;large serving;250.0;8.82
+60d3420b-7668-419f-8621-7aadabddcdcd;10036;Pork chops, raw;Meat;170;20.71;0;9.03;0;0;small serving;100.0;3.52;chop;200.0;7.05;2 chops;400.0;14.1
+14460430-52c6-4697-8a2d-8407e076b3a2;10993;Pork ribs, cooked;Meat;270;26.4;0;18.31;0;0;small serving;100.0;3.52;rack;138.0;4.87;large serving;250.0;8.82
+2c2107cb-c2be-45a8-8c65-f022bbbd1243;10219;Ground pork, raw;Meat;263;16.88;0;21.19;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+593a9ca9-2eed-44c4-ba47-a7e37f45f050;10220;Ground pork, cooked;Meat;297;25.69;0;20.77;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+2a5010d8-387f-4b9d-b781-2d6649961483;10860;Bacon, cooked;Meat;548;35.73;1.35;43.27;0;0;slice, cooked;8.1;0.29;small serving;50.0;1.76;medium serving;100.0;3.52
+fa9b2a72-3799-4991-9310-c29cd56b1689;11007;Artichokes;Vegetables;47;3.27;10.51;0.15;0;0;small;100.0;3.52;medium;128.0;4.51;large;162.0;5.71
+d0daf4cb-2462-463c-bd8f-f768e2feb73c;11011;Asparagus;Vegetables;20;2.2;3.88;0.12;0;0;spear, small;12.0;0.42;spear, large;20.0;0.7;cup;134.0;4.73
+7a0e698e-42b8-4ecb-b6a6-37ce53cda58e;11031;Lima beans, cooked, boiled;Beans & Legumes;113;6.84;20.17;0.86;0;0;small serving;100.0;3.52;cup;156.0;5.5;large serving;250.0;8.82
+0fcd791a-4345-4dfa-ab72-716b0ba9aab1;11080;Beets;Vegetables;43;1.61;9.56;0.17;0;0;beet;82.0;2.89;cup;136.0;4.79;2 cups;272.0;9.6
+e0db9274-0894-44d0-ae15-90425bc4ae50;11090;Broccoli;Vegetables;34;2.82;6.64;0.37;0;0;spear (5" long);31.0;1.09;cup, chopped;91.0;3.21;stalk;151.0;5.32
+09a4912f-9e7c-43fa-a504-fde5dd182366;11098;Brussels sprouts;Vegetables;43;3.38;8.95;0.3;0;0;sprout;19.0;0.67;cup;88.0;3.1;2 cups;172.0;6.2
+b8151c73-d0c3-4b49-b842-40e7aa5d3c1e;11109;Cabbage;Vegetables;25;1.28;5.8;0.1;0;0;leaf;23.0;0.81;cup, chopped;89.0;3.14;head;908.0;32.0
+1ccfd60d-711c-49fd-a609-84167f0512c0;11124;Carrots;Vegetables;41;0.93;9.58;0.24;0;0;medium;61.0;2.15;large;72.0;2.54;cup, grated;110.0;3.88
+de7ca454-e98b-4e55-83dc-f0d7593d7f28;11135;Cauliflower;Vegetables;25;1.92;4.97;0.28;0;0;floweret;13.0;0.46;cup, chopped;107.0;3.77;head;588.0;20.74
+5777df9d-a2ec-4aba-9d9b-5678761ee45e;11143;Celery;Vegetables;14;0.69;2.97;0.17;0;0;stalk, medium;40.0;1.41;stalk, large;64.0;2.26;cup, chopped;101.0;3.56
+c64acf49-cbc2-4d3c-8fd8-0560050c1524;11149;Chayote;Vegetables;19;0.82;4.51;0.13;0;0;cup;132.0;4.66;chayote;203.0;7.16;2 cups;264.0;9.32
+f456413b-d483-46e8-8806-54c79e2cd09e;11152;Chicory;Vegetables;23;1.7;4.7;0.3;0;0;cup, chopped;29.0;1.02;2 cups;58.0;2.04;3 cups;87.0;3.06
+9720bb13-9ae1-4f61-b736-27c3e64212dd;11167;Corn, sweet;Vegetables;86;3.27;18.7;1.35;0;0;ear, medium;102.0;3.6;ear, large;143.0;5.04;cup;145.0;5.11
+4b0ae3e1-b2b2-48b7-82a8-508d3cea8a29;11205;Cucumber;Vegetables;15;0.65;3.63;0.11;0;0;1/2 cup, slices;52.0;1.83;cup, slices;104.0;3.66;cucumber (8.25");301.0;10.62
+2cef8932-6bf1-43a4-83cc-5282ea064c85;11209;Eggplant;Vegetables;25;0.98;5.88;0.18;0;0;cup, cubes;82.0;2.89;eggplant, peeled;458.0;16.16;eggplant, unpeeled;548.0;19.33
+bc1f26da-8ed5-40e0-a194-cc89399459d8;11215;Garlic;Vegetables;149;6.36;33.06;0.5;0;0;tsp;2.8;0.1;clove;3.0;0.11;cup;136.0;4.8
+f98bbfe9-492f-4dce-a305-772fc99c7037;11233;Kale;Vegetables;35;2.92;4.42;1.49;0;0;cup;21.0;0.74;2 cups;42.0;1.48;3 cups;63.0;2.22
+46338df1-1355-43c7-aec1-60c089486e2d;11246;Leeks;Vegetables;61;1.5;14.15;0.3;0;0;slice;6.0;0.21;leek;89.0;3.14;2 leeks;178.0;6.28
+c583a0e7-7c9c-48f4-9f20-210f6b5e93c4;11249;Lentils, cooked;Beans & Legumes;101;8.8;21.25;0.45;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+3ad6aeb2-2aaa-4593-b6f9-be9871f5cd91;11252;Lettuce;Vegetables;14;0.9;2.97;0.14;0;0;large leaf;15.0;0.53;cup, chopped;57.0;2.01;head;539.0;19.0
+f7ab79c9-5997-436b-806b-e7382c381bc2;11260;Mushrooms;Vegetables;22;3.09;3.26;0.34;0;0;small;10.0;0.35;medium;18.0;0.63;cup, whole;96.0;3.39
+f210eee6-cbf5-4c88-8de3-9cf04e4334fd;11278;Okra;Vegetables;33;1.93;7.45;0.19;0;0;8 pods (3" long);95.0;3.35;cup;100.0;3.52;2 cups;200.0;7.04
+39d784a7-05b3-41f5-85fc-4b2b16b3a508;11282;Onions;Vegetables;40;1.1;9.34;0.1;0;0;large slice;38.0;1.34;onion;110.0;3.88;cup, chopped;160.0;5.64
+9e953b91-fcfb-4064-8d17-b373df066c43;11304;Peas;Vegetables;81;5.42;14.45;0.4;0;0;1/2 cup;72.5;2.55;cup;145.0;5.11;2 cups;290.0;10.22
+192118b0-3395-4906-a085-1f54d242652c;11333;Peppers, sweet;Vegetables;20;0.86;4.64;0.17;0;0;ring;10.0;0.35;pepper;119.0;4.2;cup, chopped;149.0;5.26
+35149dd7-8409-464f-94ab-ba755dcd7440;11352;Potatoes, raw;Vegetables;77;2.05;17.49;0.09;0;0;small;170.0;6.0;medium;213.0;7.51;large;369.0;13.01
+365dc9ea-fe33-40c4-888a-19b429f8319d;21238;French fries;Fast Food;323;3.41;42.58;15.47;0;0;small serving;71.0;2.5;medium serving;117.0;4.13;large serving;154.0;5.43
+226feeaf-ff39-4e3f-964e-d45725900fdc;11363;Potatoes, baked;Vegetables;93;1.96;21.55;0.1;0;0;small;125.0;4.4;medium;167.0;5.89;large;300.0;10.58
+3169bcfc-2b98-4ff7-a0d9-80d584d71492;11367;Potatoes, boiled;Vegetables;86;1.71;20.01;0.1;0;0;small;125.0;4.4;medium;167.0;5.89;large;300.0;10.58
+ee37763f-e016-4602-9057-70f0fcd71de1;11371;Potatoes, mashed, whole milk and margarine added;Vegetables;113;1.96;16.94;4.2;0;0;1/2 cup;105.0;3.7;cup;210.0;7.4;2 cups;420.0;14.8
+d7bb26d0-cad3-4d98-be71-b2789421bb14;11414;Potato salad;Soups & Salads;143;2.68;11.17;8.2;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup;250.0;8.82
+34b797c0-4a71-472a-b5f9-771e1ede55b4;11422;Pumpkin;Vegetables;26;1;6.5;0.1;0;0;cup (cubes);116.0;4.09;2 cups;232.0;8.18;3 cups;3.48;12.27
+3fe34c18-e63c-42a8-b812-6d44f96d34a2;11429;Radishes;Vegetables;16;0.68;3.4;0.1;0;0;medium;4.5;0.16;large;9.0;0.32;cup, slices;116.0;4.09
+2df600b8-8d87-43a7-988a-89d068eecfe6;11453;Soybeans, cooked;Beans & Legumes;81;8.47;6.53;4.45;0;0;cup;94.0;3.32;2 cups;188.0;6.63;large serving;250.0;8.82
+0f3b4574-c8ae-4590-88e6-c011b6702bdf;11457;Spinach;Vegetables;23;2.86;3.63;0.39;0;0;leaf;10.0;0.35;cup;30.0;1.06;bunch;340.0;12.0
+5684f521-4551-44f9-af70-f0233a27487b;11475;Squash, summer;Vegetables;18;1.2;3.84;0.2;0;0;1/2 cup;65.0;2.3;cup;130.0;4.59;2 cups;260.0;9.18
+55de9b42-f64b-43b3-a203-54c32575fd8a;11485;Squash, winter;Vegetables;45;1;11.69;0.1;0;0;1/2 cup;70.0;2.46;cup;140.0;4.94;2 cups;280.0;9.88
+244cb227-daa7-4642-899a-57b032fa6b23;11507;Sweet potato;Vegetables;86;1.57;20.12;0.05;0;0;potato;130.0;4.59;2 potatoes;260.0;9.18;3 potatoes;390.0;13.77
+173daa0b-b5d0-4279-b946-ef719f584e74;11529;Tomatoes;Vegetables;18;0.88;3.89;0.2;0;0;cherry;17.0;0.6;medium;123.0;4.34;large;182.0;6.42
+6aa99c80-be50-4ec4-9ad2-e69a83df2fb3;11540;Tomato juice;Drinks;17;0.85;3.53;0.29;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+fdaa0e29-9f76-4768-8d5a-9aa40985d4f1;11564;Turnips;Vegetables;28;0.9;6.43;0.1;0;0;small;61.0;2.15;medium;122.0;4.3;large;182.0;6.42
+4e35b682-37bf-480a-bdd1-538b28baf745;11578;Vegetable juice cocktail;Drinks;22;0.93;3.87;0.31;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+d1a283d0-4e6a-4001-893a-ffbd4678ac52;11583;Mixed Frozen Vegetables;Vegetables;72;3.33;13.47;0.52;0;0;small package;100.0;3.52;medium package;450.0;15.87;large pack;1134.0;40.0
+b13559f9-6e5c-4b57-86b0-9e3c207f9c6e;11655;Carrot juice;Drinks;40;0.95;9.28;0.15;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+cf887f17-3083-4fd3-9780-7ede42aaa7da;11657;Potatoes, mashed, whole milk added;Vegetables;83;1.91;17.57;0.57;0;0;1/2 cup;105.0;3.7;cup;210.0;7.4;2 cups;420.0;14.8
+dc667077-014e-40dc-a13a-8ad919cb15d8;11672;Potato pancakes;Vegetables;268;6.08;27.81;14.76;0;0;small pancake;38.0;1.34;large pancake;77.0;2.71;large serving;250.0;8.82
+4370d5cf-dc66-4e5a-b0f2-77545da7fa14;11935;Ketchup;Sauces, Spices, Oils;101;1.04;27.4;0.1;0;0;packet;9.0;0.32;tbsp;17.0;0.6;cup;240.0;8.47
+b1940e5f-dafa-4d66-829a-6ee4c5e2a7d7;11937;Pickles;Vegetables;12;0.5;2.41;0.3;0;0;slice;7.0;0.25;large pickle;135.0;4.76;cup;155.0;5.47
+8feb7a36-302c-41d2-a367-49b8858abdc8;11955;Tomatoes, sun-dried;Vegetables;258;14.11;55.76;2.97;0;0;piece;2.0;0.07;cup;54.0;1.9;2 cups;108.0;3.8
+c2d57765-b733-4f68-a3ab-c34f1989b3e2;12006;Chia seeds;Nuts & Seeds;486;16.54;42.12;30.74;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;large serving;200.0;7.05
+db7e73c2-bade-42e1-887e-266397b440be;12014;Pumpkin and squash seeds;Nuts & Seeds;559;30.23;10.71;49.05;0;0;small serving;50.0;1.76;cup;129.0;4.55;large serving;200.0;7.05
+c9df4b08-289d-438d-aafb-59956dd6f130;12023;Sesame seeds;Nuts & Seeds;573;17.73;23.45;49.67;0;0;tbsp;9.0;0.32;serving;100.0;3.52;cup;144.0;5.08
+eb7587a6-d54a-42be-9d03-16f2e28cbbcd;12036;Sunflower seeds;Nuts & Seeds;584;20.78;20;51.46;0;0;cup, with hulls, edible yield;46.0;1.62;serving;100.0;3.52;cup;140.0;4.94
+9bceb872-6b7b-47d4-93b2-48b85b57f515;12061;Almonds;Nuts & Seeds;579;21.15;21.55;49.93;0;0;almond;1.2;0.04;serving;100.0;3.52;cup, whole;143.0;5.04
+4b4545ca-65c4-4ef9-9326-3bd783eeb77a;12078;Brazilnuts;Nuts & Seeds;659;14.32;11.74;67.1;0;0;kernel;5.0;0.18;serving;100.0;3.52;cup, whole;133.0;4.69
+9d26663a-f3e1-40bd-8f1d-72000647b090;12087;Cashew nuts;Nuts & Seeds;553;18.22;30.19;43.85;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;large serving;200.0;7.05
+41c57fde-97d3-44f0-9215-ec811154b2f6;12096;Chestnuts;Nuts & Seeds;239;4.48;52.36;1.19;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;large serving;200.0;7.05
+601da425-a03b-47eb-a372-7511614a6170;12104;Coconut;Nuts & Seeds;354;3.33;15.23;33.49;0;0;cup, shredded;80.0;2.82;medium serving;175.0;6.17;coconut;397.0;14.0
+c5116213-9a4e-40ee-889b-6588b2b99b8f;12120;Hazelnuts;Nuts & Seeds;628;14.95;16.7;60.75;0;0;10 nuts;14.0;0.5;serving;100.0;3.52;cup, whole;135.0;4.76
+1c7f01d3-7942-4e24-a72e-8954c8f0bde3;12131;Macadamia nuts;Nuts & Seeds;718;7.91;13.82;75.77;0;0;10 kernels;28.35;1.0;serving;100.0;3.52;cup, whole;134.0;4.73
+8f0337f8-496f-4ff1-985b-bd7b12adf156;12135;Mixed nuts;Nuts & Seeds;607;19.5;22.42;53.5;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;cup;131.0;4.62
+92c6fabd-098a-472f-9dce-83f284977a91;12142;Pecan nuts;Nuts & Seeds;691;9.17;13.86;71.97;0;0;small serving;50.0;1.76;cup, halves;99.0;3.5;large serving;200.0;7.05
+a94700f2-fd38-4d42-b4f3-c9a37a96aa01;12151;Pistachios;Nuts & Seeds;560;20.16;27.17;45.32;0;0;kernel;0.7;0.02;serving;100.0;3.52;cup;123.0;4.34
+1770edc2-277f-4e38-bb64-c35f894ac76e;12157;Walnuts;Nuts & Seeds;643;14.29;17.86;60.71;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;large serving;200.0;7.05
+df86aad0-42d8-43b0-ab5c-b5e9f9c119fe;12220;Flaxseed seeds;Nuts & Seeds;534;18.29;28.88;42.16;0;0;tsp, whole;3.4;0.12;tbsp, whole;10.3;0.36;cup, whole;168.0;5.93
+3049687b-3ed8-4e83-af0c-79b3359c7f6d;13317;Ground beef, cooked;Meat;295;23.05;0;21.83;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+d4849da1-b742-4ffa-ab42-0b68d60b6e2d;13066;Beef steak, cooked;Meat;263;26.98;0;16.44;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;piece, cooked;262.0;9.24
+5f1eb2e3-a1f6-44aa-bbad-58140513887a;13442;Beef steak, lean only, cooked;Meat;198;30.7;0;8.32;0;0;steak;119.0;4.2;medium serving;175.0;6.17;large serving;250.0;8.82
+ca51c5c6-217b-4dda-b7c8-aaa2efd729e5;14154;Energy drink;Drinks;43;0.46;10.23;0;0;0;1/2 can;125.0;4.41;can;250.0;8.82;2 cans;500.0;17.64
+ce31d3fd-c4f5-4207-b5c5-4341d92eff6f;14016;Almond milk, sweetened;Drinks;38;0.42;6.59;1.04;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+77cf0eff-6039-4f4c-8e5a-61c8217c6a41;14006;Beer, light;Drinks;29;0.24;1.64;0;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+496d8ea0-ddde-47f2-8baa-f0b257c79bca;14003;Beer;Drinks;43;0.46;3.55;0;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+0a89b051-c06c-426a-8293-c953e6e35452;19002;Beef jerky;Meat;410;33.2;11;25.6;0;0;piece, large;20.0;0.7;small serving;50.0;1.76;medium serving;100.0;3.52
+e36d7cce-4a2f-4aa8-99f9-f27709688782;14061;Energy drink, sugar free;Drinks;4;0.42;0.42;0;0;0;1/2 can;125.0;4.41;can;250.0;8.82;2 cans;500.0;17.64
+c5d8df98-e7e6-4cc9-b1df-8600357601ef;14051;Vodka;Drinks;231;0;0;0;0;0;shot;28.0;1.0;2 shots;56.0;2.0;3 shots;85.0;3.0
+4fbf7bc4-a212-4daf-b991-33d198cbbb90;14551;Gin;Drinks;263;0;0;0;0;0;shot;28.0;1.0;2 shots;56.0;2.0;3 shots;85.0;3.0
+9b7d8a31-4cdd-44d4-ac07-3210f3235b89;14050;Rum;Drinks;231;0;0;0;0;0;shot;28.0;1.0;2 shots;56.0;2.0;3 shots;85.0;3.0
+ff949048-dcbb-43bb-a2e0-3d9a44b8b1cc;14052;Whiskey;Drinks;250;0;0.1;0;0;0;shot;28.0;1.0;2 shots;56.0;2.0;3 shots;85.0;3.0
+52a2ee5b-855b-483b-bded-cfacd0aa22ce;14066;Whey protein powder;Other;352;78.13;6.25;1.56;0;0;scoop;30.0;1.05;2 scoops;60.0;2.1;3 scoops;90.0;3.15
+247ea878-def9-4a48-a5f1-e1692c354573;14067;Soy protein powder;Other;388;55.56;28.89;5.56;0;0;scoop;30.0;1.05;2 scoops;60.0;2.1;3 scoops;90.0;3.15
+31387f36-ff72-4e23-91b9-377704752b0f;14082;Mineral water;Drinks;0;0;0;0;0;0;cup;250.0;8.82;2 cups;500.0;17.64;3 cups;750.0;26.46
+51759c99-7314-4a35-bcb9-72da1a6e89dd;14084;Wine;Drinks;83;0.07;2.72;0;0;0;glass;148.0;5.22;2 glasses;296.0;10.44;3 glasses;444.0;15.66
+faa1a29c-0a2d-417f-8473-63d97e9b4a48;14091;Almond milk, unsweetened;Drinks;15;0.4;1.31;0.96;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+b3ab822c-e69c-4fbc-8201-555b865b360a;14130;Cream soda;Drinks;51;0;13.3;0;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+0fe515aa-f720-49bd-b47e-241ad1fe40cf;14136;Ginger ale;Drinks;34;0;8.76;0;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+687e24ee-eddf-4b5b-ad46-8bda43daed41;14137;Iced tea;Drinks;36;0;9.09;0;0;0;cup;250.0;8.82;2 cups;500.0;17.64;3 cups;750.0;26.46
+3ec8bec1-cef9-45e4-ba67-17e3894ecb67;14142;Grape soda;Drinks;43;0;11.2;0;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+60277148-9acc-4dc6-b103-c93351a8fef1;14148;Cola;Drinks;42;0;10.36;0.25;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+ea749c51-2c8d-475d-9345-b1da7018dff6;14146;Cola, low calorie;Drinks;1;0.12;0.12;0;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+c0f8c057-ba48-4e91-9b56-f9d70a3a0249;14157;Root beer;Drinks;41;0;10.6;0;0;0;0.33l can/bottle;330.0;11.64;0.5l can/bottle;500.0;17.64;2 x 0.33l can/bottle;660.0;23.28
+c1e414d4-86c3-43eb-8d83-1d0b967f8551;14192;Cocoa powder, sweetened;Other;398;6.67;83.73;4;0;0;serving (3 heaping tsp);28.0;1.0;2 servings;56.0;2.0;3 servings;84.0;3.0
+7cc2b0f6-1316-4b02-ae45-55890f58f1e4;14180;Coffee;Drinks;2;0.3;0.17;0;0;0;cup;250.0;8.82;2 cups;500.0;17.64;3 cups;750.0;26.46
+cde809be-f87f-4590-ae77-283f96057744;14191;Tea;Drinks;1;0;0.31;0;0;0;cup;250.0;8.82;2 cups;500.0;17.64;3 cups;750.0;26.46
+216bd230-3783-4ceb-b1ba-bd52aa2181f3;14384;Water;Drinks;0;0;0;0;0;0;cup;250.0;8.82;2 cups;500.0;17.64;3 cups;750.0;26.46
+689ee89e-468e-484d-90d7-b61477d22a17;14543;Lemonade;Drinks;43;0.05;10.81;0.15;0;0;cup;250.0;8.82;2 cups;500.0;17.64;3 cups;750.0;26.46
+de63b1d7-7e03-482c-9e99-4136c3a79b1b;15002;Anchovy, canned in oil;Fish & Seafood;210;28.89;0;9.71;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+a3d15c73-3d72-41c4-b0e7-b4afbf443f26;15009;Carp, cooked;Fish & Seafood;162;22.86;0;7.17;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+03e1ac58-3e61-4dd1-b554-4b4b6ffba923;15008;Carp, raw;Fish & Seafood;127;17.83;0;5.6;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+3027f705-e998-409f-9326-7201014a1f54;15010;Catfish, raw;Fish & Seafood;95;16.38;0;2.82;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+2c71f72b-8caf-43bc-a8e1-160701105741;15015;Cod, raw;Fish & Seafood;82;17.81;0;0.67;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+f7c03ccb-6e2e-4159-99a2-4ad6468de4a5;15016;Cod, cooked;Fish & Seafood;105;22.83;0;0.86;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+28be8973-0311-4630-9c60-e1654d9c29a1;15018;Cod, dried;Fish & Seafood;290;62.82;0;2.37;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+d4ba281d-de43-40c1-ac9d-814df48267cf;15025;Eel, raw;Fish & Seafood;184;18.44;0;11.66;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+74bca637-6fb6-4b24-bbe4-774eaadaabb8;15026;Eel, cooked;Fish & Seafood;236;23.65;0;14.95;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+bccac290-78c7-49d1-af56-eb5707501040;15027;Fish sticks;Fish & Seafood;277;11.01;21.66;16.23;0;0;stick;28.0;1.0;small serving;100.0;3.52;large serving;250.0;8.82
+7d38b120-0586-4f71-86ab-5c6471786ec4;15033;Haddock, raw;Fish & Seafood;74;16.32;0;0.45;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+5cd5fd3f-c0b4-46e4-a217-53e12076e4d5;15034;Haddock, cooked;Fish & Seafood;90;19.99;0;0.55;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+a3b24bc3-e0a2-4db8-9a22-addd6eb7d76f;15035;Haddock, smoked;Fish & Seafood;116;25.23;0;0.96;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+e31daf5e-5c34-4329-bfa8-7e183319988a;15036;Halibut, raw;Fish & Seafood;91;18.56;0;1.33;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+40be49ac-8f74-4d36-a91e-8e732efd2783;15037;Halibut, cooked;Fish & Seafood;111;22.54;0;1.61;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+54359692-2b29-4af5-b84b-a09e9726204a;15039;Herring, raw;Fish & Seafood;158;17.96;0;9.04;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+807d97be-f714-4f56-8279-bf7e486c97a6;15040;Herring, cooked;Fish & Seafood;203;23.03;0;11.59;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+0e77aaf2-33b0-4a71-a457-e08176dfd061;15046;Mackerel, raw;Fish & Seafood;205;18.6;0;13.89;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+34106684-1faf-4c6e-802a-40d24e48ddaf;15047;Mackerel, cooked;Fish & Seafood;262;23.85;0;17.81;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+fceae169-1132-40ec-86f1-420708f33b60;15062;Pike, raw;Fish & Seafood;88;19.26;0;0.69;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+a87383a1-16f3-476b-8418-2b3aa20544d4;15063;Pike, cooked;Fish & Seafood;113;24.69;0;0.88;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+50e5bc9f-bb80-468c-a5a3-b146deb4f4cc;15003;Bass, raw;Fish & Seafood;114;18.86;0;3.69;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+7ed7b61f-80ef-495b-894d-0336fbc4d978;15065;Pollock, raw;Fish & Seafood;92;19.44;0;0.98;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+9d0429e6-d915-4c9c-81bd-cd0422fcd07f;15067;Pollock, cooked;Fish & Seafood;111;23.48;0;1.18;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+85584b47-0748-47fd-9da0-0209364e7354;15076;Salmon, raw;Fish & Seafood;142;19.84;0;6.34;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+35c5870b-2f1b-45a2-9c6c-058394745991;15077;Salmon, smoked;Fish & Seafood;117;18.28;0;4.32;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+234e46ae-29f4-46e3-963e-2c5121a26dae;15082;Salmon, cooked;Fish & Seafood;184;27.36;0;7.5;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+efd6cdeb-00a6-4e68-8405-ecfdc3bfbbc2;15088;Sardine, canned in oil;Fish & Seafood;208;24.62;0;11.45;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+ce678542-58cb-4855-972b-feb34978bc1d;15114;Trout, raw;Fish & Seafood;148;20.77;0;6.61;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+11a8ada6-3876-4ba3-bd13-a5e91be0ba1f;15116;Trout, cooked;Fish & Seafood;150;22.92;0;5.82;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+8b9d9b1f-edce-4555-89cd-8b2c97ba01f6;15124;Tuna, canned in oil;Fish & Seafood;186;26.53;0;8.08;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+61efac37-493f-4cf9-9185-7a91ecc75c41;15126;Tuna, canned in water;Fish & Seafood;128;23.62;0;2.97;0;0;small serving;100.0;3.52;can;172.0;6.06;large serving;250.0;8.82
+19e8194b-7287-49a9-a215-e5ce91663446;15137;Crab, cooked;Fish & Seafood;97;19.35;0;1.54;0;0;leg;134.0;4.73;2 legs;268.0;9.46;3 legs;402.0;14.19
+359c43d6-6aa6-4b32-bcc2-dba957cfab80;15146;Crayfish, cooked;Fish & Seafood;82;16.77;0;1.2;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+bbfd03e3-ac56-42c4-a8c6-919370ae4659;15148;Lobster, cooked;Fish & Seafood;89;19;0;0.86;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+1c35880d-4adf-4e02-b2b1-b6b2623b2663;15151;Shrimp, cooked;Fish & Seafood;119;22.78;1.52;1.7;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+019f51f5-840a-405f-a5e8-0e6c02c2a4a5;15157;Clams;Fish & Seafood;86;14.67;3.57;0.96;0;0;small;9.0;0.32;medium;14.5;0.51;large;20.0;0.7
+6798218e-bcfd-4ce5-85d9-cc25efa21887;15176;Squid, cooked;Fish & Seafood;175;17.94;7.79;7.48;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+6bd70e2d-b58e-44e9-a5d1-ef0ea3d9e2e1;15173;Scallop, breaded and fried;Fish & Seafood;216;18.07;10.13;10.94;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+04f74ae0-26ae-49fe-9608-d784e7d3792d;15261;Tilapia, raw;Fish & Seafood;96;20.08;0;1.7;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+105d01b6-2d1e-4e50-8866-3a8354d31c32;15262;Tilapia, cooked;Fish & Seafood;128;26.15;0;2.65;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+4146da82-e638-4073-b345-4737cd67d7d3;16005;Baked beans;Beans & Legumes;155;5.54;21.63;5.15;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup;253.0;8.92
+47929b67-6425-4cff-ba41-c413258bf97b;16316;Black beans, canned;Beans & Legumes;91;6.03;16.55;0.29;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup;240.0;8.47
+7e52037a-4fe4-42b8-b66a-06dfb0548606;16034;Kidney beans, canned;Beans & Legumes;81;5.22;14.83;0.36;0;0;tbsp;16.0;0.56;cup;256.0;9.03;can;436.0;15.38
+d8c52f8e-b305-4e8c-8151-fd53bf777cf1;16015;Black beans, cooked, boiled;Beans & Legumes;132;8.86;23.71;0.54;0;0;small serving;100.0;3.52;cup;172.0;6.07;large serving;250.0;8.82
+01b090cb-3d3e-40e4-ba0e-9f46be1cff60;16028;Kidney beans, cooked, boiled;Beans & Legumes;127;8.67;22.8;0.5;0;0;tbsp;11.0;0.39;cup;177.0;6.24;large serving;250.0;8.82
+a09a902a-e9f4-4c53-a966-2a08c1fca78a;16044;Pinto beans, canned;Beans & Legumes;82;4.6;15.18;0.56;0;0;small serving;100.0;3.52;cup;240.0;8.47;can;442.0;15.59
+a239ceeb-6f28-4a7b-9cc5-1576a6a7cbaa;16043;Pinto beans, cooked, boiled;Beans & Legumes;143;9.01;26.22;0.65;0;0;tbsp;10.6;0.37;cup;171.0;6.03;large serving;250.0;8.82
+1b8c58f1-e940-4a08-807e-f0857aacf0a3;16057;Chickpeas (garbanzo beans), cooked, boiled;Beans & Legumes;164;8.86;27.42;2.59;0;0;small serving;100.0;3.52;cup;164.0;5.78;large serving;250.0;8.82
+43f54796-2df4-402c-9605-c35ee4abf570;16058;Chickpeas (garbanzo beans), canned;Beans & Legumes;88;4.92;13.49;1.95;0;0;small serving;100.0;3.52;cup;240.0;8.47;can;448.0;15.8
+1c22921a-f62b-4839-9cc4-7f33135fc12d;16138;Falafel;Beans & Legumes;333;13.31;31.84;17.8;0;0;small piece;15.0;0.53;medium piece;22.0;0.78;large piece;28.35;1.0
+79a16242-46de-41fa-9016-9fae5b3e4abb;16137;Hummus;Beans & Legumes;177;4.86;20.12;8.59;0;0;tbsp;15.0;0.53;medium serving;100.0;3.52;cup;246.0;8.68
+ead91604-9ba6-4e40-8d12-5c2a4c236969;16129;Tofu, fried;Beans & Legumes;270;18.82;8.86;20.18;0;0;piece;13.0;0.49;oz;28.35;1.0;serving;100.0;3.52
+c17ab299-bcfc-4fc6-9135-a9146cb52e5f;16127;Tofu, soft;Beans & Legumes;61;7.17;1.18;3.69;0;0;cubic inch;18.0;0.63;piece;120.0;4.23;cup;248.0;8.75
+2f1ca71f-8092-45a4-a3ca-a9e64db50d0c;16126;Tofu, firm;Beans & Legumes;78;9.04;2.85;4.17;0;0;small serving;100.0;3.52;cup;252.0;8.89;block;324.0;11.43
+95962d80-a809-40c9-9490-8c880e3e617c;16103;Refried beans, canned;Beans & Legumes;90;4.98;13.55;2.01;0;0;small serving;100.0;3.52;cup;238.0;8.4;can;442.0;15.59
+de466d5f-7714-4320-8d47-b8d65ede16c3;16097;Peanut butter;Nuts & Seeds;589;24.06;21.57;49.94;0;0;tbsp;32.0;1.13;serving;100.0;3.52;cup;258.0;9.1
+8f514270-73c4-48b5-8fbd-a42b57244503;16087;Peanuts;Nuts & Seeds;567;25.8;16.13;49.24;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;cup;146.0;5.15
+227ec5b1-4206-49c7-81f5-bbe6947b6039;16073;Lima beans, canned;Beans & Legumes;79;4.93;14.91;0.17;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;cup;241.0;8.5
+8a9beb28-3ed7-4b0c-8b7c-52aaf4a65ce6;16120;Soymilk;Drinks;54;3.27;6.28;1.75;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+812ee481-08c5-4571-98ee-06a5c7a0f775;16166;Soymilk, chocolate;Drinks;63;2.26;9.95;1.53;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+f822fb3a-74d1-4bb9-ad15-af6156903dcd;17224;Lamb, ground, raw;Meat;282;16.56;0;23.41;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+a0b7bb1a-4e4a-4d18-82ec-ff7977294a63;17225;Lamb, ground, cooked;Meat;283;24.75;0;19.65;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+d4f13a14-93b5-40bc-ad80-1bf14907c75d;17023;Lamb meat, raw;Meat;310;16.32;0;26.63;0;0;chop;95.0;3.35;medium serving;175.0;6.17;large serving;250.0;8.82
+2bb4742c-4f1d-4cf5-b609-e6fca6d12323;17025;Lamb meat, cooked;Meat;309;22.55;0;23.59;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+345867ad-9473-438c-88a2-c83f45cf5bc3;17142;Veal, ground, raw;Meat;197;18.58;0;13.06;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+50a23f68-fa27-455f-96ba-b7ca5fd8befd;17143;Veal, ground, cooked;Meat;172;24.38;0;7.56;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+4ad1cdaf-90e3-4463-af48-38605c9ce215;17104;Veal meat, raw;Meat;177;20.07;0.07;10.07;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+fbdfef19-a817-4286-8c7f-9395cf382fe6;17105;Veal meat, cooked;Meat;284;30.19;0;17.21;0;0;chop;80.0;2.82;medium serving;175.0;6.17;large serving;250.0;8.82
+5eeb6393-59c1-4bab-b704-43b926d8ca3d;17166;Game meat (elk, deer or moose), raw;Meat;111;22.95;0;1.45;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+44ffa157-42a0-4e54-8490-acf176f1bcfd;17167;Game meat (elk, deer or moose), cooked;Meat;146;30.19;0;1.9;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+97aad5f2-cc7f-4a16-b950-fec87213af47;18047;Raisin bread;Breads & Cereals;274;7.9;52.3;4.4;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+d272e2cf-9afd-4bee-a07a-87ba64bb7c70;18042;Pita bread;Breads & Cereals;262;9.8;55.89;1.71;0;0;small (4" diameter);28.0;1.0;medium (5" diameter);40.0;1.41;large (6.5" diameter);64.0;2.26
+5549ba03-53fe-4daf-b473-810d8c6585e1;18029;Baguette (french bread);Breads & Cereals;272;10.75;51.88;2.42;0;0;oz;28.35;1.0;1/2 baguette;125.0;4.41;baguette;250.0;8.82
+c54db20d-4022-44f2-95aa-70a34d8a0732;18024;Cornbread;Breads & Cereals;266;6.7;43.5;7.1;0;0;oz;28.35;1.0;piece;65.0;2.29;serving;100.0;3.52
+b7560322-77e3-4a34-99c0-50772fc6f567;18009;Biscuits, plain or buttermilk;Breads & Cereals;338;6.2;53.87;11.03;0;0;small;35.0;1.23;medium;51.0;1.8;large;77.0;2.7
+9f843653-fca0-44d9-b4d6-700a620a50a9;18001;Bagel;Breads & Cereals;264;10.56;52.38;1.32;0;0;small;69.0;2.43;medium;105.0;3.7;large;131.0;4.62
+b520601e-e39a-460d-87e7-e4c602fb31f1;18060;Rye bread;Breads & Cereals;259;8.5;48.3;3.3;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+567f880c-c4d0-4495-8fb7-2c491107d9c7;18064;Wheat bread;Breads & Cereals;274;10.67;47.54;4.53;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+b9626b4e-4c91-448d-9421-f95275e4c253;18065;Wheat bread, toasted;Breads & Cereals;313;12.96;55.77;4.27;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+4f0cba8c-7b93-4ff6-bafd-46fa6edc73f5;18069;White bread;Breads & Cereals;266;8.85;49.42;3.33;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+7abba23d-c000-4ea2-a8d8-b21adc45a9a7;18070;White bread, toasted;Breads & Cereals;290;9;54.5;4;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+6e2a9106-743f-4e25-842b-e3c2d3b4769b;18075;Whole-wheat bread;Breads & Cereals;252;12.45;42.71;3.5;0;0;slice;32.0;1.13;2 slices;64.0;2.26;3 slices;96.0;3.39
+f3a6ea0e-dfff-46fc-ba0f-46336f75b55e;18079;Bread crumbs;Breads & Cereals;395;13.35;71.98;5.3;0;0;oz;28.35;1.0;1/2 cup;54.0;1.9;cup;108.0;3.81
+d693a445-c55f-4810-a485-d10db48e34cd;18080;Breadsticks;Breads & Cereals;412;12;68.4;9.5;0;0;stick;10.0;0.35;5 sticks;50.0;1.75;10 sticks;100.0;3.52
+ceb0ba3a-1581-4150-8f8b-fa3212da6a9c;18086;Angelfood cake;Sweets & Snacks;258;5.9;57.8;0.8;0;0;piece (1/12 cake);28.0;1.0;piece (1/6 cake);56.0;2.0;cake;340.0;12.0
+90e2cedf-fab9-47da-ba16-41c506bcba61;18096;Chocolate cake;Sweets & Snacks;389;3.48;52.84;20.05;0;0;small piece;64.0;2.26;medium piece;100.0;3.52;large piece;138.0;4.87
+e4747974-324d-48f4-b62a-cd7965c1adee;18105;Coffee cake;Sweets & Snacks;331;5;53.8;10.8;0;0;small piece;64.0;2.26;medium piece;100.0;3.52;large piece;138.0;4.87
+e848a942-39d5-471f-a0c9-9110e85a11ac;18110;Fruit cake;Sweets & Snacks;324;2.9;61.6;9.1;0;0;small piece;43.0;1.52;medium piece;64.0;2.26;large piece;100.0;3.52
+870678a4-21b4-4bf9-b899-d39b12340b0f;18102;White cake;Sweets & Snacks;356;4.4;63.2;10.3;0;0;small piece;64.0;2.26;medium piece;100.0;3.52;large piece;138.0;4.87
+c67e9d3c-28ea-43ed-92f9-29af576589e0;18116;Gingerbread cake;Sweets & Snacks;356;3.9;49.2;16.4;0;0;small piece;43.0;1.52;medium piece;74.0;2.61;large piece;100.0;3.52
+ac402b9c-350c-4a26-b41b-46dda376205e;18141;Yellow cake;Sweets & Snacks;391;2.99;56.2;17.91;0;0;small piece;43.0;1.52;medium piece;74.0;2.61;large piece;100.0;3.52
+8de3ccef-eb33-4430-98d0-5d86f1256589;18147;Cheesecake;Sweets & Snacks;321;5.5;25.5;22.5;0;0;small piece;64.0;2.26;medium piece;100.0;3.52;large piece;138.0;4.87
+0c93c6b0-b063-42f1-bf4f-3f5f02e1b328;18151;Brownies;Sweets & Snacks;405;4.8;63.9;16.3;0;0;piece;50.0;1.76;2 pieces;100.0;3.52;3 pieces;150.0;5.29
+bc365e90-97e8-427a-863b-b4df8d3c06d5;18155;Butter cookies;Sweets & Snacks;467;6.1;68.9;18.8;0;0;cookie;5.0;0.18;10 cookies;50.0;1.76;20 cookies;100.0;3.52
+8eb0f1fe-683d-4fae-8b22-ed254fd526f1;18158;Chocolate chip cookies;Sweets & Snacks;451;5.97;67.49;17.91;0;0;cookie;12.0;0.42;5 cookies;60.0;2.11;10 cookies;120.0;4.22
+02f64c48-0a5e-42e5-b0d6-c515fb7ee498;18166;Chocolate sandwich cookies;Sweets & Snacks;464;5.21;71;19.14;0;0;cookie;12.0;0.42;5 cookies;60.0;2.11;10 cookies;120.0;4.22
+98733508-c1ae-4fc6-9d1e-0eb7ea6f8956;18178;Oatmeal cookies;Sweets & Snacks;450;6.2;68.7;18.1;0;0;big cookie;20.0;0.7;5 cookies;100.0;3.52;10 cookies;200.0;7.05
+3526c731-6bef-4c9a-9d94-c66962636f2d;18185;Peanut butter cookies;Sweets & Snacks;473;8.92;58.15;23.82;0;0;cookie;31.0;1.09;3 cookies;93.0;3.27;5 cookies;155.0;5.47
+7c2e0287-d7dc-498d-a480-5fd9f5ffc17f;18229;Crackers;Sweets & Snacks;510;6.64;61.3;26.43;0;0;cracker;3.2;0.11;10 crackers,;32.0;1.1;30 crackers;96.0;3.38
+feabedde-bdbb-438d-bd0f-cb09b4cace47;18239;Croissant;Breads & Cereals;406;8.2;45.8;21;0;0;small;42.0;1.48;medium;57.0;2.0;large;67.0;2.36
+5d61f462-78e1-4bd2-a2da-ba0fc4f2e8cc;18249;Doughnuts;Sweets & Snacks;452;4.93;51.33;25.25;0;0;small;18.0;0.63;medium;43.0;1.52;large;67.0;2.36
+794d366f-446d-47e2-9ac1-061e1209bfc0;18258;English muffins;Breads & Cereals;227;8.87;44.17;1.69;0;0;oz;28.35;1.0;muffin;57.0;2.0;2 muffins;114.0;4.0
+9d4b7e27-efba-48d2-90d4-0a3311f94d6a;18269;French toast;Breads & Cereals;229;7.7;25;10.8;0;0;slice;65.0;2.29;2 slices;130.0;4.58;3 slices;195.0;6.87
+fec770fc-c138-4ade-9f56-1a4e246724a0;18273;Muffins, plain;Sweets & Snacks;296;6.9;41.4;11.4;0;0;muffin;57.0;2.01;2 muffins;114.0;4.02;3 muffins;171.0;6.03
+33fea555-22d6-4641-a34d-758794104729;18278;Blueberry muffins;Sweets & Snacks;285;6.5;40.7;10.8;0;0;muffin;57.0;2.01;2 muffins;114.0;4.02;3 muffins;171.0;6.03
+1e65a09a-b25f-4837-b444-5a0e8b43c4c6;18293;Pancakes;Sweets & Snacks;227;6.4;28.3;9.7;0;0;small pancake;38.0;1.34;large pancake;77.0;2.71;large serving;250.0;8.82
+84360f8c-7f58-448d-a9cc-4f5546f4f8c8;18301;Fruit pie;Sweets & Snacks;237;1.9;34;11;0;0;small piece;64.0;2.26;medium piece;100.0;3.52;large piece;138.0;4.87
+8556ce26-88d6-43cb-8ced-db41f4c126ea;18310;Chocolate creme pie;Sweets & Snacks;353;4.15;38.44;22.41;0;0;small piece;64.0;2.26;medium piece;100.0;3.52;large piece;138.0;4.87
+9d7ac1aa-e363-4d99-8b57-6dfdac0c4b2a;18324;Pecan pie;Sweets & Snacks;407;4.5;59.61;16.69;0;0;small slice;100.0;3.52;medium slice;133.0;4.69;large slice;150.0;5.29
+f4bca54a-2fb7-416a-a5ec-cc52dea16d49;18342;Dinner rolls;Breads & Cereals;310;10.86;52.04;6.47;0;0;roll;28.0;1.0;2 rolls;56.0;2.0;3 rolls;85.0;3.0
+234f25aa-a9cb-4f14-96d2-be7e89f0d0a1;18356;Sweet rolls;Sweets & Snacks;372;6.2;50.9;16.4;0;0;roll;60.0;2.12;large roll;83.0;2.93;2 rolls;120.0;4.24
+f5c6caa8-34c1-4159-860b-dd90bf191ce4;18363;Tortillas, corn;Breads & Cereals;218;5.7;44.64;2.85;0;0;tortilla;25.0;0.88;2 tortillas;50.0;1.76;3 tortillas;75.0;2.64
+4a43281b-e023-46e9-964e-e7e28d5b0376;18364;Tortillas, flour;Breads & Cereals;306;8.2;49.38;7.99;0;0;medium (6" diameter);30.0;1.06;large (10" diameter);72.0;2.54;very large (12" diameter);117.0;4.13
+d41a69b1-62cc-4916-9052-d81909214a5b;18367;Waffles;Sweets & Snacks;291;7.9;32.9;14.1;0;0;waffle, (7" diameter);75.0;2.65;medium serving;175.0;6.17;large serving;250.0;8.82
+21f17fe8-4a66-4b02-9d5d-b60c50198d81;18963;Garlic bread;Breads & Cereals;350;8.36;41.72;16.61;0;0;slice;43.0;1.52;2 slices;86.0;3.04;3 slices;129.0;4.56
+2aff7e01-2844-4d05-9334-aa3d52ffc18d;18971;Potato bread;Breads & Cereals;266;12.5;47.07;3.13;0;0;slice;32.0;1.13;2 slices;64.0;2.26;3 slices;96.0;3.39
+6ae438fe-3a30-474c-aa54-0f88a875b621;19015;Granola bar;Sweets & Snacks;471;10.1;64.4;19.8;0;0;bar;25.0;0.88;2 bars;50.0;1.76;3 bars;75.0;2.64
+a992a740-d394-44b4-a0b4-05a0e042d465;19018;Fruit syrup;Sauces, Spices, Oils;341;0;85.13;0;0;0;1/4 cup;84.0;2.96;1/2 cup;168.0;5.88;cup;334.0;11.78
+bc896c0d-a3b3-42da-9aaa-bd5b3ec67a09;19034;Popcorn, air-popped;Sweets & Snacks;387;12.94;77.78;4.54;0;0;cup;8.0;0.28;small serving;50.0;1.76;medium serving;100.0;3.52
+41dc9312-eba4-48a5-aa82-a751a6029b12;19035;Popcorn, oil-popped;Sweets & Snacks;583;7.29;45.06;43.55;0;0;cup;11.0;0.39;small serving;50.0;1.76;medium serving;100.0;3.52
+c9cf32c7-43ad-4a4b-9bd1-157d87ed92c4;28397;Multi-grain bread;Breads & Cereals;265;13.36;43.34;4.23;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+990462f1-7931-48a3-b390-cabeb9dbe6dd;19042;Potato chips;Sweets & Snacks;487;6.51;55.92;31.06;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;bag;198.0;6.98
+e13f6823-7907-4ad6-a0c4-90aea400795a;19047;Pretzels;Sweets & Snacks;384;10.04;80.39;2.93;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;large serving;200.0;7.05
+dc769624-ce3d-4845-9837-30e7eed46d4f;19056;Tortilla chips;Sweets & Snacks;472;7.1;67.78;20.68;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;bag;213.0;7.51
+e47ce693-9186-4341-8a96-2567069957f0;19059;Trail mix;Sweets & Snacks;462;13.8;44.9;29.4;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;cup;150.0;5.29
+7af3ee5a-f409-4b50-8c07-02ee27fc9408;19074;Caramel candies;Sweets & Snacks;382;4.6;77;8.1;0;0;piece;10.0;0.35;5 pieces;50.0;1.76;10 pieces;100.0;3.52
+e8caf952-50cc-43ec-b33a-73e48f122ae7;19087;White chocolate;Sweets & Snacks;539;5.87;59.24;32.09;0;0;1/2 bar;50.0;1.76;bar;100.0;3.52;2 bars;200.0;7.05
+3ac1ea15-a750-419d-be8d-f1cea68491b8;19100;Chocolate fudge;Sweets & Snacks;410;2.39;76.7;10.41;0;0;piece;17.0;0.6;5 pieces;85.0;3.0;10 pieces;170.0;6.0
+28e098e6-e0eb-4507-a64e-6362672e9d22;19107;Hard candy;Sweets & Snacks;394;0;98;0.2;0;0;small piece;3.0;0.11;piece;6.0;0.21;5 pieces;30.0;1.06
+b0d68bfc-e3e9-435c-bba7-f088a6ba873e;19116;Marshmallows;Sweets & Snacks;318;1.8;81.3;0.2;0;0;10 miniatures;7.0;0.25;regular;7.2;0.25;cup of miniature;50.0;1.76
+11430495-9a18-44f1-a993-d19eb7ec7b0c;19121;Pudding;Sweets & Snacks;105;2.76;19.74;1.7;0;0;1/4 cup;36.75;1.3;1/2 cup;73.5;2.59;cup;147.0;5.18
+3bb505de-3452-4f13-9f8f-dfc6d80ab052;19125;Chocolate-flavored hazelnut spread;Sweets & Snacks;539;5.41;62.36;29.73;0;0;tbsp;18.5;0.65;2 tbsp;37.0;1.3;3 tbsp;55.5;1.95
+e0fa2244-bc98-432e-b15e-58fb005e9bfd;19155;Candy bar, SNICKERS;Sweets & Snacks;491;7.53;61.51;23.85;0;0;bar, fun size;15.0;0.53;bar;57.0;2.01;bar, king size;113.0;4.0
+ca5a1b8c-8e32-45f8-80b3-f6aaa1306614;19163;Chewing gum;Sweets & Snacks;360;0;96.7;0.3;0;0;stick;3.0;0.11;block;8.0;0.28;10 Chiclets;16.0;0.56
+f6e3c97f-36aa-40b3-b98d-cdec60b9b2ed;19165;Cocoa powder, unsweetened;Other;228;19.6;57.9;13.7;0;0;tbsp;5.4;0.19;1/2 cup;43.0;1.51;cup;86.0;3.03
+28e2d54e-695c-4bdd-8396-4c655942a4c6;19182;Chocolate mousse;Sweets & Snacks;225;4.14;16.07;16;0;0;1/4 cup;101.0;3.55;1/2 cup;202.0;7.13;cup;404.0;14.25
+6b8fbf4d-22f9-4848-8511-d370e0f74a5f;19250;Candy bar, KIT KAT;Sweets & Snacks;520;6.24;63.64;27.84;0;0;bar;55.0;1.94;bar, king size;79.0;2.78;2 bars;110.0;3.88
+5ffa6327-67b2-4eb4-905d-d326146125c9;19293;Frozen yogurt;Sweets & Snacks;159;4;24.2;5.6;0;0;1/2 cup;72.0;2.54;cup;144.0;5.08;2 cups;288.0;10.16
+54443842-25f8-4b95-9652-1525b7809962;19296;Honey;Sauces, Spices, Oils;304;0.3;82.4;0;0;0;packet;14.0;0.5;tbsp;21.0;0.74;cup;339.0;11.96
+f274b74e-dd9b-47f0-96a9-40079446f835;19297;Jams and preserves;Sauces, Spices, Oils;278;0.37;68.86;0.07;0;0;tbsp;20.0;0.7;2 tbsp;40.0;1.4;cup;320.0;11.29
+1535ab6e-b20d-41f1-95ac-7fec5771d0d9;19300;Jelly;Sauces, Spices, Oils;266;0.15;69.95;0.02;0;0;tbsp;20.0;0.7;2 tbsp;40.0;1.4;cup;320.0;11.29
+ee655832-4146-4a42-a199-48717c11f219;19303;Marmalade;Sauces, Spices, Oils;246;0.3;66.3;0;0;0;tbsp;20.0;0.7;2 tbsp;40.0;1.4;cup;320.0;11.29
+262dc1fe-8a73-4c11-90fc-c66d746ec8b4;19304;Molasses;Sauces, Spices, Oils;290;0;74.73;0.1;0;0;tbsp;20.0;0.7;2 tbsp;40.0;1.4;cup;337.0;11.89
+b66a0ebd-3fda-4676-85f6-7f78029e91d6;19334;Brown sugar;Sauces, Spices, Oils;380;0.12;98.09;0;0;0;tsp;4.0;0.14;heaped teaspoon;7.5;0.26;tbsp;12.0;0.42
+c8e1ad38-3ce2-465c-8ca9-5a3b380857bb;19336;Sugar;Sauces, Spices, Oils;389;0;99.77;0;0;0;tsp;4.0;0.14;heaped teaspoon;7.5;0.26;tbsp;12.0;0.42
+6f355b45-6247-4187-8bc5-6c349a9e249c;19349;Corn syrup;Sauces, Spices, Oils;286;0;77.59;0;0;0;tbsp;20.0;0.7;2 tbsp;40.0;1.4;cup;328.0;11.57
+b80711aa-2149-4ae7-85b8-e6ac8d1d3266;19353;Maple syrup;Sauces, Spices, Oils;260;0.04;67.04;0.06;0;0;tbsp;20.0;0.7;2 tbsp;40.0;1.4;cup;315.0;11.11
+fafb19b9-14a3-4de6-9e40-518b165c0151;19816;Rice cakes;Sweets & Snacks;387;8.2;81.5;2.8;0;0;cake;9.0;0.32;5 cakes;45.0;1.6;10 cakes;90.0;3.2
+6a655362-92ef-4c5f-90ca-85595f4e81d4;19905;Dark chocolate;Sweets & Snacks;550;5.09;59.97;32.2;0;0;1/2 bar;50.0;1.76;bar;100.0;3.52;2 bars;200.0;7.05
+15cd1553-62e5-4634-8997-447dc497321c;20012;Bulgur, dry;Pasta & Rice;342;12.29;75.87;1.33;0;0;small serving;100.0;3.52;cup;140.0;4.94;large serving;200.0;7.05
+d687fed8-f1da-45b4-822f-aae608b1e67d;20013;Bulgur, cooked;Pasta & Rice;83;3.08;18.58;0.24;0;0;tbsp;8.4;0.3;serving;100.0;3.52;cup;182.0;6.42
+6ebc6456-dc86-44a1-bcd6-84f5ea003b11;20028;Couscous, dry;Pasta & Rice;376;12.76;77.43;0.64;0;0;small serving;100.0;3.52;cup;173.0;6.1;large serving;200.0;7.05
+2b5e78d3-4c7b-4ea0-87ef-b34b03fcd60e;20029;Couscous, cooked;Pasta & Rice;112;3.79;23.22;0.16;0;0;small serving;100.0;3.52;cup, cooked;157.0;5.54;large serving;200.0;7.05
+a6b0b021-d058-460f-bc51-6239edc7cc03;20036;Brown rice, raw;Pasta & Rice;367;7.54;76.25;3.2;0;0;small serving;100.0;3.52;cup;185.0;6.52;large serving;250.0;8.82
+706a305d-516b-4a80-93a5-7f78b6febc5b;20037;Brown rice, cooked;Pasta & Rice;123;2.74;25.58;0.97;0;0;small serving;100.0;3.52;cup;202.0;7.13;large serving;250.0;8.82
+ea84578c-52c6-4db9-b68c-7458d6b750d5;20044;White rice, raw;Pasta & Rice;365;7.13;79.95;0.66;0;0;small serving;100.0;3.52;cup;185.0;6.52;large serving;250.0;8.82
+85f83966-c9cd-49c0-a5e4-ad91f43c8ebf;20045;White rice, cooked;Pasta & Rice;130;2.69;28.17;0.28;0;0;small serving;100.0;3.52;cup, cooked;157.0;5.54;large serving;200.0;7.05
+a159cc10-fa46-4c88-bb62-57e85df21293;20016;Corn flour;Pasta & Rice;361;6.93;76.85;3.86;0;0;small serving;100.0;3.52;cup;117.0;4.13;large serving;200.0;7.05
+ae052192-03cc-4a24-b6d9-d7618573180a;20080;Wheat flour;Pasta & Rice;340;13.21;71.97;2.5;0;0;small serving;100.0;3.52;cup;120.0;4.23;large serving;200.0;7.05
+f453f8ae-ec75-4aa0-b4f0-c1c9183df315;20120;Pasta, dry;Pasta & Rice;371;13.04;74.67;1.51;0;0;cup;91.0;3.21;medium serving;175.0;6.17;large serving;250.0;8.82
+3ebf5c8b-1ead-4e65-b6df-213df95cef56;20121;Pasta, cooked;Pasta & Rice;158;5.8;30.86;0.93;0;0;cup;124.0;4.37;medium serving;175.0;6.17;large serving;250.0;8.82
+9e463a6c-dc41-4a18-b250-833ae952ed69;20111;Egg noodles, dry;Pasta & Rice;382;14.61;70.32;4.55;0;0;cup;38.0;1.34;small serving;100.0;3.52;large serving;200.0;7.05
+d960270c-e971-4f00-b2d5-8d6b25998d34;20112;Egg noodles, cooked;Pasta & Rice;132;5.04;24.25;1.57;0;0;small serving;100.0;3.52;cup;160.0;5.64;large serving;200.0;7.05
+e215e8e7-71c3-40bc-847b-655ace7ce847;20114;Japanese noodles, soba, dry;Pasta & Rice;336;14.38;74.62;0.71;0;0;small serving;100.0;3.52;medium serving;150.0;5.29;large serving;200.0;7.05
+ca91a638-1454-4e33-a4e4-fb174b288721;20115;Japanese noodles, soba, cooked;Pasta & Rice;99;5.06;21.44;0.1;0;0;small serving;100.0;3.52;cup;114.0;4.02;large serving;200.0;7.05
+59537d71-a527-495e-9534-6178af17cefc;20116;Japanese noodles, somen, dry;Pasta & Rice;356;11.35;74.1;0.81;0;0;small serving;100.0;3.52;medium serving;150.0;5.29;large serving;200.0;7.05
+cf65c27e-e38c-4087-9f5e-5d8bdc36ccd6;20117;Japanese noodles, somen, cooked;Pasta & Rice;131;4;27.54;0.18;0;0;small serving;100.0;3.52;cup;176.0;6.21;large serving;200.0;7.05
+8a92719a-4522-46d1-b966-aced62002cea;20124;Whole-wheat pasta, dry;Pasta & Rice;352;13.87;73.37;2.93;0;0;cup;91.0;3.21;medium serving;175.0;6.17;large serving;250.0;8.82
+2e23bd04-4215-4d44-bfa9-da7b78afd5c0;20125;Whole-wheat pasta, cooked;Pasta & Rice;149;5.99;30.07;1.71;0;0;cup;124.0;4.37;medium serving;175.0;6.17;large serving;250.0;8.82
+e35a0f0b-c60d-4aba-b25c-328697398b06;95001;Cheese gnocchi, dry;Pasta & Rice;420;20.6;21.7;27.8;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+7ce73b39-9ef0-4ebd-9946-4f1886557843;95002;Cheese gnocchi, cooked;Pasta & Rice;210;10.1;11.2;13.8;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+4fc11ce5-3609-4ea8-a96a-995736471b90;95003;Potato gnocchi, dry;Pasta & Rice;380;9.37;47.5;16.9;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+3b0ab5a8-525a-42e3-84cf-bac6e15e7ea4;95004;Potato gnocchi, cooked;Pasta & Rice;180;4.37;22.5;8.06;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+db565c52-7198-42d3-b929-a36b19364d77;95005;Macaroni, dry;Pasta & Rice;330;12.1;65.2;2.28;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+89e2f2ae-3dfa-4670-aeea-965305db32cc;95006;Macaroni, cooked;Pasta & Rice;160;5.75;31.2;1.33;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+e3b5de3e-d7ee-400e-92e7-59294dee34d3;95007;Cheese risotto, dry;Pasta & Rice;390;14.3;48.7;15.2;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+6a8a4a9d-780c-4f9e-8ea4-3cde41cf55e1;95008;Cheese risotto, cooked;Pasta & Rice;190;7.32;23.7;7.3;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+8abab107-e6e4-4bca-8771-08b54e67c6a3;95009;Spaghetti, dry;Pasta & Rice;355;13;70.2;2.42;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+db4f2812-7331-428b-935b-718fb679aaa0;95010;Spaghetti, cooked;Pasta & Rice;170;6.12;33.2;1.39;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+a0c54ca1-3662-40e8-acb9-c7e899d8698a;21018;Scrambled eggs;Dairy & Eggs;212;13.84;2.08;16.18;0;0;egg;48.0;1.69;2 eggs;96.0;3.39;3 eggs;144.0;5.08
+a7f55095-4480-4873-aec0-7e75b65fa6bf;21026;Hash browns;Fast Food;272;2.58;28.88;17.04;0;0;patty;53.0;1.87;2 patties;106.0;3.74;3 patties;159.0;5.61
+1dffc37b-3389-4d64-aad0-cbd6f27cb883;21264;Burrito, with beans;Fast Food;209;7.35;31.23;6.05;0;0;burrito;185.0;6.52;2 burritos;370.0;13.05;3 burritos;555.0;19.57
+94404d4c-9a43-4f6b-9365-4a5589d08892;21265;Burrito, with beef;Fast Food;183;7.03;23.37;6.8;0;0;burrito;241.0;8.5;2 burritos;482.0;17.0;3 burritos;723.0;25.5
+191cb006-2bfc-45f6-a41d-dce89242275b;21266;Burrito, with chicken;Fast Food;179;9.84;20.51;6.42;0;0;burrito;241.0;8.5;2 burritos;482.0;17.0;3 burritos;723.0;25.5
+e679edb2-8dd7-4cfc-944e-ed3090724e16;21061;Burrito, with beans and cheese;Fast Food;205;7.35;31.23;6.05;0;0;burrito;185.0;6.52;2 burritos;370.0;13.05;3 burritos;555.0;19.57
+9b4cf6c8-ef15-4014-bca6-b3c63d571767;21078;Nachos, with cheese;Fast Food;343;4.32;34.91;21.5;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+f3d60bf5-8e12-487e-81c8-e120e4f782d2;21080;Nachos, with cheese, beans, ground beef, and tomatoes;Fast Food;219;6.21;21.39;12.48;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+deb42eb5-9ec4-483b-9510-412cd85e6ee1;21082;Taco, with beef, cheese and lettuce;Fast Food;226;8.86;19.85;12.7;0;0;taco;69.0;2.43;2 tacos;138.0;4.86;3 tacos;207.0;7.29
+646665a7-6024-4bc3-bc66-0862f9c792fc;21089;Cheeseburger;Fast Food;308;16.51;28.03;14.72;0;0;sandwich;91.0;3.2;2 sandwiches;182.0;6.4;3 sandwiches;273.0;9.6
+9e614a8e-e408-4a70-837d-87a9d17f9656;21102;Chicken fillet sandwich;Fast Food;250;16.28;20.89;11.19;0;0;sandwich;187.0;6.59;2 sandwiches;374.0;13.18;3 sandwiches;561.0;19.77
+9c5835b6-2e47-4b11-a687-107197fd8e90;21107;Hamburger;Fast Food;297;16.52;31.5;12.01;0;0;sandwich;91.0;3.2;2 sandwiches;182.0;6.4;3 sandwiches;273.0;9.6
+d0760be9-17c8-4268-a563-775221532011;21121;Roast beef sandwich;Fast Food;244;15.17;22.21;10.3;0;0;sandwich;150.0;5.29;2 sandwiches;300.0;10.58;3 sandwiches;450.0;15.87
+c7715573-b272-4a7a-ae06-010fe76c3ef8;21124;Submarine, cold cut, with lettuce and tomato;Fast Food;213;10.52;20.43;10.04;0;0;small serving;100.0;3.52;6 inch sub;196.0;6.91;12 inch sub;391.0;13.79
+5cb9a006-42ab-432d-83cf-744894b90a93;21125;Submarine, roast beef, with lettuce and tomato;Fast Food;156;12.17;20.34;2.73;0;0;small serving;100.0;3.52;6 inch sub;190.0;6.7;12 inch sub;381.0;13.44
+db613abe-ca5e-4b8f-82e2-805bc1749f38;21126;Submarine, tuna, with lettuce and tomato;Fast Food;218;12.33;15.95;12.04;0;0;small serving;100.0;3.52;6 inch sub;237.0;8.36;12 inch sub;474.0;16.72
+bd0d84d0-135a-4f3e-b725-c8ebbc1c4bf5;21127;Coleslaw;Soups & Salads;78;1.3;12;2.6;0;0;package;116.0;4.09;cup;191.0;6.74;large serving;250.0;8.82
+b6c307e1-9620-4ab7-98f4-85fd53b0d1ae;21130;Onion rings;Fast Food;411;3.86;43.58;25.23;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+dd13e94c-21b7-4728-a957-268997623aec;21224;Pizza, cheese topping;Fast Food;268;10.36;29.02;12.28;0;0;small size;200.0;7.05;medium size;300.0;10.58;large size;450.0;15.87
+3a86e520-b6bb-48d2-b09e-248151f8ebdc;21226;Pizza, meat and vegetable topping;Fast Food;276;11.28;25.14;14.43;0;0;small size;200.0;7.05;medium size;300.0;10.58;large size;450.0;15.87
+a754be6f-e8e9-42d0-ac47-2719bbfa74e7;21246;Chicken nuggets;Fast Food;326;16.46;14.31;22.55;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+b854b960-8e19-4669-bb94-aa49fb38094b;21262;Taco, with chicken, cheese and lettuce;Fast Food;189;13.3;19.69;6.35;0;0;taco;100.0;3.52;2 tacos;200.0;7.05;3 tacos;300.0;10.58
+e106cc4d-7a7d-4696-881b-a376d94d03e1;21274;Pizza, pepperoni;Fast Food;280;12.86;31.55;11.38;0;0;small size;200.0;7.05;medium size;300.0;10.58;large size;450.0;15.87
+c640e14c-9b1b-49f2-b420-a3b07ec40930;21488;Quesadilla, with chicken;Fast Food;294;15.05;24.04;15.25;0;0;quesadilla;180.0;6.35;2 quesadillas;360.0;12.7;3 quesadillas;540.0;19.05
+46f3934f-8f32-4e72-8eb1-011706a9895b;22956;Lasagna, with vegetables;Pasta & Rice;139;6.87;14.18;6.04;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+6762199c-078f-4cfb-a8de-4b4785cadb34;36041;Lasagna, with meat;Pasta & Rice;185;10.83;11.36;10.69;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+c40eb335-ff17-4747-806d-a603c8901554;36040;Macaroni and cheese;Pasta & Rice;194;6.49;15.61;11.75;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+ddec155b-a03f-4c0f-8eee-681919442d36;36046;Spaghetti, with tomato sauce (no meat);Pasta & Rice;104;3.9;17.77;1.89;0;0;small serving;100.0;3.52;medium serving;250.0;8.82;large serving;500.0;17.64
+5dfd0354-b0ea-439d-9d4b-10326d04d4a4;36038;Spaghetti and meatballs;Pasta & Rice;170;7.84;15.51;8.52;0;0;small serving;100.0;3.52;medium serving;250.0;8.82;large serving;500.0;17.64
+db5bf892-d67d-453c-a83b-c5fa2ff0ed84;36054;Ravioli, with cheese;Pasta & Rice;159;7.44;19.64;5.61;0;0;small serving;100.0;3.52;medium serving;250.0;8.82;large serving;500.0;17.64
+9fc8fde3-d986-4400-83ee-8bc51f0ad4b9;95011;Ravioli, filled with meat;Pasta & Rice;191;12.58;17.36;7.43;0;0;small serving;100.0;3.52;medium serving;250.0;8.82;large serving;500.0;17.64
+4e9f895b-35f4-4e18-9c76-0b0ce6be3568;22973;Corn dogs;Fast Food;250;8.57;26.96;12.02;0;0;mini corndog;17.0;0.6;corndog;78.0;2.75;2 corndogs;156.0;5.5
+549fdc12-9875-4d6c-bab9-ea519890b376;27049;Tartar sauce;Sauces, Spices, Oils;211;1;13.3;16.7;0;0;tbsp;15.0;0.53;2 tbsp;30.0;1.06;3 tbsp;45.0;1.59
+f5e834df-a424-4de2-bcac-6bb41f9fbd05;36052;Quesadilla, with cheese;Fast Food;368;15.93;24.11;23.08;0;0;quesadilla;180.0;6.35;2 quesadillas;360.0;12.7;3 quesadillas;540.0;19.05
+10426ac3-1509-4e4f-b7cb-ab3453c5a742;36050;Enchilada, cheese;Fast Food;273;11.24;15.45;18.47;0;0;enchilada;137.0;4.83;2 enchiladas;274.0;9.66;3 enchiladas;411.0;14.49
+b3042286-1691-4f1d-8f71-5fb5c7745132;43276;Cheese spread;Dairy & Eggs;295;7.1;3.5;28.6;0;0;oz;28.35;1.0;1/2 cup;120.0;4.23;cup;240.0;8.47
+0ae11212-42c3-4a71-a9f3-a4714eacb5ce;1157;Cheese, goat;Dairy & Eggs;364;21.58;0.12;29.84;0;0;slice;28.0;1.0;2 slices;56.0;2.0;3 slices;84.0;3.0
+fe11bc23-e6f2-4feb-a78f-f64be5f38929;95012;Muesli;Breads & Cereals;340;9.7;77.8;4.9;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;large serving;150.0;5.29
+367d0d19-a83b-41bc-8110-33edae4e5d38;95013;Black bread;Breads & Cereals;250;8.7;47.5;3.1;0;0;slice;25.0;0.88;2 slices;50.0;1.76;3 slices;75.0;2.64
+86d54fee-3f32-447a-ba27-1bdaadc057fa;95014;Hamburger bun;Breads & Cereals;280;9.1;49;5.28;0;0;bun;50.0;1.76;2 buns;100.0;3.52;3 buns;150.0;5.29
+22bb3497-508b-411e-bf1a-8d080b85ce73;95015;Hot dog bun;Breads & Cereals;280;9.1;49;5.28;0;0;bun;40.0;1.41;2 buns;80.0;2.82;3 buns;120.0;4.23
+eaf130b8-3d85-4ae4-a809-1ccf5c87cfd3;95016;Chicken salad;Soups & Salads;210;15.7;1.05;15.8;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+941ccd55-1840-49a5-9daa-b6ce8ee3b0a3;95017;Turkey salad;Soups & Salads;230;17.2;1.15;17.3;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+a81133d1-b8ba-4321-925b-b98368e61017;95018;Egg salad;Soups & Salads;300;9;2.25;28.3;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+f13a80b6-fbc6-4997-bd2c-fc91574d0e4d;15128;Tuna salad;Soups & Salads;187;16.04;9.41;9.26;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+19090b57-7ec7-4711-adc0-bdceb12bfe4f;95019;Curry sauce;Sauces, Spices, Oils;70;1.22;10.5;2.56;0;0;tbsp;15.0;0.53;1/2 cup;125.0;4.41;cup;250.0;8.82
+64a11a29-f1b4-4fc7-8b2f-e3002c53eb11;95020;Cotton candy;Sweets & Snacks;394;0;98;0.2;0;0;small serving;50.0;1.76;medium serving;100.0;3.52;large serving;150.0;5.29
+7efd8e71-e6be-42a3-b747-d9a6559923ec;95021;Borscht;Soups & Salads;47;5.17;4.46;0.94;0;0;1/2 cup;125.0;4.41;cup;250.0;8.82;2 cups;500.0;17.64
+c94b5fce-840c-46ed-aace-daa54438c8e1;95022;Caesar salad;Soups & Salads;170;5;6.5;14.1;0;0;small serving;100.0;3.52;medium serving;175.0;6.17;large serving;250.0;8.82
+67972643-f3f4-469d-b19e-08fc95bb3aa4;95023;Guacamole;Sauces, Spices, Oils;157;1.96;8.51;14.31;0;0;tbsp;15.0;0.53;1/2 cup;125.0;4.41;cup;250.0;8.82

@@ -123,16 +123,17 @@ public class AddFoodDialog extends DialogFragment {
                             food.setFat(Float.parseFloat(mFat.getText().toString()));
                             food.setFavorite(mFavorite.isChecked());
                             food.setHidden(false);
-                            food.setPortion1Name("Small");
+                            food.setPortion1Name("small serving");
                             food.setPortion1SizeMetric(50.0f);
                             food.setPortion1SizeImperial(50.0f/28.35f);
-                            food.setPortion2Name("Medium");
+                            food.setPortion2Name("medium serving");
                             food.setPortion2SizeMetric(100.0f);
                             food.setPortion2SizeImperial(100.0f/28.35f);
-                            food.setPortion3Name("Large");
+                            food.setPortion3Name("large serving");
                             food.setPortion3SizeMetric(250.0f);
                             food.setPortion3SizeImperial(250.0f/28.35f);
-                            FoodManager.get(getActivity()).addFood(food);
+                            food.setType(0);
+                            FoodManager.get(getActivity()).addCustomFood(food);
                             Toast.makeText(getActivity(), "Food item added to the database!", Toast.LENGTH_SHORT).show();
 
                             sendResult(Activity.RESULT_OK);

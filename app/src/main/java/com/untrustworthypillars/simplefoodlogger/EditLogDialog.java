@@ -17,8 +17,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.untrustworthypillars.simplefoodlogger.formatting.ScrollableDialogTitle;
 
 import java.util.Date;
 import java.util.UUID;
@@ -39,6 +43,10 @@ public class EditLogDialog extends DialogFragment {
     private TextView mProtein;
     private TextView mCarbs;
     private TextView mFat;
+    private RadioGroup mServingGroup;
+    private RadioButton mServing1;
+    private RadioButton mServing2;
+    private RadioButton mServing3;
 
     public static EditLogDialog newInstance (UUID logid) {
         Bundle args = new Bundle();
@@ -84,6 +92,7 @@ public class EditLogDialog extends DialogFragment {
         mWeight = (EditText) v.findViewById(R.id.dialog_add_log_weight); //TODO limit input to like two digits after dot
         mWeight.setText(mLog.getSize().toString());
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mWeight.requestFocus();
         showKeyboard();
         mWeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -109,8 +118,38 @@ public class EditLogDialog extends DialogFragment {
             }
         });
 
+        //TODO figure out how to display correct serving sizes
+        mServingGroup = (RadioGroup) v.findViewById(R.id.dialog_add_log_serving_radio_group);
+        mServing1 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving1_radio_button);
+        mServing1.setText("small serving (100g)");
+        mServing1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWeight.setText("100.0");
+            }
+        });
 
-        return new AlertDialog.Builder(getActivity()).setView(v).setTitle(mLog.getFood())
+        mServing2 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving2_radio_button);
+        mServing2.setText("medium serving (175g)");
+        mServing2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWeight.setText("175.0");
+            }
+        });
+
+        mServing3 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving3_radio_button);
+        mServing3.setText("large serving (250g)");
+        mServing3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWeight.setText("250.0");
+            }
+        });
+
+        TextView mScrollableTitle = new ScrollableDialogTitle(getContext(), mLog.getFood()).ScrollableTitle;
+
+        return new AlertDialog.Builder(getActivity()).setView(v).setCustomTitle(mScrollableTitle)
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

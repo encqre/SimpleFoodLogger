@@ -1,6 +1,10 @@
 package com.untrustworthypillars.simplefoodlogger;
 
+import android.content.Context;
+import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Date;

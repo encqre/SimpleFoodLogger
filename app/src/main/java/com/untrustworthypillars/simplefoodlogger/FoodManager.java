@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 
 import com.untrustworthypillars.simplefoodlogger.database.FoodCursorWrapper;
 import com.untrustworthypillars.simplefoodlogger.database.CustomFoodDbHelper;
+import com.untrustworthypillars.simplefoodlogger.database.CommonFoodDbHelper;
+import com.untrustworthypillars.simplefoodlogger.database.ExtendedFoodDbHelper;
 import com.untrustworthypillars.simplefoodlogger.database.DbSchema.CustomFoodTable;
 import com.untrustworthypillars.simplefoodlogger.database.DbSchema.CommonFoodTable;
 import com.untrustworthypillars.simplefoodlogger.database.DbSchema.ExtendedFoodTable;
@@ -22,6 +24,8 @@ public class FoodManager {
 
     private Context mContext;
     private SQLiteDatabase mCustomFoodDatabase;
+    private SQLiteDatabase mCommonFoodDatabase;
+    private SQLiteDatabase mExtendedFoodDatabase;
 
     private int recentsFoodLength = 5; //TODO should make an option in settings
 
@@ -35,13 +39,27 @@ public class FoodManager {
     private FoodManager(Context context) {
         mContext = context.getApplicationContext();
         mCustomFoodDatabase = new CustomFoodDbHelper(mContext).getWritableDatabase();
+        mCommonFoodDatabase = new CommonFoodDbHelper(mContext).getWritableDatabase();
+        mExtendedFoodDatabase = new ExtendedFoodDbHelper(mContext).getWritableDatabase();
     }
 
     //Add a custom food to CustomFoodDatabase
-    public void addFood(Food f) {
+    public void addCustomFood(Food f) {
         ContentValues values = getContentValues(f);
 
         mCustomFoodDatabase.insert(CustomFoodTable.NAME, null, values);
+    }
+
+    public void addCommonFood(Food f) {
+        ContentValues values = getContentValues(f);
+
+        mCommonFoodDatabase.insert(CommonFoodTable.NAME, null, values);
+    }
+
+    public void addExtendedFood(Food f) {
+        ContentValues values = getContentValues(f);
+
+        mExtendedFoodDatabase.insert(ExtendedFoodTable.NAME, null, values);
     }
 
     public List<Food> getCustomFoods() {
@@ -61,6 +79,42 @@ public class FoodManager {
         return foods;
     }
 
+    public List<Food> getCommonFoods() {
+        List<Food> foods = new ArrayList<>();
+
+        FoodCursorWrapper cursor = queryCommonFoods(null, null);
+
+        try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                foods.add(cursor.getCommonFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return foods;
+
+    }
+
+    public List<Food> getExtendedFoods() {
+        List<Food> foods = new ArrayList<>();
+
+        FoodCursorWrapper cursor = queryExtendedFoods(null, null);
+
+        try {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                foods.add(cursor.getExtendedFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return foods;
+
+    }
+
     public List<Food> getFoodsCategory(String category) {
         List<Food> foods = new ArrayList<>();
 
@@ -76,7 +130,17 @@ public class FoodManager {
             cursor.close();
         }
 
-        //TODO add another cursor here for common foods and add them to the same arraylist
+        cursor = queryCommonFoods(CommonFoodTable.Cols.CATEGORY + " = ?", new String[] {category});
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getCommonFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
 
         return foods;
     }
@@ -118,6 +182,18 @@ public class FoodManager {
             cursor.close();
         }
 
+        cursor = queryExtendedFoods(ExtendedFoodTable.Cols.TITLE + " LIKE ?", new String[] {q});
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getExtendedFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+
         //TODO add another cursor for common foods. Also will need a checkbox to also search extended library, so if that one is checked will need cursor for extended db (maybe a different method then)
 
         return foods;
@@ -137,6 +213,35 @@ public class FoodManager {
         }
     }
 
+    public Food getCommonFood(UUID id) {
+        FoodCursorWrapper cursor = queryCommonFoods(CommonFoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
+
+        try {
+            if(cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getCommonFood();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public Food getExtendedFood(UUID id) {
+        FoodCursorWrapper cursor = queryExtendedFoods(ExtendedFoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
+
+        try {
+            if(cursor.getCount() == 0) {
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getExtendedFood();
+        } finally {
+            cursor.close();
+        }
+    }
+
+
     public void updateCustomFood(Food food) {
         String uuidString = food.getFoodId().toString();
         ContentValues values = getContentValues(food);
@@ -153,6 +258,32 @@ public class FoodManager {
     private FoodCursorWrapper queryCustomFoods(String whereClause, String[] whereArgs) {
         Cursor cursor = mCustomFoodDatabase.query(
                 CustomFoodTable.NAME,
+                null, //columns - null selects all columns
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+        return new FoodCursorWrapper(cursor);
+    }
+
+    private FoodCursorWrapper queryCommonFoods(String whereClause, String[] whereArgs) {
+        Cursor cursor = mCommonFoodDatabase.query(
+                CommonFoodTable.NAME,
+                null, //columns - null selects all columns
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+        return new FoodCursorWrapper(cursor);
+    }
+
+    private FoodCursorWrapper queryExtendedFoods(String whereClause, String[] whereArgs) {
+        Cursor cursor = mExtendedFoodDatabase.query(
+                ExtendedFoodTable.NAME,
                 null, //columns - null selects all columns
                 whereClause,
                 whereArgs,

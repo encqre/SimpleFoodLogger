@@ -56,12 +56,6 @@
             app:layout_constraintTop_toTopOf="@+id/date_picker_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/divider1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         style="?android:listSeparatorTextViewStyle"
         android:id="@+id/layout_day_counters"

@@ -17,8 +17,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.untrustworthypillars.simplefoodlogger.formatting.ScrollableDialogTitle;
 
 import java.util.Date;
 import java.util.UUID;
@@ -26,6 +30,7 @@ import java.util.UUID;
 public class AddLogDialog extends DialogFragment {
 
     private static final String ARG_FOOD = "food";
+    private static final String ARG_TYPE = "type";
     private static final String ARG_DATE = "date";
     private static final String DIALOG_DATE = "DialogDate";
 
@@ -41,10 +46,15 @@ public class AddLogDialog extends DialogFragment {
     private TextView mProtein;
     private TextView mCarbs;
     private TextView mFat;
+    private RadioGroup mServingGroup;
+    private RadioButton mServing1;
+    private RadioButton mServing2;
+    private RadioButton mServing3;
 
-    public static AddLogDialog newInstance (UUID foodid, Date date) {
+    public static AddLogDialog newInstance (UUID foodid, int foodType, Date date) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_FOOD, foodid);
+        args.putInt(ARG_TYPE, foodType);
         args.putSerializable(ARG_DATE, date);
 
         AddLogDialog fragment = new AddLogDialog();
@@ -56,7 +66,14 @@ public class AddLogDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         UUID uuid = (UUID) getArguments().getSerializable(ARG_FOOD);
         mDate = (Date) getArguments().getSerializable(ARG_DATE);
-        mFood = fm.getCustomFood(uuid);
+
+        if (getArguments().getInt(ARG_TYPE) == 0) {
+            mFood = fm.getCustomFood(uuid);
+        } else if (getArguments().getInt(ARG_TYPE) == 1) {
+            mFood = fm.getCommonFood(uuid);
+        }
+
+
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_log, null);
 
@@ -73,19 +90,20 @@ public class AddLogDialog extends DialogFragment {
         });
 
         mCalories = (TextView) v.findViewById(R.id.dialog_add_log_calories);
-        mCalories.setText(mFood.getKcal() + " kcal");
+        mCalories.setText(String.format("%.1f",(mFood.getKcal())) + " kcal");
 
         mProtein = (TextView) v.findViewById(R.id.dialog_add_log_protein);
-        mProtein.setText(mFood.getProtein() + "g");
+        mProtein.setText(String.format("%.1f",(mFood.getProtein())) + "g");
 
         mCarbs = (TextView) v.findViewById(R.id.dialog_add_log_carbs);
-        mCarbs.setText(mFood.getCarbs() + "g");
+        mCarbs.setText(String.format("%.1f",(mFood.getCarbs())) + "g");
 
         mFat = (TextView) v.findViewById(R.id.dialog_add_log_fat);
-        mFat.setText(mFood.getFat() + "g");
+        mFat.setText(String.format("%.1f",(mFood.getFat())) + "g");
 
         mWeight = (EditText) v.findViewById(R.id.dialog_add_log_weight); //TODO limit input to like two digits after dot
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mWeight.requestFocus();
         showKeyboard();
         mWeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,8 +129,40 @@ public class AddLogDialog extends DialogFragment {
             }
         });
 
+        mServingGroup = (RadioGroup) v.findViewById(R.id.dialog_add_log_serving_radio_group);
+        mServing1 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving1_radio_button);
+        mServing1.setText(mFood.getPortion1Name() + " (" + mFood.getPortion1SizeMetric().toString() + "g)");
+        mServing1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWeight.setText(mFood.getPortion1SizeMetric().toString());
+            }
+        });
 
-        return new AlertDialog.Builder(getActivity()).setView(v).setTitle(mFood.getTitle())
+        mServing2 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving2_radio_button);
+        mServing2.setText(mFood.getPortion2Name() + " (" + mFood.getPortion2SizeMetric().toString() + "g)");
+        mServing2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWeight.setText(mFood.getPortion2SizeMetric().toString());
+            }
+        });
+
+        mServing3 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving3_radio_button);
+        mServing3.setText(mFood.getPortion3Name() + " (" + mFood.getPortion3SizeMetric().toString() + "g)");
+        mServing3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWeight.setText(mFood.getPortion3SizeMetric().toString());
+            }
+        });
+
+
+        TextView mScrollableTitle = new ScrollableDialogTitle(getContext(), mFood.getTitle()).ScrollableTitle;
+
+
+
+        return new AlertDialog.Builder(getActivity()).setView(v).setCustomTitle(mScrollableTitle)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

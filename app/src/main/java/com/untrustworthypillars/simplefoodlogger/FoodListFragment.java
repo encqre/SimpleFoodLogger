@@ -42,7 +42,7 @@ public class FoodListFragment extends Fragment {
             "Meat",
             "Breads & Cereals",
             "Fast Food",
-            "Meals & Soups",
+            "Soups & Salads",
             "Vegetables",
             "Fruits",
             "Beans & Legumes",
@@ -283,7 +283,7 @@ public class FoodListFragment extends Fragment {
         private TextView mFoodProtein;
         private TextView mFoodCarbs;
         private TextView mFoodFat;
-        private UUID mFoodId;
+        private Food mFood;
 
         public FoodHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_food, parent, false));
@@ -300,7 +300,7 @@ public class FoodListFragment extends Fragment {
 
         //TODO make these strings properly as suggested
         public void bind(Food food) {
-            mFoodId = food.getFoodId();
+            mFood = food;
             mFoodTitleTextView.setText(food.getTitle());
             mFoodCalories.setText(food.getKcal().intValue() + " kcal/100g");
             mFoodProtein.setText("Protein: " + food.getProtein().toString() + "g");
@@ -311,7 +311,7 @@ public class FoodListFragment extends Fragment {
         /*When food item is clicked, AddLogDialog is launched, with arguments of FoodID and Date*/
         public void onClick(View v) {
             FragmentManager fm = getFragmentManager();
-            AddLogDialog dialog = AddLogDialog.newInstance(mFoodId, mDate);
+            AddLogDialog dialog = AddLogDialog.newInstance(mFood.getFoodId(), mFood.getType(), mDate);
             dialog.setTargetFragment(FoodListFragment.this, REQUEST_LOG);
             dialog.show(fm, "OnClick");
         }
@@ -320,7 +320,7 @@ public class FoodListFragment extends Fragment {
          * arguments of FoodID and selected category*/
         public boolean onLongClick(View v) {
             FragmentManager fm = getFragmentManager();
-            EditFoodDialog dialog = EditFoodDialog.newInstance(mFoodId);
+            EditFoodDialog dialog = EditFoodDialog.newInstance(mFood.getFoodId());
             dialog.setTargetFragment(FoodListFragment.this, REQUEST_ADD_FOOD);
             dialog.show(fm, "OnLongClick");
             return true;

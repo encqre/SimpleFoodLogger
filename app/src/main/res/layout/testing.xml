@@ -1,64 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
+    <TextView
+        android:id="@+id/dialog_add_log_serving_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Servings"
+        android:textAppearance="@style/TabThingy"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dialog_add_log_fat" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Date"
+        android:textAppearance="@style/TabThingy"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/dialog_add_log_date_button"
+        style="@android:style/Widget.Material.Button.Inset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_date_textview"
+        tools:text="2018/11/25, Sunday" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_weight_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Weight (g)"
+        android:textAppearance="@style/TabThingy"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_date_button" />
+
+    <EditText
+        android:id="@+id/dialog_add_log_weight"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_weight_textview" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_calories_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Calories:"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_weight"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_date_button" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_log_calories_textview"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_calories_textview"
+        app:layout_constraintTop_toTopOf="@+id/dialog_add_log_calories_textview"
+        tools:text="250.0 kcal" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_protein_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="Protein:"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_weight"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_calories_textview" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_log_protein_textview"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_protein_textview"
+        app:layout_constraintTop_toTopOf="@+id/dialog_add_log_protein_textview"
+        tools:text="12.5g" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_carbs_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="Carbs:"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_weight"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_protein_textview" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_carbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_log_carbs_textview"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_carbs_textview"
+        app:layout_constraintTop_toTopOf="@+id/dialog_add_log_carbs_textview"
+        tools:text="19.1g" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_fat_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="Fat:"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_weight"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_carbs_textview" />
+
+    <TextView
+        android:id="@+id/dialog_add_log_fat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_log_fat_textview"
+        app:layout_constraintStart_toEndOf="@+id/dialog_add_log_fat_textview"
+        app:layout_constraintTop_toTopOf="@+id/dialog_add_log_fat_textview"
+        tools:text="8.2g" />
+
+
+    <RadioGroup
+        android:id="@+id/dialog_add_log_serving_radio_group"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_gravity="top"
-        android:background="@color/lightGray"
-        app:tabIndicatorColor="@color/colorPrimaryDark"
-        app:tabPaddingTop="0dp"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextAppearance="@style/TabThingy"
-        app:tabTextColor="@color/darkGray"
-        >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_serving_textview">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_home"
+        <RadioButton
+            android:id="@+id/dialog_add_log_serving1_radio_button"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/tab_icon_home"
-            android:text="@string/menu_home" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="wing, bone and skin removed (125g)" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_foods"
+        <RadioButton
+            android:id="@+id/dialog_add_log_serving2_radio_button"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/tab_icon_foods"
-            android:text="@string/menu_foods" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text='medium (2.66" diameter) (242g)' />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_summary"
+
+        <RadioButton
+            android:id="@+id/dialog_add_log_serving3_radio_button"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/tab_icon_stats"
-            android:text="@string/menu_stats" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/tab_icon_settings"
-            android:text="@string/menu_settings" />
-    </com.google.android.material.tabs.TabLayout>
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text='very large (12" diameter) (378g)' />
 
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    </RadioGroup>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Here will lie a fragment" />
-    </FrameLayout>
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_serving_radio_group"
+        tools:visibility="visible" />
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

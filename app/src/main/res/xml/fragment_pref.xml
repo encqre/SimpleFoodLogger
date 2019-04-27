@@ -73,6 +73,18 @@
             app:key="pref_import"
             app:title="Import exported files"
             app:summary="Imports the latest Database Backup file. Asks permission to add any new food/log database entries"/>
+
+        <Preference
+            app:key="pref_import_common_foods"
+            app:title="Import common food database"
+            app:summary="Temporary option"
+            />
+
+        <Preference
+            app:key="pref_import_extended_foods"
+            app:title="Import extended food database"
+            app:summary="Temporary option"
+            />
     </PreferenceCategory>
 
 
