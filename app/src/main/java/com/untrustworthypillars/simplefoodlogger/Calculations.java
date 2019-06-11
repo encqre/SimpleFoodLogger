@@ -36,11 +36,11 @@ public class Calculations {
 
 
         if (!year.toString().equals(yearnow.toString())) {
-            output = DateFormat.format("dd MMMM yyyy, E", date).toString();
+            output = DateFormat.format("dd MMM yyyy, E", date).toString();
         } else if (day.toString().equals(daynow.toString())){
-            output = "Today, " + DateFormat.format("E", date).toString();
+            output = "Today, " + DateFormat.format("EEEE", date).toString();
         } else {
-            output = DateFormat.format("dd MMMM, E", date).toString();
+            output = DateFormat.format("dd MMM, EEEE", date).toString();
         }
 
         return output;

@@ -368,15 +368,26 @@ public class FoodManager {
 
     public List<Food> getRecentFoods() {
         String recentFoodString = PreferenceManager.getDefaultSharedPreferences(mContext).getString("recent_foods", null);
-
+        android.util.Log.i("ayyy", recentFoodString);
         List<Food> recentFoodList = new ArrayList<>();
         if (recentFoodString != null) {
             String[] el = recentFoodString.split(";");
+            /* Checking if any food was found with the UUID in custom, common and extended DBs.
+            If yes, it is added to recent foods list. If no, nothing is added */
             for (int i =0; i<el.length; i++) {
-                recentFoodList.add(getCustomFood(UUID.fromString(el[i]))); //TODO need to fix here: don't use getCustomFood method, but to use method to query all 3 tables/DBS - custom,common, and then extended if no find
+                if (getCustomFood(UUID.fromString(el[i])) != null) {
+                    recentFoodList.add(getCustomFood(UUID.fromString(el[i])));
+                }
+                else if (getCommonFood(UUID.fromString(el[i])) != null) {
+                    recentFoodList.add(getCommonFood(UUID.fromString(el[i])));
+                }
+                else if (getExtendedFood(UUID.fromString(el[i])) != null){
+                    recentFoodList.add(getExtendedFood(UUID.fromString(el[i])));
+                }
             }
         }
 
+        android.util.Log.i("ayyy", String.valueOf(recentFoodList.size()));
         return recentFoodList;
     }
 

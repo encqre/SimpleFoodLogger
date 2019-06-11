@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,7 +41,7 @@ public class AddLogDialog extends DialogFragment {
     private Date mDate;
     private FoodManager fm = FoodManager.get(getContext());
 
-    private Button mDateButton;
+    private TextView mDateButton;
     private EditText mWeight;
     private TextView mCalories;
     private TextView mProtein;
@@ -77,7 +78,8 @@ public class AddLogDialog extends DialogFragment {
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_log, null);
 
-        mDateButton = (Button) v.findViewById(R.id.dialog_add_log_date_button);
+        mDateButton = (TextView) v.findViewById(R.id.dialog_add_log_date_button);
+        mDateButton.setPaintFlags(mDateButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         mDateButton.setText(Calculations.dateDisplayString(mDate));
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override

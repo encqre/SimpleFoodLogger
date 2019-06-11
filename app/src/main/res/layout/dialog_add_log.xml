@@ -23,22 +23,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Date"
         android:textAppearance="@style/TabThingy"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_log_date_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/dialog_add_log_date_button" />
 
-    <Button
+    <TextView
         android:id="@+id/dialog_add_log_date_button"
-        style="@android:style/Widget.Material.Button.Inset"
+        style="@style/TabThingy"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_log_date_textview"
-        tools:text="2018/11/25, Sunday" />
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/darkGray"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dialog_add_log_calories_textview"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="20 June, Thursday" />
 
     <TextView
         android:id="@+id/dialog_add_log_weight_textview"
