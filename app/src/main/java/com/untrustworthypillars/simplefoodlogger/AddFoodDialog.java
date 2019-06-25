@@ -19,7 +19,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-//TODO portion sizes
+//TODO styling - shorten serving size input bar, add 1.2.3 or something near servings, colored container for serving section, nutrition section?
+//TODO fix the scrolling issue, where editing upper servings not allows to scroll down
 public class AddFoodDialog extends DialogFragment {
 
     private static final String ARG_CATEGORY = "category";
@@ -33,6 +34,12 @@ public class AddFoodDialog extends DialogFragment {
     private EditText mCarbs;
     private EditText mFat;
     private CheckBox mFavorite;
+    private EditText mServing1Name;
+    private EditText mServing1Size;
+    private EditText mServing2Name;
+    private EditText mServing2Size;
+    private EditText mServing3Name;
+    private EditText mServing3Size;
 
     public static AddFoodDialog newInstance (int category) {
         Bundle args = new Bundle();
@@ -52,9 +59,10 @@ public class AddFoodDialog extends DialogFragment {
 
         mSpinner = (Spinner) v.findViewById(R.id.dialog_add_food_category_spinner);
 
-        //Creating adapter for spinner, using resources array as list of items and default android layout for single spinner item
+        //Creating adapter for spinner, using resources array as list of items and default layout for single spinner item
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.food_categories_array, android.R.layout.simple_spinner_item);
+                R.array.food_categories_array, R.layout.spinner_category_item);
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -62,7 +70,6 @@ public class AddFoodDialog extends DialogFragment {
         mSpinner.setSelection(mProvidedCategory);
 
         mFoodTitle = (EditText) v.findViewById(R.id.dialog_add_food_name);
-        showKeyboard();
 
         mCalories = (EditText) v.findViewById(R.id.dialog_add_food_calories);
         mCalories.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -73,6 +80,15 @@ public class AddFoodDialog extends DialogFragment {
         mFat = (EditText) v.findViewById(R.id.dialog_add_food_fat);
         mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mFavorite = (CheckBox) v.findViewById(R.id.dialog_add_food_isfavorite);
+        mServing1Name = (EditText) v.findViewById(R.id.dialog_add_food_serving1_name);
+        mServing1Size = (EditText) v.findViewById(R.id.dialog_add_food_serving1_size);
+        mServing1Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mServing2Name = (EditText) v.findViewById(R.id.dialog_add_food_serving2_name);
+        mServing2Size = (EditText) v.findViewById(R.id.dialog_add_food_serving2_size);
+        mServing2Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mServing3Name = (EditText) v.findViewById(R.id.dialog_add_food_serving3_name);
+        mServing3Size = (EditText) v.findViewById(R.id.dialog_add_food_serving3_size);
+        mServing3Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
 
@@ -123,15 +139,42 @@ public class AddFoodDialog extends DialogFragment {
                             food.setFat(Float.parseFloat(mFat.getText().toString()));
                             food.setFavorite(mFavorite.isChecked());
                             food.setHidden(false);
-                            food.setPortion1Name("small serving");
-                            food.setPortion1SizeMetric(50.0f);
-                            food.setPortion1SizeImperial(50.0f/28.35f);
-                            food.setPortion2Name("medium serving");
-                            food.setPortion2SizeMetric(100.0f);
-                            food.setPortion2SizeImperial(100.0f/28.35f);
-                            food.setPortion3Name("large serving");
-                            food.setPortion3SizeMetric(250.0f);
-                            food.setPortion3SizeImperial(250.0f/28.35f);
+                            if (mServing1Name.getText().toString().equals("")) {
+                                food.setPortion1Name("Small");
+                            } else {
+                                food.setPortion1Name(mServing1Name.getText().toString());
+                            }
+                            if (mServing1Size.getText().toString().equals("")) {
+                                food.setPortion1SizeMetric(50.0f);
+                                food.setPortion1SizeImperial(50.0f/28.35f);
+                            } else {
+                                food.setPortion1SizeMetric(Float.parseFloat(mServing1Size.getText().toString()));
+                                food.setPortion1SizeImperial(Float.parseFloat(mServing1Size.getText().toString())/28.35f);
+                            }
+                            if (mServing2Name.getText().toString().equals("")) {
+                                food.setPortion2Name("Medium");
+                            } else {
+                                food.setPortion2Name(mServing2Name.getText().toString());
+                            }
+                            if (mServing2Size.getText().toString().equals("")) {
+                                food.setPortion2SizeMetric(100.0f);
+                                food.setPortion2SizeImperial(100.0f/28.35f);
+                            } else {
+                                food.setPortion2SizeMetric(Float.parseFloat(mServing2Size.getText().toString()));
+                                food.setPortion2SizeImperial(Float.parseFloat(mServing2Size.getText().toString())/28.35f);
+                            }
+                            if (mServing3Name.getText().toString().equals("")) {
+                                food.setPortion3Name("Large");
+                            } else {
+                                food.setPortion3Name(mServing3Name.getText().toString());
+                            }
+                            if (mServing3Size.getText().toString().equals("")) {
+                                food.setPortion3SizeMetric(250.0f);
+                                food.setPortion3SizeImperial(250.0f/28.35f);
+                            } else {
+                                food.setPortion3SizeMetric(Float.parseFloat(mServing3Size.getText().toString()));
+                                food.setPortion3SizeImperial(Float.parseFloat(mServing3Size.getText().toString())/28.35f);
+                            }
                             food.setType(0);
                             FoodManager.get(getActivity()).addCustomFood(food);
                             Toast.makeText(getActivity(), "Food item added to the database!", Toast.LENGTH_SHORT).show();

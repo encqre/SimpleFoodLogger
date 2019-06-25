@@ -21,9 +21,31 @@ import java.util.UUID;
 
 public class EditFoodDialog extends DialogFragment {
     private static final String ARG_FOOD = "food";
+    private static final String ARG_FOOD_TYPE = "foodtype";
 
     private UUID mFoodId;
+    private int mFoodType;
     private Food food;
+
+    private String mFoodCategory;
+    private int mFoodCategoryId = 0;
+    public static final String[] FOOD_CATEGORIES = new String[]{
+            "Dairy & Eggs",
+            "Meat",
+            "Breads & Cereals",
+            "Fast Food",
+            "Soups & Salads",
+            "Vegetables",
+            "Fruits",
+            "Beans & Legumes",
+            "Pasta & Rice",
+            "Fish & Seafood",
+            "Sweets & Snacks",
+            "Drinks",
+            "Nuts & Seeds",
+            "Sauces, Spices, Oils",
+            "Other"
+    };
 
     private Spinner mSpinner;
     private EditText mFoodTitle;
@@ -32,10 +54,17 @@ public class EditFoodDialog extends DialogFragment {
     private EditText mCarbs;
     private EditText mFat;
     private CheckBox mFavorite;
+    private EditText mServing1Name;
+    private EditText mServing1Size;
+    private EditText mServing2Name;
+    private EditText mServing2Size;
+    private EditText mServing3Name;
+    private EditText mServing3Size;
 
-    public static EditFoodDialog newInstance (UUID foodid) {
+    public static EditFoodDialog newInstance (UUID foodid, int foodType) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_FOOD, foodid);
+        args.putInt(ARG_FOOD_TYPE, foodType);
 
         EditFoodDialog fragment = new EditFoodDialog();
         fragment.setArguments(args);
@@ -45,19 +74,35 @@ public class EditFoodDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mFoodId = (UUID) getArguments().getSerializable(ARG_FOOD);
+        mFoodType = getArguments().getInt(ARG_FOOD_TYPE);
+
+        if (mFoodType == 0) {
+            food = FoodManager.get(getActivity()).getCustomFood(mFoodId);
+        } else if (mFoodType == 1) {
+            food = FoodManager.get(getActivity()).getCommonFood(mFoodId);
+        } else if (mFoodType == 2) {
+            food = FoodManager.get(getActivity()).getExtendedFood(mFoodId);
+        }
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_food, null);
+
+        mFoodCategory = food.getCategory();
+        for (int i =0; i< FOOD_CATEGORIES.length; i++) {
+            if (mFoodCategory.equals(FOOD_CATEGORIES[i])) {
+                mFoodCategoryId = i;
+            }
+        }
 
         mSpinner = (Spinner) v.findViewById(R.id.dialog_add_food_category_spinner);
 
         //Creating adapter for spinner, using resources array as list of items and default android layout for single spinner item
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.food_categories_array, android.R.layout.simple_spinner_item);
+                R.array.food_categories_array, R.layout.spinner_category_item);
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-        mSpinner.setSelection(0); //TODO proper category
+        mSpinner.setSelection(mFoodCategoryId);
 
         mFoodTitle = (EditText) v.findViewById(R.id.dialog_add_food_name);
         mCalories = (EditText) v.findViewById(R.id.dialog_add_food_calories);
@@ -69,14 +114,30 @@ public class EditFoodDialog extends DialogFragment {
         mFat = (EditText) v.findViewById(R.id.dialog_add_food_fat);
         mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mFavorite = (CheckBox) v.findViewById(R.id.dialog_add_food_isfavorite);
+        mServing1Name = (EditText) v.findViewById(R.id.dialog_add_food_serving1_name);
+        mServing1Size = (EditText) v.findViewById(R.id.dialog_add_food_serving1_size);
+        mServing1Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mServing2Name = (EditText) v.findViewById(R.id.dialog_add_food_serving2_name);
+        mServing2Size = (EditText) v.findViewById(R.id.dialog_add_food_serving2_size);
+        mServing2Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mServing3Name = (EditText) v.findViewById(R.id.dialog_add_food_serving3_name);
+        mServing3Size = (EditText) v.findViewById(R.id.dialog_add_food_serving3_size);
+        mServing3Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
-        food = FoodManager.get(getActivity()).getCustomFood(mFoodId);
+
         mFoodTitle.setText(food.getTitle());
         mCalories.setText(food.getKcal().toString());
         mProtein.setText(food.getProtein().toString());
         mCarbs.setText(food.getCarbs().toString());
         mFat.setText(food.getFat().toString());
         mFavorite.setChecked(food.isFavorite());
+        mServing1Name.setText(food.getPortion1Name());
+        mServing1Size.setText(food.getPortion1SizeMetric().toString());
+        mServing2Name.setText(food.getPortion2Name());
+        mServing2Size.setText(food.getPortion2SizeMetric().toString());
+        mServing3Name.setText(food.getPortion3Name());
+        mServing3Size.setText(food.getPortion3SizeMetric().toString());
+
 
         return new AlertDialog.Builder(getActivity()).setView(v).setTitle("Edit food information")
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -126,15 +187,43 @@ public class EditFoodDialog extends DialogFragment {
                             food.setFat(Float.parseFloat(mFat.getText().toString()));
                             food.setFavorite(mFavorite.isChecked());
                             food.setHidden(false);
-                            food.setPortion1Name("Small");
-                            food.setPortion1SizeMetric(50.0f);
-                            food.setPortion1SizeImperial(50.0f/28.35f);
-                            food.setPortion2Name("Medium");
-                            food.setPortion2SizeMetric(100.0f);
-                            food.setPortion2SizeImperial(100.0f/28.35f);
-                            food.setPortion3Name("Large");
-                            food.setPortion3SizeMetric(250.0f);
-                            food.setPortion3SizeImperial(250.0f/28.35f);
+                            if (mServing1Name.getText().toString().equals("")) {
+                                food.setPortion1Name("Small");
+                            } else {
+                                food.setPortion1Name(mServing1Name.getText().toString());
+                            }
+                            if (mServing1Size.getText().toString().equals("")) {
+                                food.setPortion1SizeMetric(50.0f);
+                                food.setPortion1SizeImperial(50.0f/28.35f);
+                            } else {
+                                food.setPortion1SizeMetric(Float.parseFloat(mServing1Size.getText().toString()));
+                                food.setPortion1SizeImperial(Float.parseFloat(mServing1Size.getText().toString())/28.35f);
+                            }
+
+                            if (mServing2Name.getText().toString().equals("")) {
+                                food.setPortion2Name("Medium");
+                            } else {
+                                food.setPortion2Name(mServing2Name.getText().toString());
+                            }
+                            if (mServing2Size.getText().toString().equals("")) {
+                                food.setPortion2SizeMetric(100.0f);
+                                food.setPortion2SizeImperial(100.0f/28.35f);
+                            } else {
+                                food.setPortion2SizeMetric(Float.parseFloat(mServing2Size.getText().toString()));
+                                food.setPortion2SizeImperial(Float.parseFloat(mServing2Size.getText().toString())/28.35f);
+                            }
+                            if (mServing3Name.getText().toString().equals("")) {
+                                food.setPortion3Name("Large");
+                            } else {
+                                food.setPortion3Name(mServing3Name.getText().toString());
+                            }
+                            if (mServing3Size.getText().toString().equals("")) {
+                                food.setPortion3SizeMetric(250.0f);
+                                food.setPortion3SizeImperial(250.0f/28.35f);
+                            } else {
+                                food.setPortion3SizeMetric(Float.parseFloat(mServing3Size.getText().toString()));
+                                food.setPortion3SizeImperial(Float.parseFloat(mServing3Size.getText().toString())/28.35f);
+                            }
                             FoodManager.get(getActivity()).updateCustomFood(food);
                             Toast.makeText(getActivity(), "Food item info updated!", Toast.LENGTH_SHORT).show();
 

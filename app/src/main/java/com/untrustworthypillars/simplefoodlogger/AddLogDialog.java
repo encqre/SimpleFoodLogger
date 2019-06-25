@@ -72,6 +72,8 @@ public class AddLogDialog extends DialogFragment {
             mFood = fm.getCustomFood(uuid);
         } else if (getArguments().getInt(ARG_TYPE) == 1) {
             mFood = fm.getCommonFood(uuid);
+        } else if (getArguments().getInt(ARG_TYPE) == 2) {
+            mFood = fm.getExtendedFood(uuid);
         }
 
 

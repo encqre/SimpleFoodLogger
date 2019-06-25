@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,7 +58,12 @@ public class FoodListFragment extends Fragment {
 
     private Boolean mIsCalledByAddLogActivity = false;
     private Date mDate;
+
     private int mSelectedCategory = 0;
+
+    public int getSelectedCategory() {
+        return mSelectedCategory;
+    }
 
     private TabLayout mTabLayout;
     private SearchView mSearchView;
@@ -213,9 +219,7 @@ public class FoodListFragment extends Fragment {
 
             }
         } else if (requestCode == REQUEST_ADD_FOOD) {
-            if(!mIsCalledByAddLogActivity) {
-                updateUI();
-            }
+            updateUI();
         }
     }
 
@@ -320,7 +324,7 @@ public class FoodListFragment extends Fragment {
          * arguments of FoodID and selected category*/
         public boolean onLongClick(View v) {
             FragmentManager fm = getFragmentManager();
-            EditFoodDialog dialog = EditFoodDialog.newInstance(mFood.getFoodId());
+            EditFoodDialog dialog = EditFoodDialog.newInstance(mFood.getFoodId(), mFood.getType());
             dialog.setTargetFragment(FoodListFragment.this, REQUEST_ADD_FOOD);
             dialog.show(fm, "OnLongClick");
             return true;

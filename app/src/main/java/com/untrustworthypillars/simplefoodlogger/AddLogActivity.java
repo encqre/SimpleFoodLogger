@@ -20,8 +20,9 @@ public class AddLogActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_DATE, date);
         return intent;
     }
-
+    private static final int REQUEST_ADD_FOOD = 1;
     private Toolbar mToolbar;
+    private int mSelectedFoodCategory = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,10 @@ public class AddLogActivity extends AppCompatActivity {
             case R.id.menu_add_food:
                 //Launching AddFoodDialog when "New Food" is pressed on the Toolbar
                 FragmentManager fm = getSupportFragmentManager();
-                AddFoodDialog dialog = AddFoodDialog.newInstance(0); //TODO need to pass correct category somehow
+                FoodListFragment foodListFragment = (FoodListFragment) fm.findFragmentById(R.id.single_fragment_container); //Finding foodListFragment fragment instance
+                mSelectedFoodCategory = foodListFragment.getSelectedCategory(); //getting what is the currently selected food category in the fragment
+                AddFoodDialog dialog = AddFoodDialog.newInstance(mSelectedFoodCategory);
+                dialog.setTargetFragment(foodListFragment, REQUEST_ADD_FOOD); //setting foodListFragment fragment as a target, so that it can updateUI after food is added/deleted etc.
                 dialog.show(fm, "AddFoodDialog");
                 return true;
             default:
@@ -60,9 +64,8 @@ public class AddLogActivity extends AppCompatActivity {
 
         return true;
         }
+}
 
-
-    }
 
 
 

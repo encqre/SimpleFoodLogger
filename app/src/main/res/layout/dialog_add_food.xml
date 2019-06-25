@@ -6,141 +6,272 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/dialog_add_food_category_textview"
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Category: "
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_category_spinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Spinner
-        android:id="@+id/dialog_add_food_category_spinner"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/dialog_add_food_category_textview"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/dialog_add_food_name_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Name: "
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_category_spinner" />
+            <TextView
+                android:id="@+id/dialog_add_food_category_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Category: "
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/dialog_add_food_name"
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:hint="Enter food name"
-        app:layout_constraintStart_toEndOf="@+id/dialog_add_food_name_textview"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_category_spinner" />
+            <Spinner
+                android:id="@+id/dialog_add_food_category_spinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_category_textview"
+                app:layout_constraintStart_toEndOf="@+id/dialog_add_food_category_textview"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_category_textview" />
 
-    <TextView
-        android:id="@+id/dialog_add_food_calories_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Calories per 100g (kcal):"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_name" />
+            <TextView
+                android:id="@+id/dialog_add_food_name_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Name: "
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_category_spinner" />
 
-    <EditText
-        android:id="@+id/dialog_add_food_calories"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:hint="0"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_calories_textview"
-        app:layout_constraintStart_toEndOf="@+id/dialog_add_food_calories_textview"
-        app:layout_constraintTop_toTopOf="@+id/dialog_add_food_calories_textview" />
+            <EditText
+                android:id="@+id/dialog_add_food_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Enter food name"
+                app:layout_constraintStart_toEndOf="@+id/dialog_add_food_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_category_spinner" />
 
-    <TextView
-        android:id="@+id/dialog_add_food_protein_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Protein (g):"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_calories_textview" />
+            <TextView
+                android:id="@+id/dialog_add_food_nutrition_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Nutrition Info (per 100g)"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_isfavorite" />
 
-    <EditText
-        android:id="@+id/dialog_add_food_protein"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:hint="0"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_protein_textview"
-        app:layout_constraintStart_toEndOf="@+id/dialog_add_food_protein_textview"
-        app:layout_constraintTop_toTopOf="@+id/dialog_add_food_protein_textview" />
+            <TextView
+                android:id="@+id/dialog_add_food_calories_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Calories (kcal):"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_nutrition_textview" />
 
-    <TextView
-        android:id="@+id/dialog_add_food_carbs_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Carbs (g):"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_protein_textview" />
+            <EditText
+                android:id="@+id/dialog_add_food_calories"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:hint="0"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_calories_textview"
+                app:layout_constraintStart_toEndOf="@+id/dialog_add_food_calories_textview"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_calories_textview" />
 
-    <EditText
-        android:id="@+id/dialog_add_food_carbs"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:hint="0"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_carbs_textview"
-        app:layout_constraintStart_toEndOf="@+id/dialog_add_food_carbs_textview"
-        app:layout_constraintTop_toTopOf="@+id/dialog_add_food_carbs_textview" />
+            <TextView
+                android:id="@+id/dialog_add_food_protein_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Protein (g):"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_calories_textview" />
 
-    <TextView
-        android:id="@+id/dialog_add_food_fat_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Fat (g):"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_carbs_textview" />
+            <EditText
+                android:id="@+id/dialog_add_food_protein"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_protein_textview"
+                app:layout_constraintStart_toStartOf="@+id/dialog_add_food_calories"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_protein_textview" />
 
-    <EditText
-        android:id="@+id/dialog_add_food_fat"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:hint="0"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_fat_textview"
-        app:layout_constraintStart_toEndOf="@+id/dialog_add_food_fat_textview"
-        app:layout_constraintTop_toTopOf="@+id/dialog_add_food_fat_textview" />
+            <TextView
+                android:id="@+id/dialog_add_food_carbs_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Carbs (g):"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_protein_textview" />
 
-    <CheckBox
-        android:id="@+id/dialog_add_food_isfavorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Favorite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_fat_textview" />
+            <EditText
+                android:id="@+id/dialog_add_food_carbs"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_carbs_textview"
+                app:layout_constraintStart_toStartOf="@+id/dialog_add_food_protein"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_carbs_textview" />
+
+            <TextView
+                android:id="@+id/dialog_add_food_fat_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Fat (g):"
+                android:textColor="@android:color/tertiary_text_dark"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_carbs_textview" />
+
+            <EditText
+                android:id="@+id/dialog_add_food_fat"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_fat_textview"
+                app:layout_constraintStart_toStartOf="@+id/dialog_add_food_carbs"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_fat_textview" />
+
+            <CheckBox
+                android:id="@+id/dialog_add_food_isfavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Favorite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_name" />
+
+            <TextView
+                android:id="@+id/dialog_add_food_servings_textview"
+                style="@style/TabThingy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Serving Sizes (g)"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_fat_textview" />
+
+            <EditText
+                android:id="@+id/dialog_add_food_serving1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="Small"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_servings_textview" />
+
+            <EditText
+                android:id="@+id/dialog_add_food_serving1_size"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="50.0"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_serving1_name"
+                app:layout_constraintStart_toEndOf="@+id/dialog_add_food_serving1_name"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_serving1_name" />
+
+            <EditText
+                android:id="@+id/dialog_add_food_serving2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="Medium"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_serving1_name" />
+
+            <EditText
+                android:id="@+id/dialog_add_food_serving2_size"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="100.0"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_serving2_name"
+                app:layout_constraintStart_toEndOf="@+id/dialog_add_food_serving2_name"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_serving2_name"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/dialog_add_food_serving3_size"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="250.0"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_serving3_name"
+                app:layout_constraintStart_toEndOf="@+id/dialog_add_food_serving3_name"
+                app:layout_constraintTop_toTopOf="@+id/dialog_add_food_serving3_name"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/dialog_add_food_serving3_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="Large"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_serving2_name" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
