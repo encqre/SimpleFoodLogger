@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/summary_text_select_period"
-        android:text="Select time period:"
+        android:text="Select period:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="2dp"
