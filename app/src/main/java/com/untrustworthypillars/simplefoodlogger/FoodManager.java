@@ -367,6 +367,8 @@ public class FoodManager {
     }
 
     public List<Food> getRecentFoods() {
+
+        //TODO it crashes when no foods have been used yet. pls fix
         String recentFoodString = PreferenceManager.getDefaultSharedPreferences(mContext).getString("recent_foods", null);
         android.util.Log.i("ayyy", recentFoodString);
         List<Food> recentFoodList = new ArrayList<>();

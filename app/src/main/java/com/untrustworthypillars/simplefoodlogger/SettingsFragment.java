@@ -93,7 +93,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
         mImportCommonFoods = (Preference) findPreference("pref_import_common_foods");
-        mImportCommonFoods.setEnabled(false);
+        mImportCommonFoods.setEnabled(true);
         mImportCommonFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -103,7 +103,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
         mImportExtendedFoods = (Preference) findPreference("pref_import_extended_foods");
-        mImportExtendedFoods.setEnabled(false);
+        mImportExtendedFoods.setEnabled(true);
         mImportExtendedFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
