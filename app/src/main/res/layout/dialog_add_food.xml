@@ -207,14 +207,16 @@
 
             <EditText
                 android:id="@+id/dialog_add_food_serving1_size"
-                android:layout_width="100dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="25dp"
                 android:ems="10"
                 android:hint="50.0"
                 android:inputType="textPersonName"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_serving1_name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/dialog_add_food_serving1_name"
                 app:layout_constraintTop_toTopOf="@+id/dialog_add_food_serving1_name" />
 
@@ -232,28 +234,32 @@
 
             <EditText
                 android:id="@+id/dialog_add_food_serving2_size"
-                android:layout_width="100dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="25dp"
                 android:ems="10"
                 android:hint="100.0"
                 android:inputType="textPersonName"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_serving2_name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/dialog_add_food_serving2_name"
                 app:layout_constraintTop_toTopOf="@+id/dialog_add_food_serving2_name"
                 app:layout_constraintVertical_bias="1.0" />
 
             <EditText
                 android:id="@+id/dialog_add_food_serving3_size"
-                android:layout_width="100dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="25dp"
                 android:ems="10"
                 android:hint="250.0"
                 android:inputType="textPersonName"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/dialog_add_food_serving3_name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/dialog_add_food_serving3_name"
                 app:layout_constraintTop_toTopOf="@+id/dialog_add_food_serving3_name"
                 app:layout_constraintVertical_bias="1.0" />

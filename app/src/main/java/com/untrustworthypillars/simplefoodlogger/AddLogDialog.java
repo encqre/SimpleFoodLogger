@@ -105,7 +105,7 @@ public class AddLogDialog extends DialogFragment {
         mFat = (TextView) v.findViewById(R.id.dialog_add_log_fat);
         mFat.setText(String.format("%.1f",(mFood.getFat())) + "g");
 
-        mWeight = (EditText) v.findViewById(R.id.dialog_add_log_weight); //TODO limit input to like two digits after dot
+        mWeight = (EditText) v.findViewById(R.id.dialog_add_log_weight);
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mWeight.requestFocus();
         showKeyboard();

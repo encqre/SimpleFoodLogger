@@ -241,6 +241,43 @@ public class FoodManager {
         }
     }
 
+    public Food getFoodByName(String foodName) {
+        FoodCursorWrapper cursor = queryCustomFoods(CustomFoodTable.Cols.TITLE + " = ?", new String[] {foodName});
+
+        try {
+            if(cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                return cursor.getCustomFood();
+            }
+        } finally {
+            cursor.close();
+        }
+        cursor = queryCommonFoods(CommonFoodTable.Cols.TITLE + " = ?", new String[] {foodName});
+
+        try {
+            if(cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                return cursor.getCommonFood();
+            }
+        } finally {
+            cursor.close();
+        }
+
+        cursor = queryExtendedFoods(ExtendedFoodTable.Cols.TITLE + " = ?", new String[] {foodName});
+
+        try {
+            if(cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                return cursor.getExtendedFood();
+            } else {
+                return null;
+            }
+        } finally {
+            cursor.close();
+        }
+
+    }
+
 
     public void updateCustomFood(Food food) {
         String uuidString = food.getFoodId().toString();

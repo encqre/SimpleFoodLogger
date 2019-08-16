@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-//TODO styling - shorten serving size input bar, add 1.2.3 or something near servings, colored container for serving section, nutrition section?
 public class AddFoodDialog extends DialogFragment {
 
     private static final String ARG_CATEGORY = "category";
