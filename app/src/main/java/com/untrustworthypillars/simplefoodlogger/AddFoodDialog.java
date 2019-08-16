@@ -5,12 +5,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 //TODO styling - shorten serving size input bar, add 1.2.3 or something near servings, colored container for serving section, nutrition section?
-//TODO fix the scrolling issue, where editing upper servings not allows to scroll down
 public class AddFoodDialog extends DialogFragment {
 
     private static final String ARG_CATEGORY = "category";
@@ -41,6 +45,10 @@ public class AddFoodDialog extends DialogFragment {
     private EditText mServing3Name;
     private EditText mServing3Size;
 
+    private ConstraintLayout layout;
+    private ConstraintLayout.LayoutParams bottomElementParams; //layout params of mServing3Name
+    private int keyboardHeight = 0;
+
     public static AddFoodDialog newInstance (int category) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_CATEGORY, category);
@@ -56,6 +64,36 @@ public class AddFoodDialog extends DialogFragment {
         mProvidedCategory = (int) getArguments().getSerializable(ARG_CATEGORY);
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_food, null);
+        /**Below listener checks for layout changes to detect if keyboard is open or closed. This
+         * is required to know how much to adjust the bottom margin of the bottom element of this layout,
+         * which is required to make sure that keyboard doesn't hide some of the bottom EditTexts when
+         * some EditText which is higher is selected. A bit hacky, but this seems to work well.*/
+        layout = v.findViewById(R.id.dialog_add_food_layout);
+        layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                layout.getWindowVisibleDisplayFrame(r);
+                int screenHeight = layout.getRootView().getHeight();
+                int newKeyboardHeight = screenHeight - r.bottom;
+                if (newKeyboardHeight != keyboardHeight) {
+                    keyboardHeight = newKeyboardHeight;
+                    if (newKeyboardHeight > screenHeight * 0.15) {
+                        if (newKeyboardHeight>100){
+                            newKeyboardHeight = newKeyboardHeight -100;
+                        }
+                        bottomElementParams.bottomMargin = newKeyboardHeight;
+                        mServing3Name.setLayoutParams(bottomElementParams);
+                        android.util.Log.d("TESTTAG","Keyboard is showing. Height of the bottom margin is " + newKeyboardHeight);
+                    } else {
+                        bottomElementParams.bottomMargin = 0;
+                        mServing3Name.setLayoutParams(bottomElementParams);
+                        android.util.Log.d("TESTTAG","Keyboard is closed");
+                    }
+                }
+
+            }
+        });
 
         mSpinner = (Spinner) v.findViewById(R.id.dialog_add_food_category_spinner);
 
@@ -87,6 +125,7 @@ public class AddFoodDialog extends DialogFragment {
         mServing2Size = (EditText) v.findViewById(R.id.dialog_add_food_serving2_size);
         mServing2Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mServing3Name = (EditText) v.findViewById(R.id.dialog_add_food_serving3_name);
+        bottomElementParams = (ConstraintLayout.LayoutParams) mServing3Name.getLayoutParams();
         mServing3Size = (EditText) v.findViewById(R.id.dialog_add_food_serving3_size);
         mServing3Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
@@ -114,6 +153,7 @@ public class AddFoodDialog extends DialogFragment {
     public void onResume() {
         super.onResume();
         final AlertDialog d = (AlertDialog)getDialog();
+//      d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         if(d != null) {
             Button button = (Button) d.getButton(Dialog.BUTTON_POSITIVE);
             button.setOnClickListener(new View.OnClickListener() {

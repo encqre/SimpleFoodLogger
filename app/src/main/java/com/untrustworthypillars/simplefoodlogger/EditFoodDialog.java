@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -61,6 +65,10 @@ public class EditFoodDialog extends DialogFragment {
     private EditText mServing3Name;
     private EditText mServing3Size;
 
+    private ConstraintLayout layout;
+    private ConstraintLayout.LayoutParams bottomElementParams; //layout params of mServing3Name
+    private int keyboardHeight = 0;
+
     public static EditFoodDialog newInstance (UUID foodid, int foodType) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_FOOD, foodid);
@@ -85,6 +93,33 @@ public class EditFoodDialog extends DialogFragment {
         }
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_food, null);
+
+        layout = v.findViewById(R.id.dialog_add_food_layout);
+        layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                layout.getWindowVisibleDisplayFrame(r);
+                int screenHeight = layout.getRootView().getHeight();
+                int newKeyboardHeight = screenHeight - r.bottom;
+                if (newKeyboardHeight != keyboardHeight) {
+                    keyboardHeight = newKeyboardHeight;
+                    if (newKeyboardHeight > screenHeight * 0.15) {
+                        if (newKeyboardHeight>100){
+                            newKeyboardHeight = newKeyboardHeight -100;
+                        }
+                        bottomElementParams.bottomMargin = newKeyboardHeight;
+                        mServing3Name.setLayoutParams(bottomElementParams);
+                        android.util.Log.d("TESTTAG","Keyboard is showing. Height of the bottom margin is " + newKeyboardHeight);
+                    } else {
+                        bottomElementParams.bottomMargin = 0;
+                        mServing3Name.setLayoutParams(bottomElementParams);
+                        android.util.Log.d("TESTTAG","Keyboard is closed");
+                    }
+                }
+
+            }
+        });
 
         mFoodCategory = food.getCategory();
         for (int i =0; i< FOOD_CATEGORIES.length; i++) {
@@ -121,6 +156,7 @@ public class EditFoodDialog extends DialogFragment {
         mServing2Size = (EditText) v.findViewById(R.id.dialog_add_food_serving2_size);
         mServing2Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mServing3Name = (EditText) v.findViewById(R.id.dialog_add_food_serving3_name);
+        bottomElementParams = (ConstraintLayout.LayoutParams) mServing3Name.getLayoutParams();
         mServing3Size = (EditText) v.findViewById(R.id.dialog_add_food_serving3_size);
         mServing3Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
