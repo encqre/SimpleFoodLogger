@@ -61,8 +61,19 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:key="food_items_category"
+        app:title="Food Database">
+
+        <EditTextPreference
+            app:key="pref_recent_foods_size"
+            app:title="Set recent foods list size"
+            app:summary="10"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:key="backups_category"
-        app:title="Database File Management">
+        app:title="File Management">
 
         <Preference
             app:key="pref_backup"

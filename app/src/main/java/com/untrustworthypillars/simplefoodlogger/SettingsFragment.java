@@ -59,6 +59,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private CheckBoxPreference mStatsIgnoreZeroKcalDays;
 
+    private EditTextPreference mRecentFoodsLength;
+
     //TODO Unit selection
     //TODO Initial launch dialogs / tutorials
 
@@ -161,6 +163,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mFatTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
 
         mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
+
+        mRecentFoodsLength = (EditTextPreference) findPreference("pref_recent_foods_size");
+        mRecentFoodsLength.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
+            @Override
+            public void onBindEditText(@NonNull EditText editText) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+            }
+        });
+        mRecentFoodsLength.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
 
     }
 

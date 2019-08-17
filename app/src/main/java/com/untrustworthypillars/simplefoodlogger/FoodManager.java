@@ -2,6 +2,7 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
@@ -18,8 +19,6 @@ import com.untrustworthypillars.simplefoodlogger.database.DbSchema.ExtendedFoodT
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FoodManager {
     private static FoodManager sFoodManager;
@@ -29,7 +28,8 @@ public class FoodManager {
     private SQLiteDatabase mCommonFoodDatabase;
     private SQLiteDatabase mExtendedFoodDatabase;
 
-    private int recentsFoodLength = 5; //TODO should make an option in settings
+    private SharedPreferences mPreferences;
+    private int mRecentFoodsLength;
 
     public static FoodManager get(Context context) {
         if (sFoodManager == null) {
@@ -43,6 +43,8 @@ public class FoodManager {
         mCustomFoodDatabase = new CustomFoodDbHelper(mContext).getWritableDatabase();
         mCommonFoodDatabase = new CommonFoodDbHelper(mContext).getWritableDatabase();
         mExtendedFoodDatabase = new ExtendedFoodDbHelper(mContext).getWritableDatabase();
+        mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        mRecentFoodsLength = (int) Float.parseFloat(mPreferences.getString("pref_recent_foods_size", "10"));
     }
 
     //Add a custom food to CustomFoodDatabase
@@ -418,11 +420,11 @@ public class FoodManager {
                 * then we can just add food to beggining and append previous list to the end. Otherwise,
                 * add food item to the beggining and iterate through all other foods, except last one and add them to the string*/
             } else {
-                if (el.length < recentsFoodLength) {
+                if (el.length < mRecentFoodsLength) {
                     recentFoodString2 = foodId + ";" + recentFoodString;
                 } else {
                     recentFoodString2 = foodId + ";";
-                    for (int i = 0; i<(recentsFoodLength-1); i++) {
+                    for (int i = 0; i<(mRecentFoodsLength -1); i++) {
                         recentFoodString2 = recentFoodString2 + el[i] + ";";
                     }
                 }
