@@ -172,7 +172,7 @@ public class FoodListFragment extends Fragment {
         /*By default SearchView is made invisible and gone (because first tab by default is categories)*/
         mSearchView = (SearchView) v.findViewById(R.id.searchview_food);
         mSearchView.setVisibility(View.GONE);
-        mSearchView.setQueryHint("Start entering food name to search"); //TODO separate words with AND, example - search term "pica chees" should search for foods that contain both "pica" AND "chees", no matter what order
+        mSearchView.setQueryHint("Start entering food name to search");
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -185,8 +185,11 @@ public class FoodListFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText));
+                if (mSearchView.getQuery().length() == 0) {
+                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(""));
+                    android.util.Log.d("EMPTY TEXT CHANGE", "AA");
+                }
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
-
                 return false;
             }
         });

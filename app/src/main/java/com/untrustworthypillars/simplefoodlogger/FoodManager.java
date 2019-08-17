@@ -18,6 +18,8 @@ import com.untrustworthypillars.simplefoodlogger.database.DbSchema.ExtendedFoodT
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FoodManager {
     private static FoodManager sFoodManager;
@@ -168,9 +170,24 @@ public class FoodManager {
     public List<Food> getFoodsSearch(String searchString) {
         List<Food> foods = new ArrayList<>();
 
-        String q = "%" + searchString + "%";
+        String [] searchWordsArray = searchString.split("\\s+");
+        String queryWhereClause = "";
+        for (int i=0; i<searchWordsArray.length; i++) {
+            android.util.Log.d("SEARCHARRAY", searchWordsArray[i]);
+            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 1) { //Not including empty strings or single letter words into search words
+                searchWordsArray[i] = "\"%" + searchWordsArray[i] + "%\"";
+                if (queryWhereClause.length() < 1) {
+                    queryWhereClause = queryWhereClause + CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                } else {
+                    queryWhereClause = queryWhereClause + " AND " + CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                }
+            }
+        }
 
-        FoodCursorWrapper cursor = queryCustomFoods(CustomFoodTable.Cols.TITLE + " LIKE ?", new String[] {q});
+        if (queryWhereClause.equals("")) {
+            return foods;
+        }
+        FoodCursorWrapper cursor = queryCustomFoods(queryWhereClause, null);
 
         try {
             cursor.moveToFirst();
@@ -182,7 +199,19 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryExtendedFoods(ExtendedFoodTable.Cols.TITLE + " LIKE ?", new String[] {q});
+        cursor = queryCommonFoods(queryWhereClause, null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getCommonFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+
+        cursor = queryExtendedFoods(queryWhereClause, null);
 
         try {
             cursor.moveToFirst();
@@ -194,7 +223,7 @@ public class FoodManager {
             cursor.close();
         }
 
-        //TODO add another cursor for common foods. Also will need a checkbox to also search extended library, so if that one is checked will need cursor for extended db (maybe a different method then)
+        //TODO need a checkbox to check if to search extended library, (maybe a different method then)
 
         return foods;
     }
@@ -405,9 +434,7 @@ public class FoodManager {
 
     public List<Food> getRecentFoods() {
 
-        //TODO it crashes when no foods have been used yet. pls fix
         String recentFoodString = PreferenceManager.getDefaultSharedPreferences(mContext).getString("recent_foods", null);
-        android.util.Log.i("ayyy", recentFoodString);
         List<Food> recentFoodList = new ArrayList<>();
         if (recentFoodString != null) {
             String[] el = recentFoodString.split(";");
