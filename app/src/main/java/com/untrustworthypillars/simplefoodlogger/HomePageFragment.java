@@ -136,13 +136,13 @@ public class HomePageFragment extends Fragment {
         mCarbsText = (TextView) v.findViewById(R.id.textview_carbs);
         mFatText = (TextView) v.findViewById(R.id.textview_fat);
         mCaloriesProgress = (ProgressBar) v.findViewById(R.id.progress_bar_calories);
-        mCaloriesProgress.setMax(Integer.parseInt(mCaloriesGoal));
+        mCaloriesProgress.setMax((int) Float.parseFloat(mCaloriesGoal));
         mProteinProgress = (ProgressBar) v.findViewById(R.id.progress_bar_protein);
-        mProteinProgress.setMax(Integer.parseInt(mProteinGoal));
+        mProteinProgress.setMax((int) Float.parseFloat(mProteinGoal));
         mCarbsProgress = (ProgressBar) v.findViewById(R.id.progress_bar_carbs);
-        mCarbsProgress.setMax(Integer.parseInt(mCarbsGoal));
+        mCarbsProgress.setMax((int) Float.parseFloat(mCarbsGoal));
         mFatProgress = (ProgressBar) v.findViewById(R.id.progress_bar_fat);
-        mFatProgress.setMax(Integer.parseInt(mFatGoal));
+        mFatProgress.setMax((int) Float.parseFloat(mFatGoal));
 
         updateUI();
 
@@ -175,13 +175,13 @@ public class HomePageFragment extends Fragment {
         mLogRecyclerView.setAdapter(mLogAdapter);
 
         Float[] result = Calculations.calculateKcalAndMacros(logs);
-        mCaloriesText.setText("Calories: " + result[0].intValue() + " / " + mCaloriesGoal);
+        mCaloriesText.setText(getString(R.string.home_fragment_goal_kcal, result[0].intValue(), mCaloriesGoal));
         mCaloriesProgress.setProgress(result[0].intValue());
-        mProteinText.setText("Protein: " + result[1].intValue() + "/" + mProteinGoal + "g");
+        mProteinText.setText(getString(R.string.home_fragment_goal_protein, result[1].intValue(), mProteinGoal));
         mProteinProgress.setProgress(result[1].intValue());
-        mCarbsText.setText("Carbs: " + result[2].intValue() + "/" + mCarbsGoal + "g");
+        mCarbsText.setText(getString(R.string.home_fragment_goal_carbs, result[2].intValue(), mCarbsGoal));
         mCarbsProgress.setProgress(result[2].intValue());
-        mFatText.setText("Fat: " + result[3].intValue() + "/" + mFatGoal + "g");
+        mFatText.setText(getString(R.string.home_fragment_goal_fat, result[3].intValue(), mFatGoal));
         mFatProgress.setProgress(result[3].intValue());
     }
 
@@ -204,14 +204,13 @@ public class HomePageFragment extends Fragment {
             mFoodFat = (TextView) itemView.findViewById(R.id.list_item_log_fat);
         }
 
-        //TODO make these strings properly as suggested
         public void bind(Log log) {
             mLogId = log.getLogId();
-            mFoodTitleTextView.setText(log.getFood() + ", " + log.getSize().intValue() + "g");
-            mFoodCalories.setText(log.getKcal().intValue() + " kcal");
-            mFoodProtein.setText("Protein: " + String.format("%.1f", log.getProtein()) + "g");
-            mFoodCarbs.setText("Carbs: " + String.format("%.1f", log.getCarbs()) + "g");
-            mFoodFat.setText("Fat: " + String.format("%.1f", log.getFat()) + "g");
+            mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), log.getSize().intValue()));
+            mFoodCalories.setText(getString(R.string.home_fragment_log_kcal, log.getKcal().intValue()));
+            mFoodProtein.setText(getString(R.string.food_list_fragment_protein, String.format("%.1f", log.getProtein())));
+            mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, String.format("%.1f", log.getCarbs())));
+            mFoodFat.setText(getString(R.string.food_list_fragment_fat, String.format("%.1f", log.getFat())));
         }
 
         public boolean onLongClick(View v) {

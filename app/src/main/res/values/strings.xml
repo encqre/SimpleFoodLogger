@@ -16,6 +16,16 @@
     <string name="search">Search</string>
     <string name="summary_tab_summary">Summary</string>
     <string name="summary_tab_foods">Food Stats</string>
+    <string name="food_list_fragment_kcal">%1$d kcal/100g</string>
+    <string name="food_list_fragment_protein">Protein: %1$sg</string>
+    <string name="food_list_fragment_carbs">Carbs: %1$sg</string>
+    <string name="food_list_fragment_fat">Fat: %1$sg</string>
+    <string name="home_fragment_goal_kcal">Calories: %1$d / %2$s</string>
+    <string name="home_fragment_goal_protein">Protein: %1$d/%2$sg</string>
+    <string name="home_fragment_goal_carbs">Carbs: %1$d/%2$sg</string>
+    <string name="home_fragment_goal_fat">Fat: %1$d/%2$sg</string>
+    <string name="home_fragment_log_title">%1$s, %2$dg</string>
+    <string name="home_fragment_log_kcal">%1$d kcal</string>
     <string-array name="food_categories_array">
         <item>Dairy &amp; Eggs</item>
         <item>Meat</item>

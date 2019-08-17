@@ -302,14 +302,13 @@ public class FoodListFragment extends Fragment {
 
         }
 
-        //TODO make these strings properly as suggested
         public void bind(Food food) {
             mFood = food;
             mFoodTitleTextView.setText(food.getTitle());
-            mFoodCalories.setText(food.getKcal().intValue() + " kcal/100g");
-            mFoodProtein.setText("Protein: " + food.getProtein().toString() + "g");
-            mFoodCarbs.setText("Carbs: " + food.getCarbs().toString() + "g");
-            mFoodFat.setText("Fat: " + food.getFat().toString() + "g");
+            mFoodCalories.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
+            mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
+            mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, food.getCarbs().toString()));
+            mFoodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));
         }
 
         /*When food item is clicked, AddLogDialog is launched, with arguments of FoodID and Date*/
