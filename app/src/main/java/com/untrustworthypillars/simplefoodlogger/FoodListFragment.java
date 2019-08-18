@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -222,6 +224,32 @@ public class FoodListFragment extends Fragment {
         mFoodRecyclerView = (RecyclerView) v.findViewById(R.id.food_recycler);
         mFoodRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        /**Overriding default action when back button is pressed. If category is open, then go back to category selection.
+         * Otherwise, go back to home tab.*/
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+        v.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+                    if (mIsCategoryOpen) {
+                        android.util.Log.d("testing overriding", "Category is open and back button was pressed???");
+                        mCategoryAdapter = new CategoryAdapter(FOOD_CATEGORIES);
+                        mFoodAdapter = new FoodAdapter(new ArrayList<Food>());
+                        mFoodRecyclerView.setAdapter(mCategoryAdapter);
+                        mSelectedCategory = 0;
+                        mIsCategoryOpen = false;
+
+                        return true;
+                    }
+                    //TODO, need to override back button on all tabs except home. It should return to home tab first.
+                    return false;
+                }
+                return false;
+            }
+        });
+
         mFoodManager = FoodManager.get(getContext());
 
         updateUI();
@@ -348,8 +376,6 @@ public class FoodListFragment extends Fragment {
         }
     }
 
-
-    //TODO maybe possible to override what 'back' button does when specific category is open, because now it closes the app (because its the same activity)
     private class FoodHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView mFoodTitleTextView;
         private TextView mFoodCalories;
