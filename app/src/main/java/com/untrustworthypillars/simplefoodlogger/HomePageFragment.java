@@ -57,18 +57,26 @@ public class HomePageFragment extends Fragment {
 
 
     private SharedPreferences mPreferences;
-    private Date mSelectedDay; //TODO Probably should some global public app variable in order to track which day is selected
+    private Date mSelectedDay;
     private String mCaloriesGoal;
     private String mProteinGoal;
     private String mCarbsGoal;
     private String mFatGoal;
 
+    private LoggerActivity mActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-        mSelectedDay = new Date();
+//        mSelectedDay = new Date();
+        mActivity = (LoggerActivity) getActivity();
+
+        try {
+            mSelectedDay = mActivity.getSelectedDay();
+        } catch (Exception e){
+            mSelectedDay = new Date();
+        }
 
         mLogManager = LogManager.get(getContext());
 
@@ -113,6 +121,7 @@ public class HomePageFragment extends Fragment {
                 cal.setTime(mSelectedDay);
                 cal.add(Calendar.DATE, -1);
                 mSelectedDay = cal.getTime();
+                mActivity.setSelectedDay(mSelectedDay);
                 mDateButton.setText(Calculations.dateDisplayString(mSelectedDay));
                 updateUI();
             }
@@ -126,6 +135,7 @@ public class HomePageFragment extends Fragment {
                 cal.setTime(mSelectedDay);
                 cal.add(Calendar.DATE, +1);
                 mSelectedDay = cal.getTime();
+                mActivity.setSelectedDay(mSelectedDay);
                 mDateButton.setText(Calculations.dateDisplayString(mSelectedDay));
                 updateUI();
             }
@@ -156,6 +166,7 @@ public class HomePageFragment extends Fragment {
         }
         if (requestCode == REQUEST_DATE) {
             mSelectedDay = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
+            mActivity.setSelectedDay(mSelectedDay);
             mDateButton.setText(Calculations.dateDisplayString(mSelectedDay));
             updateUI();
         }

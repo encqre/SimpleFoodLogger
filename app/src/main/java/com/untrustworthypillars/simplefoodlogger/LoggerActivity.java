@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.Date;
+
 public class LoggerActivity extends AppCompatActivity {
 
     private static final String TAG = "LoggerActivity";
@@ -18,11 +20,20 @@ public class LoggerActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
     private SharedPreferences mPreferences;
+    private Date mSelectedDay;
 
     /** Method to change the selected Tab programmatically*/
     public void setTab(int i) {
         TabLayout.Tab tab = mTabLayout.getTabAt(i);
         tab.select();
+    }
+
+    public Date getSelectedDay() {
+        return mSelectedDay;
+    }
+
+    public void setSelectedDay(Date selectedDay) {
+        mSelectedDay = selectedDay;
     }
 
     @Override
@@ -34,6 +45,8 @@ public class LoggerActivity extends AppCompatActivity {
         if (mPreferences.getBoolean("initial_launch", true)) {
             Toast.makeText(this, "Initial Launch!", Toast.LENGTH_LONG).show();
         }
+
+        mSelectedDay = new Date();
 
 
         //this.getSupportActionBar().hide(); //Hiding the action bar/menu bar at the top
