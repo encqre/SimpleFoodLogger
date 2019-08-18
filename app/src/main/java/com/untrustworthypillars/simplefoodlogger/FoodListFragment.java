@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +69,7 @@ public class FoodListFragment extends Fragment {
 
     private TabLayout mTabLayout;
     private SearchView mSearchView;
+    private CheckBox mExtendedSearch;
     private FloatingActionButton mAddFoodFAB;
 
     private RecyclerView mFoodRecyclerView;
@@ -110,24 +113,28 @@ public class FoodListFragment extends Fragment {
                 switch (mTabLayout.getSelectedTabPosition()) {
                     case TAB_SELECT:
                         mSearchView.setVisibility(View.GONE);
+                        mExtendedSearch.setVisibility(View.GONE);
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
                         mSelectedCategory = 0;
                         break;
                     case TAB_RECENT:
                         mSearchView.setVisibility(View.GONE);
+                        mExtendedSearch.setVisibility(View.GONE);
                         mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods());
                         mFoodRecyclerView.setAdapter(mFoodAdapter);
                         mSelectedCategory = 0;
                         break;
                     case TAB_FAVORITES:
                         mSearchView.setVisibility(View.GONE);
+                        mExtendedSearch.setVisibility(View.GONE);
                         mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsFavorite());
                         mFoodRecyclerView.setAdapter(mFoodAdapter);
                         mSelectedCategory = 0;
                         break;
                     case TAB_SEARCH:
                         mSearchView.setVisibility(View.VISIBLE);
-                        mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(mSearchView.getQueryHint().toString()));
+                        mExtendedSearch.setVisibility(View.VISIBLE);
+                        mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(mSearchView.getQuery().toString(), mExtendedSearch.isChecked()));
                         mFoodRecyclerView.setAdapter(mFoodAdapter);
                         mSelectedCategory = 0;
                         break;
@@ -172,11 +179,11 @@ public class FoodListFragment extends Fragment {
         /*By default SearchView is made invisible and gone (because first tab by default is categories)*/
         mSearchView = (SearchView) v.findViewById(R.id.searchview_food);
         mSearchView.setVisibility(View.GONE);
-        mSearchView.setQueryHint("Start entering food name to search");
+        mSearchView.setQueryHint("Start typing food name to search");
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query));
+                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query, mExtendedSearch.isChecked()));
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
 
                 return true;
@@ -184,13 +191,23 @@ public class FoodListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText));
+                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, mExtendedSearch.isChecked()));
                 if (mSearchView.getQuery().length() == 0) {
-                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(""));
+                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch("", mExtendedSearch.isChecked()));
                     android.util.Log.d("EMPTY TEXT CHANGE", "AA");
                 }
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
                 return false;
+            }
+        });
+
+        mExtendedSearch = (CheckBox) v.findViewById(R.id.fragment_food_list_extended_search_checkbox);
+        mExtendedSearch.setVisibility(View.GONE);
+        mExtendedSearch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(mSearchView.getQuery().toString(), isChecked));
+                mFoodRecyclerView.setAdapter(mFoodAdapter);
             }
         });
 
@@ -284,6 +301,8 @@ public class FoodListFragment extends Fragment {
         }
     }
 
+
+    //TODO maybe possible to override what 'back' button does when specific category is open, because now it closes the app (because its the same activity)
     private class FoodHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView mFoodTitleTextView;
         private TextView mFoodCalories;

@@ -14,6 +14,7 @@
     <string name="recent">Recent</string>
     <string name="favorites">Favorites</string>
     <string name="search">Search</string>
+    <string name="extended_search">Include results from USDA database</string>
     <string name="summary_tab_summary">Summary</string>
     <string name="summary_tab_foods">Food Stats</string>
     <string name="food_list_fragment_kcal">%1$d kcal/100g</string>

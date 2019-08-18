@@ -79,6 +79,8 @@ public class EditFoodDialog extends DialogFragment {
         return fragment;
     }
 
+    //TODO need maybe a separate method for common foods and extended foods
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mFoodId = (UUID) getArguments().getSerializable(ARG_FOOD);

@@ -164,12 +164,34 @@ public class FoodManager {
             cursor.close();
         }
 
-        //TODO add another cursor here to also query common and extended tables for favorites
+        cursor = queryCommonFoods(CommonFoodTable.Cols.FAVORITE + " = 1", null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getCommonFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+
+        cursor = queryExtendedFoods(ExtendedFoodTable.Cols.FAVORITE + " = 1", null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getExtendedFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
 
         return foods;
     }
 
-    public List<Food> getFoodsSearch(String searchString) {
+    public List<Food> getFoodsSearch(String searchString, boolean includeExtended) {
         List<Food> foods = new ArrayList<>();
 
         String [] searchWordsArray = searchString.split("\\s+");
@@ -213,19 +235,19 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryExtendedFoods(queryWhereClause, null);
+        if (includeExtended) {
+            cursor = queryExtendedFoods(queryWhereClause, null);
 
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                foods.add(cursor.getExtendedFood());
-                cursor.moveToNext();
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    foods.add(cursor.getExtendedFood());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
             }
-        } finally {
-            cursor.close();
         }
-
-        //TODO need a checkbox to check if to search extended library, (maybe a different method then)
 
         return foods;
     }
