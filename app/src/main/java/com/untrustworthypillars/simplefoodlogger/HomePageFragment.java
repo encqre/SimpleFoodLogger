@@ -3,6 +3,7 @@ package com.untrustworthypillars.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -250,7 +251,12 @@ public class HomePageFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(LogHolder holder, int position) {
-        holder.bind(mSelectedDayLogs.get(position));
+            holder.bind(mSelectedDayLogs.get(position));
+            if(position %2 == 1) {
+                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+            } else {
+                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+            }
         }
 
         @Override

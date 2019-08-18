@@ -36,9 +36,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/image_button_nextday"
-            app:layout_constraintStart_toEndOf="@+id/image_button_previousday" />
+            app:layout_constraintStart_toEndOf="@+id/image_button_previousday"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/image_button_nextday"
@@ -57,11 +59,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        style="?android:listSeparatorTextViewStyle"
         android:id="@+id/layout_day_counters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
+        android:paddingBottom="0dp"
         android:layout_below="@id/layout_date_buttons">
 
         <TextView
@@ -75,6 +76,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -171,14 +173,26 @@
             app:layout_constraintStart_toStartOf="@+id/textview_fat"
             app:layout_constraintTop_toBottomOf="@+id/textview_fat" />
 
+        <View
+            android:id="@+id/fragment_home_page_divider"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar_carbs" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/log_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_day_counters">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_below="@+id/layout_day_counters"
+        android:layout_marginTop="0dp"></androidx.recyclerview.widget.RecyclerView>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

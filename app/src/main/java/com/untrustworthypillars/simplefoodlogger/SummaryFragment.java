@@ -299,6 +299,11 @@ public class SummaryFragment extends Fragment {
         @Override
         public void onBindViewHolder(DaySummaryHolder holder, int position) {
             holder.bind(mSelectedPeriodLogs.get(position));
+            if(position %2 == 1) {
+                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+            } else {
+                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+            }
         }
 
         @Override

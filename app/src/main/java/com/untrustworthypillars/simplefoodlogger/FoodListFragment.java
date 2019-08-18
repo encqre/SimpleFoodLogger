@@ -2,6 +2,7 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -33,7 +34,7 @@ import java.util.UUID;
  *
  */
 
-//TODO Coloring foods by type
+//TODO Figure out what is best way to visually separate custom/common/extended entries
 
 public class FoodListFragment extends Fragment {
     public static final int TAB_SELECT = 0;
@@ -372,6 +373,12 @@ public class FoodListFragment extends Fragment {
         @Override
         public void onBindViewHolder(CategoryHolder holder, int position) {
             holder.bind(FOOD_CATEGORIES[position]);
+            if(position %2 == 1) {
+                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+            } else {
+                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+            }
+
         }
 
         @Override
@@ -405,6 +412,11 @@ public class FoodListFragment extends Fragment {
             mFood = food;
             mFoodTitleTextView.setText(food.getTitle());
             mFoodCalories.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
+//            if (mFood.getType() == 0) {
+//                mFoodCalories.setTextColor(getResources().getColor(R.color.colorPrimary));
+//            } else {
+//                mFoodCalories.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+//            }
             mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
             mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, food.getCarbs().toString()));
             mFoodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));
@@ -448,6 +460,18 @@ public class FoodListFragment extends Fragment {
         @Override
         public void onBindViewHolder(FoodHolder holder, int position) {
             holder.bind(mFoods.get(position));
+//            if (mFoods.get(position).getType() == 0) {
+//                holder.itemView.setBackgroundColor(Color.rgb(194, 217, 255));
+//            } else if (mFoods.get(position).getType() == 1) {
+//                holder.itemView.setBackgroundColor(Color.rgb(186, 224, 191));
+//            } else {
+//                holder.itemView.setBackgroundColor(Color.rgb(224, 197, 188));
+//            }
+            if(position %2 == 1) {
+                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+            } else {
+                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+            }
         }
 
         @Override
