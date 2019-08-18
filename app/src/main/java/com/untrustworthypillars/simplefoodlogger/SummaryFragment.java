@@ -11,6 +11,7 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -212,6 +213,23 @@ public class SummaryFragment extends Fragment {
         });
 
         mSummaryText = (TextView) v.findViewById(R.id.summary_text_summary);
+
+        /**Overriding default action when back button is pressed, to go back to the home tab.*/
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+        v.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN )
+                {
+                    LoggerActivity activity = (LoggerActivity) getActivity();
+                    activity.setTab(0);
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         return v;
     }

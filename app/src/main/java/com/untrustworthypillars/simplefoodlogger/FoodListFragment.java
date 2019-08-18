@@ -225,16 +225,16 @@ public class FoodListFragment extends Fragment {
         mFoodRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         /**Overriding default action when back button is pressed. If category is open, then go back to category selection.
-         * Otherwise, go back to home tab.*/
+         * Otherwise, go back to home tab. Exception is, if fragment is created by AddLogActivity, in that case,
+         * leave the default action, which is to finish activity result.*/
         v.setFocusableInTouchMode(true);
         v.requestFocus();
         v.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if( keyCode == KeyEvent.KEYCODE_BACK )
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN )
                 {
                     if (mIsCategoryOpen) {
-                        android.util.Log.d("testing overriding", "Category is open and back button was pressed???");
                         mCategoryAdapter = new CategoryAdapter(FOOD_CATEGORIES);
                         mFoodAdapter = new FoodAdapter(new ArrayList<Food>());
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
@@ -242,8 +242,12 @@ public class FoodListFragment extends Fragment {
                         mIsCategoryOpen = false;
 
                         return true;
+                    } else if (!mIsCalledByAddLogActivity){
+                        LoggerActivity activity = (LoggerActivity) getActivity();
+                        activity.setTab(0);
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();
+                        return true;
                     }
-                    //TODO, need to override back button on all tabs except home. It should return to home tab first.
                     return false;
                 }
                 return false;
