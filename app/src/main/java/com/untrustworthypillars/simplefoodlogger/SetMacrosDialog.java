@@ -24,7 +24,7 @@ public class SetMacrosDialog extends DialogFragment {
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_set_macros, null);
 
-        return new AlertDialog.Builder(getActivity()).setView(v).setTitle("Set Target Macros")
+        return new AlertDialog.Builder(getActivity()).setView(v).setTitle("Set Macronutrient Targets")
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

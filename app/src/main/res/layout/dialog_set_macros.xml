@@ -6,6 +6,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/dialog_set_macros_calories_target_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Current Daily Calories Target" />
+
+    <TextView
+        android:id="@+id/dialog_set_macros_calories_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_calories_target_text"
+        android:text="2500 kcal" />
+
+    <RadioGroup
+        android:id="@+id/dialog_set_macros_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_calories_target">
+
+        <RadioButton
+            android:id="@+id/dialog_set_macros_radio_percent"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:checked="true"
+            android:text="Set using percentages" />
+
+        <RadioButton
+            android:id="@+id/dialog_set_macros_radio_manual"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Set manually" />
+
+
+    </RadioGroup>
 
     <TextView
         android:id="@+id/dialog_set_macros_text_protein"
@@ -13,18 +72,30 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:text="@string/protein"
         android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Protein" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_radio_group" />
 
-    <SeekBar
-        android:id="@+id/dialog_set_macros_slider_protein"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+    <EditText
+        android:id="@+id/dialog_set_macros_edit_protein"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_text_protein" />
+
+    <TextView
+        android:id="@+id/dialog_set_macros_info_protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="% equals 200g or 800 kcal"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_set_macros_edit_protein"
+        app:layout_constraintStart_toEndOf="@id/dialog_set_macros_edit_protein"
+        app:layout_constraintTop_toTopOf="@+id/dialog_set_macros_edit_protein" />
 
     <TextView
         android:id="@+id/dialog_set_macros_text_carbs"
@@ -32,19 +103,30 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:text="@string/carbs"
         android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_slider_protein"
-        tools:text="Carbs" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_edit_protein" />
 
-    <SeekBar
-        android:id="@+id/dialog_set_macros_slider_carbs"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+    <EditText
+        android:id="@+id/dialog_set_macros_edit_carbs"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_text_carbs" />
+
+    <TextView
+        android:id="@+id/dialog_set_macros_info_carbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="% equals 200g or 800 kcal"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_set_macros_edit_carbs"
+        app:layout_constraintStart_toEndOf="@id/dialog_set_macros_edit_carbs"
+        app:layout_constraintTop_toTopOf="@+id/dialog_set_macros_edit_carbs" />
 
     <TextView
         android:id="@+id/dialog_set_macros_text_fat"
@@ -52,18 +134,41 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:text="@string/fat"
         android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_slider_carbs"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_edit_carbs"
         tools:text="Fat" />
 
-    <SeekBar
-        android:id="@+id/dialog_set_macros_slider_fat"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+    <EditText
+        android:id="@+id/dialog_set_macros_edit_fat"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_text_fat" />
+
+    <TextView
+        android:id="@+id/dialog_set_macros_info_fat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="% equals 200g or 800 kcal"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_set_macros_edit_fat"
+        app:layout_constraintStart_toEndOf="@id/dialog_set_macros_edit_fat"
+        app:layout_constraintTop_toTopOf="@+id/dialog_set_macros_edit_fat" />
+
+    <TextView
+        android:id="@+id/dialog_set_macros_warning_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Percentages must add up to 100%"
+        android:textColor="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_edit_fat" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

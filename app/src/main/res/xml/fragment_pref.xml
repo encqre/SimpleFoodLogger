@@ -27,7 +27,7 @@
 
         <Preference
             app:key="pref_macros"
-            app:title="Set macros"
+            app:title="Set macronutrient targets"
             app:summary="Protein: 200g (30%)\nCarbs: 300g (40%)\nFat: 100g (30%)"
             />
 
