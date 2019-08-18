@@ -265,5 +265,4 @@ public class HomePageFragment extends Fragment {
 //TODO also would be probably a good idea to make this a PagerView
 //TODO fix issues arising switching to landscape mode
 //TODO verify if landscape layouts are ok
-//TODO add TODAY button to date picker
 

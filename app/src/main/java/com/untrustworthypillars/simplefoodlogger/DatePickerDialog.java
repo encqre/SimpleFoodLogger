@@ -99,6 +99,21 @@ public class DatePickerDialog extends DialogFragment {
                             }
                         }
                     }
+                }).setNeutralButton("Today", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Date date =  new Date();
+                        if (!compareNeeded) {
+                            sendResult(Activity.RESULT_OK, date);
+                        } else {
+                            if (Calculations.dateToDateTextEqualLengthInteger(date) >= Calculations.dateToDateTextEqualLengthInteger(startDate)) {
+                                sendResult(Activity.RESULT_OK, date);
+                            } else {
+                                Toast.makeText(getActivity(), "End date must be after selected start date!", Toast.LENGTH_LONG).show();
+                                sendResult(Activity.RESULT_CANCELED, date);
+                            }
+                        }
+                    }
                 }).create();
     }
 
