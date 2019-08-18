@@ -68,6 +68,7 @@ public class EditFoodDialog extends DialogFragment {
     private ConstraintLayout layout;
     private ConstraintLayout.LayoutParams bottomElementParams; //layout params of mServing3Name
     private int keyboardHeight = 0;
+    private String neutralButtonText;
 
     public static EditFoodDialog newInstance (UUID foodid, int foodType) {
         Bundle args = new Bundle();
@@ -79,19 +80,16 @@ public class EditFoodDialog extends DialogFragment {
         return fragment;
     }
 
-    //TODO need maybe a separate method for common foods and extended foods
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mFoodId = (UUID) getArguments().getSerializable(ARG_FOOD);
         mFoodType = getArguments().getInt(ARG_FOOD_TYPE);
 
+        food = FoodManager.get(getActivity()).getFood(mFoodId, mFoodType);
         if (mFoodType == 0) {
-            food = FoodManager.get(getActivity()).getCustomFood(mFoodId);
-        } else if (mFoodType == 1) {
-            food = FoodManager.get(getActivity()).getCommonFood(mFoodId);
-        } else if (mFoodType == 2) {
-            food = FoodManager.get(getActivity()).getExtendedFood(mFoodId);
+            neutralButtonText = "DELETE";
+        } else {
+            neutralButtonText = "HIDE";
         }
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_food, null);
@@ -176,6 +174,13 @@ public class EditFoodDialog extends DialogFragment {
         mServing3Name.setText(food.getPortion3Name());
         mServing3Size.setText(food.getPortion3SizeMetric().toString());
 
+        if (mFoodType == 1 || mFoodType == 2) {
+            mFoodTitle.setEnabled(false);
+            mCalories.setEnabled(false);
+            mProtein.setEnabled(false);
+            mCarbs.setEnabled(false);
+            mSpinner.setEnabled(false);
+        }
 
         return new AlertDialog.Builder(getActivity()).setView(v).setTitle("Edit food information")
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -186,12 +191,20 @@ public class EditFoodDialog extends DialogFragment {
 
                 })
                 .setNegativeButton(android.R.string.cancel, null)
-                .setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+                .setNeutralButton(neutralButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FoodManager.get(getActivity()).deleteCustomFood(food);
-                        Toast.makeText(getActivity(), "Food item deleted from the database!", Toast.LENGTH_SHORT).show();
-                        sendResult(Activity.RESULT_OK);
+                        if (mFoodType == 0) {
+                            FoodManager.get(getActivity()).deleteCustomFood(food);
+                            Toast.makeText(getActivity(), "Food item deleted from the database!", Toast.LENGTH_SHORT).show();
+                            sendResult(Activity.RESULT_OK);
+                        } else {
+                            food.setHidden(true);
+                            FoodManager.get(getActivity()).updateFood(food);
+                            Toast.makeText(getActivity(), "Item hidden from the database and search results! To restore it, visit settings tab.",
+                                    Toast.LENGTH_LONG).show();
+                            sendResult(Activity.RESULT_OK);
+                        }
                     }
                 })
                 .create();
@@ -215,8 +228,8 @@ public class EditFoodDialog extends DialogFragment {
                         if (mFoodTitle.getText().toString().contains(";")) {
                             Toast.makeText(getActivity(), "Name contains illegal character ';'", Toast.LENGTH_SHORT).show();
                         } else {
-                            Food food = FoodManager.get(getActivity()).getCustomFood(mFoodId);
-                            food.setSortID(0);
+//                            Food food = FoodManager.get(getActivity()).getCustomFood(mFoodId);
+//                            food.setSortID(0);
                             food.setCategory(mSpinner.getSelectedItem().toString());
                             food.setTitle(mFoodTitle.getText().toString());
                             food.setKcal(Float.parseFloat(mCalories.getText().toString()));
@@ -224,7 +237,7 @@ public class EditFoodDialog extends DialogFragment {
                             food.setCarbs(Float.parseFloat(mCarbs.getText().toString()));
                             food.setFat(Float.parseFloat(mFat.getText().toString()));
                             food.setFavorite(mFavorite.isChecked());
-                            food.setHidden(false);
+//                            food.setHidden(false);
                             if (mServing1Name.getText().toString().equals("")) {
                                 food.setPortion1Name("Small");
                             } else {
@@ -262,7 +275,7 @@ public class EditFoodDialog extends DialogFragment {
                                 food.setPortion3SizeMetric(Float.parseFloat(mServing3Size.getText().toString()));
                                 food.setPortion3SizeImperial(Float.parseFloat(mServing3Size.getText().toString())/28.35f);
                             }
-                            FoodManager.get(getActivity()).updateCustomFood(food);
+                            FoodManager.get(getActivity()).updateFood(food);
                             Toast.makeText(getActivity(), "Food item info updated!", Toast.LENGTH_SHORT).show();
 
                             sendResult(Activity.RESULT_OK);

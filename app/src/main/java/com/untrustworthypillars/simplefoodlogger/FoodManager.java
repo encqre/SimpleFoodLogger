@@ -252,6 +252,20 @@ public class FoodManager {
         return foods;
     }
 
+    public Food getFood(UUID id, int foodType) {
+        Food food;
+        if (foodType == 0) {
+            food = getCustomFood(id);
+        } else if (foodType == 1) {
+            food = getCommonFood(id);
+        } else if (foodType == 2) {
+            food = getExtendedFood(id);
+        } else {
+            food = null;
+        }
+        return food;
+    }
+
     public Food getCustomFood(UUID id) {
         FoodCursorWrapper cursor = queryCustomFoods(CustomFoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
 
@@ -331,12 +345,38 @@ public class FoodManager {
 
     }
 
+    public void updateFood(Food food) {
+        if (food.getType() == 0) {
+            updateCustomFood(food);
+        } else if (food.getType() == 1) {
+            updateCommonFood(food);
+        } else if (food.getType() == 2) {
+            updateExtendedFood(food);
+        } else {
+            android.util.Log.e("FAIL", "Failed to update food - incorrect type value: " + String.valueOf(food.getType()));
+        }
+
+    }
 
     public void updateCustomFood(Food food) {
         String uuidString = food.getFoodId().toString();
         ContentValues values = getContentValues(food);
 
         mCustomFoodDatabase.update(CustomFoodTable.NAME, values, CustomFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+    }
+
+    public void updateCommonFood(Food food) {
+        String uuidString = food.getFoodId().toString();
+        ContentValues values = getContentValues(food);
+
+        mCommonFoodDatabase.update(CommonFoodTable.NAME, values, CommonFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+    }
+
+    public void updateExtendedFood(Food food) {
+        String uuidString = food.getFoodId().toString();
+        ContentValues values = getContentValues(food);
+
+        mExtendedFoodDatabase.update(ExtendedFoodTable.NAME, values, ExtendedFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
     }
 
     public void deleteCustomFood(Food food) {

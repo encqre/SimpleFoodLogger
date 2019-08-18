@@ -63,6 +63,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     //TODO Unit selection
     //TODO Initial launch dialogs / tutorials
+    //TODO hidden food viewing/management/restoration
 
 
 
