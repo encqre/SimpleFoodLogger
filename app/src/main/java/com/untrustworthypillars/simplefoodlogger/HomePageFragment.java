@@ -147,13 +147,13 @@ public class HomePageFragment extends Fragment {
         mCarbsText = (TextView) v.findViewById(R.id.textview_carbs);
         mFatText = (TextView) v.findViewById(R.id.textview_fat);
         mCaloriesProgress = (ProgressBar) v.findViewById(R.id.progress_bar_calories);
-        mCaloriesProgress.setMax((int) Float.parseFloat(mCaloriesGoal));
+        mCaloriesProgress.setMax(Integer.parseInt(mCaloriesGoal));
         mProteinProgress = (ProgressBar) v.findViewById(R.id.progress_bar_protein);
-        mProteinProgress.setMax((int) Float.parseFloat(mProteinGoal));
+        mProteinProgress.setMax(Integer.parseInt(mProteinGoal));
         mCarbsProgress = (ProgressBar) v.findViewById(R.id.progress_bar_carbs);
-        mCarbsProgress.setMax((int) Float.parseFloat(mCarbsGoal));
+        mCarbsProgress.setMax(Integer.parseInt(mCarbsGoal));
         mFatProgress = (ProgressBar) v.findViewById(R.id.progress_bar_fat);
-        mFatProgress.setMax((int) Float.parseFloat(mFatGoal));
+        mFatProgress.setMax(Integer.parseInt(mFatGoal));
 
         updateUI();
 

@@ -124,7 +124,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mCaloriesTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
             }
         });
         mCaloriesTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
@@ -145,7 +145,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mProteinTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
             }
         });
         mProteinTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
@@ -154,7 +154,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mCarbsTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
             }
         });
         mCarbsTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
@@ -163,7 +163,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mFatTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
             }
         });
         mFatTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
@@ -174,7 +174,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mRecentFoodsLength.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //limiting input to numbers only
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
             }
         });
         mRecentFoodsLength.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());

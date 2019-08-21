@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Set manually" />
+            android:text="Set weight manually" />
 
 
     </RadioGroup>
@@ -79,9 +79,10 @@
 
     <EditText
         android:id="@+id/dialog_set_macros_edit_protein"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:hint="30"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_text_protein" />
@@ -90,9 +91,11 @@
         android:id="@+id/dialog_set_macros_info_protein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:text="% equals 200g or 800 kcal"
+        android:text="% = 200 g x 4 kcal/g = 800 kcal"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_set_macros_edit_protein"
         app:layout_constraintStart_toEndOf="@id/dialog_set_macros_edit_protein"
         app:layout_constraintTop_toTopOf="@+id/dialog_set_macros_edit_protein" />
@@ -110,9 +113,10 @@
 
     <EditText
         android:id="@+id/dialog_set_macros_edit_carbs"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:hint="40"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_text_carbs" />
@@ -122,8 +126,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:text="% equals 200g or 800 kcal"
+        android:layout_marginStart="0dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="% = 300 g x 4 kcal/g = 1200 kcal"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_set_macros_edit_carbs"
         app:layout_constraintStart_toEndOf="@id/dialog_set_macros_edit_carbs"
         app:layout_constraintTop_toTopOf="@+id/dialog_set_macros_edit_carbs" />
@@ -142,9 +148,10 @@
 
     <EditText
         android:id="@+id/dialog_set_macros_edit_fat"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:hint="30"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_text_fat" />
@@ -154,8 +161,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:text="% equals 200g or 800 kcal"
+        android:layout_marginStart="0dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="% = 80 g x 9 kcal/g = 720 kcal"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_set_macros_edit_fat"
         app:layout_constraintStart_toEndOf="@id/dialog_set_macros_edit_fat"
         app:layout_constraintTop_toTopOf="@+id/dialog_set_macros_edit_fat" />
@@ -165,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Percentages must add up to 100%"
+        android:text="Sum of percentages: 96%\nPercentages should add up to 100%"
         android:textColor="@color/red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_set_macros_edit_fat" />

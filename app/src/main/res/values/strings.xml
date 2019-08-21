@@ -27,6 +27,10 @@
     <string name="home_fragment_goal_fat">Fat: %1$d/%2$sg</string>
     <string name="home_fragment_log_title">%1$s, %2$dg</string>
     <string name="home_fragment_log_kcal">%1$d kcal</string>
+    <string name="set_macros_dialog_percent_macro_info">%% = %1$d g x %2$d kcal/g = %3$d kcal</string>
+    <string name="set_macros_dialog_percent_bottom_info">Sum of percentages: %1$d%%\nPercentages should add up to 100%%</string>
+    <string name="set_macros_dialog_manual_macro_info">g x %1$d kcal/g = %2$d kcal = %3$d%%</string>
+    <string name="set_macros_dialog_manual_bottom_info">Sum of calories: %1$d kcal\nSum should match current target (%2$d kcal)</string>
     <string-array name="food_categories_array">
         <item>Dairy &amp; Eggs</item>
         <item>Meat</item>
