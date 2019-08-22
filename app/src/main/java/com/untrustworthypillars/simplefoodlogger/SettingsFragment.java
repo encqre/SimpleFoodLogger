@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 
@@ -17,6 +18,7 @@ import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -66,6 +68,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private EditTextPreference mRecentFoodsLength;
 
+    private SharedPreferences mPreferences;
+    private int mTargetCalories;
+    private int mTargetProtein;
+    private int mTargetCarbs;
+    private int mTargetFat;
+    private float mTargetProteinPercent;
+    private float mTargetCarbsPercent;
+    private float mTargetFatPercent;
+
     //TODO Unit selection
     //TODO Initial launch dialogs / tutorials
     //TODO hidden food viewing/management/restoration
@@ -79,6 +90,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment_pref, rootKey);
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
+        mTargetProtein = Integer.parseInt(mPreferences.getString("pref_protein", "200"));
+        mTargetCarbs = Integer.parseInt(mPreferences.getString("pref_carbs", "300"));
+        mTargetFat = Integer.parseInt(mPreferences.getString("pref_fat", "90"));
+        mTargetProteinPercent = (float) (mTargetProtein * 4) / mTargetCalories * 100;
+        mTargetCarbsPercent = (float) (mTargetCarbs * 4) / mTargetCalories * 100;
+        mTargetFatPercent = (float) (mTargetFat * 9) / mTargetCalories * 100;
 
         mBackup = (Preference) findPreference("pref_backup");
         mBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -129,7 +149,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
         mCaloriesTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
 
-        mMacros = (Preference) findPreference("pref_macros"); //TODO finish implementing dialog to set macros based on percentages
+        mMacros = (Preference) findPreference("pref_macros");
         mMacros.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -140,6 +160,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
+        mMacros.setSummary(getString(R.string.settings_fragment_macros_summary,mTargetProtein,
+                (int) mTargetProteinPercent,mTargetCarbs,(int) mTargetCarbsPercent,mTargetFat,(int) mTargetFatPercent));
+        //TODO need to update this summary with new macro values when dialog finishes
 
         mProteinTarget = (EditTextPreference) findPreference("pref_protein");
         mProteinTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
