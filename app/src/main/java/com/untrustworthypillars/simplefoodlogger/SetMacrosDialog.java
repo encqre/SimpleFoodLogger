@@ -1,7 +1,9 @@
 package com.untrustworthypillars.simplefoodlogger;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -124,9 +126,9 @@ public class SetMacrosDialog extends DialogFragment {
                 if (isChecked) {
                     mIsInputPercent = true;
                     mRecalcLock = true;
-                    mProteinInput.setText(String.valueOf((int) mTargetProteinPercent));
-                    mCarbsInput.setText(String.valueOf((int) mTargetCarbsPercent));
-                    mFatInput.setText(String.valueOf((int) mTargetFatPercent));
+                    mProteinInput.setText(String.valueOf(Math.round(mTargetProteinPercent)));
+                    mCarbsInput.setText(String.valueOf(Math.round(mTargetCarbsPercent)));
+                    mFatInput.setText(String.valueOf(Math.round(mTargetFatPercent)));
                     mProteinText.setText(getString(R.string.set_macros_dialog_percent_macro_info, mTargetProtein, 4, (mTargetProtein*4)));
                     mCarbsText.setText(getString(R.string.set_macros_dialog_percent_macro_info, mTargetCarbs, 4, (mTargetCarbs*4)));
                     mFatText.setText(getString(R.string.set_macros_dialog_percent_macro_info, mTargetFat, 9, (mTargetFat*9)));
@@ -146,9 +148,9 @@ public class SetMacrosDialog extends DialogFragment {
                     mProteinInput.setText(String.valueOf(mTargetProtein));
                     mCarbsInput.setText(String.valueOf(mTargetCarbs));
                     mFatInput.setText(String.valueOf(mTargetFat));
-                    mProteinText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetProtein * 4), (int) mTargetProteinPercent));
-                    mCarbsText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetCarbs * 4), (int) mTargetCarbsPercent));
-                    mFatText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 9, (mTargetFat * 9), (int) mTargetFatPercent));
+                    mProteinText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetProtein * 4), Math.round(mTargetProteinPercent)));
+                    mCarbsText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetCarbs * 4), Math.round(mTargetCarbsPercent)));
+                    mFatText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 9, (mTargetFat * 9), Math.round(mTargetFatPercent)));
                     setBottomInfoTexts();
                     mRecalcLock = false;
                 }
@@ -156,7 +158,7 @@ public class SetMacrosDialog extends DialogFragment {
         });
 
         mProteinInput = (EditText) v.findViewById(R.id.dialog_set_macros_edit_protein);
-        mProteinInput.setText(String.valueOf((int) mTargetProteinPercent));
+        mProteinInput.setText(String.valueOf(Math.round(mTargetProteinPercent)));
         mProteinInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -171,7 +173,7 @@ public class SetMacrosDialog extends DialogFragment {
                     } else {
                         mTargetProteinPercent = 0f;
                     }
-                    mTargetProtein = (int) (mTargetCalories * mTargetProteinPercent / 400);
+                    mTargetProtein = Math.round((mTargetCalories * mTargetProteinPercent / 400));
                     mProteinText.setText(getString(R.string.set_macros_dialog_percent_macro_info, mTargetProtein, 4, (mTargetProtein*4)));
                     setBottomInfoTexts();
                 } else if (!mIsInputPercent && !mRecalcLock){
@@ -181,7 +183,7 @@ public class SetMacrosDialog extends DialogFragment {
                         mTargetProtein = 0;
                     }
                     mTargetProteinPercent = (float) (mTargetProtein * 4) / mTargetCalories * 100;
-                    mProteinText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetProtein * 4), (int) mTargetProteinPercent));
+                    mProteinText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetProtein * 4), Math.round(mTargetProteinPercent)));
                     setBottomInfoTexts();
                 }
             }
@@ -193,7 +195,7 @@ public class SetMacrosDialog extends DialogFragment {
         });
 
         mCarbsInput = (EditText) v.findViewById(R.id.dialog_set_macros_edit_carbs);
-        mCarbsInput.setText(String.valueOf((int) mTargetCarbsPercent));
+        mCarbsInput.setText(String.valueOf(Math.round(mTargetCarbsPercent)));
         mCarbsInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -208,7 +210,7 @@ public class SetMacrosDialog extends DialogFragment {
                     } else {
                         mTargetCarbsPercent = 0f;
                     }
-                    mTargetCarbs = (int) (mTargetCalories * mTargetCarbsPercent / 400);
+                    mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400);
                     mCarbsText.setText(getString(R.string.set_macros_dialog_percent_macro_info, mTargetCarbs, 4, (mTargetCarbs*4)));
                     setBottomInfoTexts();
                 } else if (!mIsInputPercent && !mRecalcLock){
@@ -218,7 +220,7 @@ public class SetMacrosDialog extends DialogFragment {
                         mTargetCarbs = 0;
                     }
                     mTargetCarbsPercent = (float) (mTargetCarbs * 4) / mTargetCalories * 100;
-                    mCarbsText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetCarbs * 4), (int) mTargetCarbsPercent));
+                    mCarbsText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 4, (mTargetCarbs * 4), Math.round(mTargetCarbsPercent)));
                     setBottomInfoTexts();
                 }
             }
@@ -230,7 +232,7 @@ public class SetMacrosDialog extends DialogFragment {
         });
 
         mFatInput = (EditText) v.findViewById(R.id.dialog_set_macros_edit_fat);
-        mFatInput.setText(String.valueOf((int) mTargetFatPercent));
+        mFatInput.setText(String.valueOf(Math.round(mTargetFatPercent)));
         mFatInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -245,7 +247,7 @@ public class SetMacrosDialog extends DialogFragment {
                     } else {
                         mTargetFatPercent = 0f;
                     }
-                    mTargetFat = (int) (mTargetCalories * mTargetFatPercent / 900);
+                    mTargetFat = Math.round(mTargetCalories * mTargetFatPercent / 900);
                     mFatText.setText(getString(R.string.set_macros_dialog_percent_macro_info, mTargetFat, 9, (mTargetFat*9)));
                     setBottomInfoTexts();
                 } else if (!mIsInputPercent && !mRecalcLock){
@@ -255,7 +257,7 @@ public class SetMacrosDialog extends DialogFragment {
                         mTargetFat = 0;
                     }
                     mTargetFatPercent = (float) (mTargetFat * 9) / mTargetCalories * 100;
-                    mFatText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 9, (mTargetFat * 9), (int) mTargetFatPercent));
+                    mFatText.setText(getString(R.string.set_macros_dialog_manual_macro_info, 9, (mTargetFat * 9), Math.round(mTargetFatPercent)));
                     setBottomInfoTexts();
                 }
             }
@@ -277,7 +279,7 @@ public class SetMacrosDialog extends DialogFragment {
 
 
         mBottomInfoText = (TextView) v.findViewById(R.id.dialog_set_macros_warning_text);
-        mBottomInfoText.setText(getString(R.string.set_macros_dialog_percent_bottom_info, (int) (mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent)));
+        mBottomInfoText.setText(getString(R.string.set_macros_dialog_percent_bottom_info, Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent)));
 
         mBottomInfoText2 = (TextView) v.findViewById(R.id.dialog_set_macros_warning_text2);
         mBottomInfoText2.setText(getString(R.string.set_macros_dialog_percent_bottom_info2));
@@ -296,6 +298,7 @@ public class SetMacrosDialog extends DialogFragment {
                         mPreferences.edit().putString("pref_carbs", String.valueOf(mTargetCarbs)).apply();
                         mPreferences.edit().putString("pref_fat", String.valueOf(mTargetFat)).apply();
                         Toast.makeText(getActivity(), "Daily Macronutrient Targets updated!", Toast.LENGTH_SHORT).show();
+                        sendResult(Activity.RESULT_OK);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null).create();
@@ -303,9 +306,9 @@ public class SetMacrosDialog extends DialogFragment {
 
     private void setBottomInfoTexts() {
         if (mIsInputPercent) {
-            mBottomInfoText.setText(getString(R.string.set_macros_dialog_percent_bottom_info, (int) (mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent)));
+            mBottomInfoText.setText(getString(R.string.set_macros_dialog_percent_bottom_info, Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent)));
             mBottomInfoText2.setText(getString(R.string.set_macros_dialog_percent_bottom_info2));
-            if ((int) mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent == 100) {
+            if (Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent) == 100) {
                 mBottomInfoText.setTextColor(getResources().getColor(R.color.slightly_darker_green));
                 mBottomInfoText2.setVisibility(TextView.INVISIBLE);
             } else {
@@ -323,6 +326,15 @@ public class SetMacrosDialog extends DialogFragment {
                 mBottomInfoText2.setVisibility(TextView.VISIBLE);
             }
         }
+    }
+
+    private void sendResult(int resultCode) {
+        if (getTargetFragment() == null) {
+            return;
+        }
+
+        Intent intent = new Intent();
+        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 }
 

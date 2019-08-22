@@ -12,18 +12,6 @@
             app:key="pref_calories"
             app:title="Set daily calories target"
             app:summary="Current target: 2500 kcal"/>
-        <EditTextPreference
-            app:key="pref_protein"
-            app:title="Set daily protein target"
-            app:summary="Current target: 200g"/>
-        <EditTextPreference
-            app:key="pref_carbs"
-            app:title="Set daily carbs target"
-            app:summary="Current target: 300g"/>
-        <EditTextPreference
-            app:key="pref_fat"
-            app:title="Set daily fat target"
-            app:summary="Current target: 90g"/>
 
         <Preference
             app:key="pref_macros"

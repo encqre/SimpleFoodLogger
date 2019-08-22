@@ -52,6 +52,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private static final String ARG_MESSAGE = "message";
 
     private static final int REQUEST_ANSWER = 0;
+    private static final int REQUEST_MACROS = 1;
 
     private Preference mBackup;
     private Preference mImport;
@@ -60,9 +61,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Preference mMacros;
 
     private EditTextPreference mCaloriesTarget;
-    private EditTextPreference mProteinTarget;
-    private EditTextPreference mCarbsTarget;
-    private EditTextPreference mFatTarget;
 
     private CheckBoxPreference mStatsIgnoreZeroKcalDays;
 
@@ -92,13 +90,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.fragment_pref, rootKey);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
-        mTargetProtein = Integer.parseInt(mPreferences.getString("pref_protein", "200"));
-        mTargetCarbs = Integer.parseInt(mPreferences.getString("pref_carbs", "300"));
-        mTargetFat = Integer.parseInt(mPreferences.getString("pref_fat", "90"));
-        mTargetProteinPercent = (float) (mTargetProtein * 4) / mTargetCalories * 100;
-        mTargetCarbsPercent = (float) (mTargetCarbs * 4) / mTargetCalories * 100;
-        mTargetFatPercent = (float) (mTargetFat * 9) / mTargetCalories * 100;
 
         mBackup = (Preference) findPreference("pref_backup");
         mBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -155,41 +146,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             public boolean onPreferenceClick(Preference preference) {
                 FragmentManager fm = getFragmentManager();
                 SetMacrosDialog dialog = SetMacrosDialog.newInstance();
-                dialog.setTargetFragment(SettingsFragment.this, 0);
+                dialog.setTargetFragment(SettingsFragment.this, REQUEST_MACROS);
                 dialog.show(fm, "SetMacros");
                 return true;
             }
         });
-        mMacros.setSummary(getString(R.string.settings_fragment_macros_summary,mTargetProtein,
-                (int) mTargetProteinPercent,mTargetCarbs,(int) mTargetCarbsPercent,mTargetFat,(int) mTargetFatPercent));
-        //TODO need to update this summary with new macro values when dialog finishes
-
-        mProteinTarget = (EditTextPreference) findPreference("pref_protein");
-        mProteinTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
-            @Override
-            public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
-            }
-        });
-        mProteinTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
-
-        mCarbsTarget = (EditTextPreference) findPreference("pref_carbs");
-        mCarbsTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
-            @Override
-            public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
-            }
-        });
-        mCarbsTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
-
-        mFatTarget = (EditTextPreference) findPreference("pref_fat");
-        mFatTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
-            @Override
-            public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
-            }
-        });
-        mFatTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
+        setMacrosPreferenceSummary();
 
         mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
 
@@ -554,6 +516,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 importedLogList.clear();
                 Toast.makeText(getActivity(), "New items added!", Toast.LENGTH_SHORT).show();
             }
+            if (requestCode == REQUEST_MACROS) {
+                setMacrosPreferenceSummary(); //updating with new macro target values
+            }
         }
         if (resultCode == Activity.RESULT_CANCELED) {
             if (requestCode == REQUEST_ANSWER) {
@@ -562,5 +527,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
 
+    }
+
+    public void setMacrosPreferenceSummary() {
+        mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
+        mTargetProtein = Integer.parseInt(mPreferences.getString("pref_protein", "200"));
+        mTargetCarbs = Integer.parseInt(mPreferences.getString("pref_carbs", "300"));
+        mTargetFat = Integer.parseInt(mPreferences.getString("pref_fat", "90"));
+        mTargetProteinPercent = (float) (mTargetProtein * 4) / mTargetCalories * 100;
+        mTargetCarbsPercent = (float) (mTargetCarbs * 4) / mTargetCalories * 100;
+        mTargetFatPercent = (float) (mTargetFat * 9) / mTargetCalories * 100;
+        mMacros.setSummary(getString(R.string.settings_fragment_macros_summary,mTargetProtein,
+                Math.round(mTargetProteinPercent),mTargetCarbs,Math.round(mTargetCarbsPercent),mTargetFat,Math.round(mTargetFatPercent)));
     }
 }
