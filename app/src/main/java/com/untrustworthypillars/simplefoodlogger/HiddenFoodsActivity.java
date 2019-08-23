@@ -36,6 +36,7 @@ public class HiddenFoodsActivity extends AppCompatActivity {
 
     }
 
+    //TODO override toolbar back button to do the same as bottom back navigation button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

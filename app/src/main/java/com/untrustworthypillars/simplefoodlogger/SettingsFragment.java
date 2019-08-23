@@ -168,6 +168,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
+        mHiddenFoods.setSummary("Number of hidden foods: " + FoodManager.get(getActivity()).getHiddenFoods("").size());
 
         mRecentFoodsLength = (EditTextPreference) findPreference("pref_recent_foods_size");
         mRecentFoodsLength.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
@@ -542,7 +543,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         if (requestCode == REQUEST_HIDDEN_FOODS) {
             Toast.makeText(getActivity(), "Hidden foods updated", Toast.LENGTH_SHORT).show();
-            //update summary here too please
+            mHiddenFoods.setSummary("Number of hidden foods: " + FoodManager.get(getActivity()).getHiddenFoods("").size());
         }
 
     }
