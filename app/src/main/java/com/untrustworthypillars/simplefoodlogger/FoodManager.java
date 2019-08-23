@@ -345,6 +345,80 @@ public class FoodManager {
 
     }
 
+    public List<Food> getHiddenFoods(String filterString) {
+        List<Food> foods = new ArrayList<>();
+
+        String [] searchWordsArray = filterString.split("\\s+");
+        String queryWhereClause = "";
+        for (int i=0; i<searchWordsArray.length; i++) {
+            android.util.Log.d("SEARCHARRAY", searchWordsArray[i]);
+            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 1) { //Not including empty strings or single letter words into search words
+                searchWordsArray[i] = "\"%" + searchWordsArray[i] + "%\"";
+                if (queryWhereClause.length() < 1) {
+                    queryWhereClause = queryWhereClause + CustomFoodTable.Cols.HIDDEN + " = 1 AND " + CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                } else {
+                    queryWhereClause = queryWhereClause + " AND " + CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                }
+            }
+        }
+
+        FoodCursorWrapper cursor;
+
+        if (queryWhereClause.equals("")) {
+            cursor = queryCommonFoods(CommonFoodTable.Cols.HIDDEN + " = 1", null);
+
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    foods.add(cursor.getCommonFood());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+
+            cursor = queryExtendedFoods(ExtendedFoodTable.Cols.HIDDEN + " = 1", null);
+
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    foods.add(cursor.getExtendedFood());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+        } else {
+
+            cursor = queryCommonFoods(queryWhereClause, null);
+
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    foods.add(cursor.getCommonFood());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+
+            cursor = queryExtendedFoods(queryWhereClause, null);
+
+            try {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    foods.add(cursor.getExtendedFood());
+                    cursor.moveToNext();
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+
+        return foods;
+    }
+
     public void updateFood(Food food) {
         if (food.getType() == 0) {
             updateCustomFood(food);

@@ -53,12 +53,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private static final int REQUEST_ANSWER = 0;
     private static final int REQUEST_MACROS = 1;
+    private static final int REQUEST_HIDDEN_FOODS = 2;
 
     private Preference mBackup;
     private Preference mImport;
     private Preference mImportCommonFoods;
     private Preference mImportExtendedFoods;
     private Preference mMacros;
+    private Preference mHiddenFoods;
 
     private EditTextPreference mCaloriesTarget;
 
@@ -76,8 +78,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private float mTargetFatPercent;
 
     //TODO Unit selection
-    //TODO Initial launch dialogs / tutorials
+    //TODO Dark theme and switching between themes
     //TODO hidden food viewing/management/restoration
+    //TODO properly implement backup/restore feature
 
 
 
@@ -154,6 +157,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setMacrosPreferenceSummary();
 
         mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
+
+
+        mHiddenFoods = (Preference) findPreference("pref_hidden_food_list");
+        mHiddenFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = HiddenFoodsActivity.newIntent(getActivity());
+                startActivityForResult(intent, REQUEST_HIDDEN_FOODS);
+                return true;
+            }
+        });
 
         mRecentFoodsLength = (EditTextPreference) findPreference("pref_recent_foods_size");
         mRecentFoodsLength.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
@@ -525,6 +539,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 importedCustomFoodList.clear();
                 importedLogList.clear();
             }
+        }
+        if (requestCode == REQUEST_HIDDEN_FOODS) {
+            Toast.makeText(getActivity(), "Hidden foods updated", Toast.LENGTH_SHORT).show();
+            //update summary here too please
         }
 
     }

@@ -267,8 +267,8 @@ public class HomePageFragment extends Fragment {
 
 }
 
-//TODO make this whole fragment layout a scrollpane
-//TODO also would be probably a good idea to make this a PagerView
+//TODO make this whole fragment layout a scrollpane - need to test on a low res phone first if its really needed
 //TODO fix issues arising switching to landscape mode
 //TODO verify if landscape layouts are ok
+//TODO look into possibility of changing most dialogs into separate activities/fragments, mostly to avoid that mess with keyboard hiding stuff
 

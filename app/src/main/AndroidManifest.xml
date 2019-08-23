@@ -21,6 +21,9 @@
         <activity android:name=".AddLogActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
+        <activity android:name=".HiddenFoodsActivity"
+            android:parentActivityName=".LoggerActivity">
+        </activity>
         <activity android:name=".InitialLaunchActivity">
         </activity>
     </application>

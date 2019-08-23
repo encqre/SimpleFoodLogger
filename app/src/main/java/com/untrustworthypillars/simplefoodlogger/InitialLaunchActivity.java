@@ -9,5 +9,6 @@ public class InitialLaunchActivity extends AppCompatActivity {
     //TODO 2. Set target kcal and macros (bonus - app to calculate target calories by age/height/weight/activity levels) - default 2500,
     //TODO 3. Select whether to use common DB or not
     //TODO 4. Load database files for common and extended DBs
+    //TODO 5. Tutorials
 
 }

@@ -27,9 +27,9 @@ public class AddLogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_log);
+        setContentView(R.layout.activity_single_fragment);
 
-        mToolbar = (Toolbar) findViewById(R.id.add_log_toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
         setSupportActionBar(mToolbar);
 
         ActionBar ab = getSupportActionBar();

@@ -52,10 +52,17 @@
         app:key="food_items_category"
         app:title="Food Database">
 
+        <Preference
+            app:key="pref_hidden_food_list"
+            app:title="View/restore hidden food items"
+            app:summary="Number of hidden foods: 24"/>
+
         <EditTextPreference
             app:key="pref_recent_foods_size"
             app:title="Set recent foods list size"
             app:summary="10"/>
+
+
 
     </PreferenceCategory>
 

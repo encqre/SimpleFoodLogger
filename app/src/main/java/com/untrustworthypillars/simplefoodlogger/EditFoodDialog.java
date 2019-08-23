@@ -179,6 +179,7 @@ public class EditFoodDialog extends DialogFragment {
             mCalories.setEnabled(false);
             mProtein.setEnabled(false);
             mCarbs.setEnabled(false);
+            mFat.setEnabled(false);
             mSpinner.setEnabled(false);
         }
 
