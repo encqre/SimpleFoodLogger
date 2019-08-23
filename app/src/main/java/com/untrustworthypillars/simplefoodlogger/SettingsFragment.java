@@ -79,9 +79,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     //TODO Unit selection
     //TODO Dark theme and switching between themes
-    //TODO hidden food viewing/management/restoration
     //TODO properly implement backup/restore feature
-
 
 
     private List<Food> importedCustomFoodList = new ArrayList<>();
