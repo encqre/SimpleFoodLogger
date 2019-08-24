@@ -34,6 +34,12 @@
     <string name="set_macros_dialog_manual_bottom_info">Sum of calories: %1$d kcal</string>
     <string name="set_macros_dialog_manual_bottom_info2">Sum should match current target (%1$d kcal)</string>
     <string name="settings_fragment_macros_summary">Protein: %1$dg (%2$d%%)\nCarbs: %3$dg (%4$d%%)\nFat: %5$dg (%6$d%%)</string>
+    <string name="dialog_add_food_nutrition_textview_metric">"Nutrition Info (per 100g)"</string>
+    <string name="dialog_add_food_nutrition_textview_imperial">"Nutrition Info (per 3.5oz)"</string>
+    <string name="dialog_add_food_servings_textview_metric">Serving Sizes (g)</string>
+    <string name="dialog_add_food_servings_textview_imperial">Serving Sizes (oz)</string>
+    <string name="dialog_add_log_weight_textview_metric">Weight (g)</string>
+    <string name="dialog_add_log_weight_textview_imperial">Weight (oz)</string>
     <string-array name="food_categories_array">
         <item>Dairy &amp; Eggs</item>
         <item>Meat</item>

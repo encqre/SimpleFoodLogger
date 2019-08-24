@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -68,6 +69,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private EditTextPreference mRecentFoodsLength;
 
+    private ListPreference mUnits;
+
     private SharedPreferences mPreferences;
     private int mTargetCalories;
     private int mTargetProtein;
@@ -91,6 +94,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.fragment_pref, rootKey);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//        android.util.Log.d("findme", mPreferences.getString("pref_units", "Metric"));
 
         mBackup = (Preference) findPreference("pref_backup");
         mBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -153,6 +157,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
         setMacrosPreferenceSummary();
+
+        mUnits = (ListPreference) findPreference("pref_units");
+        mUnits.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
         mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
 

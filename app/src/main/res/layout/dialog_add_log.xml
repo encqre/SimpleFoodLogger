@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Weight (g)"
+        android:text="@string/dialog_add_log_weight_textview_metric"
         android:textAppearance="@style/TabThingy"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"

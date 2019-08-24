@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Nutrition Info (per 100g)"
+                android:text="@string/dialog_add_food_nutrition_textview_metric"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_isfavorite" />
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Serving Sizes (g)"
+                android:text="@string/dialog_add_food_servings_textview_metric"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dialog_add_food_fat_textview" />
