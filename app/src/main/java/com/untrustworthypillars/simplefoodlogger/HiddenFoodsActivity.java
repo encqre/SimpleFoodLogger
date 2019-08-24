@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,12 +37,15 @@ public class HiddenFoodsActivity extends AppCompatActivity {
 
     }
 
-    //TODO override toolbar back button to do the same as bottom back navigation button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_unhide_all:
-                //TODO
+                HiddenFoodsFragment frag = (HiddenFoodsFragment) getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
+                frag.unhideAllFoods();
+                return true;
+            case android.R.id.home: //override toolbar back button to do same as bottom(hard) back button
+                this.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

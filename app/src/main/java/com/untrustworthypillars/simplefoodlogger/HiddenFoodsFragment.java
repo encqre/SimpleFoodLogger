@@ -82,6 +82,18 @@ public class HiddenFoodsFragment extends Fragment {
         }
     }
 
+    public void unhideAllFoods() {
+        List<Food> allHiddenFoods = mFoodManager.getHiddenFoods("");
+        for (int i = 0; i < allHiddenFoods.size(); i++) {
+            Food food = allHiddenFoods.get(i);
+            food.setHidden(false);
+            mFoodManager.updateFood(food);
+        }
+        //Refreshing the list
+        mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(mSearchView.getQuery().toString()));
+        mRecyclerView.setAdapter(mFoodAdapter);
+    }
+
     private class FoodHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mFoodTitleTextView;
         private TextView mFoodCalories;
