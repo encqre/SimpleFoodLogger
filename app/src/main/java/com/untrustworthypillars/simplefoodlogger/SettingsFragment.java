@@ -80,7 +80,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private float mTargetCarbsPercent;
     private float mTargetFatPercent;
 
-    //TODO Unit selection
     //TODO Dark theme and switching between themes
     //TODO properly implement backup/restore feature
 
