@@ -63,6 +63,7 @@ public class HomePageFragment extends Fragment {
     private String mProteinGoal;
     private String mCarbsGoal;
     private String mFatGoal;
+    private String mUnits;
 
     private LoggerActivity mActivity;
 
@@ -90,6 +91,7 @@ public class HomePageFragment extends Fragment {
         mProteinGoal = mPreferences.getString("pref_protein", "200");
         mCarbsGoal = mPreferences.getString("pref_carbs", "300");
         mFatGoal = mPreferences.getString("pref_fat", "90");
+        mUnits = mPreferences.getString("pref_units", "Metric");
 
         /*Floating action button starts a new Activity, which will launch FoodListFragment. Passing selected day as an argument */
         mLogMealFAB = (FloatingActionButton) v.findViewById(R.id.floating_button_logmeal);
@@ -218,11 +220,15 @@ public class HomePageFragment extends Fragment {
 
         public void bind(Log log) {
             mLogId = log.getLogId();
-            mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), log.getSize().intValue()));
             mFoodCalories.setText(getString(R.string.home_fragment_log_kcal, log.getKcal().intValue()));
             mFoodProtein.setText(getString(R.string.food_list_fragment_protein, String.format("%.1f", log.getProtein())));
             mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, String.format("%.1f", log.getCarbs())));
             mFoodFat.setText(getString(R.string.food_list_fragment_fat, String.format("%.1f", log.getFat())));
+            if (mUnits.equals("Metric")) {
+                mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.valueOf(log.getSize().intValue()), "g"));
+            } else {
+                mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.format("%.1f", log.getSizeImperial()), " oz"));
+            }
         }
 
         public boolean onLongClick(View v) {

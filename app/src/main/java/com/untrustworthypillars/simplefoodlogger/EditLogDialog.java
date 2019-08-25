@@ -5,11 +5,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceManager;
+
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -49,6 +52,10 @@ public class EditLogDialog extends DialogFragment {
     private RadioButton mServing1;
     private RadioButton mServing2;
     private RadioButton mServing3;
+    private TextView mWeightTextView;
+
+    private SharedPreferences mPreferences;
+    private String mUnits;
 
     public static EditLogDialog newInstance (UUID logid) {
         Bundle args = new Bundle();
@@ -66,6 +73,9 @@ public class EditLogDialog extends DialogFragment {
         mDate = mLog.getDate();
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_add_log, null);
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mUnits = mPreferences.getString("pref_units", "Metric");
 
         mDateButton = (TextView) v.findViewById(R.id.dialog_add_log_date_button);
         mDateButton.setPaintFlags(mDateButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -93,7 +103,6 @@ public class EditLogDialog extends DialogFragment {
         mFat.setText(String.format("%.1f", mLog.getFat()) + "g");
 
         mWeight = (EditText) v.findViewById(R.id.dialog_add_log_weight);
-        mWeight.setText(mLog.getSize().toString());
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mWeight.requestFocus();
         showKeyboard();
@@ -108,6 +117,9 @@ public class EditLogDialog extends DialogFragment {
                 Float weight = 0f;
                 if (mWeight.length() > 0) {
                     weight = Float.parseFloat(mWeight.getText().toString());
+                }
+                if (mUnits.equals("Imperial")) {
+                    weight = weight*28.35f;
                 }
                 mCalories.setText(String.format("%.1f",(mLog.getKcal()/mLog.getSize() * weight)) + " kcal");
                 mProtein.setText(String.format("%.1f",(mLog.getProtein()/mLog.getSize() * weight)) + "g");
@@ -131,60 +143,124 @@ public class EditLogDialog extends DialogFragment {
         mServing2 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving2_radio_button);
         mServing3 = (RadioButton) v.findViewById(R.id.dialog_add_log_serving3_radio_button);
 
-        if (mFood != null) {
-            mServing1.setText(mFood.getPortion1Name() + " (" + mFood.getPortion1SizeMetric().toString() + "g)");
-            mServing1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWeight.setText(mFood.getPortion1SizeMetric().toString());
+
+        if (mUnits.equals("Metric")) {
+            mWeight.setText(String.format("%.1f", mLog.getSize()));
+            if (mFood != null) {
+                mServing1.setText(mFood.getPortion1Name() + " (" + mFood.getPortion1SizeMetric().toString() + "g)");
+                mServing1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText(mFood.getPortion1SizeMetric().toString());
+                    }
+                });
+                mServing2.setText(mFood.getPortion2Name() + " (" + mFood.getPortion2SizeMetric().toString() + "g)");
+                mServing2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText(mFood.getPortion2SizeMetric().toString());
+                    }
+                });
+                mServing3.setText(mFood.getPortion3Name() + " (" + mFood.getPortion3SizeMetric().toString() + "g)");
+                mServing3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText(mFood.getPortion3SizeMetric().toString());
+                    }
+                });
+
+                /**If food weight in the log matches one of the portion sizes, set its radio button as checked*/
+                if (mLog.getSize().equals(mFood.getPortion1SizeMetric())) {
+                    mServing1.setChecked(true);
+                } else if (mLog.getSize().equals(mFood.getPortion2SizeMetric())) {
+                    mServing2.setChecked(true);
+                } else if (mLog.getSize().equals(mFood.getPortion3SizeMetric())) {
+                    mServing3.setChecked(true);
                 }
-            });
-            mServing2.setText(mFood.getPortion2Name() + " (" + mFood.getPortion2SizeMetric().toString() + "g)");
-            mServing2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWeight.setText(mFood.getPortion2SizeMetric().toString());
-                }
-            });
-            mServing3.setText(mFood.getPortion3Name() + " (" + mFood.getPortion3SizeMetric().toString() + "g)");
-            mServing3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWeight.setText(mFood.getPortion3SizeMetric().toString());
-                }
-            });
+            } else {
+                mServing1.setText("Small (50.0g)");
+                mServing1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText("50.0");
+                    }
+                });
+                mServing2.setText("Medium (100.0g)");
+                mServing2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText("100.0");
+                    }
+                });
+                mServing3.setText("Large (250.0g)");
+                mServing3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText("250.0");
+                    }
+                });
+            }
         } else {
-            mServing1.setText("Small (50.0g)");
-            mServing1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWeight.setText("50.0");
+            mWeight.setText(String.format("%.1f", mLog.getSizeImperial()));
+            mWeightTextView = (TextView) v.findViewById(R.id.dialog_add_log_weight_textview);
+            mWeightTextView.setText(getString(R.string.dialog_add_log_weight_textview_imperial));
+
+            if (mFood != null) {
+                mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeImperial()) + " oz)");
+                mServing1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText(String.format("%.1f", mFood.getPortion1SizeImperial()));
+                    }
+                });
+                mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeImperial()) + " oz)");
+                mServing2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText(String.format("%.1f", mFood.getPortion2SizeImperial()));
+                    }
+                });
+                mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeImperial()) + " oz)");
+                mServing3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText(String.format("%.1f", mFood.getPortion3SizeImperial()));
+                    }
+                });
+
+                /**If food weight in the log matches one of the portion sizes, set its radio button as checked*/
+                if (mLog.getSizeImperial().equals(mFood.getPortion1SizeImperial())) {
+                    mServing1.setChecked(true);
+                } else if (mLog.getSizeImperial().equals(mFood.getPortion2SizeImperial())) {
+                    mServing2.setChecked(true);
+                } else if (mLog.getSizeImperial().equals(mFood.getPortion3SizeImperial())) {
+                    mServing3.setChecked(true);
                 }
-            });
-            mServing2.setText("Medium (100.0g)");
-            mServing2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWeight.setText("100.0");
-                }
-            });
-            mServing3.setText("Large (250.0g)");
-            mServing3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mWeight.setText("250.0");
-                }
-            });
+            } else {
+                mServing1.setText("Small (1.0 oz)");
+                mServing1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText("1.0");
+                    }
+                });
+                mServing2.setText("Medium (3.0 oz)");
+                mServing2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText("3.0");
+                    }
+                });
+                mServing3.setText("Large (8.0 oz)");
+                mServing3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mWeight.setText("8.0");
+                    }
+                });
+            }
         }
 
-        /**If food weight in the log matches one of the portion sizes, set its radio button as checked*/
-        if (mLog.getSize().equals(mFood.getPortion1SizeMetric())) {
-            mServing1.setChecked(true);
-        } else if (mLog.getSize().equals(mFood.getPortion2SizeMetric())) {
-            mServing2.setChecked(true);
-        } else if (mLog.getSize().equals(mFood.getPortion3SizeMetric())) {
-            mServing3.setChecked(true);
-        }
 
         TextView mScrollableTitle = new ScrollableDialogTitle(getContext(), mLog.getFood()).ScrollableTitle;
 
@@ -193,9 +269,16 @@ public class EditLogDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (mWeight.getText().toString().equals("")) {
-                            mWeight.setText("100");
+                            if (mUnits.equals("Imperial")) {
+                                mWeight.setText("3.5");
+                            } else {
+                                mWeight.setText("100");
+                            }
                         }
                         Float weight = Float.parseFloat(mWeight.getText().toString());
+                        if (mUnits.equals("Imperial")) {
+                            weight = weight*28.35f;
+                        }
                         mLog.setDate(mDate);
                         mLog.setDateText();
                         mLog.setKcal(mLog.getKcal()/mLog.getSize() * weight);
