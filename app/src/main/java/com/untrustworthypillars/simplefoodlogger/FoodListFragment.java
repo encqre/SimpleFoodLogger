@@ -2,12 +2,14 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,6 +85,9 @@ public class FoodListFragment extends Fragment {
     private FoodAdapter mFoodAdapter;
     private FoodManager mFoodManager;
 
+    private SharedPreferences mPreferences;
+    private String mUnits;
+
 
     /** Method to change the selected Tab programmatically*/
     public void setTab(int i) {
@@ -108,6 +113,9 @@ public class FoodListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_food_list, container, false);
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mUnits = mPreferences.getString("pref_units", "Metric");
 
         mTabLayout = (TabLayout) v.findViewById(R.id.food_list_tabs);
         /* On Click listener for the tabs. Tab positions are numbered from 0. When selected Tab changes, we check what is the selected tab position
@@ -411,7 +419,11 @@ public class FoodListFragment extends Fragment {
         public void bind(Food food) {
             mFood = food;
             mFoodTitleTextView.setText(food.getTitle());
-            mFoodCalories.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
+            if (mUnits.equals("Metric")) {
+                mFoodCalories.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
+            } else {
+                mFoodCalories.setText(getString(R.string.food_list_fragment_kcal_imperial, food.getKcal().intValue()));
+            }
 //            if (mFood.getType() == 0) {
 //                mFoodCalories.setTextColor(getResources().getColor(R.color.colorPrimary));
 //            } else {

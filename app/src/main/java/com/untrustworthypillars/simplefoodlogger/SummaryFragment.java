@@ -89,6 +89,7 @@ public class SummaryFragment extends Fragment {
     private List<Log> mLogSummaryList;
 
     private SharedPreferences mPreferences;
+    private String mUnits;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,6 +130,7 @@ public class SummaryFragment extends Fragment {
         });
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mUnits = mPreferences.getString("pref_units", "Metric");
         mLogManager = LogManager.get(getContext());
         mSummaryRecyclerView = (RecyclerView) v.findViewById(R.id.summary_recycler);
         mSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -336,7 +338,11 @@ public class SummaryFragment extends Fragment {
             mNameText.setText(summaryFood.getName());
             mCountText.setText("Count: " + summaryFood.getCount());
             mCaloriesText.setText(summaryFood.getCalories().intValue() + " kcal");
-            mWeightText.setText(String.format("%.1f", summaryFood.getWeight()/1000) + " kg");
+            if (mUnits.equals("Metric")) {
+                mWeightText.setText(String.format("%.1f", summaryFood.getWeight() / 1000) + " kg");
+            } else {
+                mWeightText.setText(String.format("%.1f", summaryFood.getWeight() * 2.205f / 1000) + " lbs");
+            }
             mDateText.setText("Last consumed: " + Calculations.dateToDateTextEqualLengthString(summaryFood.getLastConsumed()));
         }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,9 +35,15 @@ public class HiddenFoodsFragment extends Fragment {
     private FoodAdapter mFoodAdapter;
     private FoodManager mFoodManager;
 
+    private SharedPreferences mPreferences;
+    private String mUnits;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_hidden_foods, container, false);
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mUnits = mPreferences.getString("pref_units", "Metric");
 
         mSearchView = (SearchView) v.findViewById(R.id.fragment_hidden_foods_searchview);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -117,7 +125,11 @@ public class HiddenFoodsFragment extends Fragment {
         public void bind(Food food) {
             mFood = food;
             mFoodTitleTextView.setText(food.getTitle());
-            mFoodCalories.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
+            if (mUnits.equals("Metric")) {
+                mFoodCalories.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
+            } else {
+                mFoodCalories.setText(getString(R.string.food_list_fragment_kcal_imperial, food.getKcal().intValue()));
+            }
             mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
             mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, food.getCarbs().toString()));
             mFoodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));

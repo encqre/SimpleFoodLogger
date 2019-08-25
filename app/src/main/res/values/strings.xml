@@ -18,6 +18,7 @@
     <string name="summary_tab_summary">Summary</string>
     <string name="summary_tab_foods">Food Stats</string>
     <string name="food_list_fragment_kcal">%1$d kcal/100g</string>
+    <string name="food_list_fragment_kcal_imperial">%1$d kcal/3.5oz</string>
     <string name="food_list_fragment_protein">Protein: %1$sg</string>
     <string name="food_list_fragment_carbs">Carbs: %1$sg</string>
     <string name="food_list_fragment_fat">Fat: %1$sg</string>
