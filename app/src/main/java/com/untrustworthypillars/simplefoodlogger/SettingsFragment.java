@@ -93,17 +93,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.fragment_pref, rootKey);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-//        android.util.Log.d("findme", mPreferences.getString("pref_units", "Metric"));
 
         mBackup = (Preference) findPreference("pref_backup");
         mBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 backupDatabases();
+                mPreferences.edit().putString("pref_last_backup_date", Calculations.dateDisplayString(new Date())).apply();
+                mBackup.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_date", "never"));
                 return true;
 
             }
         });
+        mBackup.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_date", "never"));
 
         mImport = (Preference) findPreference("pref_import");
         mImport.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
