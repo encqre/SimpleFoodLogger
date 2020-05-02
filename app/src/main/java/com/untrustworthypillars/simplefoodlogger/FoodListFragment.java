@@ -37,6 +37,7 @@ import java.util.UUID;
  */
 
 //TODO Figure out what is best way to visually separate custom/common/extended entries
+//TODO Need to move on from those alternate color entries and figure out something that looks better
 
 public class FoodListFragment extends Fragment {
     public static final int TAB_SELECT = 0;

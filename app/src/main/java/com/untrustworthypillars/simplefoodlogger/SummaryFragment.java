@@ -36,6 +36,8 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  */
 
+
+//TODO whole UI for statistics page really needs improvement
 public class SummaryFragment extends Fragment {
 
     public static final int TAB_DAY_SUMMARY = 0;

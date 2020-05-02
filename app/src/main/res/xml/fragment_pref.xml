@@ -68,17 +68,27 @@
 
     <PreferenceCategory
         app:key="backups_category"
-        app:title="File Management">
+        app:title="Backup/Import">
 
         <Preference
-            app:key="pref_backup"
-            app:title="Backup database files to SD card"
+            app:key="pref_backup_logs"
+            app:title="Backup food logs to a CSV file"
             app:summary="Last backup date: 2018 December 12"/>
 
         <Preference
-            app:key="pref_import"
-            app:title="Import exported files"
-            app:summary="Imports the latest Database Backup file. Asks permission to add any new food/log database entries"/>
+            app:key="pref_backup_custom_foods"
+            app:title="Backup custom foods to a CSV file"
+            app:summary="Last backup date: 2018 December 12"/>
+
+        <Preference
+            app:key="pref_import_logs"
+            app:title="Import food logs from a backup file"
+            app:summary="Select a CSV file from which food logs should be imported"/>
+
+        <Preference
+            app:key="pref_import_custom_foods"
+            app:title="Import custom foods from a backup file"
+            app:summary="Select a CSV file from which custom foods should be imported"/>
 
         <Preference
             app:key="pref_import_common_foods"
