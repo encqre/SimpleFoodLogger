@@ -2,19 +2,15 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentManager;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
@@ -33,8 +29,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -109,8 +103,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 backupDatabase(REQUEST_WRITE_LOG_BACKUP, "Food_logs_backup_" + DateFormat.format("yyyy-MM-dd", new Date()).toString() + ".csv");
-                mPreferences.edit().putString("pref_last_backup_logs_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
-                mBackupLogs.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_logs_date", "never"));
                 return true;
 
             }
@@ -122,8 +114,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 backupDatabase(REQUEST_WRITE_CUSTOM_FOODS_BACKUP, "Custom_foods_backup_" + DateFormat.format("yyyy-MM-dd", new Date()).toString() + ".csv");
-                mPreferences.edit().putString("pref_last_backup_custom_foods_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
-                mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_custom_foods_date", "never"));
                 return true;
 
             }
@@ -183,10 +173,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mMacros.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                FragmentManager fm = getFragmentManager();
-                SetMacrosDialog dialog = SetMacrosDialog.newInstance();
-                dialog.setTargetFragment(SettingsFragment.this, REQUEST_MACROS);
-                dialog.show(fm, "SetMacros");
+                Intent intent = SetMacrosActivity.newIntent(getActivity());
+                startActivityForResult(intent, REQUEST_MACROS);
                 return true;
             }
         });
@@ -317,7 +305,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    //TODO maybe add some display element saying "please wait, reading file.." or something, because it might take a noticable time if 1k+ items are in the list
+    //TODO maybe add some display element saying "please wait, reading file.." or something, because it might take a noticeable time if 1k+ items are in the list
     public void importLogsFromFileCSV(Uri uri) {
         LogManager lm = LogManager.get(getContext());
         List<Log> fullLogList = lm.getLogs();
@@ -433,8 +421,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         FoodManager fm = FoodManager.get(getContext());
         List<Food> fullFoodList = fm.getCommonFoods();
         try {
-            InputStream CSVstream = getContext().getAssets().open("CommonDb-v1.csv");
-            InputStreamReader reader = new InputStreamReader(CSVstream);
+            InputStream CSVStream = getContext().getAssets().open("CommonDb-v1.csv");
+            InputStreamReader reader = new InputStreamReader(CSVStream);
             BufferedReader bufferedReader = new BufferedReader(reader);
             while (true) {
                 String line = bufferedReader.readLine();
@@ -472,7 +460,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
                 }
             }
-            CSVstream.close();
+            CSVStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -483,8 +471,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         FoodManager fm = FoodManager.get(getContext());
         List<Food> fullFoodList = fm.getExtendedFoods();
         try {
-            InputStream CSVstream = getContext().getAssets().open("FullDb-v1.csv");
-            InputStreamReader reader = new InputStreamReader(CSVstream);
+            InputStream CSVStream = getContext().getAssets().open("FullDb-v1.csv");
+            InputStreamReader reader = new InputStreamReader(CSVStream);
             BufferedReader bufferedReader = new BufferedReader(reader);
             while (true) {
                 String line = bufferedReader.readLine();
@@ -522,7 +510,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
                 }
             }
-            CSVstream.close();
+            CSVStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -597,11 +585,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             if (requestCode == REQUEST_MACROS) {
                 setMacrosPreferenceSummary(); //updating with new macro target values
+                Toast.makeText(getActivity(), "Macronutrient targets have been updated", Toast.LENGTH_LONG).show(); //TEMP DEBUG
             }
             if (requestCode == REQUEST_WRITE_LOG_BACKUP) {
                 if (data != null) {
                     backupUri = data.getData();
                     writeLogDatabaseToFileCSV(backupUri);
+                    mPreferences.edit().putString("pref_last_backup_logs_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
+                    mBackupLogs.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_logs_date", "never"));
                     Toast.makeText(getActivity(), "Food logs saved to file", Toast.LENGTH_LONG).show();
                 }
             }
@@ -615,6 +606,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 if (data != null) {
                     backupUri = data.getData();
                     writeCustomFoodsDatabaseToFileCSV(backupUri);
+                    mPreferences.edit().putString("pref_last_backup_custom_foods_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
+                    mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_custom_foods_date", "never"));
                     Toast.makeText(getActivity(), "Custom foods saved to file", Toast.LENGTH_LONG).show();
                 }
             }
@@ -632,9 +625,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (requestCode == REQUEST_ANSWER_IMPORT_CUSTOM_FOODS) {
                 importedCustomFoodList.clear();
             }
+            if (requestCode == REQUEST_MACROS) {
+            //Nothing to do really
+            }
         }
         if (requestCode == REQUEST_HIDDEN_FOODS) {
-            Toast.makeText(getActivity(), "Hidden foods updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Hidden food list has been updated", Toast.LENGTH_SHORT).show();
             mHiddenFoods.setSummary("Number of hidden foods: " + FoodManager.get(getActivity()).getHiddenFoods("").size());
         }
 

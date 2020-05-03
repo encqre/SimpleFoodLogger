@@ -38,6 +38,7 @@ import java.util.UUID;
 
 //TODO Figure out what is best way to visually separate custom/common/extended entries
 //TODO Need to move on from those alternate color entries and figure out something that looks better
+//TODO Change adding new food from FAB to something else (because might be confusing with add log). Possibly "add new item" as top row of cateogry list and inside each category?
 
 public class FoodListFragment extends Fragment {
     public static final int TAB_SELECT = 0;

@@ -25,6 +25,9 @@
         <activity android:name=".HiddenFoodsActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
+        <activity android:name=".SetMacrosActivity"
+            android:parentActivityName=".LoggerActivity">
+        </activity>
         <activity android:name=".InitialLaunchActivity">
         </activity>
     </application>
