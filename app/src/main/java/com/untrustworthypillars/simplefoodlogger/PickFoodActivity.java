@@ -12,11 +12,11 @@ import android.view.MenuItem;
 
 import java.util.Date;
 
-public class AddLogActivity extends AppCompatActivity {
+public class PickFoodActivity extends AppCompatActivity {
 
     public static final String EXTRA_DATE = "com.untrustworthypillars.simplefoodlogger.homepagefragment.date";
     public static Intent newIntent(Context packageContext, Date date) {
-        Intent intent = new Intent(packageContext, AddLogActivity.class);
+        Intent intent = new Intent(packageContext, PickFoodActivity.class);
         intent.putExtra(EXTRA_DATE, date);
         return intent;
     }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -98,7 +98,7 @@ public class HomePageFragment extends Fragment {
         mLogMealFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = AddLogActivity.newIntent(getActivity(), mSelectedDay);
+                Intent intent = PickFoodActivity.newIntent(getActivity(), mSelectedDay);
                 startActivityForResult(intent, REQUEST_ADD_LOG);
 
             }
@@ -277,4 +277,6 @@ public class HomePageFragment extends Fragment {
 //TODO fix issues arising switching to landscape mode
 //TODO verify if landscape layouts are ok
 //TODO look into possibility of changing most dialogs into separate activities/fragments, mostly to avoid that mess with keyboard hiding stuff
+//TODO possibly replace FAB with a different button? Maybe like first entry in log list with plus sign and "add a new log" or etc.
+//TODO Adding timestamps to food logs maybe?
 

@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddLogActivity"
+        <activity android:name=".PickFoodActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
         <activity android:name=".HiddenFoodsActivity"

@@ -21,12 +21,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Class for the Fragment of the food list/selection
@@ -103,8 +101,8 @@ public class FoodListFragment extends Fragment {
 
         /* Checking to which activity this fragment belong to:
          * If parent activity is AddLogActivity, we get the date from extras and set mIsCalledByAddLogActivity to true*/
-        if (getActivity().getClass() == AddLogActivity.class) {
-            mDate = (Date) getActivity().getIntent().getSerializableExtra(AddLogActivity.EXTRA_DATE);
+        if (getActivity().getClass() == PickFoodActivity.class) {
+            mDate = (Date) getActivity().getIntent().getSerializableExtra(PickFoodActivity.EXTRA_DATE);
             mIsCalledByAddLogActivity = true;
         } else {
             mDate = new Date();
