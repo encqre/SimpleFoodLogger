@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Class for the Fragment of the food list/selection
  * If opened from a tab from the main activity - has a FAB that brings up AddFoodDialog.
- * If opened from AddLogActivity, FAB will be hidden, but now it will have an app bar, which will contain
+ * If opened from PickFoodActivity, FAB will be hidden, but now it will have an app bar, which will contain
  * a button to go back to the main activity, words "Select Food" and a button to add new food to database (with text)
  *
  */
@@ -65,7 +65,7 @@ public class FoodListFragment extends Fragment {
             "Other"
     };
 
-    private Boolean mIsCalledByAddLogActivity = false;
+    private Boolean mIsCalledByPickFoodActivity = false;
     private Date mDate;
 
     private int mSelectedCategory = 0;
@@ -100,10 +100,10 @@ public class FoodListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         /* Checking to which activity this fragment belong to:
-         * If parent activity is AddLogActivity, we get the date from extras and set mIsCalledByAddLogActivity to true*/
+         * If parent activity is PickFoodActivity, we get the date from extras and set mIsCalledByPickFoodActivity to true*/
         if (getActivity().getClass() == PickFoodActivity.class) {
             mDate = (Date) getActivity().getIntent().getSerializableExtra(PickFoodActivity.EXTRA_DATE);
-            mIsCalledByAddLogActivity = true;
+            mIsCalledByPickFoodActivity = true;
         } else {
             mDate = new Date();
         }
@@ -179,10 +179,10 @@ public class FoodListFragment extends Fragment {
         });
 
         /* When FAB is clicked, launching the dialog for adding new food to the database.
-         * If the activity is AddLogActivity, then hide the FAB.
+         * If the activity is PickFoodActivity, then hide the FAB.
          */
         mAddFoodFAB = (FloatingActionButton) v.findViewById(R.id.floating_button_createfood);
-        if (mIsCalledByAddLogActivity) {
+        if (mIsCalledByPickFoodActivity) {
             mAddFoodFAB.setVisibility(View.GONE);
         }
         mAddFoodFAB.setOnClickListener(new View.OnClickListener() {
@@ -234,7 +234,7 @@ public class FoodListFragment extends Fragment {
         mFoodRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         /**Overriding default action when back button is pressed. If category is open, then go back to category selection.
-         * Otherwise, go back to home tab. Exception is, if fragment is created by AddLogActivity, in that case,
+         * Otherwise, go back to home tab. Exception is, if fragment is created by PickFoodActivity, in that case,
          * leave the default action, which is to finish activity result.*/
         v.setFocusableInTouchMode(true);
         v.requestFocus();
@@ -251,7 +251,7 @@ public class FoodListFragment extends Fragment {
                         mIsCategoryOpen = false;
 
                         return true;
-                    } else if (!mIsCalledByAddLogActivity){
+                    } else if (!mIsCalledByPickFoodActivity){
                         LoggerActivity activity = (LoggerActivity) getActivity();
                         activity.setTab(0);
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();
@@ -275,17 +275,17 @@ public class FoodListFragment extends Fragment {
         if (requestCode == REQUEST_LOG) {
             /*  If the activity is the main activity, then, if new log entry was successfully added via dialog,
              * change the fragment to home fragment, and also set the tab programmatically to the home tab
-             * If the activity is AddLogActivity, then finish the activity to return to the parent activity*/
-            if (!mIsCalledByAddLogActivity) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();
-
-                LoggerActivity act = (LoggerActivity) getActivity();
-                act.setTab(act.TAB_HOME);
-            } else {
-                getActivity().setResult(Activity.RESULT_OK);
-                getActivity().finish();
-
+             * If the activity is PickFoodActivity, then if log was added, finish the activity to return to the parent activity*/
+            if (resultCode != Activity.RESULT_CANCELED){
+                if (!mIsCalledByPickFoodActivity) {
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();
+                    LoggerActivity act = (LoggerActivity) getActivity();
+                    act.setTab(act.TAB_HOME);
+                } else {
+                    getActivity().setResult(Activity.RESULT_OK);
+                    getActivity().finish();
+                }
             }
         } else if (requestCode == REQUEST_ADD_FOOD) {
             updateUI();
@@ -434,15 +434,13 @@ public class FoodListFragment extends Fragment {
             mFoodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));
         }
 
-        /*When food item is clicked, AddLogDialog is launched, with arguments of FoodID and Date*/
+        /*When food item is clicked, AddLogActivity is launched, with arguments of foodId, foodType and date*/
         public void onClick(View v) {
-            FragmentManager fm = getFragmentManager();
-            AddLogDialog dialog = AddLogDialog.newInstance(mFood.getFoodId(), mFood.getType(), mDate);
-            dialog.setTargetFragment(FoodListFragment.this, REQUEST_LOG);
-            dialog.show(fm, "OnClick");
+            Intent intent = AddLogActivity.newIntent(getActivity(), mFood.getFoodId(), mFood.getType(), mDate);
+            startActivityForResult(intent, REQUEST_LOG);
         }
 
-        /*When food item is long clicked, AddFoodDialog is launched to edit food entry, with
+        /*When food item is long clicked, EditFoodActivity is launched to edit food entry, with
          * arguments of FoodID and selected category*/
         public boolean onLongClick(View v) {
             FragmentManager fm = getFragmentManager();
