@@ -46,7 +46,6 @@ public class AddLogActivity extends AppCompatActivity {
         Integer foodType = (Integer) getIntent().getSerializableExtra(EXTRA_FOOD_TYPE);
         Date date = (Date) getIntent().getSerializableExtra(EXTRA_DATE);
 
-//        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, new AddLogFragment()).commit();
         getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, AddLogFragment.newInstance(foodId, foodType, date)).commit();
     }
 
@@ -56,7 +55,7 @@ public class AddLogActivity extends AppCompatActivity {
             case android.R.id.home: //override toolbar back button to do same as bottom(hard) back button
                 InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                //TODO fix so no keyboard blip when going back with arrow when keyboard was closed
+                //TODO fix so no keyboard blip when going back with arrow when keyboard was closed already
                 this.onBackPressed();
                 return true;
             default:

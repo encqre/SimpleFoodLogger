@@ -232,6 +232,7 @@ public class AddLogFragment extends Fragment {
                 FoodManager.get(getActivity()).addToRecentFoods(mFood);
                 Toast.makeText(getActivity(), "Meal logged!", Toast.LENGTH_SHORT).show();
 
+                closeKeyboard();
                 getActivity().setResult(Activity.RESULT_OK);
                 getActivity().finish();
             }
@@ -241,6 +242,7 @@ public class AddLogFragment extends Fragment {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                closeKeyboard();
                 getActivity().setResult(Activity.RESULT_CANCELED);
                 getActivity().finish();
             }
@@ -258,6 +260,12 @@ public class AddLogFragment extends Fragment {
             mDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
             mDateButton.setText(Calculations.dateDisplayString(mDate));
         }
+    }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+//        closeKeyboard();
     }
 
     /***

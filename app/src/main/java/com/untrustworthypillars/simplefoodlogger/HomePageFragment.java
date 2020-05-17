@@ -71,7 +71,6 @@ public class HomePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-//        mSelectedDay = new Date();
         mActivity = (LoggerActivity) getActivity();
 
         try {
@@ -175,7 +174,6 @@ public class HomePageFragment extends Fragment {
         }
         if (requestCode == REQUEST_ADD_LOG) {
             updateUI();
-            //Toast.makeText(getActivity(), "Returned from another activity", Toast.LENGTH_SHORT).show();
         }
         if (requestCode == REQUEST_EDIT_LOG) {
             updateUI();
@@ -232,10 +230,9 @@ public class HomePageFragment extends Fragment {
         }
 
         public boolean onLongClick(View v) {
-            FragmentManager fm = getFragmentManager();
-            EditLogDialog dialog = EditLogDialog.newInstance(mLogId);
-            dialog.setTargetFragment(HomePageFragment.this, REQUEST_EDIT_LOG);
-            dialog.show(fm, "OnLongClick");
+            Intent intent = EditLogActivity.newIntent(getActivity(), mLogId);
+            startActivityForResult(intent, REQUEST_EDIT_LOG);
+
             return true;
         }
     }
