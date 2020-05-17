@@ -188,10 +188,8 @@ public class FoodListFragment extends Fragment {
         mAddFoodFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                AddFoodDialog dialog = AddFoodDialog.newInstance(mSelectedCategory);
-                dialog.setTargetFragment(FoodListFragment.this, REQUEST_ADD_FOOD);
-                dialog.show(fm, "noob2");
+                Intent intent = AddFoodActivity.newIntent(getActivity(), mSelectedCategory);
+                startActivityForResult(intent, REQUEST_ADD_FOOD);
             }
         });
 

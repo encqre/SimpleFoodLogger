@@ -27,6 +27,11 @@
         <activity android:name=".EditLogActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
+        <activity android:name=".AddFoodActivity">
+        </activity>
+        <activity android:name=".EditFoodActivity"
+            android:parentActivityName=".LoggerActivity">
+        </activity>
         <activity android:name=".HiddenFoodsActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>

@@ -15,14 +15,19 @@ import java.util.Date;
 public class PickFoodActivity extends AppCompatActivity {
 
     public static final String EXTRA_DATE = "com.untrustworthypillars.simplefoodlogger.homepagefragment.date";
+
+    private static final int REQUEST_ADD_FOOD = 1;
+
+    private Toolbar mToolbar;
+
+    private int mSelectedFoodCategory = 0;
+
     public static Intent newIntent(Context packageContext, Date date) {
         Intent intent = new Intent(packageContext, PickFoodActivity.class);
         intent.putExtra(EXTRA_DATE, date);
+
         return intent;
     }
-    private static final int REQUEST_ADD_FOOD = 1;
-    private Toolbar mToolbar;
-    private int mSelectedFoodCategory = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +53,10 @@ public class PickFoodActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 FoodListFragment foodListFragment = (FoodListFragment) fm.findFragmentById(R.id.single_fragment_container); //Finding foodListFragment fragment instance
                 mSelectedFoodCategory = foodListFragment.getSelectedCategory(); //getting what is the currently selected food category in the fragment
-                AddFoodDialog dialog = AddFoodDialog.newInstance(mSelectedFoodCategory);
-                dialog.setTargetFragment(foodListFragment, REQUEST_ADD_FOOD); //setting foodListFragment fragment as a target, so that it can updateUI after food is added/deleted etc.
-                dialog.show(fm, "AddFoodDialog");
+
+                Intent intent = AddFoodActivity.newIntent(foodListFragment.getActivity(), mSelectedFoodCategory);
+                startActivityFromFragment(foodListFragment, intent, REQUEST_ADD_FOOD);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -61,9 +67,8 @@ public class PickFoodActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_log_activity, menu);
-
         return true;
-        }
+    }
 }
 
 
