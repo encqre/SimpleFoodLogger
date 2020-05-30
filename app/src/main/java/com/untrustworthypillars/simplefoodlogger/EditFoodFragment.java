@@ -1,6 +1,7 @@
 package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,13 +19,17 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
+
 import java.util.UUID;
 
-//TODO add confirmation dialog for delete/hide button
 public class EditFoodFragment extends Fragment {
 
     private static final String ARG_FOOD = "food";
     private static final String ARG_FOOD_TYPE = "foodtype";
+
+    private static final int REQUEST_DELETE_CUSTOM_FOOD = 0;
+    private static final int REQUEST_HIDE_FOOD = 1;
 
     private UUID mFoodId;
     private int mFoodType;
@@ -277,20 +282,39 @@ public class EditFoodFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mFoodType == 0) {
-                    FoodManager.get(getActivity()).deleteCustomFood(food);
-                    Toast.makeText(getActivity(), "Food deleted from the database!", Toast.LENGTH_SHORT).show();
+                    String message = "Are you sure you want to delete food item '" + food.getTitle() + "'?";
+                    String title = "Delete custom food?";
+                    SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
+                    dialog.setTargetFragment(EditFoodFragment.this, REQUEST_DELETE_CUSTOM_FOOD);
+                    dialog.show(getFragmentManager(), "delete_food");
                 } else {
-                    food.setHidden(true);
-                    FoodManager.get(getActivity()).updateFood(food);
-                    Toast.makeText(getActivity(), "Food hidden from the list and search results! To restore it, visit settings tab.",
-                            Toast.LENGTH_LONG).show();
+                    String message = "Hide food '" + food.getTitle() + "' from food list and search results? You can always unhide it in the settings later";
+                    String title = "Hide food?";
+                    SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
+                    dialog.setTargetFragment(EditFoodFragment.this, REQUEST_HIDE_FOOD);
+                    dialog.show(getFragmentManager(), "hide_food");
                 }
-                getActivity().setResult(Activity.RESULT_OK);
-                getActivity().finish();
             }
         });
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_DELETE_CUSTOM_FOOD) {
+                FoodManager.get(getActivity()).deleteCustomFood(food);
+                Toast.makeText(getActivity(), "Food deleted!", Toast.LENGTH_SHORT).show();
+            }
+            if (requestCode == REQUEST_HIDE_FOOD) {
+                food.setHidden(true);
+                FoodManager.get(getActivity()).updateFood(food);
+                Toast.makeText(getActivity(), "Food hidden!", Toast.LENGTH_SHORT).show();
+            }
+            getActivity().setResult(Activity.RESULT_OK);
+            getActivity().finish();
+        }
     }
 
 }

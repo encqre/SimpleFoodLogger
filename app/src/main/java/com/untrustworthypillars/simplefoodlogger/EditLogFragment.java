@@ -24,16 +24,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
+
 import java.util.Date;
 import java.util.UUID;
 
-//TODO add confirmation dialog for delete button
 public class EditLogFragment extends Fragment {
 
     private static final String ARG_LOG = "log";
     private static final String DIALOG_DATE = "DialogDate";
 
     private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_DELETE_LOG = 1;
 
     private Log mLog;
     private Food mFood;
@@ -312,12 +314,11 @@ public class EditLogFragment extends Fragment {
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lm.deleteLog(mLog);
-                Toast.makeText(getActivity(), "Log deleted!", Toast.LENGTH_SHORT).show();
-
-                closeKeyboard();
-                getActivity().setResult(Activity.RESULT_OK);
-                getActivity().finish();
+                String message = "Are you sure you want to delete this log?";
+                String title = "Delete log?";
+                SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
+                dialog.setTargetFragment(EditLogFragment.this, REQUEST_DELETE_LOG);
+                dialog.show(getFragmentManager(), "delete_log");
             }
         });
 
@@ -332,6 +333,14 @@ public class EditLogFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             mDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
             mDateButton.setText(Calculations.dateDisplayString(mDate));
+        }
+        if (requestCode == REQUEST_DELETE_LOG) {
+            lm.deleteLog(mLog);
+            Toast.makeText(getActivity(), "Log deleted!", Toast.LENGTH_SHORT).show();
+
+            closeKeyboard();
+            getActivity().setResult(Activity.RESULT_OK);
+            getActivity().finish();
         }
     }
 
