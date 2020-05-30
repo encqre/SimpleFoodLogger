@@ -134,7 +134,7 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryCommonFoods(CommonFoodTable.Cols.CATEGORY + " = ?", new String[] {category});
+        cursor = queryCommonFoods(CommonFoodTable.Cols.CATEGORY + " = ? AND " + CommonFoodTable.Cols.HIDDEN + " = 0", new String[] {category});
 
         try {
             cursor.moveToFirst();
@@ -164,7 +164,7 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryCommonFoods(CommonFoodTable.Cols.FAVORITE + " = 1", null);
+        cursor = queryCommonFoods(CommonFoodTable.Cols.FAVORITE + " = 1 AND " + CommonFoodTable.Cols.HIDDEN + " = 0", null);
 
         try {
             cursor.moveToFirst();
@@ -176,7 +176,7 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryExtendedFoods(ExtendedFoodTable.Cols.FAVORITE + " = 1", null);
+        cursor = queryExtendedFoods(ExtendedFoodTable.Cols.FAVORITE + " = 1 AND " + ExtendedFoodTable.Cols.HIDDEN + " = 0", null);
 
         try {
             cursor.moveToFirst();
@@ -223,7 +223,7 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryCommonFoods(queryWhereClause, null);
+        cursor = queryCommonFoods(queryWhereClause + " AND " + CommonFoodTable.Cols.HIDDEN + " = 0", null);
 
         try {
             cursor.moveToFirst();
@@ -236,7 +236,7 @@ public class FoodManager {
         }
 
         if (includeExtended) {
-            cursor = queryExtendedFoods(queryWhereClause, null);
+            cursor = queryExtendedFoods(queryWhereClause + " AND " + ExtendedFoodTable.Cols.HIDDEN + " = 0", null);
 
             try {
                 cursor.moveToFirst();
@@ -414,8 +414,7 @@ public class FoodManager {
                 cursor.close();
             }
         }
-
-
+        
         return foods;
     }
 
@@ -577,16 +576,20 @@ public class FoodManager {
         if (recentFoodString != null) {
             String[] el = recentFoodString.split(";");
             /* Checking if any food was found with the UUID in custom, common and extended DBs.
-            If yes, it is added to recent foods list. If no, nothing is added */
+            If yes, and if it is not hidden, it is added to recent foods list. If no, nothing is added */
             for (int i =0; i<el.length; i++) {
                 if (getCustomFood(UUID.fromString(el[i])) != null) {
                     recentFoodList.add(getCustomFood(UUID.fromString(el[i])));
                 }
                 else if (getCommonFood(UUID.fromString(el[i])) != null) {
-                    recentFoodList.add(getCommonFood(UUID.fromString(el[i])));
+                    if (!getCommonFood(UUID.fromString(el[i])).isHidden()) {
+                        recentFoodList.add(getCommonFood(UUID.fromString(el[i])));
+                    }
                 }
                 else if (getExtendedFood(UUID.fromString(el[i])) != null){
-                    recentFoodList.add(getExtendedFood(UUID.fromString(el[i])));
+                    if (!getExtendedFood(UUID.fromString(el[i])).isHidden()) {
+                        recentFoodList.add(getExtendedFood(UUID.fromString(el[i])));
+                    }
                 }
             }
         }
