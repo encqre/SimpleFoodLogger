@@ -1,16 +1,12 @@
 package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
@@ -27,6 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -47,8 +45,6 @@ import java.util.UUID;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    private static final String ARG_MESSAGE = "message";
-
     private static final int REQUEST_ANSWER_IMPORT_LOGS = 0;
     private static final int REQUEST_ANSWER_IMPORT_CUSTOM_FOODS = 1;
     private static final int REQUEST_MACROS = 2;
@@ -57,8 +53,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private static final int REQUEST_LOAD_LOG_BACKUP = 5;
     private static final int REQUEST_WRITE_CUSTOM_FOODS_BACKUP = 6;
     private static final int REQUEST_LOAD_CUSTOM_FOODS_BACKUP = 7;
-
-
 
     private Preference mBackupLogs;
     private Preference mBackupCustomFoods;
@@ -70,11 +64,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Preference mHiddenFoods;
 
     private EditTextPreference mCaloriesTarget;
-
     private CheckBoxPreference mStatsIgnoreZeroKcalDays;
-
     private EditTextPreference mRecentFoodsLength;
-
     private ListPreference mUnits;
 
     private SharedPreferences mPreferences;
@@ -347,7 +338,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Toast.makeText(getActivity(), "No new Logs found in the file!", Toast.LENGTH_LONG).show();
             } else {
                 String message = importedLogList.size() + " new Logs found in the file. Do you want to import these Logs to the database?";
-                SimpleDialog dialog = SimpleDialog.newInstance(message);
+                String title = "New logs found";
+                SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
                 dialog.setTargetFragment(SettingsFragment.this, REQUEST_ANSWER_IMPORT_LOGS);
                 dialog.show(getFragmentManager(), "lol");
             }
@@ -407,7 +399,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Toast.makeText(getActivity(), "No new Custom Foods found in the file!", Toast.LENGTH_LONG).show();
             } else {
                 String message = importedCustomFoodList.size() + " new Custom Foods found in the file. Do you want to import these Items to the database?";
-                SimpleDialog dialog = SimpleDialog.newInstance(message);
+                String title = "New custom foods found";
+                SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
                 dialog.setTargetFragment(SettingsFragment.this, REQUEST_ANSWER_IMPORT_CUSTOM_FOODS);
                 dialog.show(getFragmentManager(), "lol");
             }
@@ -515,45 +508,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             e.printStackTrace();
         }
 
-    }
-
-    public static class SimpleDialog extends DialogFragment {
-        public static SimpleDialog newInstance (String message) {
-            Bundle args = new Bundle();
-            args.putSerializable(ARG_MESSAGE, message);
-
-            SimpleDialog fragment = new SimpleDialog();
-            fragment.setArguments(args);
-            return fragment;
-        }
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("New Items Found")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            sendResult(Activity.RESULT_OK);
-                        }
-                    })
-                    .setMessage((String) getArguments().getSerializable(ARG_MESSAGE))
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            sendResult(Activity.RESULT_CANCELED);
-                        }
-                    });
-            return builder.create();
-        }
-
-        private void sendResult(int resultCode) {
-            if (getTargetFragment() == null) {
-                return;
-            }
-
-            Intent intent = new Intent();
-            getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
-        }
     }
 
     @Override
