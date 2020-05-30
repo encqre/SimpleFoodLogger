@@ -27,6 +27,7 @@ import androidx.preference.PreferenceManager;
 import java.util.Date;
 import java.util.UUID;
 
+//TODO add confirmation dialog for delete button
 public class EditLogFragment extends Fragment {
 
     private static final String ARG_LOG = "log";

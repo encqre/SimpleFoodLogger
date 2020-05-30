@@ -9,10 +9,17 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.UUID;
+
 public class EditFoodActivity extends AppCompatActivity {
 
-    public static Intent newIntent(Context packageContext) {
+    private static final String EXTRA_FOOD_ID = "simplefoodlogger.food_id";
+    private static final String EXTRA_FOOD_TYPE = "simplefoodlogger.food_type";
+
+    public static Intent newIntent(Context packageContext, UUID foodId, int foodType) {
         Intent intent = new Intent(packageContext, EditFoodActivity.class);
+        intent.putExtra(EXTRA_FOOD_ID, foodId);
+        intent.putExtra(EXTRA_FOOD_TYPE, foodType);
 
         return intent;
     }
@@ -31,7 +38,10 @@ public class EditFoodActivity extends AppCompatActivity {
         ab.setTitle("Edit food");
         ab.setDisplayHomeAsUpEnabled(true);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, EditFoodFragment.newInstance()).commit();
+        UUID foodId = (UUID) getIntent().getSerializableExtra(EXTRA_FOOD_ID);
+        int foodType = (int) getIntent().getSerializableExtra(EXTRA_FOOD_TYPE);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, EditFoodFragment.newInstance(foodId, foodType)).commit();
     }
 
     @Override

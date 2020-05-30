@@ -46,6 +46,7 @@ public class FoodListFragment extends Fragment {
 
     private static final int REQUEST_LOG = 0;
     private static final int REQUEST_ADD_FOOD = 1;
+    private static final int REQUEST_EDIT_FOOD = 2;
 
     public static final String[] FOOD_CATEGORIES = new String[]{
             "Dairy & Eggs",
@@ -287,6 +288,8 @@ public class FoodListFragment extends Fragment {
             }
         } else if (requestCode == REQUEST_ADD_FOOD) {
             updateUI();
+        } else if (requestCode == REQUEST_EDIT_FOOD) {
+            updateUI();
         }
     }
 
@@ -441,10 +444,8 @@ public class FoodListFragment extends Fragment {
         /*When food item is long clicked, EditFoodActivity is launched to edit food entry, with
          * arguments of FoodID and selected category*/
         public boolean onLongClick(View v) {
-            FragmentManager fm = getFragmentManager();
-            EditFoodDialog dialog = EditFoodDialog.newInstance(mFood.getFoodId(), mFood.getType());
-            dialog.setTargetFragment(FoodListFragment.this, REQUEST_ADD_FOOD);
-            dialog.show(fm, "OnLongClick");
+            Intent intent = EditFoodActivity.newIntent(getActivity(), mFood.getFoodId(), mFood.getType());
+            startActivityForResult(intent, REQUEST_EDIT_FOOD);
             return true;
         }
 
