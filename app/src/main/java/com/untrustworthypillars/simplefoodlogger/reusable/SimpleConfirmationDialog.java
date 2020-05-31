@@ -47,6 +47,12 @@ public class SimpleConfirmationDialog extends DialogFragment {
         return builder.create();
     }
 
+    @Override
+    public void onCancel(DialogInterface dialog){
+        super.onCancel(dialog);
+        sendResult(Activity.RESULT_CANCELED);
+    }
+
     private void sendResult(int resultCode) {
         if (getTargetFragment() == null) {
             return;

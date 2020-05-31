@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.LoadingProgressDialog;
 import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
 
 import java.io.BufferedReader;
@@ -33,10 +34,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import android.os.AsyncTask;
 
 /**
  * Class for the Fragment of the settings page. Uses the AndroidX preferences library.
@@ -53,6 +57,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private static final int REQUEST_LOAD_LOG_BACKUP = 5;
     private static final int REQUEST_WRITE_CUSTOM_FOODS_BACKUP = 6;
     private static final int REQUEST_LOAD_CUSTOM_FOODS_BACKUP = 7;
+    private static final int REQUEST_READ_PROGRESS = 8;
+
+    private static final String TAG_READ_PROGRESS = "loading_progress_dialog";
 
     private Preference mBackupLogs;
     private Preference mBackupCustomFoods;
@@ -296,58 +303,103 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    //TODO maybe add some display element saying "please wait, reading file.." or something, because it might take a noticeable time if 1k+ items are in the list
-    public void importLogsFromFileCSV(Uri uri) {
-        LogManager lm = LogManager.get(getContext());
-        List<Log> fullLogList = lm.getLogs();
+    private class importLogsFromCSVFileTask extends AsyncTask<Uri, Integer, Void> {
 
-        try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            while (true) {
-                String line = br.readLine();
-                if (line == null) break;
-                String [] el = line.split(";");
-                if (el.length != 10) {
-                    throw new Exception("Bad CSV format - expecting 10 values in a line");
-                }
-                boolean found = false;
-                for (int i = 0; i<fullLogList.size(); i++) {
-                    if (el[0].equals(fullLogList.get(i).getLogId().toString())) {
-                        android.util.Log.e("Logger", el[0] + " UUID log was found in current DB!");
-                        found = true;
+        String toastText = "";
+
+        @Override
+        protected void onPreExecute(){
+            LoadingProgressDialog progressDialog = LoadingProgressDialog.newInstance("Reading logs", "Loading...", 0, 0);
+            progressDialog.setCancelable(false);
+            progressDialog.setTargetFragment(SettingsFragment.this, REQUEST_READ_PROGRESS);
+            progressDialog.show(getFragmentManager(), TAG_READ_PROGRESS);
+        }
+
+        @Override
+        protected Void doInBackground(Uri... uris) {
+            importedLogList.clear();
+            LogManager lm = LogManager.get(getContext());
+            List<Log> fullLogList = lm.getLogs();
+
+            try {
+                InputStream inputStream = getContext().getContentResolver().openInputStream(uris[0]);
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                int logCount = 0;
+                while (br.readLine() != null) logCount++;
+                inputStream.close();
+                publishProgress(0,logCount);
+                inputStream = getContext().getContentResolver().openInputStream(uris[0]);
+                br = new BufferedReader(new InputStreamReader(inputStream));
+                int loopCounter = 0;
+                while (true) {
+                    if (loopCounter % (int)(logCount/100) == 0){
+                        publishProgress(loopCounter,logCount);
                     }
+                    String line = br.readLine();
+                    if (line == null) break;
+                    String [] el = line.split(";");
+                    if (el.length != 10) {
+                        throw new Exception("Bad CSV format - expecting 10 values in a line");
+                    }
+                    boolean found = false;
+                    for (int i = 0; i<fullLogList.size(); i++) {
+                        if (el[0].equals(fullLogList.get(i).getLogId().toString())) {
+                            android.util.Log.e("Logger", el[0] + " UUID log was found in current DB!");
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        Log foundNewLog = new Log(UUID.fromString(el[0]));
+                        foundNewLog.setDate(new Date(Long.valueOf(el[1])));
+                        foundNewLog.setDateText();
+                        foundNewLog.setFood(el[3]);
+                        foundNewLog.setSize(Float.parseFloat(el[4]));
+                        foundNewLog.setSizeImperial(Float.parseFloat(el[5]));
+                        foundNewLog.setKcal(Float.parseFloat(el[6]));
+                        foundNewLog.setProtein(Float.parseFloat(el[7]));
+                        foundNewLog.setCarbs(Float.parseFloat(el[8]));
+                        foundNewLog.setFat(Float.parseFloat(el[9]));
+                        importedLogList.add(foundNewLog);
+                        android.util.Log.e("Logger", el[0] + " UUID log was not found in DB, will ask to add it");
+                    }
+                    loopCounter++;
                 }
-                if (!found) {
-                    Log foundNewLog = new Log(UUID.fromString(el[0]));
-                    foundNewLog.setDate(new Date(Long.valueOf(el[1])));
-                    foundNewLog.setDateText();
-                    foundNewLog.setFood(el[3]);
-                    foundNewLog.setSize(Float.parseFloat(el[4]));
-                    foundNewLog.setSizeImperial(Float.parseFloat(el[5]));
-                    foundNewLog.setKcal(Float.parseFloat(el[6]));
-                    foundNewLog.setProtein(Float.parseFloat(el[7]));
-                    foundNewLog.setCarbs(Float.parseFloat(el[8]));
-                    foundNewLog.setFat(Float.parseFloat(el[9]));
-                    importedLogList.add(foundNewLog);
-                    android.util.Log.e("Logger", el[0] + " UUID log was not found in DB, will ask to add it");
+                inputStream.close();
+                if (importedLogList.size() == 0) {
+                    toastText = "No new Logs found in the file!";
+                    return null;
                 }
+                return null;
+            } catch (Exception e) {
+                android.util.Log.e("Logger", e.getMessage());
+                toastText = "There was a problem reading the file";
             }
-            inputStream.close();
-            if (importedLogList.size() == 0) {
-                Toast.makeText(getActivity(), "No new Logs found in the file!", Toast.LENGTH_LONG).show();
-            } else {
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.updateProgress(progress[0], progress[1]);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.dismiss();
+            if (toastText.equals("") && importedLogList.size() > 0) {
                 String message = importedLogList.size() + " new Logs found in the file. Do you want to import these Logs to the database?";
                 String title = "New logs found";
                 SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
                 dialog.setTargetFragment(SettingsFragment.this, REQUEST_ANSWER_IMPORT_LOGS);
                 dialog.show(getFragmentManager(), "lol");
+            } else if (!toastText.equals("")) {
+                Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
             }
-        } catch (Exception e) {
-            android.util.Log.e("Logger", e.getMessage());
-            Toast.makeText(getActivity(), "There was a problem reading the file", Toast.LENGTH_LONG).show();
         }
     }
+
+    //TODO rewrite custom food import as AsyncTask, same as with logs. Maybe writing logs/foods too?
 
     public void importCustomFoodsFromFileCSV(Uri uri) {
         FoodManager fm = FoodManager.get(getContext());
@@ -553,7 +605,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (requestCode == REQUEST_LOAD_LOG_BACKUP) {
                 if (data != null) {
                     backupUri = data.getData();
-                    importLogsFromFileCSV(backupUri);
+                    new importLogsFromCSVFileTask().execute(backupUri);
                 }
             }
             if (requestCode == REQUEST_WRITE_CUSTOM_FOODS_BACKUP) {
