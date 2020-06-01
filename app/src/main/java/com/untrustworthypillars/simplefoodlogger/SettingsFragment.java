@@ -245,62 +245,129 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         startActivityForResult(intent, requestCode);
     }
 
-    private void writeLogDatabaseToFileCSV(Uri uri) {
-        LogManager lm = LogManager.get(getContext());
-        List<Log> fullLogList = lm.getLogs();
+    private class writeLogsToCSVFileTask extends AsyncTask<Uri, Integer, Void> {
 
-        try{
-            ParcelFileDescriptor pfd = getContext().getContentResolver().openFileDescriptor(uri, "w");
-            FileOutputStream fileOutputStream =  new FileOutputStream(pfd.getFileDescriptor());
-            PrintWriter pw = new PrintWriter(fileOutputStream);
-            for (int i = 0; i<fullLogList.size(); i++) {
-                Log log = fullLogList.get(i);
-                Float impSize = log.getSize()/28.35f; //////////////////////////////////////////////////////TEMPORARY
-                pw.println(log.getLogId().toString() + ";" + log.getDate().getTime() + ";"
-                        + log.getDateText() + ";" + log.getFood() + ";"
-                        + log.getSize().toString() + ";" + impSize.toString() + ";" ///////////////////////TEMPORARY
-                        + log.getKcal().toString() + ";" + log.getProtein().toString() + ";"
-                        + log.getCarbs().toString() + ";" + log.getFat().toString());
-                pw.flush();
-            }
-            pw.close();
-            fileOutputStream.close();
-            pfd.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        @Override
+        protected void onPreExecute(){
+            LoadingProgressDialog progressDialog = LoadingProgressDialog.newInstance("Writing logs", "Writing...", 0, 0);
+            progressDialog.setCancelable(false);
+            progressDialog.setTargetFragment(SettingsFragment.this, REQUEST_READ_PROGRESS);
+            progressDialog.show(getFragmentManager(), TAG_READ_PROGRESS);
         }
+
+        @Override
+        protected Void doInBackground(Uri... uris) {
+            LogManager lm = LogManager.get(getContext());
+            List<Log> fullLogList = lm.getLogs();
+            publishProgress(0, fullLogList.size());
+
+            try{
+                ParcelFileDescriptor pfd = getContext().getContentResolver().openFileDescriptor(uris[0], "w");
+                FileOutputStream fileOutputStream =  new FileOutputStream(pfd.getFileDescriptor());
+                PrintWriter pw = new PrintWriter(fileOutputStream);
+                for (int i = 0; i<fullLogList.size(); i++) {
+                    if (i % ((int) Math.ceil(fullLogList.size()/100.0)) == 0){
+                        publishProgress(i,fullLogList.size());
+                    }
+                    Log log = fullLogList.get(i);
+                    Float impSize = log.getSize()/28.35f; //////////////////////////////////////////////////////TEMPORARY
+                    pw.println(log.getLogId().toString() + ";" + log.getDate().getTime() + ";"
+                            + log.getDateText() + ";" + log.getFood() + ";"
+                            + log.getSize().toString() + ";" + impSize.toString() + ";" ///////////////////////TEMPORARY
+                            + log.getKcal().toString() + ";" + log.getProtein().toString() + ";"
+                            + log.getCarbs().toString() + ";" + log.getFat().toString());
+                    pw.flush();
+                }
+                pw.close();
+                fileOutputStream.close();
+                pfd.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.updateProgress(progress[0], progress[1]);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.dismiss();
+            mPreferences.edit().putString("pref_last_backup_logs_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
+            mBackupLogs.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_logs_date", "never"));
+            Toast.makeText(getActivity(), "Food logs saved to file", Toast.LENGTH_LONG).show();
+
+        }
+
     }
 
-    private void writeCustomFoodsDatabaseToFileCSV(Uri uri) {
-        FoodManager fm = FoodManager.get(getContext());
-        List<Food> fullFoodList = fm.getCustomFoods();
+    private class writeCustomFoodsToCSVFileTask extends AsyncTask<Uri, Integer, Void> {
 
-        try{
-            ParcelFileDescriptor pfd = getContext().getContentResolver().openFileDescriptor(uri, "w");
-            FileOutputStream fileOutputStream =  new FileOutputStream(pfd.getFileDescriptor());
-            PrintWriter pw = new PrintWriter(fileOutputStream);
-            for (int i = 0; i<fullFoodList.size(); i++) {
-                Food food = fullFoodList.get(i);
-                pw.println(food.getFoodId().toString() + ";" + food.getSortID() + ";"
-                        + food.getTitle() + ";" + food.getCategory() + ";"
-                        + food.getKcal().toString() + ";" + food.getProtein().toString() + ";"
-                        + food.getCarbs().toString() + ";" + food.getFat().toString() + ";"
-                        + (food.isFavorite() ? 1 : 0) + ";" + (food.isHidden() ? 1 : 0) + ";"
-                        + food.getPortion1Name() + ";" + food.getPortion1SizeMetric().toString() + ";" + food.getPortion1SizeImperial().toString() + ";"
-                        + food.getPortion2Name() + ";" + food.getPortion2SizeMetric().toString() + ";" + food.getPortion2SizeImperial().toString() + ";"
-                        + food.getPortion3Name() + ";" + food.getPortion3SizeMetric().toString() + ";" + food.getPortion3SizeImperial().toString());
-                pw.flush();
-            }
-            pw.close();
-            fileOutputStream.close();
-            pfd.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        @Override
+        protected void onPreExecute(){
+            LoadingProgressDialog progressDialog = LoadingProgressDialog.newInstance("Writing custom foods", "Writing...", 0, 0);
+            progressDialog.setCancelable(false);
+            progressDialog.setTargetFragment(SettingsFragment.this, REQUEST_READ_PROGRESS);
+            progressDialog.show(getFragmentManager(), TAG_READ_PROGRESS);
         }
+
+        @Override
+        protected Void doInBackground(Uri... uris) {
+            FoodManager fm = FoodManager.get(getContext());
+            List<Food> fullFoodList = fm.getCustomFoods();
+            publishProgress(0, fullFoodList.size());
+
+            try{
+                ParcelFileDescriptor pfd = getContext().getContentResolver().openFileDescriptor(uris[0], "w");
+                FileOutputStream fileOutputStream =  new FileOutputStream(pfd.getFileDescriptor());
+                PrintWriter pw = new PrintWriter(fileOutputStream);
+                for (int i = 0; i<fullFoodList.size(); i++) {
+                    if (i % ((int) Math.ceil(fullFoodList.size()/100.0)) == 0){
+                        publishProgress(i,fullFoodList.size());
+                    }
+                    Food food = fullFoodList.get(i);
+                    pw.println(food.getFoodId().toString() + ";" + food.getSortID() + ";"
+                            + food.getTitle() + ";" + food.getCategory() + ";"
+                            + food.getKcal().toString() + ";" + food.getProtein().toString() + ";"
+                            + food.getCarbs().toString() + ";" + food.getFat().toString() + ";"
+                            + (food.isFavorite() ? 1 : 0) + ";" + (food.isHidden() ? 1 : 0) + ";"
+                            + food.getPortion1Name() + ";" + food.getPortion1SizeMetric().toString() + ";" + food.getPortion1SizeImperial().toString() + ";"
+                            + food.getPortion2Name() + ";" + food.getPortion2SizeMetric().toString() + ";" + food.getPortion2SizeImperial().toString() + ";"
+                            + food.getPortion3Name() + ";" + food.getPortion3SizeMetric().toString() + ";" + food.getPortion3SizeImperial().toString());
+                    pw.flush();
+                }
+                pw.close();
+                fileOutputStream.close();
+                pfd.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.updateProgress(progress[0], progress[1]);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.dismiss();
+            mPreferences.edit().putString("pref_last_backup_custom_foods_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
+            mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_custom_foods_date", "never"));
+            Toast.makeText(getActivity(), "Custom foods saved to file", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private class importLogsFromCSVFileTask extends AsyncTask<Uri, Integer, Void> {
@@ -327,12 +394,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 int logCount = 0;
                 while (br.readLine() != null) logCount++;
                 inputStream.close();
+                if (logCount == 0) {
+                    toastText = "Provided file is empty!";
+                    return null;
+                }
                 publishProgress(0,logCount);
                 inputStream = getContext().getContentResolver().openInputStream(uris[0]);
                 br = new BufferedReader(new InputStreamReader(inputStream));
                 int loopCounter = 0;
                 while (true) {
-                    if (loopCounter % (int)(logCount/100) == 0){
+                    if (loopCounter % ((int) Math.ceil(logCount/100.0)) == 0){
                         publishProgress(loopCounter,logCount);
                     }
                     String line = br.readLine();
@@ -399,66 +470,112 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    //TODO rewrite custom food import as AsyncTask, same as with logs. Maybe writing logs/foods too?
+    private class importFoodsFromCSVFileTask extends AsyncTask<Uri, Integer, Void> {
 
-    public void importCustomFoodsFromFileCSV(Uri uri) {
-        FoodManager fm = FoodManager.get(getContext());
-        List<Food> fullFoodList = fm.getCustomFoods();
-        try {
-            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            while (true) {
-                String line = br.readLine();
-                if (line == null) break;
-                String [] el = line.split(";");
-                if (el.length != 19) {
-                    throw new Exception("Bad CSV format - expecting 19 values in a line");
+        String toastText = "";
+
+        @Override
+        protected void onPreExecute(){
+            LoadingProgressDialog progressDialog = LoadingProgressDialog.newInstance("Reading foods", "Loading...", 0, 0);
+            progressDialog.setCancelable(false);
+            progressDialog.setTargetFragment(SettingsFragment.this, REQUEST_READ_PROGRESS);
+            progressDialog.show(getFragmentManager(), TAG_READ_PROGRESS);
+        }
+
+        @Override
+        protected Void doInBackground(Uri... uris) {
+            importedCustomFoodList.clear();
+            FoodManager fm = FoodManager.get(getContext());
+            List<Food> fullFoodList = fm.getCustomFoods();
+            try {
+                InputStream inputStream = getContext().getContentResolver().openInputStream(uris[0]);
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+                int foodCount = 0;
+                while (br.readLine() != null) foodCount++;
+                inputStream.close();
+                if (foodCount == 0) {
+                    toastText = "Provided file is empty!";
+                    return null;
                 }
-                boolean found = false;
-                for (int i = 0; i<fullFoodList.size(); i++) {
-                    if (el[0].equals(fullFoodList.get(i).getFoodId().toString())) {
-                        android.util.Log.e("Logger", el[1] + " was found in current DB!");
-                        found = true;
+                publishProgress(0,foodCount);
+                inputStream = getContext().getContentResolver().openInputStream(uris[0]);
+                br = new BufferedReader(new InputStreamReader(inputStream));
+                int loopCounter = 0;
+                while (true) {
+                    if (loopCounter % ((int) Math.ceil(foodCount/100.0)) == 0){
+                        publishProgress(loopCounter,foodCount);
                     }
+                    String line = br.readLine();
+                    if (line == null) break;
+                    String [] el = line.split(";");
+                    if (el.length != 19) {
+                        throw new Exception("Bad CSV format - expecting 19 values in a line");
+                    }
+                    boolean found = false;
+                    for (int i = 0; i<fullFoodList.size(); i++) {
+                        if (el[0].equals(fullFoodList.get(i).getFoodId().toString())) {
+                            android.util.Log.e("Logger", el[2] + " was found in current DB!");
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        Food foundNewFood = new Food(UUID.fromString(el[0]));
+                        foundNewFood.setSortID(Integer.valueOf(el[1]));
+                        foundNewFood.setTitle(el[2]);
+                        foundNewFood.setCategory(el[3]);
+                        foundNewFood.setKcal(Float.parseFloat(el[4]));
+                        foundNewFood.setProtein(Float.parseFloat(el[5]));
+                        foundNewFood.setCarbs(Float.parseFloat(el[6]));
+                        foundNewFood.setFat(Float.parseFloat(el[7]));
+                        foundNewFood.setFavorite(Integer.valueOf(el[8]) == 1);
+                        foundNewFood.setHidden(Integer.valueOf(el[9]) == 1);
+                        foundNewFood.setPortion1Name(el[10]);
+                        foundNewFood.setPortion1SizeMetric(Float.parseFloat(el[11]));
+                        foundNewFood.setPortion1SizeImperial(Float.parseFloat(el[12]));
+                        foundNewFood.setPortion2Name(el[13]);
+                        foundNewFood.setPortion2SizeMetric(Float.parseFloat(el[14]));
+                        foundNewFood.setPortion2SizeImperial(Float.parseFloat(el[15]));
+                        foundNewFood.setPortion3Name(el[16]);
+                        foundNewFood.setPortion3SizeMetric(Float.parseFloat(el[17]));
+                        foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
+                        foundNewFood.setType(0);
+                        importedCustomFoodList.add(foundNewFood);
+                        android.util.Log.e("Logger", el[2] + " was not found in DB, will ask to add");
+                    }
+                    loopCounter++;
                 }
-                if (!found) {
-                    Food foundNewFood = new Food(UUID.fromString(el[0]));
-                    foundNewFood.setSortID(Integer.valueOf(el[1]));
-                    foundNewFood.setTitle(el[2]);
-                    foundNewFood.setCategory(el[3]);
-                    foundNewFood.setKcal(Float.parseFloat(el[4]));
-                    foundNewFood.setProtein(Float.parseFloat(el[5]));
-                    foundNewFood.setCarbs(Float.parseFloat(el[6]));
-                    foundNewFood.setFat(Float.parseFloat(el[7]));
-                    foundNewFood.setFavorite(Integer.valueOf(el[8]) == 1);
-                    foundNewFood.setHidden(Integer.valueOf(el[9]) == 1);
-                    foundNewFood.setPortion1Name(el[10]);
-                    foundNewFood.setPortion1SizeMetric(Float.parseFloat(el[11]));
-                    foundNewFood.setPortion1SizeImperial(Float.parseFloat(el[12]));
-                    foundNewFood.setPortion2Name(el[13]);
-                    foundNewFood.setPortion2SizeMetric(Float.parseFloat(el[14]));
-                    foundNewFood.setPortion2SizeImperial(Float.parseFloat(el[15]));
-                    foundNewFood.setPortion3Name(el[16]);
-                    foundNewFood.setPortion3SizeMetric(Float.parseFloat(el[17]));
-                    foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
-                    foundNewFood.setType(0);
-                    importedCustomFoodList.add(foundNewFood);
-                    android.util.Log.e("Logger", el[1] + " was not found in DB, will ask to add");
+                inputStream.close();
+                if (importedCustomFoodList.size() == 0) {
+                    toastText = "No new custom foods found in the file!";
+                    return null;
                 }
+                return null;
+            } catch (Exception e) {
+                android.util.Log.e("Logger", e.getMessage());
+                toastText = "There was a problem reading the file";
             }
-            inputStream.close();
-            if (importedCustomFoodList.size() == 0) {
-                Toast.makeText(getActivity(), "No new Custom Foods found in the file!", Toast.LENGTH_LONG).show();
-            } else {
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.updateProgress(progress[0], progress[1]);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
+            progressDialog.dismiss();
+            if (toastText.equals("") && importedCustomFoodList.size() > 0) {
                 String message = importedCustomFoodList.size() + " new Custom Foods found in the file. Do you want to import these Items to the database?";
                 String title = "New custom foods found";
                 SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
                 dialog.setTargetFragment(SettingsFragment.this, REQUEST_ANSWER_IMPORT_CUSTOM_FOODS);
                 dialog.show(getFragmentManager(), "lol");
+            } else if (!toastText.equals("")) {
+                Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
             }
-        } catch (Exception e) {
-            android.util.Log.e("Logger", e.getMessage());
-            Toast.makeText(getActivity(), "There was a problem reading the file", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -596,10 +713,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (requestCode == REQUEST_WRITE_LOG_BACKUP) {
                 if (data != null) {
                     backupUri = data.getData();
-                    writeLogDatabaseToFileCSV(backupUri);
-                    mPreferences.edit().putString("pref_last_backup_logs_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
-                    mBackupLogs.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_logs_date", "never"));
-                    Toast.makeText(getActivity(), "Food logs saved to file", Toast.LENGTH_LONG).show();
+                    new writeLogsToCSVFileTask().execute(backupUri);
                 }
             }
             if (requestCode == REQUEST_LOAD_LOG_BACKUP) {
@@ -611,16 +725,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (requestCode == REQUEST_WRITE_CUSTOM_FOODS_BACKUP) {
                 if (data != null) {
                     backupUri = data.getData();
-                    writeCustomFoodsDatabaseToFileCSV(backupUri);
-                    mPreferences.edit().putString("pref_last_backup_custom_foods_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
-                    mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_custom_foods_date", "never"));
-                    Toast.makeText(getActivity(), "Custom foods saved to file", Toast.LENGTH_LONG).show();
+                    new writeCustomFoodsToCSVFileTask().execute(backupUri);
                 }
             }
             if (requestCode == REQUEST_LOAD_CUSTOM_FOODS_BACKUP) {
                 if (data != null) {
                     backupUri = data.getData();
-                    importCustomFoodsFromFileCSV(backupUri);
+                    new importFoodsFromCSVFileTask().execute(backupUri);
                 }
             }
         }
