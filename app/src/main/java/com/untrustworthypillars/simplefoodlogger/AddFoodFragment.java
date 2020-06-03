@@ -1,14 +1,12 @@
 package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -196,7 +194,6 @@ public class AddFoodFragment extends Fragment {
                         FoodManager.get(getActivity()).addCustomFood(food);
                         Toast.makeText(getActivity(), "Food item added to the database!", Toast.LENGTH_SHORT).show();
 
-                        closeKeyboard();
                         getActivity().setResult(Activity.RESULT_OK);
                         getActivity().finish();
                     }}
@@ -207,26 +204,12 @@ public class AddFoodFragment extends Fragment {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                closeKeyboard();
                 getActivity().setResult(Activity.RESULT_CANCELED);
                 getActivity().finish();
             }
         });
 
         return v;
-    }
-
-    /***
-     * Used to show keyboard automatically once dialog opens up
-     */
-    public void showKeyboard(){
-        InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-    }
-
-    public void closeKeyboard(){
-        InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
 }

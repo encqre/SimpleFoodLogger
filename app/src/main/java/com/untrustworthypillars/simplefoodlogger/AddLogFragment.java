@@ -1,7 +1,6 @@
 package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
@@ -12,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -117,7 +115,7 @@ public class AddLogFragment extends Fragment {
         mWeight = (EditText) v.findViewById(R.id.fragment_add_log_weight);
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mWeight.requestFocus();
-        showKeyboard();
+
         mWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -232,7 +230,6 @@ public class AddLogFragment extends Fragment {
                 FoodManager.get(getActivity()).addToRecentFoods(mFood);
                 Toast.makeText(getActivity(), "Meal logged!", Toast.LENGTH_SHORT).show();
 
-                closeKeyboard();
                 getActivity().setResult(Activity.RESULT_OK);
                 getActivity().finish();
             }
@@ -242,7 +239,6 @@ public class AddLogFragment extends Fragment {
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                closeKeyboard();
                 getActivity().setResult(Activity.RESULT_CANCELED);
                 getActivity().finish();
             }
@@ -261,24 +257,4 @@ public class AddLogFragment extends Fragment {
             mDateButton.setText(Calculations.dateDisplayString(mDate));
         }
     }
-
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-//        closeKeyboard();
-    }
-
-    /***
-     * Used to show keyboard automatically once fragment opens up
-     */
-    public void showKeyboard(){
-        InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-    }
-
-    public void closeKeyboard(){
-        InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-    }
-
 }
