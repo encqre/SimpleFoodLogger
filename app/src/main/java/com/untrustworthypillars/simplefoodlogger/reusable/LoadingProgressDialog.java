@@ -59,12 +59,6 @@ public class LoadingProgressDialog extends DialogFragment {
             mLoadingTextWithCounters = mLoadingText;
         }
         updateProgress();
-//        else {
-//            mProgressBar.setMax(mMax);
-//            mProgressBar.setProgress(mProgress);
-//        }
-//
-//        mProgressTextview.setText(mLoadingTextWithCounters);
 
         return new AlertDialog.Builder(getActivity()).setView(v).setTitle(mTitle).create();
     }

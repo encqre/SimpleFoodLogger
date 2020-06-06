@@ -90,17 +90,6 @@
             app:title="Import custom foods from a backup file"
             app:summary="Select a CSV file from which custom foods should be imported"/>
 
-        <Preference
-            app:key="pref_import_common_foods"
-            app:title="Import common food database"
-            app:summary="Temporary option"
-            />
-
-        <Preference
-            app:key="pref_import_extended_foods"
-            app:title="Import extended food database"
-            app:summary="Temporary option"
-            />
     </PreferenceCategory>
 
 

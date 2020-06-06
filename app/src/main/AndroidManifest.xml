@@ -38,7 +38,7 @@
         <activity android:name=".SetMacrosActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
-        <activity android:name=".InitialLaunchActivity">
+        <activity android:name=".InitialSetupActivity">
         </activity>
     </application>
 

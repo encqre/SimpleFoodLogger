@@ -4,11 +4,13 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class LoggerActivity extends AppCompatActivity {
 
@@ -17,6 +19,8 @@ public class LoggerActivity extends AppCompatActivity {
     public static final int TAB_FOODS = 1;
     public static final int TAB_SUMMARY = 2;
     public static final int TAB_SETTINGS = 3;
+
+    private static final int REQUEST_INITIAL_SETUP= 0;
 
     private TabLayout mTabLayout;
     private SharedPreferences mPreferences;
@@ -42,14 +46,12 @@ public class LoggerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logger);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (mPreferences.getBoolean("initial_launch", true)) {
-            Toast.makeText(this, "Initial Launch!", Toast.LENGTH_LONG).show();
+        if (mPreferences.getBoolean("initial_database_setup_needed", true) || mPreferences.getBoolean("initial_profile_setup_needed", true)) {
+            Intent intent = InitialSetupActivity.newIntent(LoggerActivity.this);
+            startActivityForResult(intent, REQUEST_INITIAL_SETUP);
         }
 
         mSelectedDay = new Date();
-
-
-        //this.getSupportActionBar().hide(); //Hiding the action bar/menu bar at the top
 
         /** Replacing blank fragment container with home fragment at start **/
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();

@@ -65,8 +65,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Preference mBackupCustomFoods;
     private Preference mImportLogs;
     private Preference mImportCustomFoods;
-    private Preference mImportCommonFoods;
-    private Preference mImportExtendedFoods;
     private Preference mMacros;
     private Preference mHiddenFoods;
 
@@ -135,26 +133,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 importDatabase(REQUEST_LOAD_CUSTOM_FOODS_BACKUP);
                 return true;
 
-            }
-        });
-
-        mImportCommonFoods = (Preference) findPreference("pref_import_common_foods");
-        mImportCommonFoods.setEnabled(false);
-        mImportCommonFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                importCommonFoodDatabase();
-                return true;
-            }
-        });
-
-        mImportExtendedFoods = (Preference) findPreference("pref_import_extended_foods");
-        mImportExtendedFoods.setEnabled(false);
-        mImportExtendedFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                importExtendedFoodDatabase();
-                return true;
             }
         });
 
@@ -577,106 +555,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    public void importCommonFoodDatabase() {
-        FoodManager fm = FoodManager.get(getContext());
-        List<Food> fullFoodList = fm.getCommonFoods();
-        try {
-            InputStream CSVStream = getContext().getAssets().open("CommonDb-v1.csv");
-            InputStreamReader reader = new InputStreamReader(CSVStream);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while (true) {
-                String line = bufferedReader.readLine();
-                if (line == null) break;
-                String [] el = line.split(";");
-                boolean found = false;
-                for (int i = 0; i<fullFoodList.size(); i++) {
-                    if (el[0].equals(fullFoodList.get(i).getFoodId().toString())) {
-                        android.util.Log.e("Logger", el[1] + " was found in current DB!");
-                        found = true;
-                    }
-                }
-                if (!found) {
-                    Food foundNewFood = new Food(UUID.fromString(el[0]));
-                    foundNewFood.setSortID(Integer.valueOf(el[1]));
-                    foundNewFood.setTitle(el[2]);
-                    foundNewFood.setCategory(el[3]);
-                    foundNewFood.setKcal(Float.parseFloat(el[4]));
-                    foundNewFood.setProtein(Float.parseFloat(el[5]));
-                    foundNewFood.setCarbs(Float.parseFloat(el[6]));
-                    foundNewFood.setFat(Float.parseFloat(el[7]));
-                    foundNewFood.setFavorite(Integer.valueOf(el[8]) == 1);
-                    foundNewFood.setHidden(Integer.valueOf(el[9]) == 1);
-                    foundNewFood.setPortion1Name(el[10]);
-                    foundNewFood.setPortion1SizeMetric(Float.parseFloat(el[11]));
-                    foundNewFood.setPortion1SizeImperial(Float.parseFloat(el[12]));
-                    foundNewFood.setPortion2Name(el[13]);
-                    foundNewFood.setPortion2SizeMetric(Float.parseFloat(el[14]));
-                    foundNewFood.setPortion2SizeImperial(Float.parseFloat(el[15]));
-                    foundNewFood.setPortion3Name(el[16]);
-                    foundNewFood.setPortion3SizeMetric(Float.parseFloat(el[17]));
-                    foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
-                    foundNewFood.setType(1);
-                    fm.addCommonFood(foundNewFood);
-                    android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
-                }
-            }
-            CSVStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void importExtendedFoodDatabase() {
-        FoodManager fm = FoodManager.get(getContext());
-        List<Food> fullFoodList = fm.getExtendedFoods();
-        try {
-            InputStream CSVStream = getContext().getAssets().open("FullDb-v1.csv");
-            InputStreamReader reader = new InputStreamReader(CSVStream);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while (true) {
-                String line = bufferedReader.readLine();
-                if (line == null) break;
-                String [] el = line.split(";");
-                boolean found = false;
-                for (int i = 0; i<fullFoodList.size(); i++) {
-                    if (el[0].equals(fullFoodList.get(i).getFoodId().toString())) {
-                        android.util.Log.e("Logger", el[1] + " was found in current DB!");
-                        found = true;
-                    }
-                }
-                if (!found) {
-                    Food foundNewFood = new Food(UUID.fromString(el[0]));
-                    foundNewFood.setSortID(Integer.valueOf(el[1]));
-                    foundNewFood.setTitle(el[2]);
-                    foundNewFood.setCategory(el[3]);
-                    foundNewFood.setKcal(Float.parseFloat(el[4]));
-                    foundNewFood.setProtein(Float.parseFloat(el[5]));
-                    foundNewFood.setCarbs(Float.parseFloat(el[6]));
-                    foundNewFood.setFat(Float.parseFloat(el[7]));
-                    foundNewFood.setFavorite(Integer.valueOf(el[8]) == 1);
-                    foundNewFood.setHidden(Integer.valueOf(el[9]) == 1);
-                    foundNewFood.setPortion1Name(el[10]);
-                    foundNewFood.setPortion1SizeMetric(Float.parseFloat(el[11]));
-                    foundNewFood.setPortion1SizeImperial(Float.parseFloat(el[12]));
-                    foundNewFood.setPortion2Name(el[13]);
-                    foundNewFood.setPortion2SizeMetric(Float.parseFloat(el[14]));
-                    foundNewFood.setPortion2SizeImperial(Float.parseFloat(el[15]));
-                    foundNewFood.setPortion3Name(el[16]);
-                    foundNewFood.setPortion3SizeMetric(Float.parseFloat(el[17]));
-                    foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
-                    foundNewFood.setType(2);
-                    fm.addExtendedFood(foundNewFood);
-                    android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
-                }
-            }
-            CSVStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
