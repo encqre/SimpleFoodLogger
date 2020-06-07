@@ -48,7 +48,7 @@ public class LoggerActivity extends AppCompatActivity {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (mPreferences.getBoolean("initial_database_setup_needed", true) || mPreferences.getBoolean("initial_profile_setup_needed", true)) {
             Intent intent = InitialSetupActivity.newIntent(LoggerActivity.this);
-            startActivityForResult(intent, REQUEST_INITIAL_SETUP);
+            startActivityForResult(intent, REQUEST_INITIAL_SETUP); //TODO implement onActivityResult for this, to update UI with newly set calorie/PFC/unit values
         }
 
         mSelectedDay = new Date();

@@ -87,9 +87,9 @@ public class HomePageFragment extends Fragment {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mCaloriesGoal = mPreferences.getString("pref_calories", "2500");
-        mProteinGoal = mPreferences.getString("pref_protein", "200");
+        mProteinGoal = mPreferences.getString("pref_protein", "155");
         mCarbsGoal = mPreferences.getString("pref_carbs", "300");
-        mFatGoal = mPreferences.getString("pref_fat", "90");
+        mFatGoal = mPreferences.getString("pref_fat", "75");
         mUnits = mPreferences.getString("pref_units", "Metric");
 
         /*Floating action button starts a new Activity, which will launch FoodListFragment. Passing selected day as an argument */

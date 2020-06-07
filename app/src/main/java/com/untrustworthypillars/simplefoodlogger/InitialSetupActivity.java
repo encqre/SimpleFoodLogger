@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +22,6 @@ import java.util.List;
 import java.util.UUID;
 
 //List of things to do on initial launch:
-//TODO 2. Select units - default metric
 //TODO 3. Set target kcal and macros (app to calculate target calories by age/height/weight/gender/activity levels - optionally)
 //TODO 4. Tutorials - probably some dialogs with text when opening some tab for the first time.
 
@@ -30,6 +33,11 @@ public class InitialSetupActivity extends AppCompatActivity {
 
     private TextView mProgressTextview;
     private ProgressBar mProgressBar;
+
+    private RadioGroup mUnitsRadioGroup;
+    private RadioButton mUnitsMetric;
+    private RadioButton mUnitsImperial;
+    private Button mUnitsContinueButton;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, InitialSetupActivity.class);
@@ -62,6 +70,10 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         if (mPreferences.getBoolean("initial_database_setup_needed", true)) {
             new initialDatabaseImportTask().execute();
+        } else if (mPreferences.getBoolean("initial_profile_setup_needed", true)) {
+            setupProfile();
+        } else {
+            finish();
         }
     }
 
@@ -191,6 +203,73 @@ public class InitialSetupActivity extends AppCompatActivity {
             mPreferences.edit().putBoolean("initial_database_setup_needed", false).apply();
             mDatabaseImportInProgress = false;
             Toast.makeText(InitialSetupActivity.this, "Initial database loading finished", Toast.LENGTH_LONG).show();
+            if (mPreferences.getBoolean("initial_profile_setup_needed", true)) {
+                setupProfile();
+            } else {
+                finish();
+            }
         }
     }
+
+    private void setupProfile() {
+        //Setup some default numbers for units/calories/PFC if they are not set yet
+
+        if (mPreferences.getString("pref_units", "not_set").equals("not_set")) {
+            mPreferences.edit().putString("pref_units", "Metric").apply();
+        }
+        if (mPreferences.getString("pref_calories", "not_set").equals("not_set")) {
+            mPreferences.edit().putString("pref_calories", "2500").apply();
+        }
+        if (mPreferences.getString("pref_protein", "not_set").equals("not_set")) {
+            mPreferences.edit().putString("pref_protein", "155").apply();
+        }
+        if (mPreferences.getString("pref_carbs", "not_set").equals("not_set")) {
+            mPreferences.edit().putString("pref_carbs", "300").apply();
+        }
+        if (mPreferences.getString("pref_fat", "not_set").equals("not_set")) {
+            mPreferences.edit().putString("pref_fat", "75").apply();
+        }
+
+        //if user closes the initial setup activity from this point, since we already have some
+        // values set, no need to launch the initial setup activity again when launching the app
+
+//        mPreferences.edit().putBoolean("initial_profile_setup_needed", false).apply();
+
+        // launch units setup
+
+        setContentView(R.layout.initial_setup_units);
+
+        mUnitsRadioGroup = (RadioGroup) findViewById(R.id.initial_setup_units_radiogroup);
+        mUnitsMetric = (RadioButton) findViewById(R.id.initial_setup_units_metric);
+        mUnitsMetric.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPreferences.edit().putString("pref_units", "Metric").apply();
+            }
+        });
+        mUnitsImperial = (RadioButton) findViewById(R.id.initial_setup_units_imperial);
+        mUnitsImperial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPreferences.edit().putString("pref_units", "Imperial").apply();
+            }
+        });
+        mUnitsContinueButton = (Button) findViewById(R.id.initial_setup_units_button_next);
+        mUnitsContinueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // launch calories setup
+                finish();//////////// temp
+            }
+        });
+
+        if (mPreferences.getString("pref_units", "Metric").equals("Imperial")) {
+            mUnitsImperial.setChecked(true);
+        } else {
+            mUnitsMetric.setChecked(true);
+            mPreferences.edit().putString("pref_units", "Metric").apply();
+        }
+
+    }
+
 }
