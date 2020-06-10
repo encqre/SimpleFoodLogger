@@ -39,6 +39,8 @@ public class InitialSetupActivity extends AppCompatActivity {
     private RadioButton mUnitsImperial;
     private Button mUnitsContinueButton;
 
+    private Button mProfileCalculateButton;
+
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, InitialSetupActivity.class);
         return intent;
@@ -71,7 +73,7 @@ public class InitialSetupActivity extends AppCompatActivity {
         if (mPreferences.getBoolean("initial_database_setup_needed", true)) {
             new initialDatabaseImportTask().execute();
         } else if (mPreferences.getBoolean("initial_profile_setup_needed", true)) {
-            setupProfile();
+            setupUnits();
         } else {
             finish();
         }
@@ -204,14 +206,14 @@ public class InitialSetupActivity extends AppCompatActivity {
             mDatabaseImportInProgress = false;
             Toast.makeText(InitialSetupActivity.this, "Initial database loading finished", Toast.LENGTH_LONG).show();
             if (mPreferences.getBoolean("initial_profile_setup_needed", true)) {
-                setupProfile();
+                setupUnits();
             } else {
                 finish();
             }
         }
     }
 
-    private void setupProfile() {
+    private void setupUnits() {
         //Setup some default numbers for units/calories/PFC if they are not set yet
 
         if (mPreferences.getString("pref_units", "not_set").equals("not_set")) {
@@ -259,7 +261,8 @@ public class InitialSetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // launch calories setup
-                finish();//////////// temp
+//                finish();//////////// temp
+                setupProfile();
             }
         });
 
@@ -269,6 +272,23 @@ public class InitialSetupActivity extends AppCompatActivity {
             mUnitsMetric.setChecked(true);
             mPreferences.edit().putString("pref_units", "Metric").apply();
         }
+
+    }
+
+    private void setupProfile() {
+
+        // launch units setup
+
+        setContentView(R.layout.initial_setup_calories_profile);
+
+        mProfileCalculateButton = (Button) findViewById(R.id.initial_setup_calories_profile_button_calculate);
+        mProfileCalculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // launch calories setup
+                finish();//////////// temp
+            }
+        });
 
     }
 

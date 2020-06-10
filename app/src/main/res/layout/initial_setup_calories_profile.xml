@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
+
+    <TextView
+        android:id="@+id/initial_setup_calories_profile_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set daily target calories"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:paddingTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/initial_setup_calories_profile_gender_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender:"
+        android:textColor="@color/darkGray"
+        android:textSize="14dp"
+        android:paddingTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_title_text" />
+
+    <RadioGroup
+        android:id="@+id/initial_setup_calories_profile_gender_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_gender_text">
+
+        <RadioButton
+            android:id="@+id/initial_setup_calories_profile_gender_male"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/initial_setup_calories_profile_gender_female"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Female" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/initial_setup_calories_profile_age_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age:"
+        android:textColor="@color/darkGray"
+        android:textSize="14dp"
+        android:paddingTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_gender_radiogroup" />
+
+    <EditText
+        android:id="@+id/initial_setup_calories_profile_age_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_age_text"/>
+
+    <TextView
+        android:id="@+id/initial_setup_calories_profile_weight_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weight:"
+        android:textColor="@color/darkGray"
+        android:textSize="14dp"
+        android:paddingTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_age_edittext" />
+
+    <EditText
+        android:id="@+id/initial_setup_calories_profile_weight_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_weight_text" />
+
+    <RadioGroup
+        android:id="@+id/initial_setup_calories_profile_weight_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_weight_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/initial_setup_calories_profile_weight_edittext">
+
+        <RadioButton
+            android:id="@+id/initial_setup_calories_profile_weight_kg"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Kg" />
+
+        <RadioButton
+            android:id="@+id/initial_setup_calories_profile_weight_lbs"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="lbs" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/initial_setup_calories_profile_height_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Height:"
+        android:textColor="@color/darkGray"
+        android:textSize="14dp"
+        android:paddingTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_weight_edittext" />
+
+    <EditText
+        android:id="@+id/initial_setup_calories_profile_height_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"/>
+
+    <RadioGroup
+        android:id="@+id/initial_setup_calories_profile_height_radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_height_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/initial_setup_calories_profile_height_edittext">
+
+        <RadioButton
+            android:id="@+id/initial_setup_calories_profile_height_cm"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="cm" />
+
+        <RadioButton
+            android:id="@+id/initial_setup_calories_profile_height_ftin"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="ft/in" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/initial_setup_calories_profile_activity_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity level:"
+        android:textColor="@color/darkGray"
+        android:textSize="14dp"
+        android:paddingTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_edittext" />
+
+    <Spinner
+        android:id="@+id/initial_setup_calories_profile_activity_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_activity_levels"
+        android:paddingTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_activity_text" />
+
+    <TextView
+        android:id="@+id/initial_setup_calories_profile_goal_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Goal:"
+        android:textColor="@color/darkGray"
+        android:textSize="14dp"
+        android:paddingTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_activity_spinner" />
+
+    <Spinner
+        android:id="@+id/initial_setup_calories_profile_goal_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_goals"
+        android:paddingTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_goal_text" />
+
+    <Button
+        android:id="@+id/initial_setup_calories_profile_button_back"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_goal_spinner" />
+
+    <Button
+        android:id="@+id/initial_setup_calories_profile_button_manual"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set manually"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_button_back"
+        app:layout_constraintEnd_toStartOf="@+id/initial_setup_calories_profile_button_calculate"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_goal_spinner" />
+
+    <Button
+        android:id="@+id/initial_setup_calories_profile_button_calculate"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_goal_spinner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
