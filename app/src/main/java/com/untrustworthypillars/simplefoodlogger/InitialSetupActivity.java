@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +39,24 @@ public class InitialSetupActivity extends AppCompatActivity {
     private TextView mProgressTextview;
     private ProgressBar mProgressBar;
 
-    private RadioGroup mUnitsRadioGroup;
     private RadioButton mUnitsMetric;
     private RadioButton mUnitsImperial;
     private Button mUnitsContinueButton;
 
+    private RadioButton mProfileGenderMale;
+    private RadioButton mProfileGenderFemale;
+    private EditText mProfileAge;
+    private EditText mProfileWeight;
+    private RadioButton mProfileWeightKg;
+    private RadioButton mProfileWeightLbs;
+    private EditText mProfileHeightFeet;
+    private EditText mProfileHeightMain;
+    private RadioButton mProfileHeightCm;
+    private RadioButton mProfileHeightFtin;
+    private Spinner mProfileActivitySpinner;
+    private Spinner mProfileGoalSpinner;
+    private Button mProfileBackButton;
+    private Button mProfileManualButton;
     private Button mProfileCalculateButton;
 
     public static Intent newIntent(Context packageContext) {
@@ -241,7 +259,6 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         setContentView(R.layout.initial_setup_units);
 
-        mUnitsRadioGroup = (RadioGroup) findViewById(R.id.initial_setup_units_radiogroup);
         mUnitsMetric = (RadioButton) findViewById(R.id.initial_setup_units_metric);
         mUnitsMetric.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,7 +296,145 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         // launch units setup
 
+        //pref_height
+        //pref_activity_level
+        //pref_goal
+
         setContentView(R.layout.initial_setup_calories_profile);
+
+        mProfileGenderMale = (RadioButton) findViewById(R.id.initial_setup_calories_profile_gender_male);
+        mProfileGenderMale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPreferences.edit().putString("pref_gender", "Male").apply();
+            }
+        });
+        mProfileGenderFemale = (RadioButton) findViewById(R.id.initial_setup_calories_profile_gender_female);
+        mProfileGenderFemale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPreferences.edit().putString("pref_gender", "Female").apply();
+            }
+        });
+
+        if (mPreferences.getString("pref_gender", "not_set").equals("Male")) {
+            mProfileGenderMale.setChecked(true);
+        } else if (mPreferences.getString("pref_gender", "not_set").equals("Female")) {
+            mProfileGenderFemale.setChecked(true);
+        }
+
+        mProfileAge = (EditText) findViewById(R.id.initial_setup_calories_profile_age_edittext);
+        mProfileAge.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mProfileAge.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!mProfileAge.getText().toString().equals("")) {
+                    mPreferences.edit().putString("pref_age", mProfileAge.getText().toString()).apply();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //nothing
+            }
+        });
+        if (!mPreferences.getString("pref_age", "not_set").equals("not_set")) {
+            mProfileAge.setText(mPreferences.getString("pref_age", "25"));
+        }
+
+        mProfileWeightKg = (RadioButton) findViewById(R.id.initial_setup_calories_profile_weight_kg);
+        mProfileWeightLbs = (RadioButton) findViewById(R.id.initial_setup_calories_profile_weight_lbs);
+        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
+            mProfileWeightKg.setChecked(true);
+        } else {
+            mProfileWeightLbs.setChecked(true);
+        }
+        mProfileWeight = (EditText) findViewById(R.id.initial_setup_calories_profile_weight_edittext);
+        mProfileWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mProfileWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!mProfileWeight.getText().toString().equals("")) {
+                    if (mProfileWeightKg.isChecked()) {
+                        mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
+                    } else {
+                        long weight = Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2));
+                        mPreferences.edit().putString("pref_weight", String.valueOf(weight)).apply();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //nothing
+            }
+        });
+
+        if (!mPreferences.getString("pref_weight", "not_set").equals("not_set")) {
+            if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
+                mProfileWeight.setText(mPreferences.getString("pref_weight", "100"));
+            } else {
+                mProfileWeight.setText( String.valueOf(Math.round(Float.parseFloat(mPreferences.getString("pref_weight", "220")) * 2.2)));
+            }
+        }
+
+        mProfileWeightKg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!mProfileWeight.getText().toString().equals("")) {
+                    mProfileWeight.setText( String.valueOf(Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2))));
+                }
+
+            }
+        });
+        mProfileWeightLbs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!mProfileWeight.getText().toString().equals("")) {
+                    mProfileWeight.setText( String.valueOf(Math.round((Float.parseFloat(mProfileWeight.getText().toString()) * 2.2))));
+                }
+
+            }
+        });
+
+        //
+
+        mProfileHeightFeet = (EditText) findViewById(R.id.initial_setup_calories_profile_height_edittext1);
+        mProfileHeightMain = (EditText) findViewById(R.id.initial_setup_calories_profile_height_edittext2);
+        mProfileHeightCm = (RadioButton) findViewById(R.id.initial_setup_calories_profile_height_cm);
+        mProfileHeightFtin = (RadioButton) findViewById(R.id.initial_setup_calories_profile_height_ftin);
+
+        mProfileActivitySpinner = (Spinner) findViewById(R.id.initial_setup_calories_profile_activity_spinner);
+        mProfileGoalSpinner = (Spinner) findViewById(R.id.initial_setup_calories_profile_goal_spinner);
+
+        mProfileBackButton = (Button) findViewById(R.id.initial_setup_calories_profile_button_back);
+        mProfileBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupUnits();
+            }
+        });
+
+        mProfileManualButton = (Button) findViewById(R.id.initial_setup_calories_profile_button_manual);
+        mProfileManualButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // launch manual entry
+                finish();//////////// temp
+            }
+        });
 
         mProfileCalculateButton = (Button) findViewById(R.id.initial_setup_calories_profile_button_calculate);
         mProfileCalculateButton.setOnClickListener(new View.OnClickListener() {

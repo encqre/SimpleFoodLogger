@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Kg" />
+            android:text="kg" />
 
         <RadioButton
             android:id="@+id/initial_setup_calories_profile_weight_lbs"
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="lbs" />
+            android:text="lbs  " />
 
     </RadioGroup>
 
@@ -135,10 +135,18 @@
         app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_weight_edittext" />
 
     <EditText
-        android:id="@+id/initial_setup_calories_profile_height_edittext"
+        android:id="@+id/initial_setup_calories_profile_height_edittext1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"/>
+
+    <EditText
+        android:id="@+id/initial_setup_calories_profile_height_edittext2"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_height_edittext1"
         app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"/>
 
     <RadioGroup
@@ -147,9 +155,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_height_edittext"
+        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_height_edittext2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/initial_setup_calories_profile_height_edittext">
+        app:layout_constraintTop_toTopOf="@+id/initial_setup_calories_profile_height_edittext2">
 
         <RadioButton
             android:id="@+id/initial_setup_calories_profile_height_cm"
@@ -179,7 +187,7 @@
         android:textSize="14dp"
         android:paddingTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_edittext" />
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_edittext2" />
 
     <Spinner
         android:id="@+id/initial_setup_calories_profile_activity_spinner"
