@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -47,12 +49,15 @@ public class InitialSetupActivity extends AppCompatActivity {
     private RadioButton mProfileGenderFemale;
     private EditText mProfileAge;
     private EditText mProfileWeight;
+    private RadioGroup mProfileWeightRadioGroup;
     private RadioButton mProfileWeightKg;
     private RadioButton mProfileWeightLbs;
+    private EditText mProfileHeightCm;
     private EditText mProfileHeightFeet;
-    private EditText mProfileHeightMain;
-    private RadioButton mProfileHeightCm;
-    private RadioButton mProfileHeightFtin;
+    private EditText mProfileHeightIn;
+    private RadioGroup mProfileHeightRadioGroup;
+    private RadioButton mProfileHeightCmButton;
+    private RadioButton mProfileHeightFtinButton;
     private Spinner mProfileActivitySpinner;
     private Spinner mProfileGoalSpinner;
     private Button mProfileBackButton;
@@ -296,7 +301,6 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         // launch units setup
 
-        //pref_height
         //pref_activity_level
         //pref_goal
 
@@ -333,9 +337,7 @@ public class InitialSetupActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!mProfileAge.getText().toString().equals("")) {
                     mPreferences.edit().putString("pref_age", mProfileAge.getText().toString()).apply();
-                }
             }
 
             @Override
@@ -343,12 +345,11 @@ public class InitialSetupActivity extends AppCompatActivity {
                 //nothing
             }
         });
-        if (!mPreferences.getString("pref_age", "not_set").equals("not_set")) {
-            mProfileAge.setText(mPreferences.getString("pref_age", "25"));
-        }
+        mProfileAge.setText(mPreferences.getString("pref_age", ""));
 
         mProfileWeightKg = (RadioButton) findViewById(R.id.initial_setup_calories_profile_weight_kg);
         mProfileWeightLbs = (RadioButton) findViewById(R.id.initial_setup_calories_profile_weight_lbs);
+        mProfileWeightRadioGroup = (RadioGroup) findViewById(R.id.initial_setup_calories_profile_weight_radiogroup);
         if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
             mProfileWeightKg.setChecked(true);
         } else {
@@ -371,6 +372,8 @@ public class InitialSetupActivity extends AppCompatActivity {
                         long weight = Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2));
                         mPreferences.edit().putString("pref_weight", String.valueOf(weight)).apply();
                     }
+                } else {
+                    mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
                 }
             }
 
@@ -380,41 +383,174 @@ public class InitialSetupActivity extends AppCompatActivity {
             }
         });
 
-        if (!mPreferences.getString("pref_weight", "not_set").equals("not_set")) {
-            if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
-                mProfileWeight.setText(mPreferences.getString("pref_weight", "100"));
+
+        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
+            mProfileWeight.setText(mPreferences.getString("pref_weight", ""));
+        } else if (!mPreferences.getString("pref_weight", "").equals("")) {
+            mProfileWeight.setText( String.valueOf(Math.round(Float.parseFloat(mPreferences.getString("pref_weight", "0")) * 2.2)));
+        } else {
+            mProfileWeight.setText("");
+        }
+
+        mProfileWeightRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.initial_setup_calories_profile_weight_kg:
+                        if (!mProfileWeight.getText().toString().equals("")) {
+                            mProfileWeight.setText(String.valueOf(Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2))));
+                        }
+                        break;
+                    case R.id.initial_setup_calories_profile_weight_lbs:
+                        if (!mProfileWeight.getText().toString().equals("")) {
+                            mProfileWeight.setText(String.valueOf(Math.round((Float.parseFloat(mProfileWeight.getText().toString()) * 2.2))));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        mProfileHeightRadioGroup = (RadioGroup) findViewById(R.id.initial_setup_calories_profile_height_radiogroup);
+        mProfileHeightCmButton = (RadioButton) findViewById(R.id.initial_setup_calories_profile_height_cm);
+        mProfileHeightFtinButton = (RadioButton) findViewById(R.id.initial_setup_calories_profile_height_ftin);
+        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
+            mProfileHeightCmButton.setChecked(true);
+        } else {
+            mProfileHeightFtinButton.setChecked(true);
+        }
+
+        mProfileHeightCm = (EditText) findViewById(R.id.initial_setup_calories_profile_height_edittext_cm);
+        mProfileHeightCm.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mProfileHeightCm.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                android.util.Log.e("inisial", "Cm textas keitesi: " + mProfileHeightCm.getText().toString());
+                if (mProfileHeightCmButton.isChecked()) {
+                    mPreferences.edit().putString("pref_height", mProfileHeightCm.getText().toString()).apply();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //nothing
+            }
+        });
+
+        mProfileHeightFeet = (EditText) findViewById(R.id.initial_setup_calories_profile_height_edittext_ft);
+        mProfileHeightFeet.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mProfileHeightFeet.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                android.util.Log.e("inisial", "Koju textas keitesi: " + mProfileHeightFeet.getText().toString());
+                if (mProfileHeightFtinButton.isChecked()) {
+                    int inches, feet;
+                    if (!mProfileHeightIn.getText().toString().equals("")) {
+                        inches = Integer.parseInt(mProfileHeightIn.getText().toString());
+                    } else {
+                        inches = 0;
+                    }
+                    if (!mProfileHeightFeet.getText().toString().equals("")) {
+                        feet = Integer.parseInt(mProfileHeightFeet.getText().toString());
+                    } else {
+                        feet = 0;
+                    }
+                    mPreferences.edit().putString("pref_height", String.valueOf(ftinToCm(feet, inches))).apply();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //nothing
+            }
+        });
+
+        mProfileHeightIn = (EditText) findViewById(R.id.initial_setup_calories_profile_height_edittext_in);
+        mProfileHeightIn.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mProfileHeightIn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                android.util.Log.e("inisial", "Inchu textas keitesi: " + mProfileHeightIn.getText().toString());
+                if (mProfileHeightFtinButton.isChecked()) {
+                    int inches, feet;
+                    if (!mProfileHeightIn.getText().toString().equals("")) {
+                        inches = Integer.parseInt(mProfileHeightIn.getText().toString());
+                    } else {
+                        inches = 0;
+                    }
+                    if (!mProfileHeightFeet.getText().toString().equals("")) {
+                        feet = Integer.parseInt(mProfileHeightFeet.getText().toString());
+                    } else {
+                        feet = 0;
+                    }
+                    mPreferences.edit().putString("pref_height", String.valueOf(ftinToCm(feet, inches))).apply();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //nothing
+            }
+        });
+
+
+        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
+            mProfileHeightCm.setText(mPreferences.getString("pref_height", ""));
+        } else {
+            mProfileHeightCm.setVisibility(View.INVISIBLE);
+            mProfileHeightFeet.setVisibility(View.VISIBLE);
+            mProfileHeightIn.setVisibility(View.VISIBLE);
+            if (!mPreferences.getString("pref_height", "").equals("")) {
+                long [] ftin = cmToFtin(Integer.parseInt(mPreferences.getString("pref_height", "0")));
+                mProfileHeightFeet.setText(String.valueOf(ftin[0]));
+                mProfileHeightIn.setText(String.valueOf(ftin[1]));
             } else {
-                mProfileWeight.setText( String.valueOf(Math.round(Float.parseFloat(mPreferences.getString("pref_weight", "220")) * 2.2)));
+                mProfileHeightFeet.setText("");
+                mProfileHeightIn.setText("");
             }
         }
 
-        mProfileWeightKg.setOnClickListener(new View.OnClickListener() {
+        mProfileHeightRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
             @Override
-            public void onClick(View view) {
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.initial_setup_calories_profile_height_cm:
+                        mProfileHeightFeet.setVisibility(View.INVISIBLE);
+                        mProfileHeightIn.setVisibility(View.INVISIBLE);
+                        mProfileHeightCm.setVisibility(View.VISIBLE);
+                        mProfileHeightCm.setText(mPreferences.getString("pref_height", ""));
+                        break;
+                    case R.id.initial_setup_calories_profile_height_ftin:
+                        mProfileHeightFeet.setVisibility(View.VISIBLE);
+                        mProfileHeightIn.setVisibility(View.VISIBLE);
+                        mProfileHeightCm.setVisibility(View.INVISIBLE);
 
-                if (!mProfileWeight.getText().toString().equals("")) {
-                    mProfileWeight.setText( String.valueOf(Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2))));
+                        long [] ftin = cmToFtin(Integer.parseInt(mPreferences.getString("pref_height", "0")));
+                        mProfileHeightFeet.setText(String.valueOf(ftin[0]));
+                        mProfileHeightIn.setText(String.valueOf(ftin[1]));
+                        break;
+                    default:
+                        break;
                 }
-
             }
         });
-        mProfileWeightLbs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if (!mProfileWeight.getText().toString().equals("")) {
-                    mProfileWeight.setText( String.valueOf(Math.round((Float.parseFloat(mProfileWeight.getText().toString()) * 2.2))));
-                }
-
-            }
-        });
-
-        //
-
-        mProfileHeightFeet = (EditText) findViewById(R.id.initial_setup_calories_profile_height_edittext1);
-        mProfileHeightMain = (EditText) findViewById(R.id.initial_setup_calories_profile_height_edittext2);
-        mProfileHeightCm = (RadioButton) findViewById(R.id.initial_setup_calories_profile_height_cm);
-        mProfileHeightFtin = (RadioButton) findViewById(R.id.initial_setup_calories_profile_height_ftin);
 
         mProfileActivitySpinner = (Spinner) findViewById(R.id.initial_setup_calories_profile_activity_spinner);
         mProfileGoalSpinner = (Spinner) findViewById(R.id.initial_setup_calories_profile_goal_spinner);
@@ -445,6 +581,16 @@ public class InitialSetupActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static long ftinToCm(int ft, int in) {
+        return Math.round((in * 2.54) + (ft * 12 * 2.54));
+    }
+
+    public static long[] cmToFtin(int cm) {
+        long ft = (long)(cm / 30.48);
+        long in = Math.round((cm%30.48) / 2.54);
+        return new long[] {ft, in};
     }
 
 }
