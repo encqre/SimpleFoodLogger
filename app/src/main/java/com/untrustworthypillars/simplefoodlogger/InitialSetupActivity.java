@@ -9,7 +9,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -29,7 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 //List of things to do on initial launch:
-//TODO 3. Set target kcal and macros (app to calculate target calories by age/height/weight/gender/activity levels - optionally)
+//TODO 3. Also set PFC targets
 //TODO 4. Tutorials - probably some dialogs with text when opening some tab for the first time.
 
 public class InitialSetupActivity extends AppCompatActivity {
@@ -63,6 +62,12 @@ public class InitialSetupActivity extends AppCompatActivity {
     private Button mProfileBackButton;
     private Button mProfileManualButton;
     private Button mProfileCalculateButton;
+
+    private TextView mSetKcalUpperText;
+    private EditText mSetKcalEditText;
+    private TextView mSetKcalLowerText;
+    private Button mSetKcalBackButton;
+    private Button mSetKcalContinueButton;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, InitialSetupActivity.class);
@@ -301,9 +306,6 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         // launch units setup
 
-        //pref_activity_level
-        //pref_goal
-
         setContentView(R.layout.initial_setup_calories_profile);
 
         mProfileGenderMale = (RadioButton) findViewById(R.id.initial_setup_calories_profile_gender_male);
@@ -431,7 +433,6 @@ public class InitialSetupActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                android.util.Log.e("inisial", "Cm textas keitesi: " + mProfileHeightCm.getText().toString());
                 if (mProfileHeightCmButton.isChecked()) {
                     mPreferences.edit().putString("pref_height", mProfileHeightCm.getText().toString()).apply();
                 }
@@ -453,7 +454,6 @@ public class InitialSetupActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                android.util.Log.e("inisial", "Koju textas keitesi: " + mProfileHeightFeet.getText().toString());
                 if (mProfileHeightFtinButton.isChecked()) {
                     int inches, feet;
                     if (!mProfileHeightIn.getText().toString().equals("")) {
@@ -486,7 +486,6 @@ public class InitialSetupActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                android.util.Log.e("inisial", "Inchu textas keitesi: " + mProfileHeightIn.getText().toString());
                 if (mProfileHeightFtinButton.isChecked()) {
                     int inches, feet;
                     if (!mProfileHeightIn.getText().toString().equals("")) {
@@ -540,10 +539,14 @@ public class InitialSetupActivity extends AppCompatActivity {
                         mProfileHeightFeet.setVisibility(View.VISIBLE);
                         mProfileHeightIn.setVisibility(View.VISIBLE);
                         mProfileHeightCm.setVisibility(View.INVISIBLE);
-
-                        long [] ftin = cmToFtin(Integer.parseInt(mPreferences.getString("pref_height", "0")));
-                        mProfileHeightFeet.setText(String.valueOf(ftin[0]));
-                        mProfileHeightIn.setText(String.valueOf(ftin[1]));
+                        if (mPreferences.getString("pref_height", "0").equals("")) {
+                            mProfileHeightFeet.setText("");
+                            mProfileHeightIn.setText("");
+                        } else {
+                            long[] ftin = cmToFtin(Integer.parseInt(mPreferences.getString("pref_height", "0")));
+                            mProfileHeightFeet.setText(String.valueOf(ftin[0]));
+                            mProfileHeightIn.setText(String.valueOf(ftin[1]));
+                        }
                         break;
                     default:
                         break;
@@ -553,7 +556,35 @@ public class InitialSetupActivity extends AppCompatActivity {
 
 
         mProfileActivitySpinner = (Spinner) findViewById(R.id.initial_setup_calories_profile_activity_spinner);
+        mProfileActivitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mPreferences.edit().putString("pref_activity_level", String.valueOf(position)).apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //nothing
+            }
+
+        });
+        mProfileActivitySpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_activity_level", "0")));
+
+
         mProfileGoalSpinner = (Spinner) findViewById(R.id.initial_setup_calories_profile_goal_spinner);
+        mProfileGoalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mPreferences.edit().putString("pref_goal", String.valueOf(position)).apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //nothing
+            }
+
+        });
+        mProfileGoalSpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_goal", "0")));
 
         mProfileBackButton = (Button) findViewById(R.id.initial_setup_calories_profile_button_back);
         mProfileBackButton.setOnClickListener(new View.OnClickListener() {
@@ -568,7 +599,7 @@ public class InitialSetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // launch manual entry
-                finish();//////////// temp
+                setKcal(true);
             }
         });
 
@@ -576,8 +607,62 @@ public class InitialSetupActivity extends AppCompatActivity {
         mProfileCalculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // launch calories setup
-                finish();//////////// temp
+                // verify if all fields are filled and calculate kcal
+                if (mProfileAge.getText().toString().equals("")) {
+                    Toast.makeText(InitialSetupActivity.this, "Please fill in your age", Toast.LENGTH_SHORT).show();
+                } else if (mProfileWeight.getText().toString().equals("")) {
+                    Toast.makeText(InitialSetupActivity.this, "Please fill in your weight", Toast.LENGTH_SHORT).show();
+                } else if (mProfileHeightCmButton.isChecked() && mProfileHeightCm.getText().toString().equals("")) {
+                    Toast.makeText(InitialSetupActivity.this, "Please fill in your height", Toast.LENGTH_SHORT).show();
+                } else if (mProfileHeightFtinButton.isChecked() && mProfileHeightFeet.getText().toString().equals("") && mProfileHeightIn.getText().toString().equals("")) {
+                    Toast.makeText(InitialSetupActivity.this, "Please fill in your height", Toast.LENGTH_SHORT).show();
+                } else {
+                    setKcal(false);
+                }
+            }
+        });
+
+    }
+
+    public void setKcal(boolean manual){
+        String upperText;
+        String lowerText;
+        int recommendedKcal;
+        if (manual) {
+            upperText = "Enter your daily calories target:";
+            lowerText = "You can go back to estimate your daily calories target based on your gender, age, weight, height, activity level and goal, using Mifflin-St Jeor Equation.";
+            recommendedKcal = 2503;
+        } else {
+            upperText = "Your recommended daily calories target*:";
+            lowerText = "*Calculated based on your gender, age, weight, height, activity level and goal, using Mifflin-St Jeor Equation.";
+            recommendedKcal = calculateKcalMifflinStJeor();
+        }
+
+        //TODO finish this up with saving the kcal and so on
+        setContentView(R.layout.initial_setup_calories_set);
+
+        mSetKcalUpperText = (TextView) findViewById(R.id.initial_setup_calories_set_text_upper);
+        mSetKcalUpperText.setText(upperText);
+
+        mSetKcalLowerText = (TextView) findViewById(R.id.initial_setup_calories_set_text_lower);
+        mSetKcalLowerText.setText(lowerText);
+
+        mSetKcalEditText = (EditText) findViewById(R.id.initial_setup_calories_set_kcal_edittext);
+        mSetKcalEditText.setText(String.valueOf(recommendedKcal));
+
+        mSetKcalBackButton = (Button) findViewById(R.id.initial_setup_calories_set_button_back);
+        mSetKcalBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupProfile();
+            }
+        });
+
+        mSetKcalContinueButton = (Button) findViewById(R.id.initial_setup_calories_set_button_continue);
+        mSetKcalContinueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); //temp
             }
         });
 
@@ -591,6 +676,27 @@ public class InitialSetupActivity extends AppCompatActivity {
         long ft = (long)(cm / 30.48);
         long in = Math.round((cm%30.48) / 2.54);
         return new long[] {ft, in};
+    }
+
+    public int calculateKcalMifflinStJeor(){
+        float [] activityMultiplierTable = {1.2f,1.375f,1.465f,1.55f,1.725f};
+        float [] goalMutliplierTable = {1f,0.9f,0.8f,1.1f,1.2f};
+
+        String gender = mPreferences.getString("pref_gender", "Male");
+        int weight = Integer.parseInt(mPreferences.getString("pref_weight", "80"));
+        int height = Integer.parseInt(mPreferences.getString("pref_height", "175"));
+        int age = Integer.parseInt(mPreferences.getString("pref_age", "25"));
+        float activityMultiplier = activityMultiplierTable[Integer.parseInt(mPreferences.getString("pref_activity_level", "1"))];
+        float goalMultiplier = goalMutliplierTable[Integer.parseInt(mPreferences.getString("pref_goal", "1"))];
+
+        float estimatedKcal;
+        if (gender.equals("Male")){
+            estimatedKcal = activityMultiplier * goalMultiplier * ((10 * weight) + (6.25f * height) - (5 * age) + 5);
+        } else {
+            estimatedKcal = activityMultiplier * goalMultiplier * ((10 * weight) + (6.25f * height) - (5 * age) - 161);
+        }
+
+        return (int) estimatedKcal;
     }
 
 }

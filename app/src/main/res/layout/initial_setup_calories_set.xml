@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp">
+
+    <TextView
+        android:id="@+id/initial_setup_calories_set_text_upper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your recommended daily calorie target*:"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:paddingTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/initial_setup_calories_set_kcal_edittext"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="2500"
+        android:hint="2501"
+        android:textAlignment="center"
+        android:paddingTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/initial_setup_calories_set_text_upper"
+        app:layout_constraintStart_toStartOf="@+id/initial_setup_calories_set_text_upper"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_set_text_upper" />
+
+    <TextView
+        android:id="@+id/initial_setup_calories_set_text_kcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="kcal"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/initial_setup_calories_set_kcal_edittext"
+        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_set_kcal_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_set_text_upper" />
+
+    <TextView
+        android:id="@+id/initial_setup_calories_set_text_lower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:text="*Based on your gender, age, weight, height, activity levels and goals, using Mifflin-St Jeor Equation."
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_set_kcal_edittext" />
+
+    <Button
+        android:id="@+id/initial_setup_calories_set_button_back"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_set_text_lower" />
+
+    <Button
+        android:id="@+id/initial_setup_calories_set_button_continue"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_set_text_lower" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
