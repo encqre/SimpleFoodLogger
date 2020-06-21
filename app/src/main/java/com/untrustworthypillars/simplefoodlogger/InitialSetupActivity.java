@@ -1,5 +1,6 @@
 package com.untrustworthypillars.simplefoodlogger;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,7 +29,6 @@ import java.util.List;
 import java.util.UUID;
 
 //List of things to do on initial launch:
-//TODO 3. Also set PFC targets
 //TODO 4. Tutorials - probably some dialogs with text when opening some tab for the first time.
 
 public class InitialSetupActivity extends AppCompatActivity {
@@ -68,6 +68,9 @@ public class InitialSetupActivity extends AppCompatActivity {
     private TextView mSetKcalLowerText;
     private Button mSetKcalBackButton;
     private Button mSetKcalContinueButton;
+
+    private Button mSetPFCCancelButton;
+    private Button mSetPFCSaveButton;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, InitialSetupActivity.class);
@@ -586,6 +589,7 @@ public class InitialSetupActivity extends AppCompatActivity {
         });
         mProfileGoalSpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_goal", "0")));
 
+        //TODO only save preferences on clicking one of the three buttons, not after character changes in edittexts for simplicity
         mProfileBackButton = (Button) findViewById(R.id.initial_setup_calories_profile_button_back);
         mProfileBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -627,18 +631,18 @@ public class InitialSetupActivity extends AppCompatActivity {
     public void setKcal(boolean manual){
         String upperText;
         String lowerText;
-        int recommendedKcal;
+        String recommendedKcal;
         if (manual) {
             upperText = "Enter your daily calories target:";
             lowerText = "You can go back to estimate your daily calories target based on your gender, age, weight, height, activity level and goal, using Mifflin-St Jeor Equation.";
-            recommendedKcal = 2503;
+            recommendedKcal = mPreferences.getString("pref_calories", "");
         } else {
             upperText = "Your recommended daily calories target*:";
             lowerText = "*Calculated based on your gender, age, weight, height, activity level and goal, using Mifflin-St Jeor Equation.";
             recommendedKcal = calculateKcalMifflinStJeor();
+            mPreferences.edit().putString("pref_calories_calculated", recommendedKcal).apply();
         }
 
-        //TODO finish this up with saving the kcal and so on
         setContentView(R.layout.initial_setup_calories_set);
 
         mSetKcalUpperText = (TextView) findViewById(R.id.initial_setup_calories_set_text_upper);
@@ -648,12 +652,15 @@ public class InitialSetupActivity extends AppCompatActivity {
         mSetKcalLowerText.setText(lowerText);
 
         mSetKcalEditText = (EditText) findViewById(R.id.initial_setup_calories_set_kcal_edittext);
-        mSetKcalEditText.setText(String.valueOf(recommendedKcal));
+        mSetKcalEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        mSetKcalEditText.setText(recommendedKcal);
+        mSetKcalEditText.setHint(recommendedKcal);
 
         mSetKcalBackButton = (Button) findViewById(R.id.initial_setup_calories_set_button_back);
         mSetKcalBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPreferences.edit().putString("pref_calories", mSetKcalEditText.getText().toString()).apply();
                 setupProfile();
             }
         });
@@ -662,10 +669,40 @@ public class InitialSetupActivity extends AppCompatActivity {
         mSetKcalContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); //temp
+                if (mSetKcalEditText.getText().toString().equals("")) {
+                    Toast.makeText(InitialSetupActivity.this, "Please fill daily target calories field", Toast.LENGTH_SHORT).show();
+                } else if (Integer.parseInt(mSetKcalEditText.getText().toString()) <= 0) {
+                    Toast.makeText(InitialSetupActivity.this, "Please enter a valid daily target calories number", Toast.LENGTH_SHORT).show();
+                } else {
+                    mPreferences.edit().putString("pref_calories", mSetKcalEditText.getText().toString()).apply();
+                    setPFC();
+                }
             }
         });
 
+    }
+
+    public void setPFC() {
+
+        //TODO use SetMacrosActivity here
+        //TODO add 3 more radio buttons for recommended preset PFC ratios - moderate/high/very high protein
+        setContentView(R.layout.fragment_set_macros);
+
+        mSetPFCSaveButton = (Button) findViewById(R.id.fragment_set_macros_save_button);
+        mSetPFCSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mSetPFCCancelButton = (Button) findViewById(R.id.fragment_set_macros_cancel_button);
+        mSetPFCCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setKcal(true);
+            }
+        });
     }
 
     public static long ftinToCm(int ft, int in) {
@@ -678,7 +715,7 @@ public class InitialSetupActivity extends AppCompatActivity {
         return new long[] {ft, in};
     }
 
-    public int calculateKcalMifflinStJeor(){
+    public String calculateKcalMifflinStJeor(){
         float [] activityMultiplierTable = {1.2f,1.375f,1.465f,1.55f,1.725f};
         float [] goalMutliplierTable = {1f,0.9f,0.8f,1.1f,1.2f};
 
@@ -696,7 +733,7 @@ public class InitialSetupActivity extends AppCompatActivity {
             estimatedKcal = activityMultiplier * goalMultiplier * ((10 * weight) + (6.25f * height) - (5 * age) - 161);
         }
 
-        return (int) estimatedKcal;
+        return String.valueOf((int) estimatedKcal);
     }
 
 }
