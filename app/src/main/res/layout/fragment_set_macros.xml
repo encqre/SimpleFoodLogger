@@ -19,32 +19,17 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/fragment_set_macros_calories_target_text"
+                android:id="@+id/fragment_set_macros_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:text="Set daily macronutrient targets"
                 android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toTopOf="@+id/macro_fake_parent"
-                android:text="Current Daily Calories Target" />
-
-            <TextView
-                android:id="@+id/fragment_set_macros_calories_target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="monospace"
-                app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_calories_target_text"
-                android:text="2500 kcal" />
+                app:layout_constraintTop_toTopOf="@+id/macro_fake_parent" />
 
             <RadioGroup
                 android:id="@+id/fragment_set_macros_radio_group"
@@ -52,7 +37,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_calories_target">
+                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_title">
+
+                <RadioButton
+                    android:id="@+id/fragment_set_macros_radio_recommended"
+                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Use recommended values" />
 
                 <RadioButton
                     android:id="@+id/fragment_set_macros_radio_percent"
@@ -61,17 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:checked="true"
-                    android:text="Set using percentages" />
-
-                <RadioButton
-                    android:id="@+id/fragment_set_macros_radio_manual"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Set weight manually" />
+                    android:text="Set percentages manually" />
 
 
             </RadioGroup>
@@ -83,32 +67,39 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/protein"
+                android:textSize="20sp"
                 android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_radio_group" />
 
-            <EditText
-                android:id="@+id/fragment_set_macros_edit_protein"
-                android:layout_width="40dp"
+            <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
+                android:id="@+id/fragment_set_macros_edit_protein_percent"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:hint="30"
                 android:inputType="number"
-                app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_text_protein" />
+                android:hint="25"
+                android:text="25"
+                android:textSize="20sp"
+                android:maxLength="3"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_text_protein"
+                app:layout_constraintStart_toEndOf="@+id/fragment_set_macros_text_protein"
+                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_text_protein"
+                app:suffix="%" />
 
             <TextView
-                android:id="@+id/fragment_set_macros_info_protein"
-                android:layout_width="wrap_content"
+                android:id="@+id/fragment_set_macros_protein_weight"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="8dp"
-                android:text="% = 200 g x 4 kcal/g = 800 kcal"
+                android:layout_marginStart="8dp"
+                android:text="200g"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_edit_protein"
-                app:layout_constraintStart_toEndOf="@id/fragment_set_macros_edit_protein"
-                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_edit_protein" />
+                android:textSize="20sp"
+                android:lines="1"
+                android:textAlignment="textEnd"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_edit_protein_percent"
+                app:layout_constraintStart_toEndOf="@id/fragment_set_macros_edit_protein_percent"
+                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_edit_protein_percent" />
 
             <TextView
                 android:id="@+id/fragment_set_macros_text_carbs"
@@ -117,32 +108,38 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/carbs"
+                android:textSize="20sp"
                 android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_protein" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_protein_percent" />
 
-            <EditText
-                android:id="@+id/fragment_set_macros_edit_carbs"
-                android:layout_width="40dp"
+            <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
+                android:id="@+id/fragment_set_macros_edit_carbs_percent"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:hint="40"
                 android:inputType="number"
-                app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_text_carbs" />
+                android:text="45"
+                android:hint="45"
+                android:textSize="20sp"
+                android:maxLength="3"
+                app:suffix="%"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_text_carbs"
+                app:layout_constraintStart_toStartOf="@+id/fragment_set_macros_edit_protein_percent"
+                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_text_carbs" />
 
             <TextView
-                android:id="@+id/fragment_set_macros_info_carbs"
-                android:layout_width="wrap_content"
+                android:id="@+id/fragment_set_macros_edit_carbs_weight"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:text="% = 300 g x 4 kcal/g = 1200 kcal"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_edit_carbs"
-                app:layout_constraintStart_toEndOf="@id/fragment_set_macros_edit_carbs"
-                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_edit_carbs" />
+                android:textSize="20sp"
+                android:text="312g"
+                android:textAlignment="textEnd"
+                android:lines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_edit_carbs_percent"
+                app:layout_constraintStart_toEndOf="@id/fragment_set_macros_edit_carbs_percent"
+                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_edit_carbs_percent" />
 
             <TextView
                 android:id="@+id/fragment_set_macros_text_fat"
@@ -151,50 +148,57 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/fat"
+                android:textSize="20sp"
                 android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Subtitle2"
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_carbs"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_carbs_percent"
                 tools:text="Fat" />
 
-            <EditText
-                android:id="@+id/fragment_set_macros_edit_fat"
-                android:layout_width="40dp"
+            <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
+                android:id="@+id/fragment_set_macros_edit_fat_percent"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:text="30"
                 android:hint="30"
                 android:inputType="number"
-                app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_text_fat" />
+                android:textSize="20sp"
+                android:maxLength="3"
+                app:suffix="%"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_text_fat"
+                app:layout_constraintStart_toStartOf="@+id/fragment_set_macros_edit_carbs_percent"
+                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_text_fat" />
 
             <TextView
-                android:id="@+id/fragment_set_macros_info_fat"
-                android:layout_width="wrap_content"
+                android:id="@+id/fragment_set_macros_edit_fat_weight"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:text="% = 80 g x 9 kcal/g = 720 kcal"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_edit_fat"
-                app:layout_constraintStart_toEndOf="@id/fragment_set_macros_edit_fat"
-                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_edit_fat" />
+                android:textSize="20sp"
+                android:text="80g"
+                android:lines="1"
+                android:textAlignment="textEnd"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_set_macros_edit_fat_percent"
+                app:layout_constraintStart_toEndOf="@id/fragment_set_macros_edit_fat_percent"
+                app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_edit_fat_percent" />
 
             <TextView
                 android:id="@+id/fragment_set_macros_warning_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Sum of percentages: 96%"
                 android:textColor="@color/slightly_darker_green"
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_fat" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_fat_percent" />
 
             <TextView
                 android:id="@+id/fragment_set_macros_warning_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Percentages should add up to 100%"
+                android:text="@string/set_macros_fragment_percent_bottom_info2"
                 android:textColor="@color/red"
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_warning_text" />

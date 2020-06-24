@@ -28,7 +28,7 @@
     <string name="home_fragment_goal_fat">Fat: %1$d/%2$sg</string>
     <string name="home_fragment_log_title">%1$s, %2$s%3$s</string>
     <string name="home_fragment_log_kcal">%1$d kcal</string>
-    <string name="set_macros_fragment_percent_macro_info">%% = %1$d g x %2$d kcal/g = %3$d kcal</string>
+    <string name="set_macros_fragment_percent_macro_info"> %1$d g x %2$d kcal/g = %3$d kcal</string>
     <string name="set_macros_fragment_percent_bottom_info">Sum of percentages: %1$d%%</string>
     <string name="set_macros_fragment_percent_bottom_info2">Percentages should add up to 100%</string>
     <string name="set_macros_fragment_manual_macro_info">g x %1$d kcal/g = %2$d kcal = %3$d%%</string>

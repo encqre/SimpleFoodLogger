@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="EditTextWithSuffix">
+        <attr name="suffix" format="string|reference" />
+        <attr name="suffixPadding" format="dimension" />
+    </declare-styleable>
+</resources>

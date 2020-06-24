@@ -87,9 +87,12 @@ public class HomePageFragment extends Fragment {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mCaloriesGoal = mPreferences.getString("pref_calories", "2500");
-        mProteinGoal = mPreferences.getString("pref_protein", "155");
-        mCarbsGoal = mPreferences.getString("pref_carbs", "300");
-        mFatGoal = mPreferences.getString("pref_fat", "75");
+//        mProteinGoal = mPreferences.getString("pref_protein", "155");
+//        mCarbsGoal = mPreferences.getString("pref_carbs", "300");
+//        mFatGoal = mPreferences.getString("pref_fat", "75");
+        mProteinGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_protein", "185")) / 400f));
+        mCarbsGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_carbs", "300")) / 400f));
+        mFatGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_fat", "75")) / 900f));
         mUnits = mPreferences.getString("pref_units", "Metric");
 
         /*Floating action button starts a new Activity, which will launch FoodListFragment. Passing selected day as an argument */
@@ -143,6 +146,7 @@ public class HomePageFragment extends Fragment {
             }
         });
 
+        //TODO progress bars are shown as not filled when goal is 0
         mCaloriesText = (TextView) v.findViewById(R.id.textview_calories);
         mProteinText = (TextView) v.findViewById(R.id.textview_protein);
         mCarbsText = (TextView) v.findViewById(R.id.textview_carbs);

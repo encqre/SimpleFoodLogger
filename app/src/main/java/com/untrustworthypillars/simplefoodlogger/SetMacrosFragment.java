@@ -2,21 +2,23 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
+
+import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 
 //TODO maybe add a question mark somewhere inside form, that would explain what is this, and what values are recommended.
 
@@ -26,91 +28,94 @@ public class SetMacrosFragment extends Fragment {
 
     private int mTargetCalories;
     private int mTargetProtein;
+    private int mTargetProteinPercent;
+    private int mTargetProteinPercentRecommended;
     private int mTargetCarbs;
+    private int mTargetCarbsPercent;
+    private int mTargetCarbsPercentRecommended;
     private int mTargetFat;
-    private float mTargetProteinPercent;
-    private float mTargetCarbsPercent;
-    private float mTargetFatPercent;
+    private int mTargetFatPercent;
+    private int mTargetFatPercentRecommended;
 
-    private TextView mCurrentCalorieTargetTextView;
     private RadioGroup mInputRadioGroup;
+    private RadioButton mRadioRecommended;
     private RadioButton mRadioPercentage;
-    private RadioButton mRadioManual;
-    private EditText mProteinInput;
-    private EditText mCarbsInput;
-    private EditText mFatInput;
-    private TextView mProteinText;
-    private TextView mCarbsText;
-    private TextView mFatText;
+    private EditTextWithSuffix mProteinInputPercent;
+    private EditTextWithSuffix mCarbsInputPercent;
+    private EditTextWithSuffix mFatInputPercent;
+    private TextView mProteinWeightTextview;
+    private TextView mCarbsWeightTextview;
+    private TextView mFatWeightTextview;
     private TextView mBottomInfoText;
     private TextView mBottomInfoText2;
     private Button mSaveButton;
     private Button mCancelButton;
 
-    private boolean mIsInputPercent = true;
-    private boolean mRecalcLock = true; //need this to avoid some rounding errors when changing input mode between percent/manual
+    private Drawable defaultEditTextBackgroundDrawable;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_set_macros, container, false);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
-        mTargetProtein = Integer.parseInt(mPreferences.getString("pref_protein", "200"));
-        mTargetCarbs = Integer.parseInt(mPreferences.getString("pref_carbs", "300"));
-        mTargetFat = Integer.parseInt(mPreferences.getString("pref_fat", "90"));
+        mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "1999"));
+        mTargetProteinPercent = Integer.parseInt(mPreferences.getString("pref_protein", mPreferences.getString("pref_protein_recommended", "25")));
+        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString("pref_carbs", mPreferences.getString("pref_carbs_recommended", "45")));
+        mTargetFatPercent = Integer.parseInt(mPreferences.getString("pref_fat", mPreferences.getString("pref_fat_recommended", "30")));
 
-        mTargetProteinPercent = (float) (mTargetProtein * 4) / mTargetCalories * 100;
-        mTargetCarbsPercent = (float) (mTargetCarbs * 4) / mTargetCalories * 100;
-        mTargetFatPercent = (float) (mTargetFat * 9) / mTargetCalories * 100;
+        mTargetProteinPercentRecommended = Integer.parseInt(mPreferences.getString("pref_protein_recommended", "25"));
+        mTargetCarbsPercentRecommended = Integer.parseInt(mPreferences.getString("pref_carbs_recommended", "45"));
+        mTargetFatPercentRecommended = Integer.parseInt(mPreferences.getString("pref_fat_recommended", "30"));
 
-
-        mCurrentCalorieTargetTextView = (TextView) v.findViewById(R.id.fragment_set_macros_calories_target);
-        mCurrentCalorieTargetTextView.setText(String.valueOf(mTargetCalories));
+        mTargetProtein = Math.round(mTargetCalories * mTargetProteinPercent / 400f);
+        mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400f);
+        mTargetFat = Math.round(mTargetCalories * mTargetFatPercent / 900f);
 
         mInputRadioGroup = (RadioGroup) v.findViewById(R.id.fragment_set_macros_radio_group);
+        mInputRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.fragment_set_macros_radio_recommended:
+                        mProteinInputPercent.setText(String.valueOf(mTargetProteinPercentRecommended));
+                        mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercentRecommended));
+                        mFatInputPercent.setText(String.valueOf(mTargetFatPercentRecommended));
+                        mProteinInputPercent.setBackgroundResource(android.R.color.transparent);
+                        mCarbsInputPercent.setBackgroundResource(android.R.color.transparent);
+                        mFatInputPercent.setBackgroundResource(android.R.color.transparent);
+                        mProteinInputPercent.setInputType(InputType.TYPE_NULL);
+                        mCarbsInputPercent.setInputType(InputType.TYPE_NULL);
+                        mFatInputPercent.setInputType(InputType.TYPE_NULL);
+                        mBottomInfoText.setVisibility(View.INVISIBLE);
+                        mBottomInfoText2.setVisibility(View.INVISIBLE);
+                        break;
+                    case R.id.fragment_set_macros_radio_percent:
+                        mProteinInputPercent.setText(String.valueOf(mTargetProteinPercent));
+                        mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercent));
+                        mFatInputPercent.setText(String.valueOf(mTargetFatPercent));
+                        mProteinInputPercent.setBackground(defaultEditTextBackgroundDrawable);
+                        mCarbsInputPercent.setBackground(defaultEditTextBackgroundDrawable);
+                        mFatInputPercent.setBackground(defaultEditTextBackgroundDrawable);
+                        mProteinInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        mCarbsInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        mFatInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        mBottomInfoText.setVisibility(View.VISIBLE);
+                        setBottomInfoTexts();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
         mRadioPercentage = (RadioButton) v.findViewById(R.id.fragment_set_macros_radio_percent);
-        mRadioPercentage.setChecked(true);
-        mRadioPercentage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mIsInputPercent = true;
-                    mRecalcLock = true;
-                    mProteinInput.setText(String.valueOf(Math.round(mTargetProteinPercent)));
-                    mCarbsInput.setText(String.valueOf(Math.round(mTargetCarbsPercent)));
-                    mFatInput.setText(String.valueOf(Math.round(mTargetFatPercent)));
-                    mProteinText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetProtein, 4, (mTargetProtein*4)));
-                    mCarbsText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetCarbs, 4, (mTargetCarbs*4)));
-                    mFatText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetFat, 9, (mTargetFat*9)));
-                    setBottomInfoTexts();
-                    mRecalcLock = false;
-                }
-            }
-        });
+        mRadioRecommended = (RadioButton) v.findViewById(R.id.fragment_set_macros_radio_recommended);
 
-        mRadioManual = (RadioButton) v.findViewById(R.id.fragment_set_macros_radio_manual);
-        mRadioManual.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mIsInputPercent = false;
-                    mRecalcLock = true;
-                    mProteinInput.setText(String.valueOf(mTargetProtein));
-                    mCarbsInput.setText(String.valueOf(mTargetCarbs));
-                    mFatInput.setText(String.valueOf(mTargetFat));
-                    mProteinText.setText(getString(R.string.set_macros_fragment_manual_macro_info, 4, (mTargetProtein * 4), Math.round(mTargetProteinPercent)));
-                    mCarbsText.setText(getString(R.string.set_macros_fragment_manual_macro_info, 4, (mTargetCarbs * 4), Math.round(mTargetCarbsPercent)));
-                    mFatText.setText(getString(R.string.set_macros_fragment_manual_macro_info, 9, (mTargetFat * 9), Math.round(mTargetFatPercent)));
-                    setBottomInfoTexts();
-                    mRecalcLock = false;
-                }
-            }
-        });
+        mProteinInputPercent = (EditTextWithSuffix) v.findViewById(R.id.fragment_set_macros_edit_protein_percent);
+        mProteinInputPercent.setText(String.valueOf(mTargetProteinPercent));
+        defaultEditTextBackgroundDrawable = mProteinInputPercent.getBackground();
 
-        mProteinInput = (EditText) v.findViewById(R.id.fragment_set_macros_edit_protein);
-        mProteinInput.setText(String.valueOf(Math.round(mTargetProteinPercent)));
-        mProteinInput.addTextChangedListener(new TextWatcher() {
+        mProteinInputPercent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //
@@ -118,23 +123,17 @@ public class SetMacrosFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mIsInputPercent && !mRecalcLock) {
-                    if (mProteinInput.length() > 0) {
-                        mTargetProteinPercent = Float.parseFloat(mProteinInput.getText().toString());
+                if (mRadioRecommended.isChecked()) {
+                    mTargetProtein = Math.round((mTargetCalories * mTargetProteinPercentRecommended / 400));
+                    mProteinWeightTextview.setText(mTargetProtein + "g");
+                } else {
+                    if (mProteinInputPercent.length() > 0) {
+                        mTargetProteinPercent = Integer.parseInt(mProteinInputPercent.getText().toString());
                     } else {
-                        mTargetProteinPercent = 0f;
+                        mTargetProteinPercent = 0;
                     }
                     mTargetProtein = Math.round((mTargetCalories * mTargetProteinPercent / 400));
-                    mProteinText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetProtein, 4, (mTargetProtein*4)));
-                    setBottomInfoTexts();
-                } else if (!mIsInputPercent && !mRecalcLock){
-                    if (mProteinInput.length() > 0) {
-                        mTargetProtein = Integer.parseInt(mProteinInput.getText().toString());
-                    } else {
-                        mTargetProtein = 0;
-                    }
-                    mTargetProteinPercent = (float) (mTargetProtein * 4) / mTargetCalories * 100;
-                    mProteinText.setText(getString(R.string.set_macros_fragment_manual_macro_info, 4, (mTargetProtein * 4), Math.round(mTargetProteinPercent)));
+                    mProteinWeightTextview.setText(mTargetProtein + "g");
                     setBottomInfoTexts();
                 }
             }
@@ -145,9 +144,9 @@ public class SetMacrosFragment extends Fragment {
             }
         });
 
-        mCarbsInput = (EditText) v.findViewById(R.id.fragment_set_macros_edit_carbs);
-        mCarbsInput.setText(String.valueOf(Math.round(mTargetCarbsPercent)));
-        mCarbsInput.addTextChangedListener(new TextWatcher() {
+        mCarbsInputPercent = (EditTextWithSuffix) v.findViewById(R.id.fragment_set_macros_edit_carbs_percent);
+        mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercent));
+        mCarbsInputPercent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //
@@ -155,23 +154,17 @@ public class SetMacrosFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mIsInputPercent && !mRecalcLock) {
-                    if (mCarbsInput.length() > 0) {
-                        mTargetCarbsPercent = Float.parseFloat(mCarbsInput.getText().toString());
+                if (mRadioRecommended.isChecked()) {
+                    mTargetCarbs = Math.round((mTargetCalories * mTargetCarbsPercentRecommended / 400));
+                    mCarbsWeightTextview.setText(mTargetCarbs + "g");
+                } else {
+                    if (mCarbsInputPercent.length() > 0) {
+                        mTargetCarbsPercent = Integer.parseInt(mCarbsInputPercent.getText().toString());
                     } else {
-                        mTargetCarbsPercent = 0f;
+                        mTargetCarbsPercent = 0;
                     }
-                    mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400);
-                    mCarbsText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetCarbs, 4, (mTargetCarbs*4)));
-                    setBottomInfoTexts();
-                } else if (!mIsInputPercent && !mRecalcLock){
-                    if (mCarbsInput.length() > 0) {
-                        mTargetCarbs = Integer.parseInt(mCarbsInput.getText().toString());
-                    } else {
-                        mTargetCarbs = 0;
-                    }
-                    mTargetCarbsPercent = (float) (mTargetCarbs * 4) / mTargetCalories * 100;
-                    mCarbsText.setText(getString(R.string.set_macros_fragment_manual_macro_info, 4, (mTargetCarbs * 4), Math.round(mTargetCarbsPercent)));
+                    mTargetCarbs = Math.round((mTargetCalories * mTargetCarbsPercent / 400));
+                    mCarbsWeightTextview.setText(mTargetCarbs + "g");
                     setBottomInfoTexts();
                 }
             }
@@ -182,9 +175,9 @@ public class SetMacrosFragment extends Fragment {
             }
         });
 
-        mFatInput = (EditText) v.findViewById(R.id.fragment_set_macros_edit_fat);
-        mFatInput.setText(String.valueOf(Math.round(mTargetFatPercent)));
-        mFatInput.addTextChangedListener(new TextWatcher() {
+        mFatInputPercent = (EditTextWithSuffix) v.findViewById(R.id.fragment_set_macros_edit_fat_percent);
+        mFatInputPercent.setText(String.valueOf(mTargetFatPercent));
+        mFatInputPercent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //
@@ -192,23 +185,17 @@ public class SetMacrosFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mIsInputPercent && !mRecalcLock) {
-                    if (mFatInput.length() > 0) {
-                        mTargetFatPercent = Float.parseFloat(mFatInput.getText().toString());
+                if (mRadioRecommended.isChecked()) {
+                    mTargetFat = Math.round((mTargetCalories * mTargetFatPercentRecommended / 900));
+                    mFatWeightTextview.setText(mTargetFat + "g");
+                } else {
+                    if (mFatInputPercent.length() > 0) {
+                        mTargetFatPercent = Integer.parseInt(mFatInputPercent.getText().toString());
                     } else {
-                        mTargetFatPercent = 0f;
+                        mTargetFatPercent = 0;
                     }
-                    mTargetFat = Math.round(mTargetCalories * mTargetFatPercent / 900);
-                    mFatText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetFat, 9, (mTargetFat*9)));
-                    setBottomInfoTexts();
-                } else if (!mIsInputPercent && !mRecalcLock){
-                    if (mFatInput.length() > 0) {
-                        mTargetFat = Integer.parseInt(mFatInput.getText().toString());
-                    } else {
-                        mTargetFat = 0;
-                    }
-                    mTargetFatPercent = (float) (mTargetFat * 9) / mTargetCalories * 100;
-                    mFatText.setText(getString(R.string.set_macros_fragment_manual_macro_info, 9, (mTargetFat * 9), Math.round(mTargetFatPercent)));
+                    mTargetFat = Math.round((mTargetCalories * mTargetFatPercent / 900));
+                    mFatWeightTextview.setText(mTargetFat + "g");
                     setBottomInfoTexts();
                 }
             }
@@ -219,29 +206,34 @@ public class SetMacrosFragment extends Fragment {
             }
         });
 
-        mProteinText = (TextView) v.findViewById(R.id.fragment_set_macros_info_protein);
-        mProteinText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetProtein, 4, (mTargetProtein*4)));
+        mProteinWeightTextview = (TextView) v.findViewById(R.id.fragment_set_macros_protein_weight);
+        mProteinWeightTextview.setText(mTargetProtein + "g");
 
-        mCarbsText = (TextView) v.findViewById(R.id.fragment_set_macros_info_carbs);
-        mCarbsText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetCarbs, 4, (mTargetCarbs*4)));
+        mCarbsWeightTextview = (TextView) v.findViewById(R.id.fragment_set_macros_edit_carbs_weight);
+        mCarbsWeightTextview.setText(mTargetCarbs + "g");
 
-        mFatText = (TextView) v.findViewById(R.id.fragment_set_macros_info_fat);
-        mFatText.setText(getString(R.string.set_macros_fragment_percent_macro_info, mTargetFat, 9, (mTargetFat*9)));
+        mFatWeightTextview = (TextView) v.findViewById(R.id.fragment_set_macros_edit_fat_weight);
+        mFatWeightTextview.setText(mTargetFat + "g");
 
 
         mBottomInfoText = (TextView) v.findViewById(R.id.fragment_set_macros_warning_text);
-        mBottomInfoText.setText(getString(R.string.set_macros_fragment_percent_bottom_info, Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent)));
-
         mBottomInfoText2 = (TextView) v.findViewById(R.id.fragment_set_macros_warning_text2);
-        mBottomInfoText2.setText(getString(R.string.set_macros_fragment_percent_bottom_info2));
+
+        //If currently used macros ratio match recommended ratio (or are not set yet), show recommended values option at first
+        if (mTargetProteinPercent == mTargetProteinPercentRecommended && mTargetCarbsPercent == mTargetCarbsPercentRecommended && mTargetFatPercent == mTargetFatPercentRecommended) {
+            mRadioRecommended.setChecked(true);
+        } else {
+            mRadioPercentage.setChecked(true);
+        }
 
         mSaveButton = (Button) v.findViewById(R.id.fragment_set_macros_save_button);
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString("pref_protein", String.valueOf(mTargetProtein)).apply();
-                mPreferences.edit().putString("pref_carbs", String.valueOf(mTargetCarbs)).apply();
-                mPreferences.edit().putString("pref_fat", String.valueOf(mTargetFat)).apply();
+                //TODO maybe add a check to see if percentages add to 100%?
+                mPreferences.edit().putString("pref_protein", mProteinInputPercent.getText().toString()).apply();
+                mPreferences.edit().putString("pref_carbs", mCarbsInputPercent.getText().toString()).apply();
+                mPreferences.edit().putString("pref_fat", mFatInputPercent.getText().toString()).apply();
                 getActivity().setResult(Activity.RESULT_OK);
                 getActivity().finish();
             }
@@ -258,34 +250,17 @@ public class SetMacrosFragment extends Fragment {
 
         setBottomInfoTexts();
 
-        mRecalcLock = false;
-
-
         return v;
     }
 
     private void setBottomInfoTexts() {
-        if (mIsInputPercent) {
-            mBottomInfoText.setText(getString(R.string.set_macros_fragment_percent_bottom_info, Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent)));
-            mBottomInfoText2.setText(getString(R.string.set_macros_fragment_percent_bottom_info2));
-            if (Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent) == 100) {
-                mBottomInfoText.setTextColor(getResources().getColor(R.color.slightly_darker_green));
-                mBottomInfoText2.setVisibility(TextView.INVISIBLE);
-            } else {
-                mBottomInfoText.setTextColor(getResources().getColor(R.color.red));
-                mBottomInfoText2.setVisibility(TextView.VISIBLE);
-            }
+        mBottomInfoText.setText(getString(R.string.set_macros_fragment_percent_bottom_info, mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent));
+        if (Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent) == 100) {
+            mBottomInfoText.setTextColor(getResources().getColor(R.color.slightly_darker_green));
+            mBottomInfoText2.setVisibility(TextView.INVISIBLE);
         } else {
-            mBottomInfoText.setText(getString(R.string.set_macros_fragment_manual_bottom_info, (4*mTargetProtein + 4*mTargetCarbs + 9*mTargetFat)));
-            mBottomInfoText2.setText(getString(R.string.set_macros_fragment_manual_bottom_info2, mTargetCalories));
-            if (mTargetCalories - mTargetProtein*4 - mTargetCarbs*4 - mTargetFat*9 <= 100 && mTargetCalories - mTargetProtein*4 - mTargetCarbs*4 - mTargetFat*9 >= -100) {
-                mBottomInfoText.setTextColor(getResources().getColor(R.color.slightly_darker_green));
-                mBottomInfoText2.setVisibility(TextView.INVISIBLE);
-            } else {
-                mBottomInfoText.setTextColor(getResources().getColor(R.color.red));
-                mBottomInfoText2.setVisibility(TextView.VISIBLE);
-            }
+            mBottomInfoText.setTextColor(getResources().getColor(R.color.red));
+            mBottomInfoText2.setVisibility(TextView.VISIBLE);
         }
     }
-
 }

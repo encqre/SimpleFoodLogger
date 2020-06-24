@@ -1,6 +1,5 @@
 package com.untrustworthypillars.simplefoodlogger;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -685,7 +684,6 @@ public class InitialSetupActivity extends AppCompatActivity {
     public void setPFC() {
 
         //TODO use SetMacrosActivity here
-        //TODO add 3 more radio buttons for recommended preset PFC ratios - moderate/high/very high protein
         setContentView(R.layout.fragment_set_macros);
 
         mSetPFCSaveButton = (Button) findViewById(R.id.fragment_set_macros_save_button);

@@ -78,11 +78,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private int mTargetProtein;
     private int mTargetCarbs;
     private int mTargetFat;
-    private float mTargetProteinPercent;
-    private float mTargetCarbsPercent;
-    private float mTargetFatPercent;
+    private int mTargetProteinPercent;
+    private int mTargetCarbsPercent;
+    private int mTargetFatPercent;
 
     //TODO Dark theme and switching between themes
+    //TODO move preference key strings into strings.xml
 
     private List<Food> importedCustomFoodList = new ArrayList<>();
     private List<Log> importedLogList = new ArrayList<>();
@@ -144,6 +145,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
         mCaloriesTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
+
+        //TODO update macros (weights) after calories target been updated
 
         mMacros = (Preference) findPreference("pref_macros");
         mMacros.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -633,12 +636,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     public void setMacrosPreferenceSummary() {
         mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
-        mTargetProtein = Integer.parseInt(mPreferences.getString("pref_protein", "200"));
-        mTargetCarbs = Integer.parseInt(mPreferences.getString("pref_carbs", "300"));
-        mTargetFat = Integer.parseInt(mPreferences.getString("pref_fat", "90"));
-        mTargetProteinPercent = (float) (mTargetProtein * 4) / mTargetCalories * 100;
-        mTargetCarbsPercent = (float) (mTargetCarbs * 4) / mTargetCalories * 100;
-        mTargetFatPercent = (float) (mTargetFat * 9) / mTargetCalories * 100;
+        mTargetProteinPercent = Integer.parseInt(mPreferences.getString("pref_protein", "25"));
+        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString("pref_carbs", "45"));
+        mTargetFatPercent = Integer.parseInt(mPreferences.getString("pref_fat", "30"));
+        mTargetProtein = Math.round(mTargetCalories * mTargetProteinPercent / 400f);
+        mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400f);
+        mTargetFat = Math.round(mTargetCalories * mTargetFatPercent / 900f);
         mMacros.setSummary(getString(R.string.settings_fragment_macros_summary,mTargetProtein,
                 Math.round(mTargetProteinPercent),mTargetCarbs,Math.round(mTargetCarbsPercent),mTargetFat,Math.round(mTargetFatPercent)));
     }
