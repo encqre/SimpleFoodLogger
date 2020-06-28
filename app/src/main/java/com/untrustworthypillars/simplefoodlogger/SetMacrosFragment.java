@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
@@ -47,7 +48,6 @@ public class SetMacrosFragment extends Fragment {
     private TextView mCarbsWeightTextview;
     private TextView mFatWeightTextview;
     private TextView mBottomInfoText;
-    private TextView mBottomInfoText2;
     private Button mSaveButton;
     private Button mCancelButton;
 
@@ -87,7 +87,6 @@ public class SetMacrosFragment extends Fragment {
                         mCarbsInputPercent.setInputType(InputType.TYPE_NULL);
                         mFatInputPercent.setInputType(InputType.TYPE_NULL);
                         mBottomInfoText.setVisibility(View.INVISIBLE);
-                        mBottomInfoText2.setVisibility(View.INVISIBLE);
                         break;
                     case R.id.fragment_set_macros_radio_percent:
                         mProteinInputPercent.setText(String.valueOf(mTargetProteinPercent));
@@ -217,7 +216,6 @@ public class SetMacrosFragment extends Fragment {
 
 
         mBottomInfoText = (TextView) v.findViewById(R.id.fragment_set_macros_warning_text);
-        mBottomInfoText2 = (TextView) v.findViewById(R.id.fragment_set_macros_warning_text2);
 
         //If currently used macros ratio match recommended ratio (or are not set yet), show recommended values option at first
         if (mTargetProteinPercent == mTargetProteinPercentRecommended && mTargetCarbsPercent == mTargetCarbsPercentRecommended && mTargetFatPercent == mTargetFatPercentRecommended) {
@@ -230,12 +228,17 @@ public class SetMacrosFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO maybe add a check to see if percentages add to 100%?
-                mPreferences.edit().putString("pref_protein", mProteinInputPercent.getText().toString()).apply();
-                mPreferences.edit().putString("pref_carbs", mCarbsInputPercent.getText().toString()).apply();
-                mPreferences.edit().putString("pref_fat", mFatInputPercent.getText().toString()).apply();
-                getActivity().setResult(Activity.RESULT_OK);
-                getActivity().finish();
+                if (Integer.parseInt(mProteinInputPercent.getText().toString()) +
+                        Integer.parseInt(mCarbsInputPercent.getText().toString()) +
+                        Integer.parseInt(mFatInputPercent.getText().toString())!= 100) {
+                    Toast.makeText(getActivity(), "Percentages must add up to 100%!", Toast.LENGTH_SHORT).show();
+                } else {
+                    mPreferences.edit().putString("pref_protein", mProteinInputPercent.getText().toString()).apply();
+                    mPreferences.edit().putString("pref_carbs", mCarbsInputPercent.getText().toString()).apply();
+                    mPreferences.edit().putString("pref_fat", mFatInputPercent.getText().toString()).apply();
+                    getActivity().setResult(Activity.RESULT_OK);
+                    getActivity().finish();
+                }
             }
         });
 
@@ -257,10 +260,8 @@ public class SetMacrosFragment extends Fragment {
         mBottomInfoText.setText(getString(R.string.set_macros_fragment_percent_bottom_info, mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent));
         if (Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent) == 100) {
             mBottomInfoText.setTextColor(getResources().getColor(R.color.slightly_darker_green));
-            mBottomInfoText2.setVisibility(TextView.INVISIBLE);
         } else {
             mBottomInfoText.setTextColor(getResources().getColor(R.color.red));
-            mBottomInfoText2.setVisibility(TextView.VISIBLE);
         }
     }
 }

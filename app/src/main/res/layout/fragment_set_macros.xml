@@ -193,16 +193,6 @@
                 app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_fat_percent" />
 
-            <TextView
-                android:id="@+id/fragment_set_macros_warning_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/set_macros_fragment_percent_bottom_info2"
-                android:textColor="@color/red"
-                app:layout_constraintStart_toStartOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_warning_text" />
-
             <Button
                 android:id="@+id/fragment_set_macros_cancel_button"
                 style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
@@ -212,7 +202,7 @@
                 android:text="Cancel"
                 app:layout_constraintBottom_toBottomOf="@id/macro_fake_parent"
                 app:layout_constraintEnd_toStartOf="@+id/fragment_set_macros_save_button"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_warning_text2" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_warning_text" />
 
             <Button
                 android:id="@+id/fragment_set_macros_save_button"
@@ -223,7 +213,7 @@
                 android:text="Save"
                 app:layout_constraintBottom_toBottomOf="@id/macro_fake_parent"
                 app:layout_constraintEnd_toEndOf="@+id/macro_fake_parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_warning_text2" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_warning_text" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
