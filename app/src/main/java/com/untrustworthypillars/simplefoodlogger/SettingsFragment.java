@@ -58,17 +58,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private static final int REQUEST_WRITE_CUSTOM_FOODS_BACKUP = 6;
     private static final int REQUEST_LOAD_CUSTOM_FOODS_BACKUP = 7;
     private static final int REQUEST_READ_PROGRESS = 8;
+    private static final int REQUEST_CALORIES = 9;
 
     private static final String TAG_READ_PROGRESS = "loading_progress_dialog";
 
+    private Preference mCaloriesTarget;
+    private Preference mMacros;
     private Preference mBackupLogs;
     private Preference mBackupCustomFoods;
     private Preference mImportLogs;
     private Preference mImportCustomFoods;
-    private Preference mMacros;
     private Preference mHiddenFoods;
 
-    private EditTextPreference mCaloriesTarget;
+
     private CheckBoxPreference mStatsIgnoreZeroKcalDays;
     private EditTextPreference mRecentFoodsLength;
     private ListPreference mUnits;
@@ -137,15 +139,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        mCaloriesTarget = (EditTextPreference) findPreference("pref_calories");
-        mCaloriesTarget.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
+        mCaloriesTarget = (Preference) findPreference("pref_calories");
+        mCaloriesTarget.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public void onBindEditText(@NonNull EditText editText) {
-                editText.setInputType(InputType.TYPE_CLASS_NUMBER); //limiting input to numbers only
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = SetCaloriesActivity.newIntent(getActivity(), "Set Daily Target Calories", SetCaloriesActivity.STAGE_PROFILE);
+                startActivityForResult(intent, REQUEST_CALORIES);
+                return true;
             }
         });
-        mCaloriesTarget.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
-
+        mCaloriesTarget.setSummary(mPreferences.getString("pref_calories", "2500"));
         //TODO update macros (weights) after calories target been updated
 
         mMacros = (Preference) findPreference("pref_macros");
@@ -590,6 +593,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (requestCode == REQUEST_MACROS) {
                 setMacrosPreferenceSummary(); //updating with new macro target values
                 Toast.makeText(getActivity(), "Macronutrient targets have been updated", Toast.LENGTH_LONG).show(); //TEMP DEBUG
+            }
+            if (requestCode == REQUEST_CALORIES) {
+                mCaloriesTarget.setSummary(mPreferences.getString("pref_calories", "2500"));
+                Toast.makeText(getActivity(), "Daily calories target has been updated", Toast.LENGTH_LONG).show(); //TEMP DEBUG
             }
             if (requestCode == REQUEST_WRITE_LOG_BACKUP) {
                 if (data != null) {

@@ -8,7 +8,7 @@
         app:title="Daily Targets">
 
 
-        <EditTextPreference
+        <Preference
             app:key="pref_calories"
             app:title="Set daily calories target"
             app:summary="Current target: 2500 kcal"/>

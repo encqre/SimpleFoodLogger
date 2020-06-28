@@ -38,6 +38,8 @@
         <activity android:name=".SetMacrosActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
+        <activity android:name=".SetCaloriesActivity">
+        </activity>
         <activity android:name=".InitialSetupActivity">
         </activity>
     </application>
