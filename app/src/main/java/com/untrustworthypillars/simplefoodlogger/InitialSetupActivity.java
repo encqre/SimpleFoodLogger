@@ -266,7 +266,7 @@ public class InitialSetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // launch calories setup
-                Intent intent = SetCaloriesActivity.newIntent(InitialSetupActivity.this, "", SetCaloriesActivity.STAGE_PROFILE);
+                Intent intent = SetCaloriesActivity.newIntent(InitialSetupActivity.this, true, SetCaloriesActivity.STAGE_PROFILE);
                 startActivityForResult(intent, REQUEST_CALORIES);
             }
         });
@@ -295,7 +295,7 @@ public class InitialSetupActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 finish();
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                Intent intent = SetCaloriesActivity.newIntent(InitialSetupActivity.this, "", SetCaloriesActivity.STAGE_CONFIRM_KCAL);
+                Intent intent = SetCaloriesActivity.newIntent(InitialSetupActivity.this, true, SetCaloriesActivity.STAGE_CONFIRM_KCAL);
                 startActivityForResult(intent, REQUEST_CALORIES);
             }
         }

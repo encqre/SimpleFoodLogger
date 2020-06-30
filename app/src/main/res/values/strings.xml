@@ -107,9 +107,9 @@
     </string-array>
     <string-array name="spinner_goals">
         <item>Maintain current weight</item>
-        <item>Slow weight loss (10% calorie reduction)</item>
-        <item>Weight loss (20% calorie reduction)</item>
-        <item>Slow weight gain (10% calorie increase)</item>
-        <item>Weight gain (20% calorie increase)</item>
+        <item>Slow weight loss (-10% calories)</item>
+        <item>Weight loss (-20% calories)</item>
+        <item>Slow weight gain (+10% calories)</item>
+        <item>Weight gain (+20% calories)</item>
     </string-array>
 </resources>

@@ -17,9 +17,9 @@ public class SetCaloriesActivity extends AppCompatActivity {
     public static final int STAGE_PROFILE = 0;
     public static final int STAGE_CONFIRM_KCAL = 1;
 
-    public static Intent newIntent(Context packageContext, String title, int stage) {
+    public static Intent newIntent(Context packageContext, boolean showTitle, int stage) {
         Intent intent = new Intent(packageContext, SetCaloriesActivity.class);
-        intent.putExtra(EXTRA_TITLE, title);
+        intent.putExtra(EXTRA_TITLE, showTitle);
         intent.putExtra(EXTRA_STAGE, stage);
         return intent;
     }
@@ -31,7 +31,7 @@ public class SetCaloriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
 
-        String title = (String) getIntent().getSerializableExtra(EXTRA_TITLE);
+        boolean showTitle = (boolean) getIntent().getSerializableExtra(EXTRA_TITLE);
         Integer stage = (Integer) getIntent().getSerializableExtra(EXTRA_STAGE);
 
         mToolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
@@ -40,19 +40,19 @@ public class SetCaloriesActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Set Daily Calories Target");
         ab.setDisplayHomeAsUpEnabled(true);
-        if (title.equals("")) {
+        if (showTitle) {
             ab.hide();
         }
 
         switch(stage) {
             case STAGE_PROFILE:
-                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, new SetCaloriesProfileFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(showTitle)).commit();
                 break;
             case STAGE_CONFIRM_KCAL:
                 getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true)).commit();
                 break;
             default:
-                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, new SetCaloriesProfileFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(showTitle)).commit();
         }
     }
 

@@ -143,7 +143,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mCaloriesTarget.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent intent = SetCaloriesActivity.newIntent(getActivity(), "Set Daily Target Calories", SetCaloriesActivity.STAGE_PROFILE);
+                Intent intent = SetCaloriesActivity.newIntent(getActivity(), false, SetCaloriesActivity.STAGE_PROFILE);
                 startActivityForResult(intent, REQUEST_CALORIES);
                 return true;
             }

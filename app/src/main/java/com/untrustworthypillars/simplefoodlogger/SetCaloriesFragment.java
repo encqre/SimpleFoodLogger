@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+//TODO override back button to go back to profile?
+
 public class SetCaloriesFragment extends Fragment {
 
     private static final String ARG_MANUAL = "manual?";
@@ -53,7 +55,7 @@ public class SetCaloriesFragment extends Fragment {
             recommendedKcal = mPreferences.getString("pref_calories", "");
         } else {
             upperText = "Your recommended daily calories target*:";
-            lowerText = "*Calculated based on your gender, age, weight, height, activity level and goal, using Mifflin-St Jeor Equation.";
+            lowerText = "*Calculated using Mifflin-St Jeor Equation.";
             recommendedKcal = calculateKcalMifflinStJeor();
             mPreferences.edit().putString("pref_calories_calculated", recommendedKcal).apply();
         }

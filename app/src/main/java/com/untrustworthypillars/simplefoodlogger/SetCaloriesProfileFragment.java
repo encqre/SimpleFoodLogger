@@ -21,10 +21,15 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+//TODO override back buttons to also save age/weight/height then. Or maybe save onDestroy etc.?
+
 public class SetCaloriesProfileFragment extends Fragment {
+
+    private static final String ARG_TITLE = "title";
 
     private SharedPreferences mPreferences;
 
+    private TextView mTitleTextview;
     private RadioButton mProfileGenderMale;
     private RadioButton mProfileGenderFemale;
     private EditText mProfileAge;
@@ -44,13 +49,29 @@ public class SetCaloriesProfileFragment extends Fragment {
     private Button mProfileManualButton;
     private Button mProfileCalculateButton;
 
-    //TODO need to change title or hide it because it hides buttons
+    public static SetCaloriesProfileFragment newInstance (boolean showTitle) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_TITLE, showTitle);
+
+        SetCaloriesProfileFragment fragment = new SetCaloriesProfileFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_set_calories_profile, container, false);
 
+        boolean showTitle = (boolean) getArguments().getSerializable(ARG_TITLE);
+
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+
+        mTitleTextview = (TextView) v.findViewById(R.id.initial_setup_calories_profile_title_text);
+        if (!showTitle) {
+            mTitleTextview.setVisibility(View.GONE);
+        }
+
 
         mProfileGenderMale = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_gender_male);
         mProfileGenderMale.setOnClickListener(new View.OnClickListener() {
@@ -75,22 +96,6 @@ public class SetCaloriesProfileFragment extends Fragment {
 
         mProfileAge = (EditText) v.findViewById(R.id.initial_setup_calories_profile_age_edittext);
         mProfileAge.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mProfileAge.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mPreferences.edit().putString("pref_age", mProfileAge.getText().toString()).apply();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //nothing
-            }
-        });
         mProfileAge.setText(mPreferences.getString("pref_age", ""));
 
         mProfileWeightKg = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_weight_kg);
@@ -103,32 +108,6 @@ public class SetCaloriesProfileFragment extends Fragment {
         }
         mProfileWeight = (EditText) v.findViewById(R.id.initial_setup_calories_profile_weight_edittext);
         mProfileWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mProfileWeight.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!mProfileWeight.getText().toString().equals("")) {
-                    if (mProfileWeightKg.isChecked()) {
-                        mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
-                    } else {
-                        long weight = Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2));
-                        mPreferences.edit().putString("pref_weight", String.valueOf(weight)).apply();
-                    }
-                } else {
-                    mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //nothing
-            }
-        });
-
 
         if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
             mProfileWeight.setText(mPreferences.getString("pref_weight", ""));
@@ -169,89 +148,12 @@ public class SetCaloriesProfileFragment extends Fragment {
 
         mProfileHeightCm = (EditText) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_cm);
         mProfileHeightCm.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mProfileHeightCm.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mProfileHeightCmButton.isChecked()) {
-                    mPreferences.edit().putString("pref_height", mProfileHeightCm.getText().toString()).apply();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //nothing
-            }
-        });
 
         mProfileHeightFeet = (EditText) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_ft);
         mProfileHeightFeet.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mProfileHeightFeet.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mProfileHeightFtinButton.isChecked()) {
-                    int inches, feet;
-                    if (!mProfileHeightIn.getText().toString().equals("")) {
-                        inches = Integer.parseInt(mProfileHeightIn.getText().toString());
-                    } else {
-                        inches = 0;
-                    }
-                    if (!mProfileHeightFeet.getText().toString().equals("")) {
-                        feet = Integer.parseInt(mProfileHeightFeet.getText().toString());
-                    } else {
-                        feet = 0;
-                    }
-                    mPreferences.edit().putString("pref_height", String.valueOf(ftinToCm(feet, inches))).apply();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //nothing
-            }
-        });
 
         mProfileHeightIn = (EditText) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_in);
         mProfileHeightIn.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mProfileHeightIn.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mProfileHeightFtinButton.isChecked()) {
-                    int inches, feet;
-                    if (!mProfileHeightIn.getText().toString().equals("")) {
-                        inches = Integer.parseInt(mProfileHeightIn.getText().toString());
-                    } else {
-                        inches = 0;
-                    }
-                    if (!mProfileHeightFeet.getText().toString().equals("")) {
-                        feet = Integer.parseInt(mProfileHeightFeet.getText().toString());
-                    } else {
-                        feet = 0;
-                    }
-                    mPreferences.edit().putString("pref_height", String.valueOf(ftinToCm(feet, inches))).apply();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //nothing
-            }
-        });
-
 
         if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
             mProfileHeightCm.setText(mPreferences.getString("pref_height", ""));
@@ -329,12 +231,12 @@ public class SetCaloriesProfileFragment extends Fragment {
 
         });
         mProfileGoalSpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_goal", "0")));
-
-        //TODO only save preferences on clicking one of the three buttons, not after character changes in edittexts for simplicity
+        
         mProfileBackButton = (Button) v.findViewById(R.id.initial_setup_calories_profile_button_back);
         mProfileBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveAgeWeightHeight();
                 getActivity().setResult(Activity.RESULT_CANCELED);
                 getActivity().finish();
             }
@@ -345,6 +247,7 @@ public class SetCaloriesProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // launch manual entry
+                saveAgeWeightHeight();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true)).commit();
             }
         });
@@ -363,6 +266,7 @@ public class SetCaloriesProfileFragment extends Fragment {
                 } else if (mProfileHeightFtinButton.isChecked() && mProfileHeightFeet.getText().toString().equals("") && mProfileHeightIn.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill in your height", Toast.LENGTH_SHORT).show();
                 } else {
+                    saveAgeWeightHeight();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(false)).commit();
                 }
             }
@@ -379,6 +283,43 @@ public class SetCaloriesProfileFragment extends Fragment {
         long ft = (long)(cm / 30.48);
         long in = Math.round((cm%30.48) / 2.54);
         return new long[] {ft, in};
+    }
+
+    private void saveAgeWeightHeight() {
+        //save stored age
+        mPreferences.edit().putString("pref_age", mProfileAge.getText().toString()).apply();
+
+        //save stored weight
+        if (!mProfileWeight.getText().toString().equals("")) {
+            if (mProfileWeightKg.isChecked()) {
+                mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
+            } else {
+                long weight = Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2));
+                mPreferences.edit().putString("pref_weight", String.valueOf(weight)).apply();
+            }
+        } else {
+            mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
+        }
+
+        //save stored height
+        if (mProfileHeightCmButton.isChecked()) {
+            mPreferences.edit().putString("pref_height", mProfileHeightCm.getText().toString()).apply();
+        }
+        if (mProfileHeightFtinButton.isChecked()) {
+            int inches, feet;
+            if (!mProfileHeightIn.getText().toString().equals("")) {
+                inches = Integer.parseInt(mProfileHeightIn.getText().toString());
+            } else {
+                inches = 0;
+            }
+            if (!mProfileHeightFeet.getText().toString().equals("")) {
+                feet = Integer.parseInt(mProfileHeightFeet.getText().toString());
+            } else {
+                feet = 0;
+            }
+            mPreferences.edit().putString("pref_height", String.valueOf(ftinToCm(feet, inches))).apply();
+        }
+
     }
 
 }
