@@ -70,7 +70,7 @@ public class SetCaloriesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: //override toolbar back button
-                    this.onBackPressed();
+                this.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

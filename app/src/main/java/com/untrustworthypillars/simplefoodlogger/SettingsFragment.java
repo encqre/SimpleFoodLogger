@@ -149,7 +149,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
         mCaloriesTarget.setSummary(mPreferences.getString("pref_calories", "2500"));
-        //TODO update macros (weights) after calories target been updated
 
         mMacros = (Preference) findPreference("pref_macros");
         mMacros.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -596,6 +595,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             if (requestCode == REQUEST_CALORIES) {
                 mCaloriesTarget.setSummary(mPreferences.getString("pref_calories", "2500"));
+                setMacrosPreferenceSummary();
                 Toast.makeText(getActivity(), "Daily calories target has been updated", Toast.LENGTH_LONG).show(); //TEMP DEBUG
             }
             if (requestCode == REQUEST_WRITE_LOG_BACKUP) {

@@ -55,8 +55,6 @@ public class HomePageFragment extends Fragment {
     private ProgressBar mCarbsProgress;
     private ProgressBar mFatProgress;
 
-
-
     private SharedPreferences mPreferences;
     private Date mSelectedDay;
     private String mCaloriesGoal;
@@ -87,9 +85,6 @@ public class HomePageFragment extends Fragment {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mCaloriesGoal = mPreferences.getString("pref_calories", "2500");
-//        mProteinGoal = mPreferences.getString("pref_protein", "155");
-//        mCarbsGoal = mPreferences.getString("pref_carbs", "300");
-//        mFatGoal = mPreferences.getString("pref_fat", "75");
         mProteinGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_protein", "185")) / 400f));
         mCarbsGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_carbs", "300")) / 400f));
         mFatGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_fat", "75")) / 900f));
@@ -145,8 +140,7 @@ public class HomePageFragment extends Fragment {
                 updateUI();
             }
         });
-
-        //TODO progress bars are shown as not filled when goal is 0
+        
         mCaloriesText = (TextView) v.findViewById(R.id.textview_calories);
         mProteinText = (TextView) v.findViewById(R.id.textview_protein);
         mCarbsText = (TextView) v.findViewById(R.id.textview_carbs);
@@ -199,6 +193,21 @@ public class HomePageFragment extends Fragment {
         mCarbsProgress.setProgress(result[2].intValue());
         mFatText.setText(getString(R.string.home_fragment_goal_fat, result[3].intValue(), mFatGoal));
         mFatProgress.setProgress(result[3].intValue());
+    }
+
+    public void updateTargets(){
+        mCaloriesGoal = mPreferences.getString("pref_calories", "2500");
+        mProteinGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_protein", "185")) / 400f));
+        mCarbsGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_carbs", "300")) / 400f));
+        mFatGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_fat", "75")) / 900f));
+        mUnits = mPreferences.getString("pref_units", "Metric");
+
+        mCaloriesProgress.setMax(Integer.parseInt(mCaloriesGoal));
+        mProteinProgress.setMax(Integer.parseInt(mProteinGoal));
+        mCarbsProgress.setMax(Integer.parseInt(mCarbsGoal));
+        mFatProgress.setMax(Integer.parseInt(mFatGoal));
+
+        updateUI();
     }
 
     private class LogHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
