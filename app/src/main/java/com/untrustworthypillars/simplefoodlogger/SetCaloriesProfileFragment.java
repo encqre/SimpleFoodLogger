@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
-//TODO override back buttons to also save age/weight/height then. Or maybe save onDestroy etc.?
 
 public class SetCaloriesProfileFragment extends Fragment {
 
@@ -200,7 +199,6 @@ public class SetCaloriesProfileFragment extends Fragment {
             }
         });
 
-
         mProfileActivitySpinner = (Spinner) v.findViewById(R.id.initial_setup_calories_profile_activity_spinner);
         mProfileActivitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -216,7 +214,6 @@ public class SetCaloriesProfileFragment extends Fragment {
         });
         mProfileActivitySpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_activity_level", "0")));
 
-
         mProfileGoalSpinner = (Spinner) v.findViewById(R.id.initial_setup_calories_profile_goal_spinner);
         mProfileGoalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -231,12 +228,11 @@ public class SetCaloriesProfileFragment extends Fragment {
 
         });
         mProfileGoalSpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_goal", "0")));
-        
+
         mProfileBackButton = (Button) v.findViewById(R.id.initial_setup_calories_profile_button_back);
         mProfileBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveAgeWeightHeight();
                 getActivity().setResult(Activity.RESULT_CANCELED);
                 getActivity().finish();
             }
@@ -246,8 +242,6 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileManualButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // launch manual entry
-                saveAgeWeightHeight();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true)).commit();
             }
         });
@@ -256,7 +250,7 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileCalculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // verify if all fields are filled and calculate kcal
+                // verify if all fields are filled
                 if (mProfileAge.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill in your age", Toast.LENGTH_SHORT).show();
                 } else if (mProfileWeight.getText().toString().equals("")) {
@@ -266,13 +260,18 @@ public class SetCaloriesProfileFragment extends Fragment {
                 } else if (mProfileHeightFtinButton.isChecked() && mProfileHeightFeet.getText().toString().equals("") && mProfileHeightIn.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill in your height", Toast.LENGTH_SHORT).show();
                 } else {
-                    saveAgeWeightHeight();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(false)).commit();
                 }
             }
         });
 
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        saveAgeWeightHeight();
+        super.onDestroyView();
     }
 
     public static long ftinToCm(int ft, int in) {

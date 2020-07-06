@@ -15,8 +15,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-//TODO override back button to go back to profile?
-
 public class SetCaloriesFragment extends Fragment {
 
     private static final String ARG_MANUAL = "manual?";
@@ -75,8 +73,8 @@ public class SetCaloriesFragment extends Fragment {
         mSetKcalBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString("pref_calories", mSetKcalEditText.getText().toString()).apply(); //TODO maybe dont
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, new SetCaloriesProfileFragment()).commit();
+//                mPreferences.edit().putString("pref_calories", mSetKcalEditText.getText().toString()).apply();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(false)).commit();
             }
         });
 
