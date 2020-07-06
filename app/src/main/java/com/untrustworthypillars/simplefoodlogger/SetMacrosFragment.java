@@ -2,6 +2,7 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.pm.PackageItemInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,7 +23,6 @@ import androidx.preference.PreferenceManager;
 import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 
 //TODO maybe add a question mark somewhere inside form, that would explain what is this, and what values are recommended.
-//TODO need to write a function to evaluate better recommended ratios if profile was setup
 
 public class SetMacrosFragment extends Fragment {
 
@@ -60,13 +60,12 @@ public class SetMacrosFragment extends Fragment {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "1999"));
-        mTargetProteinPercent = Integer.parseInt(mPreferences.getString("pref_protein", mPreferences.getString("pref_protein_recommended", "25")));
-        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString("pref_carbs", mPreferences.getString("pref_carbs_recommended", "45")));
-        mTargetFatPercent = Integer.parseInt(mPreferences.getString("pref_fat", mPreferences.getString("pref_fat_recommended", "30")));
 
-        mTargetProteinPercentRecommended = Integer.parseInt(mPreferences.getString("pref_protein_recommended", "25"));
-        mTargetCarbsPercentRecommended = Integer.parseInt(mPreferences.getString("pref_carbs_recommended", "45"));
-        mTargetFatPercentRecommended = Integer.parseInt(mPreferences.getString("pref_fat_recommended", "30"));
+        setRecommendedMacros();
+
+        mTargetProteinPercent = Integer.parseInt(mPreferences.getString("pref_protein", String.valueOf(mTargetProteinPercentRecommended)));
+        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString("pref_carbs", String.valueOf(mTargetCarbsPercentRecommended)));
+        mTargetFatPercent = Integer.parseInt(mPreferences.getString("pref_fat", String.valueOf(mTargetFatPercentRecommended)));
 
         mTargetProtein = Math.round(mTargetCalories * mTargetProteinPercent / 400f);
         mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400f);
@@ -263,6 +262,37 @@ public class SetMacrosFragment extends Fragment {
             mBottomInfoText.setTextColor(getResources().getColor(R.color.slightly_darker_green));
         } else {
             mBottomInfoText.setTextColor(getResources().getColor(R.color.red));
+        }
+    }
+
+    private void setRecommendedMacros(){
+        float proteinPerKiloLow = 1.43f;
+        float proteinPerKiloMid = 1.82f;
+        float proteinPerKiloHigh = 2.2f;
+        float proteinPerKilo;
+        String weight = mPreferences.getString("pref_weight", "");
+        String targetCalories = mPreferences.getString("pref_calories", "1969");
+        int activityLevel = Integer.parseInt(mPreferences.getString("pref_activity_level", "0"));
+
+        if (weight.equals("") || Integer.parseInt(weight) == 0) {
+            //If no bodyweight was entered, defaulting to recommended PFC percentages of 25/30/45
+            mTargetProteinPercentRecommended = 25;
+            mTargetCarbsPercentRecommended = 45;
+            mTargetFatPercentRecommended = 30;
+        } else {
+            if (activityLevel == 0) {
+                proteinPerKilo = proteinPerKiloLow;
+            } else if (activityLevel == 1 || activityLevel == 2) {
+                proteinPerKilo = proteinPerKiloMid;
+            } else {
+                proteinPerKilo = proteinPerKiloHigh;
+            }
+            mTargetProteinPercentRecommended = Math.round(Integer.parseInt(weight) * proteinPerKilo * 400f / Integer.parseInt(targetCalories));
+            if (mTargetProteinPercentRecommended > 50) {
+                mTargetProteinPercentRecommended = 50;
+            }
+            mTargetFatPercentRecommended = 30;
+            mTargetCarbsPercentRecommended = 100 - mTargetFatPercentRecommended - mTargetProteinPercentRecommended;
         }
     }
 }

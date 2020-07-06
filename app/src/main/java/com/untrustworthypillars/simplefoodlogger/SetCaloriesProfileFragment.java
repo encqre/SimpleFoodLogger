@@ -22,6 +22,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
+
 public class SetCaloriesProfileFragment extends Fragment {
 
     private static final String ARG_TITLE = "title";
@@ -37,8 +39,8 @@ public class SetCaloriesProfileFragment extends Fragment {
     private RadioButton mProfileWeightKg;
     private RadioButton mProfileWeightLbs;
     private EditText mProfileHeightCm;
-    private EditText mProfileHeightFeet;
-    private EditText mProfileHeightIn;
+    private EditTextWithSuffix mProfileHeightFeet;
+    private EditTextWithSuffix mProfileHeightIn;
     private RadioGroup mProfileHeightRadioGroup;
     private RadioButton mProfileHeightCmButton;
     private RadioButton mProfileHeightFtinButton;
@@ -148,10 +150,10 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileHeightCm = (EditText) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_cm);
         mProfileHeightCm.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        mProfileHeightFeet = (EditText) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_ft);
+        mProfileHeightFeet = (EditTextWithSuffix) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_ft);
         mProfileHeightFeet.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        mProfileHeightIn = (EditText) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_in);
+        mProfileHeightIn = (EditTextWithSuffix) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_in);
         mProfileHeightIn.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
@@ -178,20 +180,33 @@ public class SetCaloriesProfileFragment extends Fragment {
                         mProfileHeightFeet.setVisibility(View.INVISIBLE);
                         mProfileHeightIn.setVisibility(View.INVISIBLE);
                         mProfileHeightCm.setVisibility(View.VISIBLE);
-                        mProfileHeightCm.setText(mPreferences.getString("pref_height", ""));
+                        int ft, in;
+                        if (mProfileHeightFeet.getText().toString().equals("")) {
+                            ft = 0;
+                        } else {
+                            ft = Integer.parseInt(mProfileHeightFeet.getText().toString());
+                        }
+                        if (mProfileHeightIn.getText().toString().equals("")) {
+                            in = 0;
+                        } else {
+                            in = Integer.parseInt(mProfileHeightIn.getText().toString());
+                        }
+                        long cm = ftinToCm(ft, in);
+                        mProfileHeightCm.setText(String.valueOf(cm));
                         break;
                     case R.id.initial_setup_calories_profile_height_ftin:
                         mProfileHeightFeet.setVisibility(View.VISIBLE);
                         mProfileHeightIn.setVisibility(View.VISIBLE);
                         mProfileHeightCm.setVisibility(View.INVISIBLE);
-                        if (mPreferences.getString("pref_height", "0").equals("")) {
-                            mProfileHeightFeet.setText("");
-                            mProfileHeightIn.setText("");
+                        int cm2;
+                        if (mProfileHeightCm.getText().toString().equals("")) {
+                            cm2 = 0;
                         } else {
-                            long[] ftin = cmToFtin(Integer.parseInt(mPreferences.getString("pref_height", "0")));
-                            mProfileHeightFeet.setText(String.valueOf(ftin[0]));
-                            mProfileHeightIn.setText(String.valueOf(ftin[1]));
+                            cm2 = Integer.parseInt(mProfileHeightCm.getText().toString());
                         }
+                        long[] ftin = cmToFtin(cm2);
+                        mProfileHeightFeet.setText(String.valueOf(ftin[0]));
+                        mProfileHeightIn.setText(String.valueOf(ftin[1]));
                         break;
                     default:
                         break;

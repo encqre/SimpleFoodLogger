@@ -152,21 +152,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"/>
 
-    <EditText
+    <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
         android:id="@+id/initial_setup_calories_profile_height_edittext_ft"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"/>
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"
+        app:suffix="'"/>
 
-    <EditText
+    <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
         android:id="@+id/initial_setup_calories_profile_height_edittext_in"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_height_edittext_ft"
-        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"/>
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_height_text"
+        app:suffix="''"/>
 
     <RadioGroup
         android:id="@+id/initial_setup_calories_profile_height_radiogroup"

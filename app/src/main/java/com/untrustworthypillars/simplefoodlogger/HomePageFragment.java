@@ -140,7 +140,7 @@ public class HomePageFragment extends Fragment {
                 updateUI();
             }
         });
-        
+
         mCaloriesText = (TextView) v.findViewById(R.id.textview_calories);
         mProteinText = (TextView) v.findViewById(R.id.textview_protein);
         mCarbsText = (TextView) v.findViewById(R.id.textview_carbs);

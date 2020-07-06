@@ -41,7 +41,7 @@ public class EditTextWithSuffix extends AppCompatEditText {
     public void onDraw(Canvas c) {
         super.onDraw(c);
         int suffixXPosition = (int) textPaint.measureText(getText().toString()) + getPaddingLeft();
-        if (getText().toString().isEmpty() && !getHint().toString().isEmpty()) {
+        if (getText().toString().isEmpty() && getHint() != null) {
             suffixXPosition = (int) textPaint.measureText(getHint().toString()) + getPaddingLeft();
             textPaint.setColor(getCurrentHintTextColor());
         } else {
