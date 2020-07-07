@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
@@ -39,6 +41,9 @@ import java.util.List;
 //TODO Change adding new food from FAB to something else (because might be confusing with add log). Possibly "add new item" as top row of cateogry list and inside each category?
 
 public class FoodListFragment extends Fragment {
+
+    private static final String DIALOG_TUTORIAL = "DialogTutorial";
+
     public static final int TAB_SELECT = 0;
     public static final int TAB_RECENT = 1;
     public static final int TAB_FAVORITES = 2;
@@ -47,6 +52,8 @@ public class FoodListFragment extends Fragment {
     private static final int REQUEST_LOG = 0;
     private static final int REQUEST_ADD_FOOD = 1;
     private static final int REQUEST_EDIT_FOOD = 2;
+    private static final int REQUEST_TUTORIAL = 3;
+
 
     public static final String[] FOOD_CATEGORIES = new String[]{
             "Dairy & Eggs",
@@ -266,6 +273,13 @@ public class FoodListFragment extends Fragment {
 
         updateUI();
 
+        if (!mPreferences.getBoolean("tutorial_food_list_done", false)) {
+            FragmentManager fm = getFragmentManager();
+            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_food_list_text));
+            dialog.setTargetFragment(FoodListFragment.this, REQUEST_TUTORIAL);
+            dialog.show(fm, DIALOG_TUTORIAL);
+        }
+
         return v;
     }
 
@@ -290,6 +304,9 @@ public class FoodListFragment extends Fragment {
             updateUI();
         } else if (requestCode == REQUEST_EDIT_FOOD) {
             updateUI();
+        }
+        if (requestCode == REQUEST_TUTORIAL) {
+            mPreferences.edit().putBoolean("tutorial_food_list_done", true).apply();
         }
     }
 

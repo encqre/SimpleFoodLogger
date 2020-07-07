@@ -165,6 +165,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mUnits.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
         mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
+        CheckBoxPreference mProfileNeeded = (CheckBoxPreference) findPreference("initial_profile_setup_needed");
 
 
         mHiddenFoods = (Preference) findPreference("pref_hidden_food_list");

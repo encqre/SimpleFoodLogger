@@ -19,7 +19,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.tabs.TabLayout;
+import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -71,8 +75,10 @@ public class SummaryFragment extends Fragment {
 
     private static final int REQUEST_START_DATE = 0;
     private static final int REQUEST_END_DATE = 1;
+    private static final int REQUEST_TUTORIAL = 2;
 
     private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_TUTORIAL = "DialogTutorial";
 
     private LogManager mLogManager;
     private TabLayout mTabLayout;
@@ -235,6 +241,13 @@ public class SummaryFragment extends Fragment {
             }
         });
 
+        if (!mPreferences.getBoolean("tutorial_statistics_done", false)) {
+            FragmentManager fm = getFragmentManager();
+            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_statistics_text));
+            dialog.setTargetFragment(SummaryFragment.this, REQUEST_TUTORIAL);
+            dialog.show(fm, DIALOG_TUTORIAL);
+        }
+
         return v;
     }
 
@@ -259,6 +272,9 @@ public class SummaryFragment extends Fragment {
             mEndDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
             mEndDate = Calculations.incrementDay(mEndDate, 1);
             updatePeriod();
+        }
+        if (requestCode == REQUEST_TUTORIAL) {
+            mPreferences.edit().putBoolean("tutorial_statistics_done", true).apply();
         }
     }
 

@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -34,10 +37,12 @@ import java.util.UUID;
 public class HomePageFragment extends Fragment {
 
     private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_TUTORIAL = "DialogTutorial";
 
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_ADD_LOG = 1;
     private static final int REQUEST_EDIT_LOG = 2;
+    private static final int REQUEST_TUTORIAL = 3;
 
     private LogManager mLogManager;
     private RecyclerView mLogRecyclerView;
@@ -156,6 +161,13 @@ public class HomePageFragment extends Fragment {
 
         updateUI();
 
+        if (!mPreferences.getBoolean("tutorial_home_page_done", false)) {
+            FragmentManager fm = getFragmentManager();
+            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_home_page_text));
+            dialog.setTargetFragment(HomePageFragment.this, REQUEST_TUTORIAL);
+            dialog.show(fm, DIALOG_TUTORIAL);
+        }
+
         return v;
     }
 
@@ -175,6 +187,9 @@ public class HomePageFragment extends Fragment {
         }
         if (requestCode == REQUEST_EDIT_LOG) {
             updateUI();
+        }
+        if (requestCode == REQUEST_TUTORIAL) {
+            mPreferences.edit().putBoolean("tutorial_home_page_done", true).apply();
         }
     }
 
@@ -287,5 +302,6 @@ public class HomePageFragment extends Fragment {
 //TODO fix issues arising switching to landscape mode
 //TODO verify if landscape layouts are ok
 //TODO possibly replace FAB with a different button? Maybe like first entry in log list with plus sign and "add a new log" or etc.
+//TODO fill tutorial texts once layout/design refresh is done
 //TODO Adding timestamps to food logs maybe?
 

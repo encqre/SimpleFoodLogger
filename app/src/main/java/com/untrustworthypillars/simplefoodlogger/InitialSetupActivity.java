@@ -6,17 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +21,6 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
 
-//List of things to do on initial launch:
-//TODO 4. Tutorials - probably some dialogs with text when opening some tab for the first time.
-
 public class InitialSetupActivity extends AppCompatActivity {
 
     private static final int REQUEST_CALORIES = 0;
@@ -39,6 +29,7 @@ public class InitialSetupActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
 
     private Boolean mDatabaseImportInProgress = false;
+    private Boolean mUnitSetupOpen = false;
 
     private TextView mProgressTextview;
     private ProgressBar mProgressBar;
@@ -54,8 +45,9 @@ public class InitialSetupActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mDatabaseImportInProgress) {
+        if (mDatabaseImportInProgress || mUnitSetupOpen) {
             //Not allowing to close activity while database import is running to prevent bad things
+            //Also when unit setup is open, because that would close the setup
         } else {
             super.onBackPressed();
         }
@@ -221,6 +213,8 @@ public class InitialSetupActivity extends AppCompatActivity {
 
     private void setupUnits() {
         //Setup some default numbers for units/calories/PFC if they are not set yet
+        mUnitSetupOpen = true;
+
 
         if (mPreferences.getString("pref_units", "not_set").equals("not_set")) {
             mPreferences.edit().putString("pref_units", "Metric").apply();
@@ -241,7 +235,7 @@ public class InitialSetupActivity extends AppCompatActivity {
         //if user closes the initial setup activity from this point, since we already have some
         // values set, no need to launch the initial setup activity again when launching the app
 
-//        mPreferences.edit().putBoolean("initial_profile_setup_needed", false).apply();
+        mPreferences.edit().putBoolean("initial_profile_setup_needed", false).apply();
 
         // launch units setup
 
@@ -266,6 +260,7 @@ public class InitialSetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // launch calories setup
+                mUnitSetupOpen = false;
                 Intent intent = SetCaloriesActivity.newIntent(InitialSetupActivity.this, true, SetCaloriesActivity.STAGE_PROFILE);
                 startActivityForResult(intent, REQUEST_CALORIES);
             }

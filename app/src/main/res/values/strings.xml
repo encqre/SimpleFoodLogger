@@ -47,6 +47,9 @@
     <string name="dialog_add_food_serving3_hint_imperial">8.0</string>
     <string name="dialog_add_log_weight_textview_metric">Weight (g)</string>
     <string name="dialog_add_log_weight_textview_imperial">Weight (oz)</string>
+    <string name="tutorial_home_page_text">Hey, this is some placeholder text for a short tutorial of this page. I should mention what are the main buttons and features on this page, where to find them etc. Hopefully i will not forget to fill this before releasing this app.</string>
+    <string name="tutorial_food_list_text">Hey, this is some placeholder text for a short tutorial of this page. I should mention what are the main buttons and features on this page, where to find them etc. Hopefully i will not forget to fill this before releasing this app.</string>
+    <string name="tutorial_statistics_text">Hey, this is some placeholder text for a short tutorial of this page. I should mention what are the main buttons and features on this page, where to find them etc. Hopefully i will not forget to fill this before releasing this app.</string>
     <string-array name="food_categories_array">
         <item>Dairy &amp; Eggs</item>
         <item>Meat</item>
