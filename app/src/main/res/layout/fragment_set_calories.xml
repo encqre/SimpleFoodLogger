@@ -60,7 +60,6 @@
 
     <Button
         android:id="@+id/initial_setup_calories_set_button_back"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
@@ -71,7 +70,6 @@
 
     <Button
         android:id="@+id/initial_setup_calories_set_button_continue"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Continue"

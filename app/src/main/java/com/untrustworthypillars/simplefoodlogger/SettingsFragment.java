@@ -74,6 +74,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private CheckBoxPreference mStatsIgnoreZeroKcalDays;
     private EditTextPreference mRecentFoodsLength;
     private ListPreference mUnits;
+    private ListPreference mTheme;
 
     private SharedPreferences mPreferences;
     private int mTargetCalories;
@@ -84,7 +85,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private int mTargetCarbsPercent;
     private int mTargetFatPercent;
 
-    //TODO Dark theme and switching between themes
+    //TODO Restart logger activity after theme switch, so that change would take effect.
     //TODO move preference key strings into strings.xml
 
     private List<Food> importedCustomFoodList = new ArrayList<>();
@@ -163,6 +164,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         mUnits = (ListPreference) findPreference("pref_units");
         mUnits.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
+
+        mTheme = (ListPreference) findPreference("pref_theme");
+        mTheme.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
         mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
         CheckBoxPreference mProfileNeeded = (CheckBoxPreference) findPreference("initial_profile_setup_needed");

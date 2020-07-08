@@ -115,4 +115,8 @@
         <item>Slow weight gain (+10% calories)</item>
         <item>Weight gain (+20% calories)</item>
     </string-array>
+    <string-array name="themes">
+        <item>Light theme</item>
+        <item>Dark theme</item>
+    </string-array>
 </resources>

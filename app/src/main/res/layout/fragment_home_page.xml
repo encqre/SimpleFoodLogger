@@ -17,7 +17,6 @@
 
         <ImageButton
             android:id="@+id/image_button_previousday"
-            style="@android:style/Widget.Holo.Light.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -32,7 +31,6 @@
 
         <Button
             android:id="@+id/date_picker_button"
-            style="@android:style/Widget.Material.Button.Inset"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -44,7 +42,6 @@
 
         <ImageButton
             android:id="@+id/image_button_nextday"
-            style="@android:style/Widget.Holo.Light.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

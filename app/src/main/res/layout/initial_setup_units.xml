@@ -27,7 +27,6 @@
 
         <RadioButton
             android:id="@+id/initial_setup_units_metric"
-            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -36,7 +35,6 @@
 
         <RadioButton
             android:id="@+id/initial_setup_units_imperial"
-            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -47,7 +45,6 @@
 
     <Button
         android:id="@+id/initial_setup_units_button_next"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Continue"

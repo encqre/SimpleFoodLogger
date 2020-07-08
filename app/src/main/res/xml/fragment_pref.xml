@@ -36,6 +36,17 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:key="theme_category"
+        app:title="Themes">
+
+        <ListPreference
+            app:key="pref_theme"
+            app:title="Select app theme"
+            app:entries="@array/themes"
+            app:entryValues="@array/themes"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:key="statistics_category"
         app:title="Statistics settings">
 

@@ -16,6 +16,7 @@
         app:tabPaddingTop="0dp"
         app:tabSelectedTextColor="@color/black"
         app:tabTextColor="@color/darkGray"
+        app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         >
 
         <com.google.android.material.tabs.TabItem

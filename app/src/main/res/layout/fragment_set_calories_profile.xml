@@ -31,6 +31,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/initial_setup_calories_profile_button_manual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set manually"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_title_text" />
+
     <TextView
         android:id="@+id/initial_setup_calories_profile_gender_text"
         android:layout_width="wrap_content"
@@ -40,7 +52,7 @@
         android:textSize="14dp"
         android:paddingTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_title_text" />
+        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_button_manual" />
 
     <RadioGroup
         android:id="@+id/initial_setup_calories_profile_gender_radiogroup"
@@ -240,36 +252,23 @@
 
     <Button
         android:id="@+id/initial_setup_calories_profile_button_back"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_goal_spinner" />
 
-    <Button
-        android:id="@+id/initial_setup_calories_profile_button_manual"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set manually"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_button_back"
-        app:layout_constraintEnd_toStartOf="@+id/initial_setup_calories_profile_button_calculate"
-        app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_goal_spinner" />
+
 
     <Button
         android:id="@+id/initial_setup_calories_profile_button_calculate"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Calculate"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_profile_goal_spinner" />
 

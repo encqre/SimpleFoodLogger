@@ -44,9 +44,17 @@ public class LoggerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String theme = mPreferences.getString("pref_theme", "Light theme");
+        if (theme.equals("Light theme")) {
+            setTheme(R.style.AppTheme);
+        } else if (theme.equals("Dark theme")) {
+            setTheme(R.style.Theme_MaterialComponents);
+        }
         setContentView(R.layout.activity_logger);
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         if (mPreferences.getBoolean("initial_database_setup_needed", true) || mPreferences.getBoolean("initial_profile_setup_needed", true)) {
             Intent intent = InitialSetupActivity.newIntent(LoggerActivity.this);
             startActivityForResult(intent, REQUEST_INITIAL_SETUP);

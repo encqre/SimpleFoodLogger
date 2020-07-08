@@ -195,7 +195,6 @@
 
             <Button
                 android:id="@+id/fragment_set_macros_cancel_button"
-                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -206,7 +205,6 @@
 
             <Button
                 android:id="@+id/fragment_set_macros_save_button"
-                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

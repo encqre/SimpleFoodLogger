@@ -27,7 +27,6 @@
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_fake_parent"
-                android:textAppearance="@style/TabThingy"
                 android:textSize="20sp"
                 android:text="THIS IS FOOD NAME WHAT IS GOING ON WHY SO LONG"
                 />
@@ -38,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Servings"
-                android:textAppearance="@style/TabThingy"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_fat" />
@@ -49,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Date"
-                android:textAppearance="@style/TabThingy"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_date_button"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
@@ -57,7 +54,6 @@
 
             <TextView
                 android:id="@+id/fragment_edit_log_date_button"
-                style="@style/TabThingy"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
                 android:layout_marginTop="8dp"
@@ -77,14 +73,12 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/dialog_add_log_weight_textview_metric"
-                android:textAppearance="@style/TabThingy"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_date_button" />
 
             <EditText
                 android:id="@+id/fragment_edit_log_weight"
-                style="@style/Widget.AppCompat.AutoCompleteTextView"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -101,7 +95,6 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="Calories:"
-                android:textAppearance="@style/TabThingy"
                 android:textColor="@android:color/tertiary_text_dark"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_weight"
@@ -125,7 +118,6 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:text="Protein:"
-                android:textAppearance="@style/TabThingy"
                 android:textColor="@android:color/tertiary_text_dark"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_weight"
@@ -149,7 +141,6 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:text="Carbs:"
-                android:textAppearance="@style/TabThingy"
                 android:textColor="@android:color/tertiary_text_dark"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_weight"
@@ -173,7 +164,6 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
                 android:text="Fat:"
-                android:textAppearance="@style/TabThingy"
                 android:textColor="@android:color/tertiary_text_dark"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_weight"
@@ -201,7 +191,6 @@
 
                 <RadioButton
                     android:id="@+id/fragment_edit_log_serving1_radio_button"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -210,7 +199,6 @@
 
                 <RadioButton
                     android:id="@+id/fragment_edit_log_serving2_radio_button"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -220,7 +208,6 @@
 
                 <RadioButton
                     android:id="@+id/fragment_edit_log_serving3_radio_button"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

@@ -13,10 +13,10 @@
         android:layout_height="55dp"
         android:layout_gravity="top"
         android:background="@color/lightGray"
+        app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
         app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabPaddingTop="0dp"
         app:tabSelectedTextColor="@color/black"
-        app:tabTextAppearance="@style/TabThingy"
         app:tabTextColor="@color/darkGray"
         >
 
