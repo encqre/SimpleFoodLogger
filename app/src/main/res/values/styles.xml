@@ -8,6 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="tabStyle">@style/LoggerTabStyleLight</item>
+    </style>
+
+    <style name="AppThemeDark" parent="Theme.MaterialComponents">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LoggerTabStyleLight" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/lightGray</item>
     </style>
 
     <style name="LoggerBackContinueButtonLight" parent="Widget.MaterialComponents.Button">

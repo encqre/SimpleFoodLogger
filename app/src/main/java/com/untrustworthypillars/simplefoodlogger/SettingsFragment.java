@@ -84,8 +84,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private int mTargetProteinPercent;
     private int mTargetCarbsPercent;
     private int mTargetFatPercent;
-
-    //TODO Restart logger activity after theme switch, so that change would take effect.
+    
     //TODO move preference key strings into strings.xml
 
     private List<Food> importedCustomFoodList = new ArrayList<>();
@@ -166,6 +165,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mUnits.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
         mTheme = (ListPreference) findPreference("pref_theme");
+        mTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                getActivity().recreate(); //TODO would be preferable if state was saved after recreation (at least open settings tab)
+                return true;
+
+            }
+        });
         mTheme.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
         mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");

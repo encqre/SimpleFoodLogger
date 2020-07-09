@@ -50,7 +50,7 @@ public class LoggerActivity extends AppCompatActivity {
         if (theme.equals("Light theme")) {
             setTheme(R.style.AppTheme);
         } else if (theme.equals("Dark theme")) {
-            setTheme(R.style.Theme_MaterialComponents);
+            setTheme(R.style.AppThemeDark);
         }
         setContentView(R.layout.activity_logger);
 

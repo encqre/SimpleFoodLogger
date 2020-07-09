@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_gravity="top"
-        android:background="@color/lightGray"
         app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
         app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabPaddingTop="0dp"
