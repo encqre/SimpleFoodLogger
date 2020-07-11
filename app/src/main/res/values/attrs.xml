@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="color" name="homePageConstraintLayoutBackgroundColor"/>
+    <attr format="color" name="homePageTextColor"/>
+    <attr format="reference" name="homePageProgressBarStyle"/>
+</resources>

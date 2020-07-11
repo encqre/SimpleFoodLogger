@@ -84,7 +84,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private int mTargetProteinPercent;
     private int mTargetCarbsPercent;
     private int mTargetFatPercent;
-    
+
     //TODO move preference key strings into strings.xml
 
     private List<Food> importedCustomFoodList = new ArrayList<>();
@@ -164,6 +164,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mUnits = (ListPreference) findPreference("pref_units");
         mUnits.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
+
+        //TODO also make a separate selection for primary/accent color (blue as default)
         mTheme = (ListPreference) findPreference("pref_theme");
         mTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override

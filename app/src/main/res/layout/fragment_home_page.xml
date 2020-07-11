@@ -5,26 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clipToPadding="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_date_buttons"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-       >
+        android:paddingTop="8dp"
+        android:background="?attr/homePageConstraintLayoutBackgroundColor"
+        android:elevation="8dp"
+        android:outlineProvider="background">
 
-        <ImageButton
+        <Button
             android:id="@+id/image_button_previousday"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="4dp"
             android:contentDescription="@string/previous_day"
-            android:src="@drawable/arrow_left"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"
             android:tint="@color/black"
+            app:icon="@drawable/arrow_left"
+            app:iconPadding="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/date_picker_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/date_picker_button" />
@@ -34,22 +38,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@+id/image_button_nextday"
             app:layout_constraintStart_toEndOf="@+id/image_button_previousday"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <Button
             android:id="@+id/image_button_nextday"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
             android:contentDescription="@string/next_day"
-            android:src="@drawable/arrow_right"
             android:tint="@color/black"
+            app:icon="@drawable/arrow_right"
+            app:iconPadding="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/date_picker_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/date_picker_button" />
@@ -60,7 +64,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="0dp"
-        android:layout_below="@id/layout_date_buttons">
+        android:background="?attr/homePageConstraintLayoutBackgroundColor"
+        android:layout_below="@id/layout_date_buttons"
+        android:elevation="8dp"
+        android:outlineProvider="background"
+        android:outlineSpotShadowColor="@color/black">
 
         <TextView
             android:id="@+id/textview_calories"
@@ -70,7 +78,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="Calories: 756 / 3090"
-            android:textColor="@color/black"
+            android:textColor="?attr/homePageTextColor"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
@@ -79,6 +87,7 @@
 
         <ProgressBar
             android:id="@+id/progress_bar_calories"
+            android:theme="?attr/homePageProgressBarStyle"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
@@ -99,14 +108,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Protein: 12/180g"
-            android:textColor="@color/black"
+            android:textColor="?attr/homePageTextColor"
             app:layout_constraintEnd_toStartOf="@+id/textview_carbs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
 
         <ProgressBar
             android:id="@+id/progress_bar_protein"
-            style="?android:attr/progressBarStyleHorizontal"
+            android:theme="?attr/homePageProgressBarStyle"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -125,14 +135,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Carbs: 75/225g"
-            android:textColor="@color/black"
+            android:textColor="?attr/homePageTextColor"
             app:layout_constraintEnd_toEndOf="@+id/textview_calories"
             app:layout_constraintStart_toStartOf="@+id/textview_calories"
             app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
 
         <ProgressBar
             android:id="@+id/progress_bar_carbs"
-            style="?android:attr/progressBarStyleHorizontal"
+            android:theme="?attr/homePageProgressBarStyle"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -152,14 +163,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Fat: 30/95g"
-            android:textColor="@color/black"
+            android:textColor="?attr/homePageTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textview_carbs"
             app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
 
         <ProgressBar
             android:id="@+id/progress_bar_fat"
-            style="?android:attr/progressBarStyleHorizontal"
+            android:theme="?attr/homePageProgressBarStyle"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -169,18 +181,6 @@
             app:layout_constraintEnd_toEndOf="@+id/textview_fat"
             app:layout_constraintStart_toStartOf="@+id/textview_fat"
             app:layout_constraintTop_toBottomOf="@+id/textview_fat" />
-
-        <View
-            android:id="@+id/fragment_home_page_divider"
-            android:layout_width="395dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progress_bar_carbs" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

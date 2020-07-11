@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clipToPadding="false">
 
 
     <com.google.android.material.tabs.TabLayout
@@ -13,10 +14,9 @@
         android:layout_height="55dp"
         android:layout_gravity="top"
         app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
-        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabPaddingTop="0dp"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="@color/darkGray"
+        android:elevation="8dp"
+        android:outlineProvider="background"
         >
 
         <com.google.android.material.tabs.TabItem

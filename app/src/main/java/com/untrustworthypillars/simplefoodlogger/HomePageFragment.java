@@ -49,8 +49,8 @@ public class HomePageFragment extends Fragment {
     private LogAdapter mLogAdapter;
     private FloatingActionButton mLogMealFAB;
     private Button mDateButton;
-    private ImageButton mPreviousDay;
-    private ImageButton mNextDay;
+    private Button mPreviousDay;
+    private Button mNextDay;
     private TextView mCaloriesText;
     private TextView mProteinText;
     private TextView mCarbsText;
@@ -118,7 +118,7 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        mPreviousDay = (ImageButton) v.findViewById(R.id.image_button_previousday);
+        mPreviousDay = (Button) v.findViewById(R.id.image_button_previousday);
         mPreviousDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +132,7 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        mNextDay = (ImageButton) v.findViewById(R.id.image_button_nextday);
+        mNextDay = (Button) v.findViewById(R.id.image_button_nextday);
         mNextDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,11 +283,11 @@ public class HomePageFragment extends Fragment {
         @Override
         public void onBindViewHolder(LogHolder holder, int position) {
             holder.bind(mSelectedDayLogs.get(position));
-            if(position %2 == 1) {
-                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-            } else {
-                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-            }
+//            if(position %2 == 1) {
+//                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+//            } else {
+//                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+//            }
         }
 
         @Override

@@ -219,7 +219,6 @@
 
             <Button
                 android:id="@+id/fragment_edit_log_delete_button"
-                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -229,7 +228,6 @@
 
             <Button
                 android:id="@+id/fragment_edit_log_cancel_button"
-                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -239,7 +237,6 @@
 
             <Button
                 android:id="@+id/fragment_edit_log_save_button"
-                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

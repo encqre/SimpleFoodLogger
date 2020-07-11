@@ -12,10 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:layout_alignParentTop="true"
-        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabPaddingTop="0dp"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="@color/darkGray"
         app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
         >
 

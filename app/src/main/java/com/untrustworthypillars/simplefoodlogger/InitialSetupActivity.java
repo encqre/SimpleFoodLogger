@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -56,9 +57,15 @@ public class InitialSetupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_loading_progress);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(InitialSetupActivity.this);
+        String theme = mPreferences.getString("pref_theme", "Light theme");
+        if (theme.equals("Light theme")) {
+            setTheme(R.style.AppTheme);
+        } else if (theme.equals("Dark theme")) {
+            setTheme(R.style.AppThemeDark);
+        }
+        setContentView(R.layout.dialog_loading_progress);
 
         mProgressTextview = (TextView) findViewById(R.id.dialog_loading_progress_textview);
         mProgressTextview.setText("Performing initial setup..");

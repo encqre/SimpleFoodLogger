@@ -2,6 +2,7 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 
 import java.util.Date;
 import java.util.UUID;
@@ -30,10 +32,19 @@ public class AddLogActivity extends AppCompatActivity {
     }
 
     private Toolbar mToolbar;
+    private SharedPreferences mPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String theme = mPreferences.getString("pref_theme", "Light theme");
+        if (theme.equals("Light theme")) {
+            setTheme(R.style.AppTheme);
+        } else if (theme.equals("Dark theme")) {
+            setTheme(R.style.AppThemeDark);
+        }
         setContentView(R.layout.activity_single_fragment);
 
         mToolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
