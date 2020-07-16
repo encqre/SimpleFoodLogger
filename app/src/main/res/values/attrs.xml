@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Home Page specific attributes  -->
     <attr format="color" name="homePageConstraintLayoutBackgroundColor"/>
     <attr format="color" name="homePageTextColor"/>
     <attr format="reference" name="homePageProgressBarStyle"/>
+
+    <!--  List item specific attributes  -->
+    <attr format="color" name="listItemMacroTextColor"/>
+    <attr format="color" name="listItemKcalTextColor"/>
+    <attr format="color" name="listItemSeparatorColor"/>
 </resources>

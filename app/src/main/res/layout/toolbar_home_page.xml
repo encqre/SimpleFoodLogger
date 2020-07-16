@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/single_fragment_activity_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    app:contentInsetStart="0dp"
+    app:titleMargin="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_date_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:id="@+id/toolbar_button_previousday"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:src="@drawable/arrow_left"
+            android:tint="@color/white"
+            app:elevation="0dp"
+            android:outlineProvider="none"
+            app:icon="@drawable/arrow_left"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="40dp"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_button_datepicker"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_button_datepicker" />
+
+        <Button
+            android:id="@+id/toolbar_button_nextday"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/next_day"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/arrow_right"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="40dp"
+            android:tint="@color/white"
+            android:layout_marginEnd="8dp"
+            app:elevation="0dp"
+            android:outlineProvider="none"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_button_datepicker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_button_datepicker" />
+
+        <Button
+            android:id="@+id/toolbar_button_datepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:elevation="0dp"
+            android:outlineProvider="none"
+            android:textSize="16dp"
+            android:text="Today, Monday"
+            app:layout_constraintBottom_toBottomOf="@id/layout_date_buttons"
+            app:layout_constraintEnd_toStartOf="@+id/toolbar_button_nextday"
+            app:layout_constraintStart_toEndOf="@+id/toolbar_button_previousday"
+            app:layout_constraintTop_toTopOf="@id/layout_date_buttons"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.Toolbar>

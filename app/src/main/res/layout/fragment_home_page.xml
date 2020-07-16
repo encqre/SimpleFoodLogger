@@ -6,66 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:background="@color/lightGray">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_date_buttons"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/home_page_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:paddingTop="8dp"
-        android:background="?attr/homePageConstraintLayoutBackgroundColor"
-        android:elevation="8dp"
-        android:outlineProvider="background">
-
-        <Button
-            android:id="@+id/image_button_previousday"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:contentDescription="@string/previous_day"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp"
-            android:tint="@color/black"
-            app:icon="@drawable/arrow_left"
-            app:iconPadding="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/date_picker_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/date_picker_button" />
-
-        <Button
-            android:id="@+id/date_picker_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/image_button_nextday"
-            app:layout_constraintStart_toEndOf="@+id/image_button_previousday"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/image_button_nextday"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/next_day"
-            android:tint="@color/black"
-            app:icon="@drawable/arrow_right"
-            app:iconPadding="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/date_picker_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/date_picker_button" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:contentInsetStart="0dp"
+        app:titleMargin="0dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_day_counters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="0dp"
+        android:paddingBottom="8dp"
         android:background="?attr/homePageConstraintLayoutBackgroundColor"
-        android:layout_below="@id/layout_date_buttons"
+        android:layout_below="@id/home_page_toolbar"
         android:elevation="8dp"
         android:outlineProvider="background"
         android:outlineSpotShadowColor="@color/black">
@@ -77,6 +37,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:text="Calories: 756 / 3090"
             android:textColor="?attr/homePageTextColor"
             android:textSize="16sp"
@@ -189,7 +150,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_day_counters"
-        android:layout_marginTop="0dp"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="2dp"
+        android:background="@color/lightGray"
+        android:clipToPadding="false"></androidx.recyclerview.widget.RecyclerView>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

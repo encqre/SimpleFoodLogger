@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clipToPadding="false">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tab_layout">
+    </FrameLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_gravity="top"
-        app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
-        app:tabPaddingTop="0dp"
-        android:elevation="8dp"
-        android:outlineProvider="background"
-        >
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:elevation="16dp"
+        android:outlineProvider="bounds"
+        app:tabGravity="fill"
+        app:tabIndicatorGravity="top"
+        app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Overline">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/tab_icon_home"
+            android:icon="@drawable/tab_test_home"
             android:text="@string/menu_home" />
 
         <com.google.android.material.tabs.TabItem
@@ -31,14 +36,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/tab_icon_foods"
-            android:text="@string/menu_foods" />
+            android:text="Foods" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/tab_icon_stats"
-            android:text="@string/menu_stats" />
+            android:text="Stats" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_settings"
@@ -48,12 +53,4 @@
             android:text="@string/menu_settings" />
     </com.google.android.material.tabs.TabLayout>
 
-
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </FrameLayout>
-
-</LinearLayout>
+</RelativeLayout>

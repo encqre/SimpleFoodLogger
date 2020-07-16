@@ -3,12 +3,14 @@ package com.untrustworthypillars.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
@@ -19,10 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -59,6 +59,7 @@ public class HomePageFragment extends Fragment {
     private ProgressBar mProteinProgress;
     private ProgressBar mCarbsProgress;
     private ProgressBar mFatProgress;
+    private Toolbar toolbar;
 
     private SharedPreferences mPreferences;
     private Date mSelectedDay;
@@ -75,6 +76,14 @@ public class HomePageFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home_page, container, false);
 
         mActivity = (LoggerActivity) getActivity();
+
+        //setting layout for toolbar
+        toolbar = (Toolbar) v.findViewById(R.id.home_page_toolbar);
+        mActivity.setSupportActionBar(toolbar);
+        View toolbarView = getLayoutInflater().inflate(R.layout.toolbar_home_page, toolbar);
+        ActionBar ab = mActivity.getSupportActionBar();
+        ab.setDisplayShowTitleEnabled(false);
+        ab.setDisplayHomeAsUpEnabled(false);
 
         try {
             mSelectedDay = mActivity.getSelectedDay();
@@ -106,7 +115,7 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        mDateButton = (Button) v.findViewById(R.id.date_picker_button);
+        mDateButton = (Button) v.findViewById(R.id.toolbar_button_datepicker);
         mDateButton.setText(Calculations.dateDisplayString(mSelectedDay));
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +127,7 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        mPreviousDay = (Button) v.findViewById(R.id.image_button_previousday);
+        mPreviousDay = (Button) v.findViewById(R.id.toolbar_button_previousday);
         mPreviousDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +141,7 @@ public class HomePageFragment extends Fragment {
             }
         });
 
-        mNextDay = (Button) v.findViewById(R.id.image_button_nextday);
+        mNextDay = (Button) v.findViewById(R.id.toolbar_button_nextday);
         mNextDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,5 +312,7 @@ public class HomePageFragment extends Fragment {
 //TODO verify if landscape layouts are ok
 //TODO possibly replace FAB with a different button? Maybe like first entry in log list with plus sign and "add a new log" or etc.
 //TODO fill tutorial texts once layout/design refresh is done
-//TODO Adding timestamps to food logs maybe?
+//TODO Possible feature: Adding timestamps to food logs maybe?
+//TODO Possible feature: Group 1 or more food items into meals?
+//TODO Layout - homepage - datePicker in toolbar, foods - search in toolbar, stats - filter/sort in toolbar,
 

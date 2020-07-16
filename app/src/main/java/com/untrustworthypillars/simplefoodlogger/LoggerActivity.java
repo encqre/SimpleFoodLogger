@@ -1,13 +1,18 @@
 package com.untrustworthypillars.simplefoodlogger;
 
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -53,7 +58,6 @@ public class LoggerActivity extends AppCompatActivity {
             setTheme(R.style.AppThemeDark);
         }
         setContentView(R.layout.activity_logger);
-
 
         if (mPreferences.getBoolean("initial_database_setup_needed", true) || mPreferences.getBoolean("initial_profile_setup_needed", true)) {
             Intent intent = InitialSetupActivity.newIntent(LoggerActivity.this);

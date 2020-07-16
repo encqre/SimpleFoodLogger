@@ -9,8 +9,11 @@
         <item name="windowNoTitle">true</item>
         <item name="tabStyle">@style/LoggerTabStyleLight</item>
         <item name="homePageProgressBarStyle">@style/LoggerProgressBarStyleLight</item>
-        <item name="homePageConstraintLayoutBackgroundColor">@color/veryLightGray</item>
+        <item name="homePageConstraintLayoutBackgroundColor">@color/white</item>
         <item name="homePageTextColor">@color/black</item>
+        <item name="listItemMacroTextColor">@color/darkGray</item>
+        <item name="listItemKcalTextColor">@color/colorPrimary</item>
+        <item name="listItemSeparatorColor">@color/lightGray</item>
     </style>
 
     <!-- Dark application theme -->
@@ -26,22 +29,25 @@
         <item name="homePageConstraintLayoutBackgroundColor">@color/veryDarkGray</item>
         <item name="homePageTextColor">@color/white</item>
         <item name="android:colorBackground">@color/darkGray</item>
+        <item name="listItemMacroTextColor">@color/lightGray</item>
+        <item name="listItemKcalTextColor">@color/colorPrimaryLight</item>
+        <item name="listItemSeparatorColor">@color/Gray</item>
     </style>
 
     <!-- Tab Layout styles -->
 
     <style name="LoggerTabStyleLight" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:background">@color/lightGray</item>
+        <item name="android:background">@color/white</item>
         <item name="tabTextColor">@color/darkGray</item>
         <item name="tabSelectedTextColor">@color/black</item>
-        <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
     </style>
 
     <style name="LoggerTabStyleDark" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/veryDarkGray</item>
         <item name="tabTextColor">@color/lightGray</item>
         <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
     </style>
 
     <!-- Progress Bar styles -->
