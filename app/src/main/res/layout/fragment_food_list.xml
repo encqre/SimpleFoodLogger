@@ -6,13 +6,23 @@
     android:orientation="vertical"
     android:clipToPadding="false">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/food_list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:contentInsetStart="0dp"
+        app:titleMargin="0dp" />
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/food_list_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/food_list_toolbar"
         app:tabPaddingTop="0dp"
         app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:elevation="8dp"

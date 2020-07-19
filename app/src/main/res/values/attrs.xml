@@ -9,4 +9,7 @@
     <attr format="color" name="listItemMacroTextColor"/>
     <attr format="color" name="listItemKcalTextColor"/>
     <attr format="color" name="listItemSeparatorColor"/>
+
+    <!--  Food List Fragment specific attributes  -->
+    <attr format="reference" name="LoggerToolbarSearchViewStyle"/>
 </resources>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme (light) -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
@@ -14,6 +14,8 @@
         <item name="listItemMacroTextColor">@color/darkGray</item>
         <item name="listItemKcalTextColor">@color/colorPrimary</item>
         <item name="listItemSeparatorColor">@color/lightGray</item>
+        <item name="floatingActionButtonStyle">@style/LoggerFABStyleLight</item>
+        <item name="LoggerToolbarSearchViewStyle">@style/LoggerToolbarSearchViewStyleLight</item>
     </style>
 
     <!-- Dark application theme -->
@@ -32,6 +34,7 @@
         <item name="listItemMacroTextColor">@color/lightGray</item>
         <item name="listItemKcalTextColor">@color/colorPrimaryLight</item>
         <item name="listItemSeparatorColor">@color/Gray</item>
+        <item name="LoggerToolbarSearchViewStyle">@style/LoggerToolbarSearchViewStyleDark</item>
     </style>
 
     <!-- Tab Layout styles -->
@@ -64,6 +67,24 @@
 
     <style name="LoggerButtonStyleDark" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@color/veryLightGray</item>
+    </style>
+
+    <style name="LoggerFABStyleLight" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="LoggerToolbarSearchViewStyleLight" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColorHint">@color/lightGray</item>
+        <item name="android:tint">@color/lightGray</item>
+        <item name="android:textCursorDrawable">@drawable/toolbar_searchview_cursor_light</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="LoggerToolbarSearchViewStyleDark" parent="Widget.AppCompat.SearchView">
+<!--        <item name="android:textColorHint">@color/lightGray</item>-->
+<!--        <item name="android:tint">@color/lightGray</item>-->
+<!--        <item name="android:textCursorDrawable">@drawable/toolbar_searchview_cursor_light</item>-->
+<!--        <item name="android:textColorPrimary">@color/white</item>-->
     </style>
 
 </resources>

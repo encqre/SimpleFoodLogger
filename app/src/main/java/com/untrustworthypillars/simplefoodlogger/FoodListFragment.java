@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
@@ -87,14 +91,13 @@ public class FoodListFragment extends Fragment {
     private SearchView mSearchView;
     private CheckBox mExtendedSearch;
     private FloatingActionButton mAddFoodFAB;
-
     private RecyclerView mFoodRecyclerView;
     private CategoryAdapter mCategoryAdapter;
     private FoodAdapter mFoodAdapter;
     private FoodManager mFoodManager;
-
     private SharedPreferences mPreferences;
     private String mUnits;
+    private Toolbar toolbar;
 
 
     /** Method to change the selected Tab programmatically*/
@@ -121,6 +124,19 @@ public class FoodListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_food_list, container, false);
+
+        //setting layout for toolbar
+        toolbar = (Toolbar) v.findViewById(R.id.food_list_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        View toolbarView = getLayoutInflater().inflate(R.layout.toolbar_food_list, toolbar);
+        ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        ab.setDisplayShowTitleEnabled(false);
+        ab.setDisplayHomeAsUpEnabled(false);
+
+        //This crap is for setting searchView underline color, wasted too much time trying to find a way to do it via XML
+        androidx.appcompat.widget.SearchView search = (androidx.appcompat.widget.SearchView) v.findViewById(R.id.toolbar_food_list_searchview);
+        View searchplate = (View) search.findViewById(androidx.appcompat.R.id.search_plate);
+        searchplate.getBackground().setColorFilter(getResources().getColor(R.color.lightGray), PorterDuff.Mode.MULTIPLY);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUnits = mPreferences.getString("pref_units", "Metric");
