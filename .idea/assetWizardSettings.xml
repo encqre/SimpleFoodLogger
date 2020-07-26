@@ -24,9 +24,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/tmp/round_home_24.xml" />
+                                                <entry key="imagePath" value="/tmp/baseline_arrow_back_24.xml" />
                                                 <entry key="opacityPercent" value="60" />
-                                                <entry key="paddingPercent" value="-5" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -38,7 +37,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/90/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialiconsround/home/round_home_24.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/90/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_back/baseline_arrow_back_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -84,7 +83,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="$PROJECT_DIR$/../../../Pictures/1580584934679.png" />
-                                      <entry key="outputName" value="tab_test_home" />
+                                      <entry key="outputName" value="arrow_back" />
                                     </map>
                                   </option>
                                 </PersistentState>

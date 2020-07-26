@@ -13,19 +13,27 @@ import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.LayoutDirection;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
+
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,7 +59,6 @@ public class FoodListFragment extends Fragment {
     public static final int TAB_SELECT = 0;
     public static final int TAB_RECENT = 1;
     public static final int TAB_FAVORITES = 2;
-    public static final int TAB_SEARCH = 3;
 
     private static final int REQUEST_LOG = 0;
     private static final int REQUEST_ADD_FOOD = 1;
@@ -88,9 +95,8 @@ public class FoodListFragment extends Fragment {
     }
 
     private TabLayout mTabLayout;
-    private SearchView mSearchView;
-    private CheckBox mExtendedSearch;
-    private FloatingActionButton mAddFoodFAB;
+    private Button addFoodButton;
+    private Button backButton;
     private RecyclerView mFoodRecyclerView;
     private CategoryAdapter mCategoryAdapter;
     private FoodAdapter mFoodAdapter;
@@ -98,7 +104,11 @@ public class FoodListFragment extends Fragment {
     private SharedPreferences mPreferences;
     private String mUnits;
     private Toolbar toolbar;
+    private TextView toolbarTitle;
+    private SearchView searchView;
 
+    private View v;
+    private ConstraintLayout layout;
 
     /** Method to change the selected Tab programmatically*/
     public void setTab(int i) {
@@ -123,7 +133,7 @@ public class FoodListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_food_list, container, false);
+        v = inflater.inflate(R.layout.fragment_food_list, container, false);
 
         //setting layout for toolbar
         toolbar = (Toolbar) v.findViewById(R.id.food_list_toolbar);
@@ -134,8 +144,9 @@ public class FoodListFragment extends Fragment {
         ab.setDisplayHomeAsUpEnabled(false);
 
         //This crap is for setting searchView underline color, wasted too much time trying to find a way to do it via XML
-        androidx.appcompat.widget.SearchView search = (androidx.appcompat.widget.SearchView) v.findViewById(R.id.toolbar_food_list_searchview);
-        View searchplate = (View) search.findViewById(androidx.appcompat.R.id.search_plate);
+        searchView = (SearchView) v.findViewById(R.id.toolbar_food_list_searchview);
+        View searchplate = (View) searchView.findViewById(androidx.appcompat.R.id.search_plate);
+
         searchplate.getBackground().setColorFilter(getResources().getColor(R.color.lightGray), PorterDuff.Mode.MULTIPLY);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -150,32 +161,18 @@ public class FoodListFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (mTabLayout.getSelectedTabPosition()) {
                     case TAB_SELECT:
-                        mSearchView.setVisibility(View.GONE);
-                        mExtendedSearch.setVisibility(View.GONE);
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
                         mSelectedCategory = 0;
                         mIsCategoryOpen = false;
                         break;
                     case TAB_RECENT:
-                        mSearchView.setVisibility(View.GONE);
-                        mExtendedSearch.setVisibility(View.GONE);
                         mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods());
                         mFoodRecyclerView.setAdapter(mFoodAdapter);
                         mSelectedCategory = 0;
                         mIsCategoryOpen = false;
                         break;
                     case TAB_FAVORITES:
-                        mSearchView.setVisibility(View.GONE);
-                        mExtendedSearch.setVisibility(View.GONE);
                         mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsFavorite());
-                        mFoodRecyclerView.setAdapter(mFoodAdapter);
-                        mSelectedCategory = 0;
-                        mIsCategoryOpen = false;
-                        break;
-                    case TAB_SEARCH:
-                        mSearchView.setVisibility(View.VISIBLE);
-                        mExtendedSearch.setVisibility(View.VISIBLE);
-                        mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(mSearchView.getQuery().toString(), mExtendedSearch.isChecked()));
                         mFoodRecyclerView.setAdapter(mFoodAdapter);
                         mSelectedCategory = 0;
                         mIsCategoryOpen = false;
@@ -193,7 +190,6 @@ public class FoodListFragment extends Fragment {
                 /*If SELECT tab gets reselected then return to the category selector*/
                 switch (mTabLayout.getSelectedTabPosition()) {
                     case TAB_SELECT:
-                        mSearchView.setVisibility(View.GONE);
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
                         mSelectedCategory = 0;
                         mIsCategoryOpen = false;
@@ -202,14 +198,8 @@ public class FoodListFragment extends Fragment {
             }
         });
 
-        /* When FAB is clicked, launching the dialog for adding new food to the database.
-         * If the activity is PickFoodActivity, then hide the FAB.
-         */
-        mAddFoodFAB = (FloatingActionButton) v.findViewById(R.id.floating_button_createfood);
-        if (mIsCalledByPickFoodActivity) {
-            mAddFoodFAB.setVisibility(View.GONE);
-        }
-        mAddFoodFAB.setOnClickListener(new View.OnClickListener() {
+        addFoodButton = (Button) v.findViewById(R.id.toolbar_food_list_add_button);
+        addFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = AddFoodActivity.newIntent(getActivity(), mSelectedCategory);
@@ -217,14 +207,73 @@ public class FoodListFragment extends Fragment {
             }
         });
 
-        /*By default SearchView is made invisible and gone (because first tab by default is categories)*/
-        mSearchView = (SearchView) v.findViewById(R.id.searchview_food);
-        mSearchView.setVisibility(View.GONE);
-        mSearchView.setQueryHint("Start typing food name to search");
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        backButton = (Button) v.findViewById(R.id.toolbar_food_list_back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsCategoryOpen) {
+                    mCategoryAdapter = new CategoryAdapter(FOOD_CATEGORIES);
+                    mFoodAdapter = new FoodAdapter(new ArrayList<Food>());
+                    mFoodRecyclerView.setAdapter(mCategoryAdapter);
+                    mSelectedCategory = 0;
+                    mIsCategoryOpen = false;
+
+                } else {
+                    getActivity().onBackPressed();
+                }
+            }
+        });
+
+        toolbarTitle = (TextView) v.findViewById(R.id.toolbar_food_list_title);
+
+        layout = (ConstraintLayout) v.findViewById(R.id.toolbar_food_list_layout);
+
+
+        if (!mIsCalledByPickFoodActivity) {
+            //set various specific toolbar layout params if fragment is accesed from main activity
+            backButton.setVisibility(View.INVISIBLE);
+
+            float density = getActivity().getResources().getDisplayMetrics().density;
+
+            int paddingDp = 16;
+            int paddingPixel = (int)(paddingDp * density);
+            toolbarTitle.setPadding(paddingPixel,0,0,0);
+            toolbarTitle.setText("Food database");
+
+            int searchViewMaxWidthDp = 300;
+            int maxWidthPixel = (int)(searchViewMaxWidthDp * density);
+            searchView.setMaxWidth(maxWidthPixel);
+        }
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toolbarTitle.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                toolbarTitle.setVisibility(View.VISIBLE);
+                v.requestFocus(); //returning focus back to main View when searchview is collapsed
+                return false;
+            }
+        });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    v.requestFocus(); //returning focus back to main View once focus is away from query text
+                }
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query, mExtendedSearch.isChecked()));
+                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query, true));
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
 
                 return true;
@@ -232,23 +281,13 @@ public class FoodListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, mExtendedSearch.isChecked()));
-                if (mSearchView.getQuery().length() == 0) {
-                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch("", mExtendedSearch.isChecked()));
+                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, true));
+                if (searchView.getQuery().length() == 0) {
+                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch("", true));
                     android.util.Log.d("EMPTY TEXT CHANGE", "AA");
                 }
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
                 return false;
-            }
-        });
-
-        mExtendedSearch = (CheckBox) v.findViewById(R.id.fragment_food_list_extended_search_checkbox);
-        mExtendedSearch.setVisibility(View.GONE);
-        mExtendedSearch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(mSearchView.getQuery().toString(), isChecked));
-                mFoodRecyclerView.setAdapter(mFoodAdapter);
             }
         });
 
@@ -330,13 +369,9 @@ public class FoodListFragment extends Fragment {
         switch(mTabLayout.getSelectedTabPosition()){
             case TAB_SELECT:
                 if (mIsCategoryOpen) {
-                    mSearchView.setVisibility(View.GONE);
-                    mExtendedSearch.setVisibility(View.GONE);
                     mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsCategory(FOOD_CATEGORIES[mSelectedCategory]));
                     mFoodRecyclerView.setAdapter(mFoodAdapter);
                 } else {
-                    mSearchView.setVisibility(View.GONE);
-                    mExtendedSearch.setVisibility(View.GONE);
                     mCategoryAdapter = new CategoryAdapter(FOOD_CATEGORIES);
                     mFoodAdapter = new FoodAdapter(new ArrayList<Food>());
                     mFoodRecyclerView.setAdapter(mCategoryAdapter);
@@ -344,29 +379,16 @@ public class FoodListFragment extends Fragment {
                 }
                 break;
             case TAB_RECENT:
-                mSearchView.setVisibility(View.GONE);
-                mExtendedSearch.setVisibility(View.GONE);
                 mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods());
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
                 mSelectedCategory = 0;
                 mIsCategoryOpen = false;
                 break;
             case TAB_FAVORITES:
-                mSearchView.setVisibility(View.GONE);
-                mExtendedSearch.setVisibility(View.GONE);
                 mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsFavorite());
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
                 mSelectedCategory = 0;
                 mIsCategoryOpen = false;
-                break;
-            case TAB_SEARCH:
-                mSearchView.setVisibility(View.VISIBLE);
-                mExtendedSearch.setVisibility(View.VISIBLE);
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(mSearchView.getQuery().toString(), mExtendedSearch.isChecked()));
-                mFoodRecyclerView.setAdapter(mFoodAdapter);
-                mSelectedCategory = 0;
-                mIsCategoryOpen = false;
-                mSearchView.clearFocus();
                 break;
         }
 
@@ -388,12 +410,13 @@ public class FoodListFragment extends Fragment {
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
             /*When category item is clicked, new FoodAdapter is set up with a list of foods, that is returned
              * by querying database with the category name. Also mSelectedCategory is changed to the clicked category*/
             mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsCategory(mCategoryTitleTextView.getText().toString()));
             mSelectedCategory = getAdapterPosition();
             mIsCategoryOpen = true;
+            v.requestFocus();
             mFoodRecyclerView.setAdapter(mFoodAdapter);
         }
 

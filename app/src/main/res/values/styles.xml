@@ -74,7 +74,7 @@
     </style>
 
     <style name="LoggerToolbarSearchViewStyleLight" parent="Widget.AppCompat.SearchView">
-        <item name="android:textColorHint">@color/lightGray</item>
+        <item name="android:textColorHint">@color/slightlyLightGray</item>
         <item name="android:tint">@color/lightGray</item>
         <item name="android:textCursorDrawable">@drawable/toolbar_searchview_cursor_light</item>
         <item name="android:textColorPrimary">@color/white</item>

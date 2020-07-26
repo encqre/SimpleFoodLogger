@@ -20,9 +20,6 @@ public class PickFoodActivity extends AppCompatActivity {
 
     public static final String EXTRA_DATE = "com.untrustworthypillars.simplefoodlogger.homepagefragment.date";
 
-    private static final int REQUEST_ADD_FOOD = 1;
-
-    private Toolbar mToolbar;
     private SharedPreferences mPreferences;
 
     private int mSelectedFoodCategory = 0;
@@ -45,43 +42,12 @@ public class PickFoodActivity extends AppCompatActivity {
         } else if (theme.equals("Dark theme")) {
             setTheme(R.style.AppThemeDark);
         }
-        setContentView(R.layout.activity_single_fragment);
-
-        mToolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
-        setSupportActionBar(mToolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setTitle("Select Food");
-        ab.setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_single_fragment_no_toolbar);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, new FoodListFragment()).commit();
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_add_food:
-                //Launching AddFoodDialog when "New Food" is pressed on the Toolbar
-                FragmentManager fm = getSupportFragmentManager();
-                FoodListFragment foodListFragment = (FoodListFragment) fm.findFragmentById(R.id.single_fragment_container); //Finding foodListFragment fragment instance
-                mSelectedFoodCategory = foodListFragment.getSelectedCategory(); //getting what is the currently selected food category in the fragment
-
-                Intent intent = AddFoodActivity.newIntent(foodListFragment.getActivity(), mSelectedFoodCategory);
-                startActivityFromFragment(foodListFragment, intent, REQUEST_ADD_FOOD);
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_log_activity, menu);
-        return true;
-    }
 }
 
 

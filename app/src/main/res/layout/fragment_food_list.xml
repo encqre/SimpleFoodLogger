@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
+        app:contentInsetStartWithNavigation="0dp"
         app:contentInsetStart="0dp"
         app:titleMargin="0dp" />
 
@@ -33,7 +34,7 @@
             android:id="@+id/tab_categories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select" />
+            android:text="Quick pick" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_recent"
@@ -47,54 +48,28 @@
             android:layout_height="wrap_content"
             android:text="@string/favorites" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search" />
-
     </com.google.android.material.tabs.TabLayout>
-
-
-    <SearchView
-        android:id="@+id/searchview_food"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/food_list_tabs"
-        android:queryHint="Enter food name"
-        android:iconifiedByDefault="false">
-
-    </SearchView>
-
-    <CheckBox
-        android:id="@+id/fragment_food_list_extended_search_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/extended_search"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_below="@+id/searchview_food"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_food_list_extended_search_checkbox">
+        android:layout_below="@+id/food_list_tabs">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_button_createfood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/plus_sign"
-        android:tint="@color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:borderWidth="2dp"
-        app:rippleColor="@color/colorPrimaryDark"
-        app:useCompatPadding="true" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/floating_button_createfood"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_gravity="end|bottom"-->
+<!--        android:src="@drawable/plus_sign"-->
+<!--        android:tint="@color/white"-->
+<!--        app:backgroundTint="@color/colorPrimary"-->
+<!--        app:borderWidth="2dp"-->
+<!--        app:rippleColor="@color/colorPrimaryDark"-->
+<!--        app:useCompatPadding="true" />-->
 
 </RelativeLayout>
