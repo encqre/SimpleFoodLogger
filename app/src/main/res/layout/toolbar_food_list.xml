@@ -59,7 +59,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/toolbar_food_list_back_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="Search" />
+            app:queryHint="Search in all foods" />
 
         <Button
             android:id="@+id/toolbar_food_list_add_button"

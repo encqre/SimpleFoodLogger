@@ -191,7 +191,7 @@ public class FoodManager {
         return foods;
     }
 
-    public List<Food> getFoodsSearch(String searchString, boolean includeExtended) {
+    public List<Food> getFoodsSearch(String searchString, boolean includeExtended, boolean onlyIncludeFavorites, boolean onlyIncludeRecent, String category) {
         List<Food> foods = new ArrayList<>();
 
         String [] searchWordsArray = searchString.split("\\s+");
@@ -210,6 +210,16 @@ public class FoodManager {
 
         if (queryWhereClause.equals("")) {
             return foods;
+        } else {
+            if (onlyIncludeRecent) {
+                return getRecentFoods(searchString);
+            }
+            if (onlyIncludeFavorites) {
+                queryWhereClause = queryWhereClause + " AND " + CustomFoodTable.Cols.FAVORITE + " = 1";
+            }
+            if (!category.equals("")) {
+                queryWhereClause = queryWhereClause + " AND " + CustomFoodTable.Cols.CATEGORY + " LIKE \"%" + category + "%\"";
+            }
         }
         FoodCursorWrapper cursor = queryCustomFoods(queryWhereClause, null);
 
@@ -569,7 +579,7 @@ public class FoodManager {
         PreferenceManager.getDefaultSharedPreferences(mContext).edit().putString("recent_foods", recentFoodString2).apply();
     }
 
-    public List<Food> getRecentFoods() {
+    public List<Food> getRecentFoods(String query) {
 
         String recentFoodString = PreferenceManager.getDefaultSharedPreferences(mContext).getString("recent_foods", null);
         List<Food> recentFoodList = new ArrayList<>();
@@ -593,8 +603,26 @@ public class FoodManager {
                 }
             }
         }
-
         android.util.Log.i("ayyy", String.valueOf(recentFoodList.size()));
+        //if 'query' is not empty, filter out only those recent foods that contain the 'query' words
+        if (!query.equals("")) {
+            String [] filterWordsArray = query.toLowerCase().split("\\s+");
+            List<Food> filteredRecentFoodList = new ArrayList<>();
+            for (int i = 0; i<recentFoodList.size(); i++) {
+                boolean remove = false;
+                for (int z = 0; z<filterWordsArray.length; z++) {
+                    if (!recentFoodList.get(i).getTitle().toLowerCase().contains(filterWordsArray[z])) {
+                        remove = true;
+                        break;
+                    }
+                }
+                if (!remove) {
+                    filteredRecentFoodList.add(recentFoodList.get(i));
+                }
+            }
+            recentFoodList = filteredRecentFoodList;
+        }
+        android.util.Log.i("ayyy-afterfilter", String.valueOf(recentFoodList.size()));
         return recentFoodList;
     }
 

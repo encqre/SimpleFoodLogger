@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
 
@@ -14,26 +13,23 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.LayoutDirection;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import androidx.appcompat.widget.SearchView;
 
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -65,6 +61,8 @@ public class FoodListFragment extends Fragment {
     private static final int REQUEST_EDIT_FOOD = 2;
     private static final int REQUEST_TUTORIAL = 3;
 
+    private static final int NO_CATEGORY_SELECTED = 15;
+
 
     public static final String[] FOOD_CATEGORIES = new String[]{
             "Dairy & Eggs",
@@ -87,7 +85,7 @@ public class FoodListFragment extends Fragment {
     private Boolean mIsCalledByPickFoodActivity = false;
     private Date mDate;
 
-    private int mSelectedCategory = 0;
+    private int mSelectedCategory = NO_CATEGORY_SELECTED;
     private boolean mIsCategoryOpen = false;
 
     public int getSelectedCategory() {
@@ -146,6 +144,26 @@ public class FoodListFragment extends Fragment {
         //This crap is for setting searchView underline color, wasted too much time trying to find a way to do it via XML
         searchView = (SearchView) v.findViewById(R.id.toolbar_food_list_searchview);
         View searchplate = (View) searchView.findViewById(androidx.appcompat.R.id.search_plate);
+        EditText searchEditText = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(editable)) {
+                    android.util.Log.d("textwatches", "twas empty");
+                    updateUI();
+                }
+            }
+        });
 
         searchplate.getBackground().setColorFilter(getResources().getColor(R.color.lightGray), PorterDuff.Mode.MULTIPLY);
 
@@ -162,20 +180,23 @@ public class FoodListFragment extends Fragment {
                 switch (mTabLayout.getSelectedTabPosition()) {
                     case TAB_SELECT:
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
-                        mSelectedCategory = 0;
+                        mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
+                        searchView.setQueryHint("Search in all foods");
                         break;
                     case TAB_RECENT:
-                        mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods());
+                        mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods(""));
                         mFoodRecyclerView.setAdapter(mFoodAdapter);
-                        mSelectedCategory = 0;
+                        mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
+                        searchView.setQueryHint("Search in recent foods");
                         break;
                     case TAB_FAVORITES:
                         mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsFavorite());
                         mFoodRecyclerView.setAdapter(mFoodAdapter);
-                        mSelectedCategory = 0;
+                        mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
+                        searchView.setQueryHint("Search in favorite foods");
                         break;
                 }
             }
@@ -191,8 +212,9 @@ public class FoodListFragment extends Fragment {
                 switch (mTabLayout.getSelectedTabPosition()) {
                     case TAB_SELECT:
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
-                        mSelectedCategory = 0;
+                        mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
+                        searchView.setQueryHint("Search in all foods");
                         break;
                 }
             }
@@ -215,7 +237,8 @@ public class FoodListFragment extends Fragment {
                     mCategoryAdapter = new CategoryAdapter(FOOD_CATEGORIES);
                     mFoodAdapter = new FoodAdapter(new ArrayList<Food>());
                     mFoodRecyclerView.setAdapter(mCategoryAdapter);
-                    mSelectedCategory = 0;
+                    mSelectedCategory = NO_CATEGORY_SELECTED;
+                    searchView.setQueryHint("Search in all foods");
                     mIsCategoryOpen = false;
 
                 } else {
@@ -257,6 +280,7 @@ public class FoodListFragment extends Fragment {
             public boolean onClose() {
                 toolbarTitle.setVisibility(View.VISIBLE);
                 v.requestFocus(); //returning focus back to main View when searchview is collapsed
+                updateUI();
                 return false;
             }
         });
@@ -270,10 +294,14 @@ public class FoodListFragment extends Fragment {
             }
         });
 
+        //TODO when search results are shown, hide tabs, and maybe show some text. Also if no results are found there should be some text.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query, true));
+                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query, !mIsCategoryOpen,
+                        mTabLayout.getSelectedTabPosition() == TAB_FAVORITES,
+                        mTabLayout.getSelectedTabPosition() == TAB_RECENT,
+                        mIsCategoryOpen ? FOOD_CATEGORIES[mSelectedCategory] : ""));
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
 
                 return true;
@@ -281,12 +309,16 @@ public class FoodListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, true));
-                if (searchView.getQuery().length() == 0) {
-                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch("", true));
-                    android.util.Log.d("EMPTY TEXT CHANGE", "AA");
+                android.util.Log.d("onquerytextchange", newText + " " + String.valueOf(newText.length()));
+                if (newText.length() > 1) {
+                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, !mIsCategoryOpen,
+                            mTabLayout.getSelectedTabPosition() == TAB_FAVORITES,
+                            mTabLayout.getSelectedTabPosition() == TAB_RECENT,
+                            mIsCategoryOpen ? FOOD_CATEGORIES[mSelectedCategory] : ""));
+                    mFoodRecyclerView.setAdapter(mFoodAdapter);
+                } else {
+                    updateUI();
                 }
-                mFoodRecyclerView.setAdapter(mFoodAdapter);
                 return false;
             }
         });
@@ -308,7 +340,8 @@ public class FoodListFragment extends Fragment {
                         mCategoryAdapter = new CategoryAdapter(FOOD_CATEGORIES);
                         mFoodAdapter = new FoodAdapter(new ArrayList<Food>());
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
-                        mSelectedCategory = 0;
+                        mSelectedCategory = NO_CATEGORY_SELECTED;
+                        searchView.setQueryHint("Search in all foods");
                         mIsCategoryOpen = false;
 
                         return true;
@@ -375,19 +408,19 @@ public class FoodListFragment extends Fragment {
                     mCategoryAdapter = new CategoryAdapter(FOOD_CATEGORIES);
                     mFoodAdapter = new FoodAdapter(new ArrayList<Food>());
                     mFoodRecyclerView.setAdapter(mCategoryAdapter);
-                    mSelectedCategory = 0;
+                    mSelectedCategory = NO_CATEGORY_SELECTED;
                 }
                 break;
             case TAB_RECENT:
-                mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods());
+                mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods(""));
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
-                mSelectedCategory = 0;
+                mSelectedCategory = NO_CATEGORY_SELECTED;
                 mIsCategoryOpen = false;
                 break;
             case TAB_FAVORITES:
                 mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsFavorite());
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
-                mSelectedCategory = 0;
+                mSelectedCategory = NO_CATEGORY_SELECTED;
                 mIsCategoryOpen = false;
                 break;
         }
@@ -416,6 +449,7 @@ public class FoodListFragment extends Fragment {
             mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsCategory(mCategoryTitleTextView.getText().toString()));
             mSelectedCategory = getAdapterPosition();
             mIsCategoryOpen = true;
+            searchView.setQueryHint("Search in " + FOOD_CATEGORIES[mSelectedCategory]);
             v.requestFocus();
             mFoodRecyclerView.setAdapter(mFoodAdapter);
         }
