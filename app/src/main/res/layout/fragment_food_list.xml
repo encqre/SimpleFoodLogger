@@ -58,18 +58,26 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/floating_button_createfood"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_gravity="end|bottom"-->
-<!--        android:src="@drawable/plus_sign"-->
-<!--        android:tint="@color/white"-->
-<!--        app:backgroundTint="@color/colorPrimary"-->
-<!--        app:borderWidth="2dp"-->
-<!--        app:rippleColor="@color/colorPrimaryDark"-->
-<!--        app:useCompatPadding="true" />-->
+    <LinearLayout
+        android:id="@+id/fragment_food_list_no_results_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food_recycler"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/fragment_food_list_no_results_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No results found\n\nTry refining your search or create new custom food"/>
+
+        <Button
+            android:id="@+id/fragment_food_list_no_results_add_food_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ Add new food" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -30,6 +30,7 @@ import android.widget.Button;
 import androidx.appcompat.widget.SearchView;
 
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -104,6 +105,9 @@ public class FoodListFragment extends Fragment {
     private Toolbar toolbar;
     private TextView toolbarTitle;
     private SearchView searchView;
+    private LinearLayout noSearchResultsLayout;
+    private TextView noSearchResultsTextView;
+    private Button noSearchResultsAddFoodButton;
 
     private View v;
     private ConstraintLayout layout;
@@ -183,6 +187,7 @@ public class FoodListFragment extends Fragment {
                         mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
                         searchView.setQueryHint("Search in all foods");
+                        noSearchResultsTextView.setText("No results found\n\nTry refining your search or create new custom food");
                         break;
                     case TAB_RECENT:
                         mFoodAdapter = new FoodAdapter(mFoodManager.getRecentFoods(""));
@@ -190,6 +195,7 @@ public class FoodListFragment extends Fragment {
                         mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
                         searchView.setQueryHint("Search in recent foods");
+                        noSearchResultsTextView.setText("No results found in recent foods\n\nTry refining your search or create new custom food");
                         break;
                     case TAB_FAVORITES:
                         mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsFavorite());
@@ -197,6 +203,7 @@ public class FoodListFragment extends Fragment {
                         mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
                         searchView.setQueryHint("Search in favorite foods");
+                        noSearchResultsTextView.setText("No results found in favorite foods\n\nTry refining your search or create new custom food");
                         break;
                 }
             }
@@ -215,6 +222,7 @@ public class FoodListFragment extends Fragment {
                         mSelectedCategory = NO_CATEGORY_SELECTED;
                         mIsCategoryOpen = false;
                         searchView.setQueryHint("Search in all foods");
+                        noSearchResultsTextView.setText("No results found\n\nTry refining your search or create new custom food");
                         break;
                 }
             }
@@ -239,6 +247,7 @@ public class FoodListFragment extends Fragment {
                     mFoodRecyclerView.setAdapter(mCategoryAdapter);
                     mSelectedCategory = NO_CATEGORY_SELECTED;
                     searchView.setQueryHint("Search in all foods");
+                    noSearchResultsTextView.setText("No results found\n\nTry refining your search or create new custom food");
                     mIsCategoryOpen = false;
 
                 } else {
@@ -250,6 +259,10 @@ public class FoodListFragment extends Fragment {
         toolbarTitle = (TextView) v.findViewById(R.id.toolbar_food_list_title);
 
         layout = (ConstraintLayout) v.findViewById(R.id.toolbar_food_list_layout);
+
+        noSearchResultsLayout = (LinearLayout) v.findViewById(R.id.fragment_food_list_no_results_layout);
+        noSearchResultsTextView = (TextView) v.findViewById(R.id.fragment_food_list_no_results_textview);
+        noSearchResultsAddFoodButton = (Button) v.findViewById(R.id.fragment_food_list_no_results_add_food_button);
 
 
         if (!mIsCalledByPickFoodActivity) {
@@ -302,6 +315,7 @@ public class FoodListFragment extends Fragment {
                         mTabLayout.getSelectedTabPosition() == TAB_FAVORITES,
                         mTabLayout.getSelectedTabPosition() == TAB_RECENT,
                         mIsCategoryOpen ? FOOD_CATEGORIES[mSelectedCategory] : ""));
+                noSearchResultsLayout.setVisibility(mFoodAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
                 mFoodRecyclerView.setAdapter(mFoodAdapter);
 
                 return true;
@@ -310,11 +324,12 @@ public class FoodListFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 android.util.Log.d("onquerytextchange", newText + " " + String.valueOf(newText.length()));
-                if (newText.length() > 1) {
+                if (newText.length() > 0) {
                     mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, !mIsCategoryOpen,
                             mTabLayout.getSelectedTabPosition() == TAB_FAVORITES,
                             mTabLayout.getSelectedTabPosition() == TAB_RECENT,
                             mIsCategoryOpen ? FOOD_CATEGORIES[mSelectedCategory] : ""));
+                    noSearchResultsLayout.setVisibility(mFoodAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
                     mFoodRecyclerView.setAdapter(mFoodAdapter);
                 } else {
                     updateUI();
@@ -342,6 +357,7 @@ public class FoodListFragment extends Fragment {
                         mFoodRecyclerView.setAdapter(mCategoryAdapter);
                         mSelectedCategory = NO_CATEGORY_SELECTED;
                         searchView.setQueryHint("Search in all foods");
+                        noSearchResultsTextView.setText("No results found\n\nTry refining your search or create new custom food");
                         mIsCategoryOpen = false;
 
                         return true;
@@ -450,6 +466,7 @@ public class FoodListFragment extends Fragment {
             mSelectedCategory = getAdapterPosition();
             mIsCategoryOpen = true;
             searchView.setQueryHint("Search in " + FOOD_CATEGORIES[mSelectedCategory]);
+            noSearchResultsTextView.setText("No results found in " + FOOD_CATEGORIES[mSelectedCategory] + "\n\nTry refining your search or create new custom food");
             v.requestFocus();
             mFoodRecyclerView.setAdapter(mFoodAdapter);
         }

@@ -198,7 +198,7 @@ public class FoodManager {
         String queryWhereClause = "";
         for (int i=0; i<searchWordsArray.length; i++) {
             android.util.Log.d("SEARCHARRAY", searchWordsArray[i]);
-            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 1) { //Not including empty strings or single letter words into search words
+            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 0) { //Not including empty strings or single letter words into search words
                 searchWordsArray[i] = "\"%" + searchWordsArray[i] + "%\"";
                 if (queryWhereClause.length() < 1) {
                     queryWhereClause = queryWhereClause + CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
