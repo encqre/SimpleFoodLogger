@@ -70,12 +70,28 @@
             android:id="@+id/fragment_food_list_no_results_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No results found\n\nTry refining your search or create new custom food"/>
+            android:textColor="@color/darkGray"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="18sp"
+            android:text="No results found"/>
+
+        <TextView
+            android:id="@+id/fragment_food_list_no_results_textview_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/darkGray"
+            android:textAlignment="center"
+            android:layout_marginBottom="8dp"
+            android:text="Try refining your search or create new custom food"
+            />
 
         <Button
             android:id="@+id/fragment_food_list_no_results_add_food_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="+ Add new food" />
 
     </LinearLayout>
