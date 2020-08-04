@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item   android:id="@+id/toolbar_stats_date_filter"
+        android:title="Date Filter"
+        android:icon="@drawable/date_pick"
+        android:iconTint="@color/white"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/toolbar_stats_sort"
+        android:title="Sort By"
+        android:icon="@drawable/sort"
+        android:iconTint="@color/white"
+        app:showAsAction="always">
+        <menu>
+            <group
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/toolbar_stats_sort_date"
+                    android:title="Sort By Date">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_date_old"
+                                android:title="Oldest first"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_date_new"
+                                android:title="Newest first"/>
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/toolbar_stats_sort_calories"
+                    android:title="Sort By Calories">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_calories_high"
+                                android:title="High to Low"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_calories_low"
+                                android:title="Low to High"/>
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/toolbar_stats_sort_protein"
+                    android:title="Sort By Protein">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_protein_high"
+                                android:title="High to Low"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_protein_low"
+                                android:title="Low to High"/>
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/toolbar_stats_sort_carbs"
+                    android:title="Sort By Carbs">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_carbs_high"
+                                android:title="High to Low"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_carbs_low"
+                                android:title="Low to High"/>
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/toolbar_stats_sort_fat"
+                    android:title="Sort By Fat">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_fat_high"
+                                android:title="High to Low"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_fat_low"
+                                android:title="Low to High"/>
+                        </group>
+                    </menu>
+                </item>
+            </group>
+            <item
+                android:id="@+id/toolbar_stats_sort_default"
+                android:title="Default sorting"/>
+        </menu>
+    </item>
+
+</menu>

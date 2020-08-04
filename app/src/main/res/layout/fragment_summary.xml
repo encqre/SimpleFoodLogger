@@ -6,12 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/fragment_summary_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:contentInsetStart="0dp"
+        app:titleMargin="0dp" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/summary_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/fragment_summary_toolbar"
         app:tabPaddingTop="0dp"
         app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
         >

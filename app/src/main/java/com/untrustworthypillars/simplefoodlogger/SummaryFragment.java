@@ -5,6 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
@@ -13,6 +19,9 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -95,13 +104,36 @@ public class SummaryFragment extends Fragment {
     private Date mEndDate;
     private List<FoodSummary> mFoodSummaryList;
     private List<Log> mLogSummaryList;
+    private Toolbar toolbar;
 
     private SharedPreferences mPreferences;
     private String mUnits;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.toolbar_stats_date_filter){
+            Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_summary, container, false);
+
+        toolbar = (Toolbar) v.findViewById(R.id.fragment_summary_toolbar);
+        toolbar.inflateMenu(R.menu.toolbar_stats);
+        toolbar.setTitle("Past x days");
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.toolbar_stats_date_filter){
+                    Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
+//        android.util.Log.d("hey karoli", toolbar.findViewById(R.id.toolbar_stats_date_filter).getClass().getName());
 
         mTabLayout = (TabLayout) v.findViewById(R.id.summary_tabs);
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
