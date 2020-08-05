@@ -26,7 +26,6 @@
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="/tmp/baseline_date_range_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
-                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -37,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/90/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/date_range/baseline_date_range_24.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/91/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/date_range/baseline_date_range_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -50,7 +49,8 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="$PROJECT_DIR$/../../../Pictures/1580584934679.png" />
-                                                <entry key="opacityPercent" value="60" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -62,6 +62,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -73,6 +75,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>

@@ -51,6 +51,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 //TODO whole UI for statistics page really needs improvement
+//TODO some graphs maybe
+//TODO searchview in toolbar in the 'food stats' section?
+
 public class SummaryFragment extends Fragment {
 
     public static final int TAB_DAY_SUMMARY = 0;
@@ -109,12 +112,13 @@ public class SummaryFragment extends Fragment {
     private SharedPreferences mPreferences;
     private String mUnits;
 
+
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.toolbar_stats_date_filter){
-            Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
-        }
-        return true;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        android.util.Log.d("sveikas", "setHasOptionsMenu tuoj leis");
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -122,17 +126,20 @@ public class SummaryFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_summary, container, false);
 
         toolbar = (Toolbar) v.findViewById(R.id.fragment_summary_toolbar);
-        toolbar.inflateMenu(R.menu.toolbar_stats);
-        toolbar.setTitle("Past x days");
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.toolbar_stats_date_filter){
-                    Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
-                }
-                return false;
-            }
-        });
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//        toolbar.inflateMenu(R.menu.toolbar_stats);
+        toolbar.setTitle("Stats (Past 7 days)");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                if (item.getItemId() == R.id.toolbar_stats_sort_calories_high){
+//                    Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
+//                }
+//                return false;
+//            }
+//        });
+
 //        android.util.Log.d("hey karoli", toolbar.findViewById(R.id.toolbar_stats_date_filter).getClass().getName());
 
         mTabLayout = (TabLayout) v.findViewById(R.id.summary_tabs);
@@ -147,6 +154,7 @@ public class SummaryFragment extends Fragment {
                         mSummaryRecyclerView.setAdapter(mDaySummaryAdapter);
                         mSortSpinner.setAdapter(mDaySortSpinnerAdapter);
                         mSortSpinner.setSelection(0);
+                        getActivity().invalidateOptionsMenu();
                         break;
                     case TAB_FOOD_SUMMARY:
                         mFoodSummaryList = summarizeFoods(mStartDate, mEndDate);
@@ -154,6 +162,7 @@ public class SummaryFragment extends Fragment {
                         mSummaryRecyclerView.setAdapter(mFoodSummaryAdapter);
                         mSortSpinner.setAdapter(mFoodSortSpinnerAdapter);
                         mSortSpinner.setSelection(0);
+                        getActivity().invalidateOptionsMenu();
                         break;
                 }
             }
@@ -281,6 +290,38 @@ public class SummaryFragment extends Fragment {
         }
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        android.util.Log.d("sveikas", "onCreateOptionsMenu paleido");
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_stats, menu);
+        MenuItem filterItemSummary = menu.findItem(R.id.toolbar_stats_sort);
+        MenuItem filterItemFood = menu.findItem(R.id.toolbar_stats_sort_food);
+
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+
+        android.util.Log.d("sveikas", "onPrepareOptionsMenu paleido");
+
+        MenuItem filterItemSummary = menu.findItem(R.id.toolbar_stats_sort);
+        MenuItem filterItemFood = menu.findItem(R.id.toolbar_stats_sort_food);
+
+        filterItemSummary.setVisible(mTabLayout.getSelectedTabPosition() == TAB_DAY_SUMMARY);
+        filterItemFood.setVisible(mTabLayout.getSelectedTabPosition() == TAB_FOOD_SUMMARY);
+
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.toolbar_stats_date_filter){
+            Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 
     @Override

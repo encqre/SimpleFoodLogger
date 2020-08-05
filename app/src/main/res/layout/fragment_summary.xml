@@ -13,9 +13,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        app:contentInsetStartWithNavigation="0dp"
-        app:contentInsetStart="0dp"
-        app:titleMargin="0dp" />
+  />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/summary_tabs"

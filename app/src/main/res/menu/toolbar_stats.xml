@@ -5,8 +5,32 @@
         android:title="Date Filter"
         android:icon="@drawable/date_pick"
         android:iconTint="@color/white"
-        app:showAsAction="always"/>
-
+        app:showAsAction="always">
+        <menu>
+<!--            <item-->
+<!--                android:title="Time range"-->
+<!--                android:checkable="false"-->
+<!--                android:enabled="false"/>-->
+            <group
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/toolbar_stats_range_7days"
+                    android:title="Past 7 days"/>
+                <item
+                    android:id="@+id/toolbar_stats_range_30days"
+                    android:title="Past 30 days"/>
+                <item
+                    android:id="@+id/toolbar_stats_range_90days"
+                    android:title="Past 90 days"/>
+                <item
+                    android:id="@+id/toolbar_stats_range_year"
+                    android:title="Past year"/>
+                <item
+                    android:id="@+id/toolbar_stats_range_custom"
+                    android:title="Custom period"/>
+            </group>
+        </menu>
+    </item>
     <item
         android:id="@+id/toolbar_stats_sort"
         android:title="Sort By"
@@ -92,9 +116,80 @@
                     </menu>
                 </item>
             </group>
-            <item
-                android:id="@+id/toolbar_stats_sort_default"
-                android:title="Default sorting"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/toolbar_stats_sort_food"
+        android:title="Sort By"
+        android:icon="@drawable/sort"
+        android:iconTint="@color/white"
+        app:showAsAction="always"
+        android:visible="false">
+        <menu>
+            <group
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/toolbar_stats_sort_food_count"
+                    android:title="Sort By Count">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_count_high"
+                                android:title="High to Low"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_count_low"
+                                android:title="Low to High"/>
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/toolbar_stats_sort_food_calories"
+                    android:title="Sort By Calories Consumed">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_calories_high"
+                                android:title="High to Low"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_calories_low"
+                                android:title="Low to High"/>
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/toolbar_stats_sort_food_weight"
+                    android:title="Sort By Weight Consumed">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_weight_high"
+                                android:title="High to Low"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_weight_low"
+                                android:title="Low to High"/>
+                        </group>
+                    </menu>
+                </item>
+                <item
+                    android:id="@+id/toolbar_stats_sort_food_date"
+                    android:title="Sort By Last Consumed">
+                    <menu>
+                        <group
+                            android:checkableBehavior="single">
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_date_new"
+                                android:title="Newest first"/>
+                            <item
+                                android:id="@+id/toolbar_stats_sort_food_date_old"
+                                android:title="Oldest first"/>
+                        </group>
+                    </menu>
+                </item>
+            </group>
         </menu>
     </item>
 
