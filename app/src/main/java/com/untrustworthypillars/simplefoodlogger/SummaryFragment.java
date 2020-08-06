@@ -112,12 +112,17 @@ public class SummaryFragment extends Fragment {
     private SharedPreferences mPreferences;
     private String mUnits;
 
+    private int selectedTimeRangeId;
+    private int selectedSortSummaryId;
+    private int selectedSortSummaryParentId;
+    private int selectedSortFoodId;
+    private int selectedSortFoodParentId;
+
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        android.util.Log.d("sveikas", "setHasOptionsMenu tuoj leis");
         setHasOptionsMenu(true);
     }
 
@@ -130,17 +135,12 @@ public class SummaryFragment extends Fragment {
 //        toolbar.inflateMenu(R.menu.toolbar_stats);
         toolbar.setTitle("Stats (Past 7 days)");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                if (item.getItemId() == R.id.toolbar_stats_sort_calories_high){
-//                    Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
-//                }
-//                return false;
-//            }
-//        });
 
-//        android.util.Log.d("hey karoli", toolbar.findViewById(R.id.toolbar_stats_date_filter).getClass().getName());
+        selectedTimeRangeId = R.id.toolbar_stats_range_7days;
+        selectedSortSummaryId = R.id.toolbar_stats_sort_date_old;
+        selectedSortSummaryParentId = R.id.toolbar_stats_sort_date;
+        selectedSortFoodId = R.id.toolbar_stats_sort_food_count_high;
+        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_count;
 
         mTabLayout = (TabLayout) v.findViewById(R.id.summary_tabs);
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -294,32 +294,73 @@ public class SummaryFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        android.util.Log.d("sveikas", "onCreateOptionsMenu paleido");
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.toolbar_stats, menu);
         MenuItem filterItemSummary = menu.findItem(R.id.toolbar_stats_sort);
         MenuItem filterItemFood = menu.findItem(R.id.toolbar_stats_sort_food);
-
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-
-        android.util.Log.d("sveikas", "onPrepareOptionsMenu paleido");
-
         MenuItem filterItemSummary = menu.findItem(R.id.toolbar_stats_sort);
         MenuItem filterItemFood = menu.findItem(R.id.toolbar_stats_sort_food);
 
         filterItemSummary.setVisible(mTabLayout.getSelectedTabPosition() == TAB_DAY_SUMMARY);
         filterItemFood.setVisible(mTabLayout.getSelectedTabPosition() == TAB_FOOD_SUMMARY);
 
+        menu.findItem(selectedTimeRangeId).setChecked(true);
+        menu.findItem(selectedSortSummaryId).setChecked(true);
+        menu.findItem(selectedSortSummaryParentId).setChecked(true);
+        menu.findItem(selectedSortFoodId).setChecked(true);
+        menu.findItem(selectedSortFoodParentId).setChecked(true);
+
         super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.toolbar_stats_date_filter){
-            Toast.makeText(getActivity(), "DATA ble", Toast.LENGTH_SHORT).show();
+        switch(item.getItemId()) {
+            case R.id.toolbar_stats_range_7days:
+                mStartDate = Calculations.incrementDay(new Date(), -7);
+                mEndDate = new Date();
+                toolbar.setTitle("Stats ("+item.getTitle()+")");
+                selectedTimeRangeId = item.getItemId();
+                item.setChecked(true);
+                updatePeriod();
+                break;
+            case R.id.toolbar_stats_range_30days:
+                mStartDate = Calculations.incrementDay(new Date(), -30);
+                mEndDate = new Date();
+                toolbar.setTitle("Stats ("+item.getTitle()+")");
+                selectedTimeRangeId = item.getItemId();
+                item.setChecked(true);
+                updatePeriod();
+                break;
+            case R.id.toolbar_stats_range_90days:
+                mStartDate = Calculations.incrementDay(new Date(), -90);
+                mEndDate = new Date();
+                toolbar.setTitle("Stats ("+item.getTitle()+")");
+                selectedTimeRangeId = item.getItemId();
+                item.setChecked(true);
+                updatePeriod();
+                break;
+            case R.id.toolbar_stats_range_year:
+                mStartDate = Calculations.incrementDay(new Date(), -365);
+                mEndDate = new Date();
+                toolbar.setTitle("Stats ("+item.getTitle()+")");
+                selectedTimeRangeId = item.getItemId();
+                item.setChecked(true);
+                updatePeriod();
+                break;
+            case R.id.toolbar_stats_range_custom:
+                mStartDate = Calculations.incrementDay(new Date(), -7); //setting start and end for 1 week period just in case
+                mEndDate = new Date(); //setting start and end for 1 week period just in case
+                FragmentManager fm = getFragmentManager();
+                DatePickerDialog dialog = DatePickerDialog.newInstance(new Date(), "Select start date");
+                dialog.setTargetFragment(SummaryFragment.this, REQUEST_START_DATE);
+                dialog.show(fm, DIALOG_DATE);
+                item.setChecked(true);
+                break;
         }
         return true;
     }
@@ -344,6 +385,8 @@ public class SummaryFragment extends Fragment {
         if (requestCode == REQUEST_END_DATE) {
             mEndDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
             mEndDate = Calculations.incrementDay(mEndDate, 1);
+            toolbar.setTitle("Stats (Custom period)");
+            selectedTimeRangeId = R.id.toolbar_stats_range_custom;
             updatePeriod();
         }
         if (requestCode == REQUEST_TUTORIAL) {
