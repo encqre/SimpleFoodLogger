@@ -90,7 +90,7 @@ public class LoggerActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SummaryFragment()).commit();
                         break;
                     case TAB_SETTINGS:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragmentParent()).commit();
                         break;
 
                 }
