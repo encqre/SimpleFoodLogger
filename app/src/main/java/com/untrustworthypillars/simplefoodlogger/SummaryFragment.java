@@ -6,14 +6,10 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -24,11 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
@@ -49,7 +41,6 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  */
 
-
 //TODO whole UI for statistics page really needs improvement
 //TODO some graphs maybe
 //TODO searchview in toolbar in the 'food stats' section?
@@ -58,32 +49,6 @@ public class SummaryFragment extends Fragment {
 
     public static final int TAB_DAY_SUMMARY = 0;
     public static final int TAB_FOOD_SUMMARY = 1;
-
-    public static final int SPINNER_PERIOD_7_DAYS = 0;
-    public static final int SPINNER_PERIOD_30_DAYS = 1;
-    public static final int SPINNER_PERIOD_90_DAYS = 2;
-    public static final int SPINNER_PERIOD_YEAR = 3;
-    public static final int SPINNER_PERIOD_CUSTOM = 4;
-
-    public static final int SPINNER_SORT_DAY_DATE_OLD = 0;
-    public static final int SPINNER_SORT_DAY_DATE_NEW = 1;
-    public static final int SPINNER_SORT_DAY_KCAL_HIGH = 2;
-    public static final int SPINNER_SORT_DAY_KCAL_LOW = 3;
-    public static final int SPINNER_SORT_DAY_PROTEIN_HIGH = 4;
-    public static final int SPINNER_SORT_DAY_PROTEIN_LOW = 5;
-    public static final int SPINNER_SORT_DAY_CARBS_HIGH = 6;
-    public static final int SPINNER_SORT_DAY_CARBS_LOW = 7;
-    public static final int SPINNER_SORT_DAY_FAT_HIGH = 8;
-    public static final int SPINNER_SORT_DAY_FAT_LOW = 9;
-
-    public static final int SPINNER_SORT_FOOD_COUNT_HIGH = 0;
-    public static final int SPINNER_SORT_FOOD_COUNT_LOW = 1;
-    public static final int SPINNER_SORT_FOOD_KCAL_HIGH = 2;
-    public static final int SPINNER_SORT_FOOD_KCAL_LOW = 3;
-    public static final int SPINNER_SORT_FOOD_WEIGHT_HIGH = 4;
-    public static final int SPINNER_SORT_FOOD_WEIGHT_LOW = 5;
-    public static final int SPINNER_SORT_FOOD_DATE_NEW = 6;
-    public static final int SPINNER_SORT_FOOD_DATE_OLD = 7;
 
     private static final int REQUEST_START_DATE = 0;
     private static final int REQUEST_END_DATE = 1;
@@ -97,12 +62,7 @@ public class SummaryFragment extends Fragment {
     private RecyclerView mSummaryRecyclerView;
     private DaySummaryAdapter mDaySummaryAdapter;
     private FoodSummaryAdapter mFoodSummaryAdapter;
-    private Spinner mPeriodSpinner;
-    private Spinner mSortSpinner;
     private TextView mSummaryText;
-    private ArrayAdapter<CharSequence> mPeriodSpinnerAdapter;
-    private ArrayAdapter<CharSequence> mDaySortSpinnerAdapter;
-    private ArrayAdapter<CharSequence> mFoodSortSpinnerAdapter;
     private Date mStartDate;
     private Date mEndDate;
     private List<FoodSummary> mFoodSummaryList;
@@ -118,8 +78,6 @@ public class SummaryFragment extends Fragment {
     private int selectedSortFoodId;
     private int selectedSortFoodParentId;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +90,6 @@ public class SummaryFragment extends Fragment {
 
         toolbar = (Toolbar) v.findViewById(R.id.fragment_summary_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-//        toolbar.inflateMenu(R.menu.toolbar_stats);
         toolbar.setTitle("Stats (Past 7 days)");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
@@ -142,29 +99,15 @@ public class SummaryFragment extends Fragment {
         selectedSortFoodId = R.id.toolbar_stats_sort_food_count_high;
         selectedSortFoodParentId = R.id.toolbar_stats_sort_food_count;
 
+        mStartDate = Calculations.incrementDay(new Date(), -7);
+        mEndDate = new Date();
+
         mTabLayout = (TabLayout) v.findViewById(R.id.summary_tabs);
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             /**Set correct adapters and visible elements for specific tabs*/
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (mTabLayout.getSelectedTabPosition()) {
-                    case TAB_DAY_SUMMARY:
-                        mLogSummaryList = summarizeLogs(mStartDate, mEndDate);
-                        mDaySummaryAdapter = new DaySummaryAdapter(mLogSummaryList);
-                        mSummaryRecyclerView.setAdapter(mDaySummaryAdapter);
-                        mSortSpinner.setAdapter(mDaySortSpinnerAdapter);
-                        mSortSpinner.setSelection(0);
-                        getActivity().invalidateOptionsMenu();
-                        break;
-                    case TAB_FOOD_SUMMARY:
-                        mFoodSummaryList = summarizeFoods(mStartDate, mEndDate);
-                        mFoodSummaryAdapter = new FoodSummaryAdapter(mFoodSummaryList);
-                        mSummaryRecyclerView.setAdapter(mFoodSummaryAdapter);
-                        mSortSpinner.setAdapter(mFoodSortSpinnerAdapter);
-                        mSortSpinner.setSelection(0);
-                        getActivity().invalidateOptionsMenu();
-                        break;
-                }
+                updatePeriod();
             }
 
             @Override
@@ -183,85 +126,6 @@ public class SummaryFragment extends Fragment {
         mLogManager = LogManager.get(getContext());
         mSummaryRecyclerView = (RecyclerView) v.findViewById(R.id.summary_recycler);
         mSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mPeriodSpinner = (Spinner) v.findViewById(R.id.summary_spinner_period); //Spinner that provides selections for time periods
-
-        //Creating adapter for period spinner, using resources array as list of items and default android layout for single spinner item
-        mPeriodSpinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.spinner_period_options, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        mPeriodSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mPeriodSpinner.setAdapter(mPeriodSpinnerAdapter);
-
-        mPeriodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch(position) {
-                    case SPINNER_PERIOD_7_DAYS:
-                        mStartDate = Calculations.incrementDay(new Date(), -7);
-                        mEndDate = new Date();
-                        updatePeriod();
-                        break;
-                    case SPINNER_PERIOD_30_DAYS:
-                        mStartDate = Calculations.incrementDay(new Date(), -30);
-                        mEndDate = new Date();
-                        updatePeriod();
-                        break;
-                    case SPINNER_PERIOD_90_DAYS:
-                        mStartDate = Calculations.incrementDay(new Date(), -90);
-                        mEndDate = new Date();
-                        updatePeriod();
-                        break;
-                    case SPINNER_PERIOD_YEAR:
-                        mStartDate = Calculations.incrementDay(new Date(), -365);
-                        mEndDate = new Date();
-                        updatePeriod();
-                        break;
-                    case SPINNER_PERIOD_CUSTOM:
-                        mStartDate = Calculations.incrementDay(new Date(), -7); //setting start and end for 1 week period just in case
-                        mEndDate = new Date(); //setting start and end for 1 week period just in case
-                        FragmentManager fm = getFragmentManager();
-                        DatePickerDialog dialog = DatePickerDialog.newInstance(new Date(), "Select start date");
-                        dialog.setTargetFragment(SummaryFragment.this, REQUEST_START_DATE);
-                        dialog.show(fm, DIALOG_DATE);
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
-        });
-
-        mSortSpinner = (Spinner) v.findViewById(R.id.summary_spinner_sort); //Spinner that provides selections for sort methods
-
-        //Creating adapters for sort spinner, using resources array as list of items and default android layout for single spinner item,
-        //Two adapters are required because there are different sorting options for summary and food stats tabs
-        mDaySortSpinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.spinner_day_sort_options, android.R.layout.simple_spinner_item);
-        mFoodSortSpinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.spinner_food_sort_options, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        mDaySortSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mFoodSortSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        mSortSpinner.setAdapter(mDaySortSpinnerAdapter); //By default set day summary adapter, because it's the first tab
-
-        mSortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                updatePeriod(); //Calling update period, which in turn will call updateSorting() and will set up the adapter.
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         mSummaryText = (TextView) v.findViewById(R.id.summary_text_summary);
 
@@ -282,6 +146,8 @@ public class SummaryFragment extends Fragment {
             }
         });
 
+        updatePeriod();
+
         if (!mPreferences.getBoolean("tutorial_statistics_done", false)) {
             FragmentManager fm = getFragmentManager();
             TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_statistics_text));
@@ -296,8 +162,6 @@ public class SummaryFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.toolbar_stats, menu);
-        MenuItem filterItemSummary = menu.findItem(R.id.toolbar_stats_sort);
-        MenuItem filterItemFood = menu.findItem(R.id.toolbar_stats_sort_food);
     }
 
     @Override
@@ -320,6 +184,7 @@ public class SummaryFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
+            //Time range options
             case R.id.toolbar_stats_range_7days:
                 mStartDate = Calculations.incrementDay(new Date(), -7);
                 mEndDate = new Date();
@@ -361,6 +226,27 @@ public class SummaryFragment extends Fragment {
                 dialog.show(fm, DIALOG_DATE);
                 item.setChecked(true);
                 break;
+            //Handle all sorting options under updateSorting method
+            case R.id.toolbar_stats_sort_date_old:
+            case R.id.toolbar_stats_sort_date_new:
+            case R.id.toolbar_stats_sort_calories_high:
+            case R.id.toolbar_stats_sort_calories_low:
+            case R.id.toolbar_stats_sort_protein_high:
+            case R.id.toolbar_stats_sort_protein_low:
+            case R.id.toolbar_stats_sort_carbs_high:
+            case R.id.toolbar_stats_sort_carbs_low:
+            case R.id.toolbar_stats_sort_fat_high:
+            case R.id.toolbar_stats_sort_fat_low:
+            case R.id.toolbar_stats_sort_food_count_high:
+            case R.id.toolbar_stats_sort_food_count_low:
+            case R.id.toolbar_stats_sort_food_calories_high:
+            case R.id.toolbar_stats_sort_food_calories_low:
+            case R.id.toolbar_stats_sort_food_weight_high:
+            case R.id.toolbar_stats_sort_food_weight_low:
+            case R.id.toolbar_stats_sort_food_date_new:
+            case R.id.toolbar_stats_sort_food_date_old:
+                updateSorting(item.getItemId());
+                break;
         }
         return true;
     }
@@ -371,7 +257,7 @@ public class SummaryFragment extends Fragment {
             /**If setting the custom date fails, default to 1 week and call updatePeriod()*/
                 mStartDate = Calculations.incrementDay(new Date(), -7);
                 mEndDate = new Date();
-                mPeriodSpinner.setSelection(0);
+                selectedTimeRangeId = R.id.toolbar_stats_range_7days;
                 updatePeriod();
                 return;
         }
@@ -399,7 +285,6 @@ public class SummaryFragment extends Fragment {
         private TextView mDateText;
         private TextView mCaloriesText;
         private TextView mMacrosText;
-
 
         public DaySummaryHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_summary_log, parent, false));
@@ -456,7 +341,6 @@ public class SummaryFragment extends Fragment {
         private TextView mWeightText;
         private TextView mDateText;
 
-
         public FoodSummaryHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_summary_food, parent, false));
             //itemView.setOnClickListener(this);  --Later maybe i'll implement onClick
@@ -512,89 +396,111 @@ public class SummaryFragment extends Fragment {
         }
     }
 
-    /**Method to call when selected time period changes. Checks which tab is selected, and then creates and sets appropriate new Adapter*/
+    /**Method to call when selected time period changes.*/
     private void updatePeriod() {
         switch (mTabLayout.getSelectedTabPosition()) {
             case TAB_DAY_SUMMARY:
                 mLogSummaryList = summarizeLogs(mStartDate, mEndDate);
-                updateSorting(mSortSpinner.getSelectedItemPosition());
-                mDaySummaryAdapter = new DaySummaryAdapter(mLogSummaryList);
-                mSummaryRecyclerView.setAdapter(mDaySummaryAdapter);
+                updateSorting(selectedSortSummaryId);
                 break;
             case TAB_FOOD_SUMMARY:
                 mFoodSummaryList = summarizeFoods(mStartDate, mEndDate);
-                updateSorting(mSortSpinner.getSelectedItemPosition());
-                mFoodSummaryAdapter = new FoodSummaryAdapter(mFoodSummaryList);
-                mSummaryRecyclerView.setAdapter(mFoodSummaryAdapter);
+                updateSorting(selectedSortFoodId);
                 break;
         }
     }
 
-    private void updateSorting(int position) {
-        switch (mTabLayout.getSelectedTabPosition()) {
+    /**Update sorting of currently set summary log/food list based on which option menu sorting item id is provided*/
+    private void updateSorting(int optionMenuItemId) {
+        switch (mTabLayout.getSelectedTabPosition()){
             case TAB_DAY_SUMMARY:
-                switch(position) {
-                    case SPINNER_SORT_DAY_DATE_OLD:
+                switch (optionMenuItemId) {
+                    case R.id.toolbar_stats_sort_date_old:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_date;
                         mLogSummaryList = Log.sortByDateOld(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_DATE_NEW:
+                    case R.id.toolbar_stats_sort_date_new:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_date;
                         mLogSummaryList = Log.sortByDateNew(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_KCAL_HIGH:
+                    case R.id.toolbar_stats_sort_calories_high:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_calories;
                         mLogSummaryList = Log.sortByKcalHigh(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_KCAL_LOW:
+                    case R.id.toolbar_stats_sort_calories_low:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_calories;
                         mLogSummaryList = Log.sortByKcalLow(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_PROTEIN_HIGH:
+                    case R.id.toolbar_stats_sort_protein_high:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_protein;
                         mLogSummaryList = Log.sortByProteinHigh(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_PROTEIN_LOW:
+                    case R.id.toolbar_stats_sort_protein_low:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_protein;
                         mLogSummaryList = Log.sortByProteinLow(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_CARBS_HIGH:
+                    case R.id.toolbar_stats_sort_carbs_high:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_carbs;
                         mLogSummaryList = Log.sortByCarbsHigh(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_CARBS_LOW:
+                    case R.id.toolbar_stats_sort_carbs_low:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_carbs;
                         mLogSummaryList = Log.sortByCarbsLow(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_FAT_HIGH:
+                    case R.id.toolbar_stats_sort_fat_high:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_fat;
                         mLogSummaryList = Log.sortByFatHigh(mLogSummaryList);
                         break;
-                    case SPINNER_SORT_DAY_FAT_LOW:
+                    case R.id.toolbar_stats_sort_fat_low:
+                        selectedSortSummaryParentId = R.id.toolbar_stats_sort_fat;
                         mLogSummaryList = Log.sortByFatLow(mLogSummaryList);
                         break;
                 }
+                selectedSortSummaryId = optionMenuItemId;
+                mDaySummaryAdapter = new DaySummaryAdapter(mLogSummaryList);
+                mSummaryRecyclerView.setAdapter(mDaySummaryAdapter);
                 break;
             case TAB_FOOD_SUMMARY:
-                switch(position) {
-                    case SPINNER_SORT_FOOD_COUNT_HIGH:
+                switch (optionMenuItemId) {
+                    case R.id.toolbar_stats_sort_food_count_high:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_count;
                         mFoodSummaryList = FoodSummary.sortByCountHigh(mFoodSummaryList);
                         break;
-                    case SPINNER_SORT_FOOD_COUNT_LOW:
+                    case R.id.toolbar_stats_sort_food_count_low:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_count;
                         mFoodSummaryList = FoodSummary.sortByCountLow(mFoodSummaryList);
                         break;
-                    case SPINNER_SORT_FOOD_KCAL_HIGH:
+                    case R.id.toolbar_stats_sort_food_calories_high:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_calories;
                         mFoodSummaryList = FoodSummary.sortByKcalHigh(mFoodSummaryList);
                         break;
-                    case SPINNER_SORT_FOOD_KCAL_LOW:
+                    case R.id.toolbar_stats_sort_food_calories_low:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_calories;
                         mFoodSummaryList = FoodSummary.sortByKcalLow(mFoodSummaryList);
                         break;
-                    case SPINNER_SORT_FOOD_WEIGHT_HIGH:
+                    case R.id.toolbar_stats_sort_food_weight_high:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_weight;
                         mFoodSummaryList = FoodSummary.sortByWeightHigh(mFoodSummaryList);
                         break;
-                    case SPINNER_SORT_FOOD_WEIGHT_LOW:
+                    case R.id.toolbar_stats_sort_food_weight_low:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_weight;
                         mFoodSummaryList = FoodSummary.sortByWeightLow(mFoodSummaryList);
                         break;
-                    case SPINNER_SORT_FOOD_DATE_NEW:
+                    case R.id.toolbar_stats_sort_food_date_new:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_date;
                         mFoodSummaryList = FoodSummary.sortByDateNew(mFoodSummaryList);
                         break;
-                    case SPINNER_SORT_FOOD_DATE_OLD:
+                    case R.id.toolbar_stats_sort_food_date_old:
+                        selectedSortFoodParentId = R.id.toolbar_stats_sort_food_date;
                         mFoodSummaryList = FoodSummary.sortByDateOld(mFoodSummaryList);
                         break;
                 }
+                selectedSortFoodId = optionMenuItemId;
+                mFoodSummaryAdapter = new FoodSummaryAdapter(mFoodSummaryList);
+                mSummaryRecyclerView.setAdapter(mFoodSummaryAdapter);
                 break;
         }
+        getActivity().invalidateOptionsMenu();
     }
 
     /**Method which outputs a List of Summary Logs for period between provided start and end date*/

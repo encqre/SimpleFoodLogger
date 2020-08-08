@@ -40,46 +40,12 @@
     </com.google.android.material.tabs.TabLayout>
 
     <TextView
-        android:id="@+id/summary_text_select_period"
-        android:text="Select period:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:layout_below="@id/summary_tabs" />
-    <Spinner
-        android:id="@+id/summary_spinner_period"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/summary_tabs"
-        android:layout_toEndOf="@+id/summary_text_select_period" />
-
-    <TextView
-        android:id="@+id/summary_text_sortby"
-        android:text="Sort by:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:layout_below="@+id/summary_text_select_period"/>
-    <Spinner
-        android:id="@+id/summary_spinner_sort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/summary_text_sortby"
-        android:layout_below="@+id/summary_text_select_period"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider"
-        android:layout_below="@+id/summary_text_sortby"/>
-
-    <TextView
         android:id="@+id/summary_text_summary"
         tools:text="Daily averages between 2019.02.25 - 2019.03.02\nCalories: 2436 kcal (-64 kcal compared to daily target)\nProtein: 205g, Carbs: 265g, Fat: 85g"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary_text_sortby"/>
+        android:layout_below="@+id/summary_tabs"/>
 
     <View
         android:id="@+id/summary_text_divider2"
