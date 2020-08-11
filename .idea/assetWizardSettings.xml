@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/tmp/baseline_date_range_24.xml" />
+                                                <entry key="imagePath" value="/tmp/baseline_edit_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
                                               </map>
                                             </option>
@@ -36,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/91/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/date_range/baseline_date_range_24.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/91/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/edit/baseline_edit_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -87,7 +87,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="$PROJECT_DIR$/../../../Pictures/1580584934679.png" />
-                                      <entry key="outputName" value="date_pick" />
+                                      <entry key="outputName" value="edit_icon" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>

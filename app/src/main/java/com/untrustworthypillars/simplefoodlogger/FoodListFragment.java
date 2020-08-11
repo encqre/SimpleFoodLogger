@@ -35,8 +35,11 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -528,12 +531,6 @@ public class FoodListFragment extends Fragment {
         @Override
         public void onBindViewHolder(CategoryHolder holder, int position) {
             holder.bind(FOOD_CATEGORIES[position]);
-            if(position %2 == 1) {
-                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-            } else {
-                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-            }
-
         }
 
         @Override
@@ -548,18 +545,22 @@ public class FoodListFragment extends Fragment {
         private TextView mFoodProtein;
         private TextView mFoodCarbs;
         private TextView mFoodFat;
+        private ImageView favoriteStar;
+        private Button editButton;
         private Food mFood;
 
         public FoodHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_food, parent, false));
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+//            itemView.setOnLongClickListener(this);
 
             mFoodTitleTextView = (TextView) itemView.findViewById(R.id.list_item_food_name);
             mFoodCalories = (TextView) itemView.findViewById(R.id.list_item_food_calories);
             mFoodProtein = (TextView) itemView.findViewById(R.id.list_item_food_protein);
             mFoodCarbs = (TextView) itemView.findViewById(R.id.list_item_food_carbs);
             mFoodFat = (TextView) itemView.findViewById(R.id.list_item_food_fat);
+            favoriteStar = (ImageView) itemView.findViewById(R.id.list_item_food_favorite);
+            editButton = (Button) itemView.findViewById(R.id.list_item_food_edit);
 
         }
 
@@ -579,6 +580,23 @@ public class FoodListFragment extends Fragment {
             mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
             mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, food.getCarbs().toString()));
             mFoodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));
+            favoriteStar.setImageResource(food.isFavorite() ? R.drawable.star_filled : R.drawable.star_border);
+            favoriteStar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mFood.setFavorite(!mFood.isFavorite());
+                    FoodManager.get(getActivity()).updateFood(mFood);
+                    favoriteStar.setImageResource(mFood.isFavorite() ? R.drawable.star_filled : R.drawable.star_border);
+                    Toast.makeText(getActivity(), mFood.isFavorite() ? "Food added to favorites" : "Food removed from favorites", Toast.LENGTH_SHORT).show();
+                }
+            });
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = EditFoodActivity.newIntent(getActivity(), mFood.getFoodId(), mFood.getType());
+                    startActivityForResult(intent, REQUEST_EDIT_FOOD);
+                }
+            });
         }
 
         /*When food item is clicked, AddLogActivity is launched, with arguments of foodId, foodType and date*/
@@ -622,11 +640,6 @@ public class FoodListFragment extends Fragment {
 //            } else {
 //                holder.itemView.setBackgroundColor(Color.rgb(224, 197, 188));
 //            }
-            if(position %2 == 1) {
-                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-            } else {
-                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-            }
         }
 
         @Override
