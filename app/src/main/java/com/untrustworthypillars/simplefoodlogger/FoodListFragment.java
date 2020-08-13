@@ -3,8 +3,9 @@ package com.untrustworthypillars.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
 import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
@@ -22,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Gravity;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +31,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.appcompat.widget.SearchView;
 import androidx.transition.Fade;
-import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,8 +52,6 @@ import java.util.List;
  *
  */
 
-//TODO Figure out what is best way to visually separate custom/common/extended entries
-//TODO Need to move on from those alternate color entries and figure out something that looks better
 //TODO Change adding new food from FAB to something else (because might be confusing with add log). Possibly "add new item" as top row of cateogry list and inside each category?
 
 public class FoodListFragment extends Fragment {
@@ -119,6 +116,8 @@ public class FoodListFragment extends Fragment {
 
     private View v;
     private ConstraintLayout layout;
+
+    private float logicalDensity;
 
     /** Method to change the selected Tab programmatically*/
     public void setTab(int i) {
@@ -413,6 +412,10 @@ public class FoodListFragment extends Fragment {
 
         mFoodManager = FoodManager.get(getContext());
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        logicalDensity = metrics.density; //this density represents number of pixels per 1 dp unit
+
         updateUI();
 
         if (!mPreferences.getBoolean("tutorial_food_list_done", false)) {
@@ -547,12 +550,12 @@ public class FoodListFragment extends Fragment {
         private TextView mFoodFat;
         private ImageView favoriteStar;
         private Button editButton;
+        private TextView foodTypeText;
         private Food mFood;
 
         public FoodHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_food, parent, false));
             itemView.setOnClickListener(this);
-//            itemView.setOnLongClickListener(this);
 
             mFoodTitleTextView = (TextView) itemView.findViewById(R.id.list_item_food_name);
             mFoodCalories = (TextView) itemView.findViewById(R.id.list_item_food_calories);
@@ -561,6 +564,7 @@ public class FoodListFragment extends Fragment {
             mFoodFat = (TextView) itemView.findViewById(R.id.list_item_food_fat);
             favoriteStar = (ImageView) itemView.findViewById(R.id.list_item_food_favorite);
             editButton = (Button) itemView.findViewById(R.id.list_item_food_edit);
+            foodTypeText = (TextView) itemView.findViewById(R.id.list_item_food_type);
 
         }
 
@@ -572,11 +576,24 @@ public class FoodListFragment extends Fragment {
             } else {
                 mFoodCalories.setText(getString(R.string.food_list_fragment_kcal_imperial, food.getKcal().intValue()));
             }
-//            if (mFood.getType() == 0) {
-//                mFoodCalories.setTextColor(getResources().getColor(R.color.colorPrimary));
-//            } else {
-//                mFoodCalories.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-//            }
+            GradientDrawable gradientDrawable = (GradientDrawable) foodTypeText.getBackground();
+            switch (food.getType()) {
+                case 0:
+                    foodTypeText.setText(getString(R.string.list_item_food_type_custom));
+                    foodTypeText.setTextColor(getResources().getColor(R.color.colorComplementary));
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.colorComplementary));
+                    break;
+                case 1:
+                    foodTypeText.setText(getString(R.string.list_item_food_type_common));
+                    foodTypeText.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.colorPrimary));
+                    break;
+                case 2:
+                    foodTypeText.setText(getString(R.string.list_item_food_type_usda));
+                    foodTypeText.setTextColor(getResources().getColor(R.color.veryDarkGray));
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.veryDarkGray));
+                    break;
+            }
             mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
             mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, food.getCarbs().toString()));
             mFoodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));

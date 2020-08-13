@@ -50,6 +50,9 @@
     <string name="tutorial_home_page_text">Hey, this is some placeholder text for a short tutorial of this page. I should mention what are the main buttons and features on this page, where to find them etc. Hopefully i will not forget to fill this before releasing this app.</string>
     <string name="tutorial_food_list_text">Hey, this is some placeholder text for a short tutorial of this page. I should mention what are the main buttons and features on this page, where to find them etc. Hopefully i will not forget to fill this before releasing this app.</string>
     <string name="tutorial_statistics_text">Hey, this is some placeholder text for a short tutorial of this page. I should mention what are the main buttons and features on this page, where to find them etc. Hopefully i will not forget to fill this before releasing this app.</string>
+    <string name="list_item_food_type_custom">Custom</string>
+    <string name="list_item_food_type_common">Common</string>
+    <string name="list_item_food_type_usda">USDA DB</string>
     <string-array name="food_categories_array">
         <item>Dairy &amp; Eggs</item>
         <item>Meat</item>
