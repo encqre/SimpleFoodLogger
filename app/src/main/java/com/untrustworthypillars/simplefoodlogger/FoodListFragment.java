@@ -35,6 +35,7 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ import java.util.List;
  *
  */
 
-//TODO Change adding new food from FAB to something else (because might be confusing with add log). Possibly "add new item" as top row of cateogry list and inside each category?
+//TODO review common/extended foods, refresh, add extended to correct categories. Probably show all of them inside quick pick categories?
 
 public class FoodListFragment extends Fragment {
 
@@ -549,7 +550,7 @@ public class FoodListFragment extends Fragment {
         private TextView mFoodCarbs;
         private TextView mFoodFat;
         private ImageView favoriteStar;
-        private Button editButton;
+        private FrameLayout editButton;
         private TextView foodTypeText;
         private Food mFood;
 
@@ -563,7 +564,7 @@ public class FoodListFragment extends Fragment {
             mFoodCarbs = (TextView) itemView.findViewById(R.id.list_item_food_carbs);
             mFoodFat = (TextView) itemView.findViewById(R.id.list_item_food_fat);
             favoriteStar = (ImageView) itemView.findViewById(R.id.list_item_food_favorite);
-            editButton = (Button) itemView.findViewById(R.id.list_item_food_edit);
+            editButton = (FrameLayout) itemView.findViewById(R.id.list_item_food_edit);
             foodTypeText = (TextView) itemView.findViewById(R.id.list_item_food_type);
 
         }
@@ -610,6 +611,7 @@ public class FoodListFragment extends Fragment {
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    android.util.Log.d("clicked edit", "yep");
                     Intent intent = EditFoodActivity.newIntent(getActivity(), mFood.getFoodId(), mFood.getType());
                     startActivityForResult(intent, REQUEST_EDIT_FOOD);
                 }

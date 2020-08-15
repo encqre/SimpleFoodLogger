@@ -24,8 +24,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/tmp/baseline_edit_24.xml" />
+                                                <entry key="imagePath" value="/tmp/baseline_star_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
+                                                <entry key="paddingPercent" value="-10" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -36,7 +37,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/91/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/edit/baseline_edit_24.xml" />
+                                                <entry key="url" value="jar:file:/snap/android-studio/91/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/star/baseline_star_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -48,7 +49,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../../../Pictures/1580584934679.png" />
+                                                <entry key="imagePath" value="$USER_HOME$/Pictures/1580584934679.png" />
                                                 <entry key="opacityPercent" value="80" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -86,8 +87,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../../../Pictures/1580584934679.png" />
-                                      <entry key="outputName" value="edit_icon" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Pictures/1580584934679.png" />
+                                      <entry key="outputName" value="star_filled" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
