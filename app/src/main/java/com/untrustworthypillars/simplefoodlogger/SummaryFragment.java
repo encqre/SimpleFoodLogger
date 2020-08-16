@@ -284,7 +284,9 @@ public class SummaryFragment extends Fragment {
     private class DaySummaryHolder extends RecyclerView.ViewHolder {
         private TextView mDateText;
         private TextView mCaloriesText;
-        private TextView mMacrosText;
+        private TextView mProteinText;
+        private TextView mCarbsText;
+        private TextView mFatText;
 
         public DaySummaryHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_summary_log, parent, false));
@@ -292,13 +294,17 @@ public class SummaryFragment extends Fragment {
 
             mDateText = (TextView) itemView.findViewById(R.id.list_item_summary_log_date);
             mCaloriesText = (TextView) itemView.findViewById(R.id.list_item_summary_log_calories);
-            mMacrosText = (TextView) itemView.findViewById(R.id.list_item_summary_log_macros);
+            mProteinText = (TextView) itemView.findViewById(R.id.list_item_summary_log_protein);
+            mCarbsText = (TextView) itemView.findViewById(R.id.list_item_summary_log_carbs);
+            mFatText = (TextView) itemView.findViewById(R.id.list_item_summary_log_fat);
         }
 
         public void bind(Log summaryLog) {
             mDateText.setText(summaryLog.getDateText());
             mCaloriesText.setText(summaryLog.getKcal().intValue() + " kcal");
-            mMacrosText.setText("P: " + summaryLog.getProtein().intValue() + "g C: " + summaryLog.getCarbs().intValue() + "g F: " + summaryLog.getFat().intValue() + "g");
+            mProteinText.setText(summaryLog.getProtein().intValue() + "g");
+            mCarbsText.setText(summaryLog.getCarbs().intValue() + "g");
+            mFatText.setText(summaryLog.getFat().intValue() + "g");
         }
 
     }
@@ -320,11 +326,11 @@ public class SummaryFragment extends Fragment {
         @Override
         public void onBindViewHolder(DaySummaryHolder holder, int position) {
             holder.bind(mSelectedPeriodLogs.get(position));
-            if(position %2 == 1) {
-                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-            } else {
-                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-            }
+//            if(position %2 == 1) {
+//                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+//            } else {
+//                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+//            }
         }
 
         @Override
@@ -383,11 +389,11 @@ public class SummaryFragment extends Fragment {
         @Override
         public void onBindViewHolder(FoodSummaryHolder holder, int position) {
             holder.bind(mSelectedPeriodFoods.get(position));
-            if(position %2 == 1) {
-                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-            } else {
-                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-            }
+//            if(position %2 == 1) {
+//                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
+//            } else {
+//                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
+//            }
         }
 
         @Override
