@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:background="@color/lightGray">>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_summary_toolbar"
@@ -23,6 +25,7 @@
         android:layout_below="@id/fragment_summary_toolbar"
         app:tabPaddingTop="0dp"
         app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:elevation="8dp"
         >
 
         <com.google.android.material.tabs.TabItem
@@ -42,24 +45,26 @@
     <TextView
         android:id="@+id/summary_text_summary"
         tools:text="Daily averages between 2019.02.25 - 2019.03.02\nCalories: 2436 kcal (-64 kcal compared to daily target)\nProtein: 205g, Carbs: 265g, Fat: 85g"
-        android:padding="5dp"
+        android:padding="8dp"
+        android:textSize="16sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary_tabs"/>
-
-    <View
-        android:id="@+id/summary_text_divider2"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider"
-        android:layout_below="@+id/summary_text_summary"/>
-
+        android:layout_below="@+id/summary_tabs"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
+        android:elevation="8dp"
+        android:outlineProvider="background"
+        android:outlineSpotShadowColor="@color/black"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/summary_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary_text_divider2">
+        android:layout_below="@+id/summary_text_summary"
+        android:background="@color/lightGray"
+        android:clipToPadding="false">
 
     </androidx.recyclerview.widget.RecyclerView>
 

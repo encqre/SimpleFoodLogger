@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -564,18 +566,20 @@ public class SummaryFragment extends Fragment {
 
         Integer kcalDelta = avgKcal - Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
 
-        String text1 = "Daily averages between ";
+
+        String text1 = "Selected period: ";
         String text2 = summaryLogs.get(0).getDateText() + " - " + summaryLogs.get(summaryLogs.size() - 1).getDateText() + "\n";
-        String text3 = "";
-        if (mPreferences.getBoolean("pref_stats_ignore_zero_kcal_days", false)) {
-            text3 = "(Ignoring days with 0 kcal)\n";
-        }
-        String text4 = "Calories: " + avgKcal.toString() + " kcal (" + kcalDelta.toString() + " kcal compared to daily target)\n";
-        String text5 = "Protein: " + avgProtein + "g, Carbs: " + avgCarbs + "g, Fat: " + avgFat + "g";
+        String text3 = "Averages (" + (mPreferences.getBoolean("pref_stats_ignore_zero_kcal_days", false) ? "ex" : "in") + "cluding days with 0 kcal):\n";
+        String text4 = "Calories: " + avgKcal.toString() + " kcal (";
+        String kcalDeltaString = ((kcalDelta > 0) ? "+":"") + kcalDelta.toString();
+        String text5 = " to current daily target)\n";
+        String text6 = "Protein: " + avgProtein + "g, Carbs: " + avgCarbs + "g, Fat: " + avgFat + "g";
 
         //Spannable allows to color only certain part of Text/Textview
-        Spannable spannable = new SpannableString(text1 + text2 + text3 + text4 + text5);
-        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Spannable spannable = new SpannableString(text1 + text2 + text3 + text4 + kcalDeltaString + text5 + text6);
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, (text1+text2).length(), 0);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(kcalDelta > 0 ? R.color.red : R.color.green)), (text1+text2+text3+text4).length(), (text1+text2+text3+text4+kcalDeltaString).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mSummaryText.setText(spannable, TextView.BufferType.SPANNABLE);
 
         return summaryLogs;
@@ -585,12 +589,13 @@ public class SummaryFragment extends Fragment {
     public List<FoodSummary> summarizeFoods(Date start, Date end) {
         List<FoodSummary> summaryFoods = new ArrayList<>();
 
-        String text1 = "Food stats between ";
+        String text1 = "Selected period: ";
         String text2 = Calculations.dateToDateTextEqualLengthString(start) + " - " + Calculations.dateToDateTextEqualLengthString(Calculations.incrementDay(end, -1));
 
         //Spannable allows to color only certain part of Text/Textview
         Spannable spannable = new SpannableString(text1 + text2);
-        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, (text1+text2).length(), 0);
+        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mSummaryText.setText(spannable, TextView.BufferType.SPANNABLE);
 
         String dayDateText = Calculations.dateToDateText(start); //convert to dateText to allow easy comparison
