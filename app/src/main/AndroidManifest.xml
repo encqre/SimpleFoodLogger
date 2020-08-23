@@ -23,7 +23,8 @@
         <activity android:name=".PickFoodActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
-        <activity android:name=".AddLogActivity">
+        <activity android:name=".AddLogActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity android:name=".EditLogActivity"
             android:parentActivityName=".LoggerActivity">

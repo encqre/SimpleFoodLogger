@@ -43,7 +43,6 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  */
 
-//TODO whole UI for statistics page really needs improvement
 //TODO some graphs maybe
 //TODO searchview in toolbar in the 'food stats' section?
 

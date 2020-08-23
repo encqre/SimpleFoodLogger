@@ -25,7 +25,7 @@ import androidx.preference.PreferenceManager;
 import java.util.Date;
 import java.util.UUID;
 
-//TODO ADD button should be bigger/better are in more convenient spot, not hidden by keyboard
+//TODO unselect serving when weight is modified and no longer matches serving's weight value
 
 public class AddLogFragment extends Fragment {
 
@@ -40,7 +40,7 @@ public class AddLogFragment extends Fragment {
     private Date mDate;
     private FoodManager fm = FoodManager.get(getContext());
 
-    private TextView mDateButton;
+    private Button mDateButton;
     private EditText mWeight;
     private TextView mCalories;
     private TextView mProtein;
@@ -87,9 +87,8 @@ public class AddLogFragment extends Fragment {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUnits = mPreferences.getString("pref_units", "Metric");
 
-        mDateButton = (TextView) v.findViewById(R.id.fragment_add_log_date_button);
-        mDateButton.setPaintFlags(mDateButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        mDateButton.setText(Calculations.dateDisplayString(mDate));
+        mDateButton = (Button) v.findViewById(R.id.fragment_add_log_date_button);
+        mDateButton.setText(Calculations.dateToDashSeparatedDateText(mDate));
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +113,7 @@ public class AddLogFragment extends Fragment {
 
         mWeight = (EditText) v.findViewById(R.id.fragment_add_log_weight);
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mWeight.requestFocus();
+//        mWeight.requestFocus();
 
         mWeight.addTextChangedListener(new TextWatcher() {
             @Override
@@ -254,7 +253,7 @@ public class AddLogFragment extends Fragment {
         }
         if (requestCode == REQUEST_DATE) {
             mDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
-            mDateButton.setText(Calculations.dateDisplayString(mDate));
+            mDateButton.setText(Calculations.dateToDashSeparatedDateText(mDate));
         }
     }
 }

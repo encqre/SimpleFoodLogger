@@ -16,6 +16,7 @@
         <item name="listItemSeparatorColor">@color/lightGray</item>
         <item name="floatingActionButtonStyle">@style/LoggerFABStyleLight</item>
         <item name="LoggerToolbarSearchViewStyle">@style/LoggerToolbarSearchViewStyleLight</item>
+<!--        <item name="toolbarStyle">@style/LoggerToolBarStyleLight</item>-->
     </style>
 
     <!-- Dark application theme -->
@@ -73,6 +74,8 @@
         <item name="tint">@color/white</item>
     </style>
 
+    <!-- Searchview styles (in toolbar) -->
+
     <style name="LoggerToolbarSearchViewStyleLight" parent="Widget.AppCompat.SearchView">
         <item name="android:textColorHint">@color/slightlyLightGray</item>
         <item name="android:tint">@color/lightGray</item>
@@ -86,5 +89,13 @@
 <!--        <item name="android:textCursorDrawable">@drawable/toolbar_searchview_cursor_light</item>-->
 <!--        <item name="android:textColorPrimary">@color/white</item>-->
     </style>
+
+    <!-- Actionbar styles -->
+
+<!--    <style name="LoggerToolBarStyleLight" parent="Widget.MaterialComponents.Toolbar">-->
+<!--        <item name="titleTextColor">@color/white</item>-->
+<!--        <item name="iconTint">@color/white</item>-->
+
+<!--    </style>-->
 
 </resources>
