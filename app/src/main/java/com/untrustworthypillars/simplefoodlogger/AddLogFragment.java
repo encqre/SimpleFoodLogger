@@ -88,7 +88,7 @@ public class AddLogFragment extends Fragment {
         mUnits = mPreferences.getString("pref_units", "Metric");
 
         mDateButton = (Button) v.findViewById(R.id.fragment_add_log_date_button);
-        mDateButton.setText(Calculations.dateToDashSeparatedDateText(mDate));
+        mDateButton.setText(Calculations.dateDisplayString(mDate));
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,7 +253,7 @@ public class AddLogFragment extends Fragment {
         }
         if (requestCode == REQUEST_DATE) {
             mDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
-            mDateButton.setText(Calculations.dateToDashSeparatedDateText(mDate));
+            mDateButton.setText(Calculations.dateDisplayString(mDate));
         }
     }
 }

@@ -40,7 +40,7 @@ public class EditLogFragment extends Fragment {
     private Date mDate;
     private LogManager lm = LogManager.get(getContext());
     private FoodManager fm;
-    private TextView mDateButton;
+    private Button mDateButton;
     private EditText mWeight;
     private TextView mCalories;
     private TextView mProtein;
@@ -80,8 +80,7 @@ public class EditLogFragment extends Fragment {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUnits = mPreferences.getString("pref_units", "Metric");
 
-        mDateButton = (TextView) v.findViewById(R.id.fragment_edit_log_date_button);
-        mDateButton.setPaintFlags(mDateButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        mDateButton = (Button) v.findViewById(R.id.fragment_edit_log_date_button);
         mDateButton.setText(Calculations.dateDisplayString(mDate));
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +106,7 @@ public class EditLogFragment extends Fragment {
 
         mWeight = (EditText) v.findViewById(R.id.fragment_edit_log_weight);
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mWeight.requestFocus();
+//        mWeight.requestFocus();
         mWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
