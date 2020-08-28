@@ -29,7 +29,8 @@
         <activity android:name=".EditLogActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
-        <activity android:name=".AddFoodActivity">
+        <activity android:name=".AddFoodActivity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity android:name=".EditFoodActivity"
             android:parentActivityName=".LoggerActivity">

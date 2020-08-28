@@ -1,293 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/fragment_add_food_layout"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
 
     <ScrollView
+        android:id="@+id/fragment_add_food_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/fragment_add_food_category_textview"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_add_food_section_general"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Category: "
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_alignParentTop="true">
 
-            <Spinner
-                android:id="@+id/fragment_add_food_category_spinner"
-                android:layout_width="200dp"
+                <TextView
+                    android:id="@+id/fragment_add_food_category_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Category: "
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/fragment_add_food_category_spinner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_category_textview"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_add_food_category_textview"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_category_textview" />
+
+                <TextView
+                    android:id="@+id/fragment_add_food_name_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Name: "
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_category_spinner" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ems="10"
+                    android:hint="Enter food name"
+                    app:layout_constraintStart_toStartOf="@+id/fragment_add_food_category_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_category_spinner" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_add_food_section_nutrition"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_category_textview"
-                app:layout_constraintStart_toEndOf="@+id/fragment_add_food_category_textview"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_category_textview" />
+                android:layout_below="@id/fragment_add_food_section_general">
 
-            <TextView
-                android:id="@+id/fragment_add_food_name_textview"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/fragment_add_food_nutrition_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/dialog_add_food_nutrition_textview_metric"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fragment_add_food_calories_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Calories (kcal):"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_nutrition_textview" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_calories"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:hint="0"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_calories_textview"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_add_food_calories_textview"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_calories_textview" />
+
+                <TextView
+                    android:id="@+id/fragment_add_food_protein_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Protein (g):"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_calories_textview" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_protein"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_protein_textview"
+                    app:layout_constraintStart_toStartOf="@+id/fragment_add_food_calories"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_protein_textview" />
+
+                <TextView
+                    android:id="@+id/fragment_add_food_carbs_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Carbs (g):"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_protein_textview" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_carbs"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_carbs_textview"
+                    app:layout_constraintStart_toStartOf="@+id/fragment_add_food_protein"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_carbs_textview" />
+
+                <TextView
+                    android:id="@+id/fragment_add_food_fat_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Fat (g):"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_carbs_textview" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_fat"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_fat_textview"
+                    app:layout_constraintStart_toStartOf="@+id/fragment_add_food_carbs"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_fat_textview" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_add_food_section_servings"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Name: "
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_category_spinner" />
+                android:layout_below="@id/fragment_add_food_section_nutrition">
 
-            <EditText
-                android:id="@+id/fragment_add_food_name"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/fragment_add_food_servings_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/dialog_add_food_servings_textview_metric"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_serving1_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ems="10"
+                    android:hint="Small"
+                    android:inputType="textPersonName"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_servings_textview" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_serving1_size"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:ems="10"
+                    android:hint="@string/dialog_add_food_serving1_hint_metric"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving1_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving1_name"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving1_name" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_serving2_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:ems="10"
+                    android:hint="Medium"
+                    android:inputType="textPersonName"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving1_name" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_serving2_size"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:ems="10"
+                    android:hint="@string/dialog_add_food_serving2_hint_metric"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving2_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving2_name"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving2_name"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_serving3_size"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:ems="10"
+                    android:hint="@string/dialog_add_food_serving3_hint_metric"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving3_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving3_name"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving3_name"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <EditText
+                    android:id="@+id/fragment_add_food_serving3_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="0dp"
+                    android:ems="10"
+                    android:hint="Large"
+                    android:inputType="textPersonName"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving2_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_add_food_section_buttons"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="Enter food name"
-                app:layout_constraintStart_toEndOf="@+id/fragment_add_food_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_category_spinner" />
+                android:background="@color/white"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:elevation="16dp"
+                android:outlineProvider="bounds"
+                android:layout_below="@id/fragment_add_food_section_servings"
+                android:layout_alignParentBottom="true">
 
-            <TextView
-                android:id="@+id/fragment_add_food_nutrition_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/dialog_add_food_nutrition_textview_metric"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_isfavorite" />
+                <Button
+                    android:id="@+id/fragment_add_food_cancel_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="Cancel"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_add_food_add_button"
+                    app:layout_constraintTop_toTopOf="parent"  />
 
-            <TextView
-                android:id="@+id/fragment_add_food_calories_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Calories (kcal):"
-                android:textColor="@android:color/tertiary_text_dark"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_nutrition_textview" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_calories"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:hint="0"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_calories_textview"
-                app:layout_constraintStart_toEndOf="@+id/fragment_add_food_calories_textview"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_calories_textview" />
-
-            <TextView
-                android:id="@+id/fragment_add_food_protein_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Protein (g):"
-                android:textColor="@android:color/tertiary_text_dark"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_calories_textview" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_protein"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="0"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_protein_textview"
-                app:layout_constraintStart_toStartOf="@+id/fragment_add_food_calories"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_protein_textview" />
-
-            <TextView
-                android:id="@+id/fragment_add_food_carbs_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Carbs (g):"
-                android:textColor="@android:color/tertiary_text_dark"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_protein_textview" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_carbs"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="0"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_carbs_textview"
-                app:layout_constraintStart_toStartOf="@+id/fragment_add_food_protein"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_carbs_textview" />
-
-            <TextView
-                android:id="@+id/fragment_add_food_fat_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Fat (g):"
-                android:textColor="@android:color/tertiary_text_dark"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_carbs_textview" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_fat"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="0"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_fat_textview"
-                app:layout_constraintStart_toStartOf="@+id/fragment_add_food_carbs"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_fat_textview" />
-
-            <CheckBox
-                android:id="@+id/fragment_add_food_isfavorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Favorite"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_name" />
-
-            <TextView
-                android:id="@+id/fragment_add_food_servings_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/dialog_add_food_servings_textview_metric"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_fat_textview" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_serving1_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ems="10"
-                android:hint="Small"
-                android:inputType="textPersonName"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_servings_textview" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_serving1_size"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="25dp"
-                android:ems="10"
-                android:hint="@string/dialog_add_food_serving1_hint_metric"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving1_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving1_name"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving1_name" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_serving2_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ems="10"
-                android:hint="Medium"
-                android:inputType="textPersonName"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving1_name" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_serving2_size"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="25dp"
-                android:ems="10"
-                android:hint="@string/dialog_add_food_serving2_hint_metric"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving2_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving2_name"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving2_name"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_serving3_size"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="25dp"
-                android:ems="10"
-                android:hint="@string/dialog_add_food_serving3_hint_metric"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving3_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving3_name"
-                app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving3_name"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <EditText
-                android:id="@+id/fragment_add_food_serving3_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="0dp"
-                android:ems="10"
-                android:hint="Large"
-                android:inputType="textPersonName"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_add_food_cancel_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving2_name" />
-
-            <Button
-                android:id="@+id/fragment_add_food_cancel_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Cancel"
-                app:layout_constraintEnd_toStartOf="@+id/fragment_add_food_add_button"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving3_name" />
-
-            <Button
-                android:id="@+id/fragment_add_food_add_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Add"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving3_name" />
+                <Button
+                    android:id="@+id/fragment_add_food_add_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="Add"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 
 

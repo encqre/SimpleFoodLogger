@@ -30,7 +30,6 @@ public class AddFoodFragment extends Fragment {
     private EditText mProtein;
     private EditText mCarbs;
     private EditText mFat;
-    private CheckBox mFavorite;
     private EditText mServing1Name;
     private EditText mServing1Size;
     private EditText mServing2Name;
@@ -86,7 +85,6 @@ public class AddFoodFragment extends Fragment {
         mCarbs.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mFat = (EditText) v.findViewById(R.id.fragment_add_food_fat);
         mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mFavorite = (CheckBox) v.findViewById(R.id.fragment_add_food_isfavorite);
         mServing1Name = (EditText) v.findViewById(R.id.fragment_add_food_serving1_name);
         mServing1Size = (EditText) v.findViewById(R.id.fragment_add_food_serving1_size);
         mServing1Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -128,7 +126,7 @@ public class AddFoodFragment extends Fragment {
                         food.setProtein(Float.parseFloat(mProtein.getText().toString()));
                         food.setCarbs(Float.parseFloat(mCarbs.getText().toString()));
                         food.setFat(Float.parseFloat(mFat.getText().toString()));
-                        food.setFavorite(mFavorite.isChecked());
+                        food.setFavorite(false);
                         food.setHidden(false);
                         if (mServing1Name.getText().toString().equals("")) {
                             food.setPortion1Name("Small");
