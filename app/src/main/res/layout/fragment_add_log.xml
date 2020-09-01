@@ -237,7 +237,8 @@
 
             <Button
                 android:id="@+id/fragment_add_log_date_button"
-                style="?attr/materialButtonOutlinedStyle"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/slightlyLightGray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
@@ -263,8 +264,6 @@
         android:paddingTop="8dp"
         android:elevation="16dp"
         android:outlineProvider="bounds">
-
-
 
         <Button
             android:id="@+id/fragment_add_log_cancel_button"

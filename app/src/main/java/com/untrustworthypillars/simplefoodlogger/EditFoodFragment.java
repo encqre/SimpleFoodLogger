@@ -61,7 +61,6 @@ public class EditFoodFragment extends Fragment {
     private EditText mProtein;
     private EditText mCarbs;
     private EditText mFat;
-    private CheckBox mFavorite;
     private EditText mServing1Name;
     private EditText mServing1Size;
     private EditText mServing2Name;
@@ -134,7 +133,6 @@ public class EditFoodFragment extends Fragment {
         mCarbs.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mFat = (EditText) v.findViewById(R.id.fragment_edit_food_fat);
         mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mFavorite = (CheckBox) v.findViewById(R.id.fragment_edit_food_isfavorite);
         mServing1Name = (EditText) v.findViewById(R.id.fragment_edit_food_serving1_name);
         mServing1Size = (EditText) v.findViewById(R.id.fragment_edit_food_serving1_size);
         mServing1Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -151,7 +149,6 @@ public class EditFoodFragment extends Fragment {
         mProtein.setText(food.getProtein().toString());
         mCarbs.setText(food.getCarbs().toString());
         mFat.setText(food.getFat().toString());
-        mFavorite.setChecked(food.isFavorite());
         mServing1Name.setText(food.getPortion1Name());
         mServing2Name.setText(food.getPortion2Name());
         mServing3Name.setText(food.getPortion3Name());
@@ -197,8 +194,8 @@ public class EditFoodFragment extends Fragment {
                     food.setProtein(Float.parseFloat(mProtein.getText().toString()));
                     food.setCarbs(Float.parseFloat(mCarbs.getText().toString()));
                     food.setFat(Float.parseFloat(mFat.getText().toString()));
-                    food.setFavorite(mFavorite.isChecked());
-//                  food.setHidden(false);
+//                    food.setFavorite(food.isFavorite());
+//                    food.setHidden(false);
                     if (mServing1Name.getText().toString().equals("")) {
                         food.setPortion1Name("Small");
                     } else {

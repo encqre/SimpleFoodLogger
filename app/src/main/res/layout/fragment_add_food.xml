@@ -20,14 +20,18 @@
                 android:id="@+id/fragment_add_food_section_general"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true">
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginHorizontal="8dp"
+                android:paddingBottom="8dp"
+                android:background="@drawable/card_border_grey">
 
                 <TextView
                     android:id="@+id/fragment_add_food_category_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Category: "
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
@@ -62,9 +66,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
                     android:ems="10"
                     android:hint="Enter food name"
-                    app:layout_constraintStart_toStartOf="@+id/fragment_add_food_category_spinner"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_add_food_category_textview"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_category_spinner" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -73,7 +79,11 @@
                 android:id="@+id/fragment_add_food_section_nutrition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fragment_add_food_section_general">
+                android:layout_below="@id/fragment_add_food_section_general"
+                android:background="@drawable/card_border_grey"
+                android:paddingVertical="8dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:id="@+id/fragment_add_food_nutrition_textview"
@@ -91,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:text="Calories (kcal):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
@@ -104,8 +114,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:hint="0"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_calories_textview"
                     app:layout_constraintStart_toEndOf="@+id/fragment_add_food_calories_textview"
                     app:layout_constraintTop_toTopOf="@+id/fragment_add_food_calories_textview" />
@@ -115,7 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:text="Protein (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
@@ -127,8 +138,9 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:hint="0"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_protein_textview"
                     app:layout_constraintStart_toStartOf="@+id/fragment_add_food_calories"
                     app:layout_constraintTop_toTopOf="@+id/fragment_add_food_protein_textview" />
@@ -138,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:text="Carbs (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
@@ -150,8 +162,9 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:hint="0"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_carbs_textview"
                     app:layout_constraintStart_toStartOf="@+id/fragment_add_food_protein"
                     app:layout_constraintTop_toTopOf="@+id/fragment_add_food_carbs_textview" />
@@ -161,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="20dp"
                     android:text="Fat (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
@@ -173,8 +186,9 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:hint="0"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_fat_textview"
                     app:layout_constraintStart_toStartOf="@+id/fragment_add_food_carbs"
                     app:layout_constraintTop_toTopOf="@+id/fragment_add_food_fat_textview" />
@@ -185,7 +199,12 @@
                 android:id="@+id/fragment_add_food_section_servings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fragment_add_food_section_nutrition">
+                android:layout_below="@id/fragment_add_food_section_nutrition"
+                android:background="@drawable/card_border_grey"
+                android:paddingVertical="8dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="6dp">
 
                 <TextView
                     android:id="@+id/fragment_add_food_servings_textview"
@@ -207,6 +226,9 @@
                     android:hint="Small"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_servings_textview" />
 
@@ -214,13 +236,13 @@
                     android:id="@+id/fragment_add_food_serving1_size"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="24dp"
+                    android:background="@drawable/card_border_grey"
                     android:ems="10"
                     android:hint="@string/dialog_add_food_serving1_hint_metric"
+                    android:padding="6dp"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving1_name"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving1_name"
                     app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving1_name" />
 
@@ -233,6 +255,9 @@
                     android:hint="Medium"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving1_name" />
 
@@ -240,13 +265,13 @@
                     android:id="@+id/fragment_add_food_serving2_size"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="24dp"
                     android:ems="10"
                     android:hint="@string/dialog_add_food_serving2_hint_metric"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving2_name"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving2_name"
                     app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving2_name"
                     app:layout_constraintVertical_bias="1.0" />
@@ -255,13 +280,13 @@
                     android:id="@+id/fragment_add_food_serving3_size"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="24dp"
                     android:ems="10"
                     android:hint="@string/dialog_add_food_serving3_hint_metric"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_serving3_name"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/fragment_add_food_serving3_name"
                     app:layout_constraintTop_toTopOf="@+id/fragment_add_food_serving3_name"
                     app:layout_constraintVertical_bias="1.0" />
@@ -276,6 +301,9 @@
                     android:hint="Large"
                     android:inputType="textPersonName"
                     android:textSize="16sp"
+                    android:background="@drawable/card_border_grey"
+                    android:padding="6dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_serving2_name" />
 
@@ -286,8 +314,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
                 android:elevation="16dp"
                 android:outlineProvider="bounds"
                 android:layout_below="@id/fragment_add_food_section_servings"
