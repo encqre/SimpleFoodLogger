@@ -76,22 +76,15 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:clickable="true">
 
-            <Button
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
-                android:elevation="0dp"
-                android:outlineProvider="none"
                 android:clickable="false"
-                app:icon="@drawable/edit_icon_no_padding"
-                app:iconGravity="textStart"
-                app:iconPadding="0dp"
-                app:iconSize="24dp"
-                app:iconTint="@color/colorPrimary"
-                />
+                android:src="@drawable/edit_icon_no_padding"
+                android:background="@color/white"
+                android:padding="8dp"
+                android:tint="@color/colorPrimary"/>
 
             </FrameLayout>
 

@@ -571,7 +571,7 @@ public class SummaryFragment extends Fragment {
         String text3 = "Averages (" + (mPreferences.getBoolean("pref_stats_ignore_zero_kcal_days", false) ? "ex" : "in") + "cluding days with 0 kcal):\n";
         String text4 = "Calories: " + avgKcal.toString() + " kcal (";
         String kcalDeltaString = ((kcalDelta > 0) ? "+":"") + kcalDelta.toString();
-        String text5 = " to current daily target)\n";
+        String text5 = " compared to daily target)\n";
         String text6 = "Protein: " + avgProtein + "g, Carbs: " + avgCarbs + "g, Fat: " + avgFat + "g";
 
         //Spannable allows to color only certain part of Text/Textview
