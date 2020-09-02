@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
+
 
 public class HiddenFoodsActivity extends AppCompatActivity {
 
@@ -20,6 +22,8 @@ public class HiddenFoodsActivity extends AppCompatActivity {
         Intent intent = new Intent(packageContext, HiddenFoodsActivity.class);
         return intent;
     }
+
+    private static final int REQUEST_UNHIDE_ALL = 1;
 
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
@@ -53,7 +57,11 @@ public class HiddenFoodsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_unhide_all:
                 HiddenFoodsFragment frag = (HiddenFoodsFragment) getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
-                frag.unhideAllFoods();
+                String message = "Are you sure you want to restore all hidden food items?";
+                String title = "Restore all hidden foods?";
+                SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
+                dialog.setTargetFragment(frag, REQUEST_UNHIDE_ALL);
+                dialog.show(getSupportFragmentManager(), "delete_log");
                 return true;
             case android.R.id.home: //override toolbar back button to do same as bottom(hard) back button
                 this.onBackPressed();

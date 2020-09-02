@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_unhide_all"
-        android:title="Unhide all food items"
+        android:title="Restore all hidden food items"
         app:showAsAction="never"/>
 
 </menu>

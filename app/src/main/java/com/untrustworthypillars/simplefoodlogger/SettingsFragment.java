@@ -648,7 +648,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
         if (requestCode == REQUEST_HIDDEN_FOODS) {
-            Toast.makeText(getActivity(), "Hidden food list has been updated", Toast.LENGTH_SHORT).show();
             mHiddenFoods.setSummary("Number of hidden foods: " + FoodManager.get(getActivity()).getHiddenFoods("").size());
         }
 
