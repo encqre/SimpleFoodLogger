@@ -18,19 +18,22 @@ import androidx.preference.PreferenceManager;
 public class SetCaloriesFragment extends Fragment {
 
     private static final String ARG_MANUAL = "manual?";
+    private static final String ARG_IN_SETUP = "are we in setup?";
 
     private SharedPreferences mPreferences;
 
     private boolean mManual;
+    private boolean inSetup;
     private TextView mSetKcalUpperText;
     private EditText mSetKcalEditText;
     private TextView mSetKcalLowerText;
     private Button mSetKcalBackButton;
     private Button mSetKcalContinueButton;
 
-    public static SetCaloriesFragment newInstance (boolean manual) {
+    public static SetCaloriesFragment newInstance (boolean manual, boolean inSetup) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_MANUAL, manual);
+        args.putSerializable(ARG_IN_SETUP, inSetup);
 
         SetCaloriesFragment fragment = new SetCaloriesFragment();
         fragment.setArguments(args);
@@ -42,6 +45,7 @@ public class SetCaloriesFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_set_calories, container, false);
 
         mManual = (boolean) getArguments().getSerializable(ARG_MANUAL);
+        inSetup = (boolean) getArguments().getSerializable(ARG_IN_SETUP);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         String upperText;
@@ -79,6 +83,7 @@ public class SetCaloriesFragment extends Fragment {
         });
 
         mSetKcalContinueButton = (Button) v.findViewById(R.id.initial_setup_calories_set_button_continue);
+        mSetKcalContinueButton.setText(inSetup ? "CONTINUE" : "SAVE");
         mSetKcalContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -310,9 +310,8 @@ public class HomePageFragment extends Fragment {
 //TODO make this whole fragment layout a scrollpane - need to test on a low res phone first if its really needed
 //TODO fix issues arising switching to landscape mode
 //TODO verify if landscape layouts are ok
-//TODO possibly replace FAB with a different button? Maybe like first entry in log list with plus sign and "add a new log" or etc.
 //TODO fill tutorial texts once layout/design refresh is done
 //TODO Possible feature: Adding timestamps to food logs maybe?
 //TODO Possible feature: Group 1 or more food items into meals?
-//TODO Layout - homepage - datePicker in toolbar, foods - search in toolbar, stats - filter/sort in toolbar,
+//TODO Put some reasonable limits for numeric inputs in all forms/layouts
 

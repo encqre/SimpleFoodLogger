@@ -61,7 +61,7 @@ public class SetCaloriesActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
                 break;
             case STAGE_CONFIRM_KCAL:
-                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true)).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, mShowTitle)).commit();
                 break;
             default:
                 getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();

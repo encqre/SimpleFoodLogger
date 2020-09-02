@@ -63,7 +63,7 @@ public class SetCaloriesProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_set_calories_profile, container, false);
 
-        boolean showTitle = (boolean) getArguments().getSerializable(ARG_TITLE);
+        final boolean showTitle = (boolean) getArguments().getSerializable(ARG_TITLE);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
@@ -257,7 +257,7 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileManualButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true)).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, showTitle)).commit();
             }
         });
 
@@ -275,7 +275,7 @@ public class SetCaloriesProfileFragment extends Fragment {
                 } else if (mProfileHeightFtinButton.isChecked() && mProfileHeightFeet.getText().toString().equals("") && mProfileHeightIn.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill in your height", Toast.LENGTH_SHORT).show();
                 } else {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(false)).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(false, showTitle)).commit();
                 }
             }
         });
