@@ -78,7 +78,7 @@ public class SetCaloriesFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                mPreferences.edit().putString("pref_calories", mSetKcalEditText.getText().toString()).apply();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(false)).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(inSetup)).commit();
             }
         });
 
@@ -103,7 +103,7 @@ public class SetCaloriesFragment extends Fragment {
     }
 
     public String calculateKcalMifflinStJeor(){
-        float [] activityMultiplierTable = {1.2f,1.375f,1.465f,1.55f,1.725f};
+        float [] activityMultiplierTable = {1.2f,1.375f,1.465f,1.55f,1.725f,1.9f};
         float [] goalMutliplierTable = {1f,0.9f,0.8f,1.1f,1.2f};
 
         String gender = mPreferences.getString("pref_gender", "Male");
