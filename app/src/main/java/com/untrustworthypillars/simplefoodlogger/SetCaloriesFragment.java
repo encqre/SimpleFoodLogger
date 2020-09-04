@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
+
 public class SetCaloriesFragment extends Fragment {
 
     private static final String ARG_MANUAL = "manual?";
@@ -25,7 +27,7 @@ public class SetCaloriesFragment extends Fragment {
     private boolean mManual;
     private boolean inSetup;
     private TextView mSetKcalUpperText;
-    private EditText mSetKcalEditText;
+    private EditTextWithSuffix mSetKcalEditText;
     private TextView mSetKcalLowerText;
     private Button mSetKcalBackButton;
     private Button mSetKcalContinueButton;
@@ -68,7 +70,7 @@ public class SetCaloriesFragment extends Fragment {
         mSetKcalLowerText = (TextView) v.findViewById(R.id.initial_setup_calories_set_text_lower);
         mSetKcalLowerText.setText(lowerText);
 
-        mSetKcalEditText = (EditText) v.findViewById(R.id.initial_setup_calories_set_kcal_edittext);
+        mSetKcalEditText = (EditTextWithSuffix) v.findViewById(R.id.initial_setup_calories_set_kcal_edittext);
         mSetKcalEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
         mSetKcalEditText.setText(recommendedKcal);
         mSetKcalEditText.setHint(recommendedKcal);
