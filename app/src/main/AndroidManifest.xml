@@ -39,6 +39,7 @@
             android:parentActivityName=".LoggerActivity">
         </activity>
         <activity android:name=".SetMacrosActivity"
+            android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".LoggerActivity">
         </activity>
         <activity android:name=".SetCaloriesActivity">

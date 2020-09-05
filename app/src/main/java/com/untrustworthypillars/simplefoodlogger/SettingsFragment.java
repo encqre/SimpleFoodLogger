@@ -153,7 +153,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mMacros.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent intent = SetMacrosActivity.newIntent(getActivity());
+                Intent intent = SetMacrosActivity.newIntent(getActivity(), false);
                 startActivityForResult(intent, REQUEST_MACROS);
                 return true;
             }

@@ -13,13 +13,17 @@ import androidx.preference.PreferenceManager;
 
 public class SetMacrosActivity extends AppCompatActivity {
 
-    public static Intent newIntent(Context packageContext) {
+    private static final String EXTRA_IN_SETUP = "simplefoodlogger.insetup";
+
+    public static Intent newIntent(Context packageContext, boolean inSetup) {
         Intent intent = new Intent(packageContext, SetMacrosActivity.class);
+        intent.putExtra(EXTRA_IN_SETUP, inSetup);
         return intent;
     }
 
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
+    private boolean inSetup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +38,19 @@ public class SetMacrosActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_single_fragment);
 
+        inSetup = (boolean) getIntent().getSerializableExtra(EXTRA_IN_SETUP);
+
         mToolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
         setSupportActionBar(mToolbar);
 
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Set Macronutrient Targets");
         ab.setDisplayHomeAsUpEnabled(true);
+        if (inSetup) {
+            ab.hide();
+        }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, new SetMacrosFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetMacrosFragment.newInstance(inSetup)).commit();
 
     }
 

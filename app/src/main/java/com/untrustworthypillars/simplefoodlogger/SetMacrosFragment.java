@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 //TODO maybe add a question mark somewhere inside form, that would explain what is this, and what values are recommended.
 
 public class SetMacrosFragment extends Fragment {
+
+    private static final String ARG_IN_SETUP = "are we in setup?";
 
     private SharedPreferences mPreferences;
 
@@ -51,12 +54,26 @@ public class SetMacrosFragment extends Fragment {
     private TextView mBottomInfoText;
     private Button mSaveButton;
     private Button mCancelButton;
+    private TextView setMacrosTitle;
+    private ScrollView scrollView;
 
-    private Drawable defaultEditTextBackgroundDrawable;
+    private boolean viewCreateCompleted = false;
+    private boolean inSetup;
+
+    public static SetMacrosFragment newInstance (boolean inSetup) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_IN_SETUP, inSetup);
+
+        SetMacrosFragment fragment = new SetMacrosFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_set_macros, container, false);
+
+        inSetup = (boolean) getArguments().getSerializable(ARG_IN_SETUP);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "1999"));
@@ -71,6 +88,9 @@ public class SetMacrosFragment extends Fragment {
         mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400f);
         mTargetFat = Math.round(mTargetCalories * mTargetFatPercent / 900f);
 
+        setMacrosTitle = (TextView) v.findViewById(R.id.fragment_set_macros_title);
+        scrollView = (ScrollView) v.findViewById(R.id.fragment_set_macros_scrollview);
+
         mInputRadioGroup = (RadioGroup) v.findViewById(R.id.fragment_set_macros_radio_group);
         mInputRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
             @Override
@@ -80,9 +100,9 @@ public class SetMacrosFragment extends Fragment {
                         mProteinInputPercent.setText(String.valueOf(mTargetProteinPercentRecommended));
                         mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercentRecommended));
                         mFatInputPercent.setText(String.valueOf(mTargetFatPercentRecommended));
-                        mProteinInputPercent.setBackgroundResource(android.R.color.transparent);
-                        mCarbsInputPercent.setBackgroundResource(android.R.color.transparent);
-                        mFatInputPercent.setBackgroundResource(android.R.color.transparent);
+                        mProteinInputPercent.setTextColor(getResources().getColor(R.color.Gray));
+                        mCarbsInputPercent.setTextColor(getResources().getColor(R.color.Gray));
+                        mFatInputPercent.setTextColor(getResources().getColor(R.color.Gray));
                         mProteinInputPercent.setInputType(InputType.TYPE_NULL);
                         mCarbsInputPercent.setInputType(InputType.TYPE_NULL);
                         mFatInputPercent.setInputType(InputType.TYPE_NULL);
@@ -92,14 +112,17 @@ public class SetMacrosFragment extends Fragment {
                         mProteinInputPercent.setText(String.valueOf(mTargetProteinPercent));
                         mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercent));
                         mFatInputPercent.setText(String.valueOf(mTargetFatPercent));
-                        mProteinInputPercent.setBackground(defaultEditTextBackgroundDrawable);
-                        mCarbsInputPercent.setBackground(defaultEditTextBackgroundDrawable);
-                        mFatInputPercent.setBackground(defaultEditTextBackgroundDrawable);
+                        mProteinInputPercent.setTextColor(getResources().getColor(R.color.black));
+                        mCarbsInputPercent.setTextColor(getResources().getColor(R.color.black));
+                        mFatInputPercent.setTextColor(getResources().getColor(R.color.black));
                         mProteinInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
                         mCarbsInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
                         mFatInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
                         mBottomInfoText.setVisibility(View.VISIBLE);
                         setBottomInfoTexts();
+                        if (viewCreateCompleted) {
+                            mProteinInputPercent.requestFocus();
+                        }
                         break;
                     default:
                         break;
@@ -112,8 +135,7 @@ public class SetMacrosFragment extends Fragment {
 
         mProteinInputPercent = (EditTextWithSuffix) v.findViewById(R.id.fragment_set_macros_edit_protein_percent);
         mProteinInputPercent.setText(String.valueOf(mTargetProteinPercent));
-        defaultEditTextBackgroundDrawable = mProteinInputPercent.getBackground();
-
+        mProteinInputPercent.setHint(String.valueOf(mTargetProteinPercentRecommended));
         mProteinInputPercent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -143,8 +165,16 @@ public class SetMacrosFragment extends Fragment {
             }
         });
 
+        mProteinInputPercent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollUpLayout();
+            }
+        });
+
         mCarbsInputPercent = (EditTextWithSuffix) v.findViewById(R.id.fragment_set_macros_edit_carbs_percent);
         mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercent));
+        mCarbsInputPercent.setHint(String.valueOf(mTargetCarbsPercentRecommended));
         mCarbsInputPercent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -174,8 +204,25 @@ public class SetMacrosFragment extends Fragment {
             }
         });
 
+        mCarbsInputPercent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollUpLayout();
+            }
+        });
+
+        mCarbsInputPercent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (mCarbsInputPercent.hasFocus()) {
+                    scrollUpLayout();
+                }
+            }
+        });
+
         mFatInputPercent = (EditTextWithSuffix) v.findViewById(R.id.fragment_set_macros_edit_fat_percent);
         mFatInputPercent.setText(String.valueOf(mTargetFatPercent));
+        mFatInputPercent.setHint(String.valueOf(mTargetFatPercentRecommended));
         mFatInputPercent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -202,6 +249,20 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //
+            }
+        });
+        mFatInputPercent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollUpLayout();
+            }
+        });
+        mFatInputPercent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (mFatInputPercent.hasFocus()) {
+                    scrollUpLayout();
+                }
             }
         });
 
@@ -253,6 +314,13 @@ public class SetMacrosFragment extends Fragment {
 
         setBottomInfoTexts();
 
+        if (!inSetup){
+            setMacrosTitle.setVisibility(View.GONE);
+            mCancelButton.setText("Cancel");
+        }
+
+        viewCreateCompleted = true;
+
         return v;
     }
 
@@ -263,6 +331,21 @@ public class SetMacrosFragment extends Fragment {
         } else {
             mBottomInfoText.setTextColor(getResources().getColor(R.color.red));
         }
+    }
+
+    //This function scrolls down to bottom after keyboard comes up so that all field for input are visible
+    private void scrollUpLayout(){
+        scrollView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                View lastChild = scrollView.getChildAt(scrollView.getChildCount() - 1);
+                int bottom = lastChild.getBottom() + scrollView.getPaddingBottom();
+                int sy = scrollView.getScrollY();
+                int sh = scrollView.getHeight();
+                int delta = bottom - (sy + sh);
+                scrollView.smoothScrollBy(0, delta);
+            }
+        }, 200);
     }
 
     private void setRecommendedMacros(){

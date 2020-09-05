@@ -287,7 +287,7 @@ public class InitialSetupActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CALORIES) {
             if (resultCode == Activity.RESULT_OK) {
                 //launch macros setup
-                Intent intent = SetMacrosActivity.newIntent(InitialSetupActivity.this);
+                Intent intent = SetMacrosActivity.newIntent(InitialSetupActivity.this, true);
                 startActivityForResult(intent, REQUEST_MACROS);
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 setupUnits();
@@ -301,5 +301,7 @@ public class InitialSetupActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CALORIES);
             }
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -333,6 +333,7 @@
 
                 <Button
                     android:id="@+id/fragment_edit_food_cancel_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
