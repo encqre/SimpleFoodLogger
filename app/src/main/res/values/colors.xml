@@ -3,7 +3,6 @@
     <color name="colorPrimary">#303F9F</color>
     <color name="colorPrimaryDark">#001970</color>
     <color name="colorAccent">#303F9F</color>
-    <color name="colorPrimaryLight">#666ad1</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="veryLightGray">#f2f2f2</color>
@@ -11,9 +10,16 @@
     <color name="slightlyLightGray">#B8B8B8</color>
     <color name="Gray">#808080</color>
     <color name="darkGray">#3b3b3b</color>
+    <color name="darkerGray">#252525</color>
     <color name="veryDarkGray">#1a1a1a</color>
     <color name="red">#D50000</color>
     <color name="green">#00ff00</color>
     <color name="slightly_darker_green">#0bd400</color>
     <color name="colorComplementary">#9f9030</color>
+
+    <color name="darkThemeSurface">#121212</color>
+    <color name="darkThemeAccent">#7986CB</color>
+    <color name="darkThemePrimary">#9FA8DA</color>
+    <color name="darkThemeToolbar">#1f1f1f</color>
+    <color name="textOnDarkestSurface">#CCCCCC</color>
 </resources>

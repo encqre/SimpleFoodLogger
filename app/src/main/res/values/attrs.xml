@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--  Home Page specific attributes  -->
-    <attr format="color" name="homePageConstraintLayoutBackgroundColor"/>
-    <attr format="color" name="homePageTextColor"/>
-    <attr format="reference" name="homePageProgressBarStyle"/>
+    <attr format="reference" name="progressBarStyle"/>
+    <attr format="color" name="bottomTabBarSelectedColor"/>
 
     <!--  List item specific attributes  -->
+    <attr format="color" name="listItemTitleTextColor"/>
     <attr format="color" name="listItemMacroTextColor"/>
     <attr format="color" name="listItemKcalTextColor"/>
-    <attr format="color" name="listItemSeparatorColor"/>
+
 
     <!--  Food List Fragment specific attributes  -->
     <attr format="reference" name="LoggerToolbarSearchViewStyle"/>
+
+    <!--  Toolbar specific attributes  -->
+    <attr format="color" name="toolbarBackgroundColor"/>
+
+    <!--  Generic background color attributes  -->
+    <attr format="color" name="genericSurfaceColor"/>
+    <attr format="color" name="recyclerViewBackgroundColor"/>
+    <attr format="color" name="recyclerViewItemBackgroundColor"/>
+    <attr format="color" name="recyclerViewItemSeparatorColor"/>
+
+    <!--  Generic text color attributes  -->
+    <attr format="color" name="textOnGenericSurfaceColor"/>
+    <attr format="color" name="textOnToolbarColor"/>
+
 </resources>

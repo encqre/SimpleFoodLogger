@@ -7,14 +7,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:clipToPadding="false"
-    android:background="@color/lightGray">
+    android:background="?attr/recyclerViewBackgroundColor">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/home_page_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
+        android:background="?attr/toolbarBackgroundColor"
         android:elevation="4dp"
         app:contentInsetStart="0dp"
         app:titleMargin="0dp" />
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:background="?attr/homePageConstraintLayoutBackgroundColor"
+        android:background="?attr/genericSurfaceColor"
         android:layout_below="@id/home_page_toolbar"
         android:elevation="8dp"
         android:outlineProvider="background"
@@ -39,7 +39,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:text="Calories: 756 / 3090"
-            android:textColor="?attr/homePageTextColor"
+            android:textColor="?attr/textOnGenericSurfaceColor"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
 
         <ProgressBar
             android:id="@+id/progress_bar_calories"
-            android:theme="?attr/homePageProgressBarStyle"
+            android:theme="?attr/progressBarStyle"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
@@ -69,14 +69,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Protein: 12/180g"
-            android:textColor="?attr/homePageTextColor"
+            android:textColor="?attr/textOnGenericSurfaceColor"
             app:layout_constraintEnd_toStartOf="@+id/textview_carbs"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
 
         <ProgressBar
             android:id="@+id/progress_bar_protein"
-            android:theme="?attr/homePageProgressBarStyle"
+            android:theme="?attr/progressBarStyle"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
@@ -96,14 +96,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Carbs: 75/225g"
-            android:textColor="?attr/homePageTextColor"
+            android:textColor="?attr/textOnGenericSurfaceColor"
             app:layout_constraintEnd_toEndOf="@+id/textview_calories"
             app:layout_constraintStart_toStartOf="@+id/textview_calories"
             app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
 
         <ProgressBar
             android:id="@+id/progress_bar_carbs"
-            android:theme="?attr/homePageProgressBarStyle"
+            android:theme="?attr/progressBarStyle"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
@@ -124,14 +124,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Fat: 30/95g"
-            android:textColor="?attr/homePageTextColor"
+            android:textColor="?attr/textOnGenericSurfaceColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textview_carbs"
             app:layout_constraintTop_toBottomOf="@+id/progress_bar_calories" />
 
         <ProgressBar
             android:id="@+id/progress_bar_fat"
-            android:theme="?attr/homePageProgressBarStyle"
+            android:theme="?attr/progressBarStyle"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
@@ -151,8 +151,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_day_counters"
         android:layout_marginTop="2dp"
-        android:background="@color/lightGray"
-        android:clipToPadding="false"></androidx.recyclerview.widget.RecyclerView>
+        android:background="?attr/recyclerViewBackgroundColor"
+        android:clipToPadding="false">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -164,8 +166,8 @@
         android:layout_gravity="end|bottom"
         android:src="@drawable/plus_sign"
         android:tint="@color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:rippleColor="@color/colorPrimaryDark"
+        app:backgroundTint="?attr/colorPrimary"
+        app:rippleColor="?attr/colorPrimaryDark"
         app:borderWidth="2dp"
         app:useCompatPadding="true" />
 

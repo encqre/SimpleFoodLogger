@@ -20,6 +20,8 @@
         android:layout_alignParentBottom="true"
         android:elevation="16dp"
         android:outlineProvider="bounds"
+        app:tabIconTint="@color/logger_tab_icon_color_selector"
+        app:tabTextColor="@color/logger_tab_icon_color_selector"
         app:tabGravity="fill"
         app:tabIndicatorGravity="top"
         app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Overline">
