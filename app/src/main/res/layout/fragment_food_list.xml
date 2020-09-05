@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:clipToPadding="false"
-    android:background="@color/lightGray">
+    android:background="?attr/recyclerViewBackgroundColor">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/food_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
+        android:background="?attr/toolbarBackgroundColor"
         android:elevation="4dp"
         app:contentInsetStartWithNavigation="0dp"
         app:contentInsetStart="0dp"
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/food_list_tabs"
-        android:background="@color/lightGray"
+        android:background="?attr/recyclerViewBackgroundColor"
         android:clipToPadding="false">
 
     </androidx.recyclerview.widget.RecyclerView>

@@ -23,8 +23,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-<!--            android:background="@drawable/card_border">-->
+            android:layout_height="match_parent"
+            android:background="?attr/recyclerViewItemBackgroundColor">
 
             <TextView
                 android:id="@+id/list_item_food_name"
@@ -34,6 +34,7 @@
                 android:layout_marginTop="8dp"
                 tools:text="Cooked Chicken with a dash of salt"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="?attr/listItemTitleTextColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +46,7 @@
                 android:paddingVertical="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/colorComplementary"
+                android:textColor="@color/foodTypeCustomColor"
                 android:textSize="10dp"
                 android:text="@string/list_item_food_type_custom"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
@@ -60,9 +61,9 @@
                 android:layout_height="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@color/white"
+                android:background="?attr/recyclerViewItemBackgroundColor"
                 android:src="@drawable/star_border"
-                android:tint="@color/colorPrimary"
+                android:tint="?attr/colorPrimary"
                 app:layout_constraintEnd_toStartOf="@+id/list_item_food_edit"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,12 +80,11 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="?attr/recyclerViewItemBackgroundColor"
                 android:clickable="false"
                 android:src="@drawable/edit_icon_no_padding"
-                android:background="@color/white"
                 android:padding="8dp"
-                android:tint="@color/colorPrimary"/>
+                android:tint="?attr/colorPrimary"/>
 
             </FrameLayout>
 
@@ -97,7 +97,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="?attr/listItemKcalTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:typeface="monospace"
@@ -114,7 +114,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_item_food_calories"
-                android:background="@color/lightGray"
+                android:background="?attr/recyclerViewItemSeparatorColor"
                 android:visibility="visible"
                 />
 
@@ -126,7 +126,7 @@
                 android:layout_marginTop="8dp"
                 tools:text="Protein: 21g"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_item_food_calories" />
 
@@ -138,7 +138,7 @@
                 android:layout_marginEnd="16dp"
                 tools:text="Fat: 8g"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_item_food_calories" />
 
@@ -151,7 +151,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/list_item_food_fat"
                 app:layout_constraintStart_toEndOf="@+id/list_item_food_protein"

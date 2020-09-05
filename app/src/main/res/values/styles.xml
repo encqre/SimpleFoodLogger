@@ -21,6 +21,9 @@
         <item name="recyclerViewBackgroundColor">@color/lightGray</item>
         <item name="recyclerViewItemBackgroundColor">@color/white</item>
         <item name="bottomTabBarSelectedColor">@color/colorPrimary</item>
+        <item name="foodTypeCustomColor">@color/foodTypeCustomColor</item>
+        <item name="foodTypeCommonColor">@color/colorPrimary</item>
+        <item name="foodTypeUSDAColor">@color/veryDarkGray</item>
     </style>
 
     <!-- Dark application theme -->
@@ -45,22 +48,25 @@
         <item name="recyclerViewBackgroundColor">@color/darkerGray</item>
         <item name="recyclerViewItemBackgroundColor">@color/darkGray</item>
         <item name="bottomTabBarSelectedColor">@color/darkThemeAccent</item>
+        <item name="foodTypeCustomColor">@color/foodTypeCustomColor</item>
+        <item name="foodTypeCommonColor">@color/darkThemePrimary</item>
+        <item name="foodTypeUSDAColor">@color/slightlyLightGray</item>
     </style>
 
     <!-- Tab Layout styles -->
 
     <style name="LoggerTabStyleLight" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:background">@color/white</item>
+<!--        <item name="tabBackground">@color/white</item>-->
         <item name="tabTextColor">@color/darkGray</item>
         <item name="tabSelectedTextColor">@color/black</item>
         <item name="tabIndicatorColor">@color/colorPrimary</item>
     </style>
 
     <style name="LoggerTabStyleDark" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:background">@color/veryDarkGray</item>
+<!--        <item name="tabBackground">@color/darkThemeSurface</item>-->
         <item name="tabTextColor">@color/lightGray</item>
         <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabIndicatorColor">@color/darkThemeAccent</item>
     </style>
 
     <!-- Progress Bar styles -->

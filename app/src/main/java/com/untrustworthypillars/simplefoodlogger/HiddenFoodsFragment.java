@@ -160,8 +160,8 @@ public class HiddenFoodsFragment extends Fragment {
             switch (food.getType()) {
                 case 0:
                     foodTypeText.setText(getString(R.string.list_item_food_type_custom));
-                    foodTypeText.setTextColor(getResources().getColor(R.color.colorComplementary));
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.colorComplementary));
+                    foodTypeText.setTextColor(getResources().getColor(R.color.foodTypeCustomColor));
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.foodTypeCustomColor));
                     break;
                 case 1:
                     foodTypeText.setText(getString(R.string.list_item_food_type_common));

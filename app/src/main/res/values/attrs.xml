@@ -26,4 +26,9 @@
     <attr format="color" name="textOnGenericSurfaceColor"/>
     <attr format="color" name="textOnToolbarColor"/>
 
+    <!--  Food type color attributes  -->
+    <attr format="color" name="foodTypeCustomColor"/>
+    <attr format="color" name="foodTypeCommonColor"/>
+    <attr format="color" name="foodTypeUSDAColor"/>
+
 </resources>

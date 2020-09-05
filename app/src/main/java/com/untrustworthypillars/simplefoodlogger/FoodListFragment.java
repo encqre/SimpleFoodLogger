@@ -3,6 +3,7 @@ package com.untrustworthypillars.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
 import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +26,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,6 +123,10 @@ public class FoodListFragment extends Fragment {
 
     private float logicalDensity;
 
+    @ColorInt int foodTypeCustomColor;
+    @ColorInt int foodTypeCommonColor;
+    @ColorInt int foodTypeUSDAColor;
+
     /** Method to change the selected Tab programmatically*/
     public void setTab(int i) {
         TabLayout.Tab tab = mTabLayout.getTabAt(i);
@@ -189,6 +196,16 @@ public class FoodListFragment extends Fragment {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUnits = mPreferences.getString("pref_units", "Metric");
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(R.attr.foodTypeCustomColor, typedValue, true);
+        foodTypeCustomColor = typedValue.data;
+        theme.resolveAttribute(R.attr.foodTypeCommonColor, typedValue, true);
+        foodTypeCommonColor = typedValue.data;
+        theme.resolveAttribute(R.attr.foodTypeUSDAColor, typedValue, true);
+        foodTypeUSDAColor = typedValue.data;
+
 
         mTabLayout = (TabLayout) v.findViewById(R.id.food_list_tabs);
         /* On Click listener for the tabs. Tab positions are numbered from 0. When selected Tab changes, we check what is the selected tab position
@@ -581,18 +598,18 @@ public class FoodListFragment extends Fragment {
             switch (food.getType()) {
                 case 0:
                     foodTypeText.setText(getString(R.string.list_item_food_type_custom));
-                    foodTypeText.setTextColor(getResources().getColor(R.color.colorComplementary));
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.colorComplementary));
+                    foodTypeText.setTextColor(foodTypeCustomColor);
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeCustomColor);
                     break;
                 case 1:
                     foodTypeText.setText(getString(R.string.list_item_food_type_common));
-                    foodTypeText.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.colorPrimary));
+                    foodTypeText.setTextColor(foodTypeCommonColor);
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeCommonColor);
                     break;
                 case 2:
                     foodTypeText.setText(getString(R.string.list_item_food_type_usda));
-                    foodTypeText.setTextColor(getResources().getColor(R.color.veryDarkGray));
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.veryDarkGray));
+                    foodTypeText.setTextColor(foodTypeUSDAColor);
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeUSDAColor);
                     break;
             }
             mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
@@ -652,13 +669,6 @@ public class FoodListFragment extends Fragment {
         @Override
         public void onBindViewHolder(FoodHolder holder, int position) {
             holder.bind(mFoods.get(position));
-//            if (mFoods.get(position).getType() == 0) {
-//                holder.itemView.setBackgroundColor(Color.rgb(194, 217, 255));
-//            } else if (mFoods.get(position).getType() == 1) {
-//                holder.itemView.setBackgroundColor(Color.rgb(186, 224, 191));
-//            } else {
-//                holder.itemView.setBackgroundColor(Color.rgb(224, 197, 188));
-//            }
         }
 
         @Override

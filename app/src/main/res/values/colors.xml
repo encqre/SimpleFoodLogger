@@ -15,7 +15,8 @@
     <color name="red">#D50000</color>
     <color name="green">#00ff00</color>
     <color name="slightly_darker_green">#0bd400</color>
-    <color name="colorComplementary">#9f9030</color>
+
+    <color name="foodTypeCustomColor">#9f9030</color>
 
     <color name="darkThemeSurface">#121212</color>
     <color name="darkThemeAccent">#7986CB</color>
