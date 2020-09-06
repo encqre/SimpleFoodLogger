@@ -11,6 +11,7 @@
         <item name="progressBarStyle">@style/progressBarStyleLight</item>
         <item name="genericSurfaceColor">@color/white</item>
         <item name="textOnGenericSurfaceColor">@color/black</item>
+        <item name="textOnAccentColor">@color/white</item>
         <item name="listItemTitleTextColor">@color/black</item>
         <item name="listItemMacroTextColor">@color/darkGray</item>
         <item name="listItemKcalTextColor">@color/colorPrimary</item>
@@ -19,10 +20,11 @@
         <item name="LoggerToolbarSearchViewStyle">@style/LoggerToolbarSearchViewStyleLight</item>
         <item name="toolbarBackgroundColor">@color/colorPrimary</item>
         <item name="recyclerViewBackgroundColor">@color/lightGray</item>
+        <item name="textOnRecyclerViewBackgroundColor">@color/darkGray</item>
         <item name="recyclerViewItemBackgroundColor">@color/white</item>
         <item name="bottomTabBarSelectedColor">@color/colorPrimary</item>
         <item name="foodTypeCustomColor">@color/foodTypeCustomColor</item>
-        <item name="foodTypeCommonColor">@color/colorPrimary</item>
+        <item name="foodTypeCommonColor">@color/colorAccent</item>
         <item name="foodTypeUSDAColor">@color/veryDarkGray</item>
     </style>
 
@@ -38,6 +40,7 @@
         <item name="progressBarStyle">@style/progressBarStyleDark</item>
         <item name="genericSurfaceColor">@color/darkThemeSurface</item>
         <item name="textOnGenericSurfaceColor">@color/textOnDarkestSurface</item>
+        <item name="textOnAccentColor">@color/black</item>
         <item name="android:colorBackground">@color/darkThemeSurface</item>
         <item name="listItemTitleTextColor">@color/lightGray</item>
         <item name="listItemMacroTextColor">@color/slightlyLightGray</item>
@@ -46,10 +49,11 @@
         <item name="LoggerToolbarSearchViewStyle">@style/LoggerToolbarSearchViewStyleDark</item>
         <item name="toolbarBackgroundColor">@color/darkThemeToolbar</item>
         <item name="recyclerViewBackgroundColor">@color/darkerGray</item>
+        <item name="textOnRecyclerViewBackgroundColor">@color/lightGray</item>
         <item name="recyclerViewItemBackgroundColor">@color/darkGray</item>
         <item name="bottomTabBarSelectedColor">@color/darkThemeAccent</item>
         <item name="foodTypeCustomColor">@color/foodTypeCustomColor</item>
-        <item name="foodTypeCommonColor">@color/darkThemePrimary</item>
+        <item name="foodTypeCommonColor">@color/darkThemeAccent</item>
         <item name="foodTypeUSDAColor">@color/slightlyLightGray</item>
     </style>
 

@@ -18,7 +18,7 @@
 
     <color name="foodTypeCustomColor">#9f9030</color>
 
-    <color name="darkThemeSurface">#121212</color>
+    <color name="darkThemeSurface">#1B1B1B</color>
     <color name="darkThemeAccent">#7986CB</color>
     <color name="darkThemePrimary">#9FA8DA</color>
     <color name="darkThemeToolbar">#1f1f1f</color>

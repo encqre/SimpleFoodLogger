@@ -63,7 +63,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="?attr/recyclerViewItemBackgroundColor"
                 android:src="@drawable/star_border"
-                android:tint="?attr/colorPrimary"
+                android:tint="?attr/colorAccent"
                 app:layout_constraintEnd_toStartOf="@+id/list_item_food_edit"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +84,7 @@
                 android:clickable="false"
                 android:src="@drawable/edit_icon_no_padding"
                 android:padding="8dp"
-                android:tint="?attr/colorPrimary"/>
+                android:tint="?attr/colorAccent"/>
 
             </FrameLayout>
 

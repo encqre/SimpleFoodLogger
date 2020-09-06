@@ -3,10 +3,12 @@ package com.untrustworthypillars.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -79,6 +82,8 @@ public class SummaryFragment extends Fragment {
     private int selectedSortFoodId;
     private int selectedSortFoodParentId;
 
+    @ColorInt int accentColor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +132,11 @@ public class SummaryFragment extends Fragment {
         mLogManager = LogManager.get(getContext());
         mSummaryRecyclerView = (RecyclerView) v.findViewById(R.id.summary_recycler);
         mSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
+        accentColor = typedValue.data;
 
         mSummaryText = (TextView) v.findViewById(R.id.summary_text_summary);
 
@@ -577,7 +587,7 @@ public class SummaryFragment extends Fragment {
         //Spannable allows to color only certain part of Text/Textview
         Spannable spannable = new SpannableString(text1 + text2 + text3 + text4 + kcalDeltaString + text5 + text6);
         spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, (text1+text2).length(), 0);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(accentColor), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannable.setSpan(new ForegroundColorSpan(getResources().getColor(kcalDelta > 0 ? R.color.red : R.color.green)), (text1+text2+text3+text4).length(), (text1+text2+text3+text4+kcalDeltaString).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mSummaryText.setText(spannable, TextView.BufferType.SPANNABLE);
 
@@ -594,7 +604,7 @@ public class SummaryFragment extends Fragment {
         //Spannable allows to color only certain part of Text/Textview
         Spannable spannable = new SpannableString(text1 + text2);
         spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, (text1+text2).length(), 0);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimary)), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(accentColor), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mSummaryText.setText(spannable, TextView.BufferType.SPANNABLE);
 
         String dayDateText = Calculations.dateToDateText(start); //convert to dateText to allow easy comparison

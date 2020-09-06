@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:clipToPadding="false"
-    android:background="@color/lightGray">>
+    android:background="?attr/recyclerViewBackgroundColor">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_summary_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-  />
+        android:background="?attr/toolbarBackgroundColor"
+        android:elevation="4dp"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/summary_tabs"
@@ -50,8 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/summary_tabs"
-        android:background="@color/white"
-        android:textColor="@color/black"
+        android:background="?attr/genericSurfaceColor"
+        android:textColor="?attr/textOnGenericSurfaceColor"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1"
         android:elevation="8dp"
         android:outlineProvider="background"
@@ -63,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/summary_text_summary"
-        android:background="@color/lightGray"
+        android:background="?attr/recyclerViewBackgroundColor"
         android:clipToPadding="false">
 
     </androidx.recyclerview.widget.RecyclerView>

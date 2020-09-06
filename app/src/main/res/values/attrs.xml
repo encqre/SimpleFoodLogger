@@ -24,7 +24,9 @@
 
     <!--  Generic text color attributes  -->
     <attr format="color" name="textOnGenericSurfaceColor"/>
+    <attr format="color" name="textOnRecyclerViewBackgroundColor"/>
     <attr format="color" name="textOnToolbarColor"/>
+    <attr format="color" name="textOnAccentColor"/>
 
     <!--  Food type color attributes  -->
     <attr format="color" name="foodTypeCustomColor"/>

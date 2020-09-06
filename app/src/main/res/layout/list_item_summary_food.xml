@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="?attr/recyclerViewItemBackgroundColor"
     android:id="@+id/list_item_summary_food_layout">
 
     <TextView
@@ -15,7 +15,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:textColor="?attr/listItemTitleTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textColor="?attr/listItemMacroTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_item_summary_food_name"
         tools:text="Count: 59" />
@@ -39,7 +42,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/listItemKcalTextColor"
         android:textSize="16sp"
         android:textStyle="bold"
         android:typeface="monospace"
@@ -54,7 +57,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-        android:textColor="@color/darkGray"
+        android:textColor="?attr/listItemMacroTextColor"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/list_item_summary_food_calories"
         app:layout_constraintTop_toBottomOf="@+id/list_item_summary_food_name"
@@ -68,6 +71,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:textColor="?attr/listItemTitleTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_item_summary_food_calories"
@@ -77,7 +81,7 @@
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
+        android:background="?attr/recyclerViewItemSeparatorColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_item_summary_food_date" />
 

@@ -9,7 +9,7 @@
         android:id="@+id/fragment_settings_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="?attr/toolbarBackgroundColor"
         android:elevation="4dp"/>
 
     <FrameLayout

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="?attr/recyclerViewItemBackgroundColor">
 
     <TextView
         android:id="@+id/list_item_summary_log_date"
@@ -15,6 +15,7 @@
         android:layout_marginBottom="8dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textSize="16sp"
+        android:textColor="?attr/listItemTitleTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +29,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="?attr/listItemKcalTextColor"
         android:textSize="16sp"
         android:textStyle="bold"
         android:typeface="monospace"
@@ -54,7 +55,7 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-            android:textColor="@color/darkGray"
+            android:textColor="?attr/listItemMacroTextColor"
             android:textSize="16sp"
             android:textAlignment="textEnd"
             android:text="P:" />
@@ -64,7 +65,7 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 android:textSize="16sp"
                 android:textAlignment="textEnd"
                 android:text="265g" />
@@ -73,7 +74,7 @@
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 android:textSize="16sp"
                 android:textAlignment="textEnd"
                 android:text="C:" />
@@ -83,7 +84,7 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 android:textSize="16sp"
             android:textAlignment="textEnd"
                 android:text="323g" />
@@ -92,7 +93,7 @@
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 android:textSize="16sp"
             android:textAlignment="textEnd"
                 android:text="F:" />
@@ -102,7 +103,7 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/darkGray"
+                android:textColor="?attr/listItemMacroTextColor"
                 android:textSize="16sp"
             android:textAlignment="textEnd"
                 android:text="323g" />
@@ -114,7 +115,7 @@
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
+        android:background="?attr/recyclerViewItemSeparatorColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_item_summary_log_date" />
 
