@@ -26,6 +26,7 @@
         <item name="foodTypeCustomColor">@color/foodTypeCustomColor</item>
         <item name="foodTypeCommonColor">@color/colorAccent</item>
         <item name="foodTypeUSDAColor">@color/veryDarkGray</item>
+        <item name="cardBorderColor">@color/slightlyLightGray</item>
     </style>
 
     <!-- Dark application theme -->
@@ -55,6 +56,7 @@
         <item name="foodTypeCustomColor">@color/foodTypeCustomColor</item>
         <item name="foodTypeCommonColor">@color/darkThemeAccent</item>
         <item name="foodTypeUSDAColor">@color/slightlyLightGray</item>
+        <item name="cardBorderColor">@color/slightlyDarkGray</item>
     </style>
 
     <!-- Tab Layout styles -->

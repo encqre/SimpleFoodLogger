@@ -32,6 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="Category: "
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_category_spinner"
@@ -60,6 +61,7 @@
                     android:text="Name: "
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_add_food_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_category_spinner" />
@@ -96,6 +98,7 @@
                     android:text="@string/dialog_add_food_nutrition_textview_metric"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,6 +109,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="12dp"
                     android:text="Calories (kcal):"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -133,6 +137,7 @@
                     android:text="Protein (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_calories_textview" />
 
@@ -155,6 +160,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="20dp"
                     android:text="Carbs (g):"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -181,6 +187,7 @@
                     android:text="Fat (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_add_food_carbs_textview" />
 
@@ -217,6 +224,7 @@
                     android:text="@string/dialog_add_food_servings_textview_metric"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -316,7 +324,7 @@
                 android:id="@+id/fragment_add_food_section_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="?attr/genericSurfaceColor"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
                 android:elevation="16dp"
@@ -339,6 +347,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:backgroundTint="?attr/colorAccent"
+                    android:textColor="?attr/textOnAccentColor"
                     android:text="Add"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -348,5 +358,3 @@
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
-
-

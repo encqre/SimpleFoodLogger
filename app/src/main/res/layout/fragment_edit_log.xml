@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:background="@color/white"
+                android:background="?attr/genericSurfaceColor"
                 android:elevation="16dp"
                 android:outlineProvider="bounds">
 
@@ -38,6 +38,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -53,6 +54,7 @@
                     android:text="Calories:"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="18sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_food_title" />
 
@@ -61,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="?attr/listItemKcalTextColor"
                     android:layout_marginStart="16dp"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_calories_textview"
@@ -79,6 +81,7 @@
                     android:text="Protein:"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories_textview" />
 
@@ -105,6 +108,7 @@
                     android:paddingBottom="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_protein"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories" />
 
@@ -131,6 +135,7 @@
                     android:paddingBottom="8dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_carbs"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories" />
 
@@ -157,6 +162,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:text="@string/dialog_add_log_weight_textview_metric"
                 android:textSize="16sp"
+                android:textColor="?attr/textOnGenericSurfaceColor"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_weight"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_weight" />
@@ -184,6 +190,7 @@
                 android:text="Servings"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textSize="16sp"
+                android:textColor="?attr/textOnGenericSurfaceColor"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_serving_radio_group"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_serving_radio_group" />
@@ -231,6 +238,7 @@
                 android:text="Date"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textSize="16sp"
+                android:textColor="?attr/textOnGenericSurfaceColor"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_date_button"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_date_button" />
@@ -238,7 +246,7 @@
             <Button
                 android:id="@+id/fragment_edit_log_date_button"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                app:strokeColor="@color/slightlyLightGray"
+                app:strokeColor="?attr/cardBorderColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
@@ -259,7 +267,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="?attr/genericSurfaceColor"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:elevation="16dp"
@@ -291,6 +299,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="Save"
+            android:backgroundTint="?attr/colorAccent"
+            android:textColor="?attr/textOnAccentColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

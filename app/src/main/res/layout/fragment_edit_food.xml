@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginHorizontal="8dp"
                 android:paddingBottom="8dp"
                 android:background="@drawable/card_border_grey">
@@ -31,21 +31,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:text="Category: "
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_category_spinner"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_category_spinner" />
 
                 <Spinner
                     android:id="@+id/fragment_edit_food_category_spinner"
-                    android:layout_width="200dp"
+                    android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_category_textview"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/spinner_background_border_grey"
+                    android:entries="@array/food_categories_array"
+                    android:padding="6dp"
                     app:layout_constraintStart_toEndOf="@+id/fragment_edit_food_category_textview"
-                    app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_category_textview" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/fragment_edit_food_name_textview"
@@ -56,6 +60,7 @@
                     android:layout_marginBottom="8dp"
                     android:text="Name: "
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_name"
                     app:layout_constraintStart_toStartOf="parent"
@@ -65,12 +70,12 @@
                     android:id="@+id/fragment_edit_food_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/card_border_grey"
-                    android:padding="6dp"
                     android:ems="10"
                     android:hint="Enter food name"
-                    app:layout_constraintStart_toEndOf="@+id/fragment_edit_food_category_textview"
+                    android:padding="6dp"
+                    app:layout_constraintStart_toStartOf="@+id/fragment_edit_food_category_spinner"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_category_spinner" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,6 +97,7 @@
                     android:layout_marginStart="8dp"
                     android:text="@string/dialog_add_food_nutrition_textview_metric"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -104,6 +110,7 @@
                     android:layout_marginTop="12dp"
                     android:text="Calories (kcal):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_nutrition_textview" />
@@ -130,6 +137,7 @@
                     android:text="Protein (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_calories_textview" />
 
@@ -154,6 +162,7 @@
                     android:text="Carbs (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_protein_textview" />
 
@@ -178,6 +187,7 @@
                     android:text="Fat (g):"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="14sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_carbs_textview" />
 
@@ -201,10 +211,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/fragment_edit_food_section_nutrition"
                 android:background="@drawable/card_border_grey"
-                android:paddingVertical="8dp"
+                android:paddingVertical="6dp"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="6dp">
+                android:layout_marginBottom="4dp">
 
                 <TextView
                     android:id="@+id/fragment_edit_food_servings_textview"
@@ -214,6 +224,7 @@
                     android:text="@string/dialog_add_food_servings_textview_metric"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textSize="16sp"
+                    android:textColor="?attr/textOnGenericSurfaceColor"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -313,7 +324,7 @@
                 android:id="@+id/fragment_edit_food_section_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="?attr/genericSurfaceColor"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
                 android:elevation="16dp"
@@ -347,6 +358,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:text="Save"
+                    android:backgroundTint="?attr/colorAccent"
+                    android:textColor="?attr/textOnAccentColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -355,5 +368,3 @@
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
-
-
