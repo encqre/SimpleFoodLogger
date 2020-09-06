@@ -5,10 +5,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -45,6 +48,9 @@ public class HiddenFoodsFragment extends Fragment {
     private String mUnits;
 
     private float logicalDensity;
+    @ColorInt int foodTypeCustomColor;
+    @ColorInt int foodTypeCommonColor;
+    @ColorInt int foodTypeUSDAColor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +86,15 @@ public class HiddenFoodsFragment extends Fragment {
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         logicalDensity = metrics.density; //this density represents number of pixels per 1 dp unit
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(R.attr.foodTypeCustomColor, typedValue, true);
+        foodTypeCustomColor = typedValue.data;
+        theme.resolveAttribute(R.attr.foodTypeCommonColor, typedValue, true);
+        foodTypeCommonColor = typedValue.data;
+        theme.resolveAttribute(R.attr.foodTypeUSDAColor, typedValue, true);
+        foodTypeUSDAColor = typedValue.data;
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_hidden_foods_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -160,18 +175,18 @@ public class HiddenFoodsFragment extends Fragment {
             switch (food.getType()) {
                 case 0:
                     foodTypeText.setText(getString(R.string.list_item_food_type_custom));
-                    foodTypeText.setTextColor(getResources().getColor(R.color.foodTypeCustomColor));
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.foodTypeCustomColor));
+                    foodTypeText.setTextColor(foodTypeCustomColor);
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeCustomColor);
                     break;
                 case 1:
                     foodTypeText.setText(getString(R.string.list_item_food_type_common));
-                    foodTypeText.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.colorPrimary));
+                    foodTypeText.setTextColor(foodTypeCommonColor);
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeCommonColor);
                     break;
                 case 2:
                     foodTypeText.setText(getString(R.string.list_item_food_type_usda));
-                    foodTypeText.setTextColor(getResources().getColor(R.color.veryDarkGray));
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), getResources().getColor(R.color.veryDarkGray));
+                    foodTypeText.setTextColor(foodTypeUSDAColor);
+                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeUSDAColor);
                     break;
             }
             mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));

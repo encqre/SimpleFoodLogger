@@ -10,14 +10,15 @@
         android:paddingBottom="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:background="?attr/genericSurfaceColor">
 
         <TextView
             android:id="@+id/initial_setup_calories_set_text_upper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your recommended daily calorie target*:"
-            android:textColor="@color/black"
+            android:textColor="?attr/textOnGenericSurfaceColor"
             android:textSize="16dp"
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +47,7 @@
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
             android:text="*Based on your gender, age, weight, height, activity levels and goals, using Mifflin-St Jeor Equation."
-            android:textColor="@color/black"
+            android:textColor="?attr/textOnGenericSurfaceColor"
             android:textAlignment="center"
             android:textSize="12dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="?attr/genericSurfaceColor"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:elevation="16dp"
@@ -81,6 +82,8 @@
             android:layout_height="wrap_content"
             android:text="Continue"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="?attr/colorAccent"
+            android:textColor="?attr/textOnAccentColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select units"
-            android:textColor="@color/black"
+            android:textColor="?attr/textOnGenericSurfaceColor"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="?attr/genericSurfaceColor"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:elevation="16dp"
@@ -70,6 +70,8 @@
         android:layout_height="wrap_content"
         android:text="Continue"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="?attr/colorAccent"
+        android:textColor="?attr/textOnAccentColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

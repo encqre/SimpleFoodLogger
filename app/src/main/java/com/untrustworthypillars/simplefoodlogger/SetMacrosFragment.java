@@ -100,9 +100,9 @@ public class SetMacrosFragment extends Fragment {
                         mProteinInputPercent.setText(String.valueOf(mTargetProteinPercentRecommended));
                         mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercentRecommended));
                         mFatInputPercent.setText(String.valueOf(mTargetFatPercentRecommended));
-                        mProteinInputPercent.setTextColor(getResources().getColor(R.color.Gray));
-                        mCarbsInputPercent.setTextColor(getResources().getColor(R.color.Gray));
-                        mFatInputPercent.setTextColor(getResources().getColor(R.color.Gray));
+                        mProteinInputPercent.setEnabled(false);
+                        mCarbsInputPercent.setEnabled(false);
+                        mFatInputPercent.setEnabled(false);
                         mProteinInputPercent.setInputType(InputType.TYPE_NULL);
                         mCarbsInputPercent.setInputType(InputType.TYPE_NULL);
                         mFatInputPercent.setInputType(InputType.TYPE_NULL);
@@ -112,9 +112,9 @@ public class SetMacrosFragment extends Fragment {
                         mProteinInputPercent.setText(String.valueOf(mTargetProteinPercent));
                         mCarbsInputPercent.setText(String.valueOf(mTargetCarbsPercent));
                         mFatInputPercent.setText(String.valueOf(mTargetFatPercent));
-                        mProteinInputPercent.setTextColor(getResources().getColor(R.color.black));
-                        mCarbsInputPercent.setTextColor(getResources().getColor(R.color.black));
-                        mFatInputPercent.setTextColor(getResources().getColor(R.color.black));
+                        mProteinInputPercent.setEnabled(true);
+                        mCarbsInputPercent.setEnabled(true);
+                        mFatInputPercent.setEnabled(true);
                         mProteinInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
                         mCarbsInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
                         mFatInputPercent.setInputType(InputType.TYPE_CLASS_NUMBER);
