@@ -22,6 +22,7 @@
     <attr format="color" name="recyclerViewItemBackgroundColor"/>
     <attr format="color" name="recyclerViewItemSeparatorColor"/>
     <attr format="color" name="cardBorderColor"/>
+    <attr format="color" name="buttonBarBackgroundColor"/>
 
     <!--  Generic text color attributes  -->
     <attr format="color" name="textOnGenericSurfaceColor"/>

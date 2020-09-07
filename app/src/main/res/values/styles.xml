@@ -27,6 +27,7 @@
         <item name="foodTypeCommonColor">@color/colorAccent</item>
         <item name="foodTypeUSDAColor">@color/veryDarkGray</item>
         <item name="cardBorderColor">@color/slightlyLightGray</item>
+        <item name="buttonBarBackgroundColor">@color/white</item>
     </style>
 
     <!-- Dark application theme -->
@@ -45,18 +46,20 @@
         <item name="android:colorBackground">@color/darkThemeSurface</item>
         <item name="listItemTitleTextColor">@color/lightGray</item>
         <item name="listItemMacroTextColor">@color/slightlyLightGray</item>
-        <item name="listItemKcalTextColor">@color/darkThemeAccent</item>
-        <item name="recyclerViewItemSeparatorColor">@color/Gray</item>
+        <item name="listItemKcalTextColor">@color/darkThemePrimary</item>
+        <item name="recyclerViewItemSeparatorColor">@color/darkGray</item>
         <item name="LoggerToolbarSearchViewStyle">@style/LoggerToolbarSearchViewStyleDark</item>
         <item name="toolbarBackgroundColor">@color/darkThemeToolbar</item>
-        <item name="recyclerViewBackgroundColor">@color/darkerGray</item>
+        <item name="recyclerViewBackgroundColor">@color/black</item>
         <item name="textOnRecyclerViewBackgroundColor">@color/lightGray</item>
-        <item name="recyclerViewItemBackgroundColor">@color/darkGray</item>
+        <item name="recyclerViewItemBackgroundColor">@color/darkThemeItem</item>
         <item name="bottomTabBarSelectedColor">@color/darkThemeAccent</item>
         <item name="foodTypeCustomColor">@color/foodTypeCustomColor</item>
         <item name="foodTypeCommonColor">@color/darkThemeAccent</item>
         <item name="foodTypeUSDAColor">@color/slightlyLightGray</item>
         <item name="cardBorderColor">@color/slightlyDarkGray</item>
+        <item name="colorSurface">@color/black</item>
+        <item name="buttonBarBackgroundColor">@color/darkThemeToolbar</item>
     </style>
 
     <!-- Tab Layout styles -->
@@ -69,7 +72,7 @@
     </style>
 
     <style name="LoggerTabStyleDark" parent="Widget.MaterialComponents.TabLayout">
-<!--        <item name="tabBackground">@color/darkThemeSurface</item>-->
+<!--        <item name="tabBackground">@color/darkThemeToolbar</item>-->
         <item name="tabTextColor">@color/lightGray</item>
         <item name="tabSelectedTextColor">@color/white</item>
         <item name="tabIndicatorColor">@color/darkThemeAccent</item>

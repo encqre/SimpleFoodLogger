@@ -14,7 +14,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="?attr/genericSurfaceColor">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/fragment_add_food_section_general"
@@ -324,7 +325,7 @@
                 android:id="@+id/fragment_add_food_section_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/genericSurfaceColor"
+                android:background="?attr/buttonBarBackgroundColor"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
                 android:elevation="16dp"

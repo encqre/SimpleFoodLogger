@@ -10,7 +10,7 @@
     <color name="slightlyLightGray">#B8B8B8</color>
     <color name="Gray">#808080</color>
     <color name="slightlyDarkGray">#515151</color>
-    <color name="darkGray">#3b3b3b</color>
+    <color name="darkGray">#3c3c3c</color>
     <color name="darkerGray">#252525</color>
     <color name="veryDarkGray">#1a1a1a</color>
     <color name="red">#D50000</color>
@@ -19,10 +19,10 @@
 
     <color name="foodTypeCustomColor">#9f9030</color>
 
-    <color name="darkThemeSurface">#1B1B1B</color>
-<!--    <color name="darkThemeSurface">#00ff00</color>-->
+    <color name="darkThemeSurface">#1C1C1C</color>
     <color name="darkThemeAccent">#7986CB</color>
     <color name="darkThemePrimary">#9FA8DA</color>
-    <color name="darkThemeToolbar">#1f1f1f</color>
+    <color name="darkThemeToolbar">#212121</color>
+    <color name="darkThemeItem">#282828</color>
     <color name="textOnDarkestSurface">#CCCCCC</color>
 </resources>
