@@ -104,12 +104,12 @@
         <item>Imperial</item>
     </string-array>
     <string-array name="spinner_activity_levels">
-        <item>Sedentary</item>      <!--little or no exercise: 1.2x-->
-        <item>Light</item>          <!--exercise 1-3 times/week: 1.375x-->
-        <item>Moderate</item>       <!--exercise 4-5 times/week: 1.465x-->
-        <item>Active</item>         <!--exercise daily or intense exercise 3-4 times/week: 1.55x-->
-        <item>Very Active</item>    <!--intense exercise daily: 1.725x-->
-        <item>Extra active</item>   <!--very intense daily exercise or physical job: 1.9x-->
+        <item>Sedentary (little or no exercise)</item>          <!--1.2x-->
+        <item>Light (exercise 1–3 times/week)</item>            <!--1.375x-->
+        <item>Moderate (exercise 4–5 times/week)</item>         <!--1.465x-->
+        <item>Active (exercise daily)</item>                    <!--or intense exercise 3-4 times/week: 1.55x-->
+        <item>Very Active (intense exercise daily)</item>       <!--1.725x-->
+        <item>Extra active (very intense exercise daily)</item> <!--or physical job: 1.9x-->
     </string-array>
     <string-array name="spinner_goals">
         <item>Maintain current weight</item>

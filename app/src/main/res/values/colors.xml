@@ -24,5 +24,5 @@
     <color name="darkThemePrimary">#9FA8DA</color>
     <color name="darkThemeToolbar">#212121</color>
     <color name="darkThemeItem">#282828</color>
-    <color name="textOnDarkestSurface">#CCCCCC</color>
+    <color name="textOnDarkestSurface">#F4F4F4</color>
 </resources>

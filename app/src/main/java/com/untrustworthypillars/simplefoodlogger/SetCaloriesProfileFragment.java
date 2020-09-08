@@ -24,9 +24,6 @@ import androidx.preference.PreferenceManager;
 
 import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 
-//TODO need explanations for activity levels
-//TODO need custom basic spinner item for dark theme
-
 public class SetCaloriesProfileFragment extends Fragment {
 
     private static final String ARG_TITLE = "title";

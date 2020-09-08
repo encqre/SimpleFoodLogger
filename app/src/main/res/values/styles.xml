@@ -43,8 +43,8 @@
         <item name="genericSurfaceColor">@color/darkThemeSurface</item>
         <item name="textOnGenericSurfaceColor">@color/textOnDarkestSurface</item>
         <item name="textOnAccentColor">@color/black</item>
-        <item name="android:colorBackground">@color/darkThemeSurface</item>
-        <item name="listItemTitleTextColor">@color/lightGray</item>
+        <item name="android:colorBackground">@color/darkThemeItem</item>
+        <item name="listItemTitleTextColor">@color/veryLightGray</item>
         <item name="listItemMacroTextColor">@color/slightlyLightGray</item>
         <item name="listItemKcalTextColor">@color/darkThemePrimary</item>
         <item name="recyclerViewItemSeparatorColor">@color/darkGray</item>

@@ -12,7 +12,8 @@
         android:id="@+id/fragment_set_macros_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/fragment_set_macros_bottom_buttons">
+        android:layout_above="@+id/fragment_set_macros_bottom_buttons"
+        android:background="?attr/genericSurfaceColor">
 
         <RelativeLayout
             android:layout_width="wrap_content"
