@@ -25,8 +25,6 @@ import androidx.preference.PreferenceManager;
 import java.util.Date;
 import java.util.UUID;
 
-//TODO unselect serving when weight is modified and no longer matches serving's weight value
-
 public class AddLogFragment extends Fragment {
 
     private static final String ARG_FOOD = "food";

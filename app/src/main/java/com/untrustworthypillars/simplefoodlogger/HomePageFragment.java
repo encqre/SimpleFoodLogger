@@ -234,7 +234,7 @@ public class HomePageFragment extends Fragment {
         updateUI();
     }
 
-    private class LogHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    private class LogHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mFoodTitleTextView;
         private TextView mFoodCalories;
         private TextView mFoodProtein;
@@ -244,7 +244,7 @@ public class HomePageFragment extends Fragment {
 
         public LogHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_log, parent, false));
-            itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
 
             mFoodTitleTextView = (TextView) itemView.findViewById(R.id.list_item_log_name);
             mFoodCalories = (TextView) itemView.findViewById(R.id.list_item_log_calories);
@@ -266,11 +266,9 @@ public class HomePageFragment extends Fragment {
             }
         }
 
-        public boolean onLongClick(View v) {
+        public void onClick(View v) {
             Intent intent = EditLogActivity.newIntent(getActivity(), mLogId);
             startActivityForResult(intent, REQUEST_EDIT_LOG);
-
-            return true;
         }
     }
 
