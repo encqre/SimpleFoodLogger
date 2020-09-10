@@ -306,8 +306,7 @@ public class HomePageFragment extends Fragment {
 }
 
 //TODO make this whole fragment layout a scrollpane - need to test on a low res phone first if its really needed
-//TODO fix issues arising switching to landscape mode
-//TODO verify if landscape layouts are ok
+//TODO fix issues arising switching to landscape mode + verify landscape layouts
 //TODO fill tutorial texts once layout/design refresh is done
 //TODO Possible feature: Adding timestamps to food logs maybe?
 //TODO Possible feature: Group 1 or more food items into meals?

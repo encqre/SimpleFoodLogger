@@ -21,6 +21,8 @@ import java.util.logging.Logger;
 public class LoggerActivity extends AppCompatActivity {
 
     private static final String TAG = "LoggerActivity";
+    private static final String SAVED_OPEN_TAB = "open_tab";
+    private static final String SAVED_SELECTED_DATE = "selected_date";
     public static final int TAB_HOME = 0;
     public static final int TAB_FOODS = 1;
     public static final int TAB_SUMMARY = 2;
@@ -64,10 +66,11 @@ public class LoggerActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_INITIAL_SETUP);
         }
 
-        mSelectedDay = new Date();
-
-        /** Replacing blank fragment container with home fragment at start **/
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();
+        if (savedInstanceState != null) {
+            mSelectedDay = (Date) savedInstanceState.getSerializable(SAVED_SELECTED_DATE);
+        } else {
+            mSelectedDay = new Date();
+        }
 
         /** Assigning object only to TabLayout and not separate tabs, because tabItems are just dummies for the layout apparently**/
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -107,6 +110,13 @@ public class LoggerActivity extends AppCompatActivity {
             }
         });
 
+        /** Replacing blank fragment container with home fragment or previously open fragnment if activity is recreated **/
+        if (savedInstanceState != null) {
+            setTab(savedInstanceState.getInt(SAVED_OPEN_TAB));
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomePageFragment()).commit();
+        }
+
     }
 
     @Override
@@ -119,6 +129,13 @@ public class LoggerActivity extends AppCompatActivity {
 
         //passing unhandled results to child fragment's onActivityResult
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SAVED_OPEN_TAB, mTabLayout.getSelectedTabPosition());
+        outState.putSerializable(SAVED_SELECTED_DATE, mSelectedDay);
     }
 
 }

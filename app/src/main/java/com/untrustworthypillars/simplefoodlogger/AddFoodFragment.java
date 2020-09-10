@@ -21,6 +21,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+//TODO in landscape mode edittext is white and across whole screen? Dont need this crap
+
 public class AddFoodFragment extends Fragment {
 
     private static final String ARG_CATEGORY = "category";

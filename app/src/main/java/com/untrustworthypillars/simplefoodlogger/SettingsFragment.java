@@ -89,7 +89,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private List<Food> importedCustomFoodList = new ArrayList<>();
     private List<Log> importedLogList = new ArrayList<>();
 
-
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.fragment_pref, rootKey);
@@ -163,13 +162,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mUnits = (ListPreference) findPreference("pref_units");
         mUnits.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
-
-        //TODO also make a separate selection for primary/accent color (blue as default)
         mTheme = (ListPreference) findPreference("pref_theme");
         mTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                getActivity().recreate(); //TODO would be preferable if state was saved after recreation (at least open settings tab)
+                getActivity().recreate();
                 return true;
 
             }

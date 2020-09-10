@@ -85,14 +85,10 @@ public class SummaryFragment extends Fragment {
     @ColorInt int accentColor;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_summary, container, false);
+
+        setHasOptionsMenu(true);
 
         toolbar = (Toolbar) v.findViewById(R.id.fragment_summary_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -337,11 +333,6 @@ public class SummaryFragment extends Fragment {
         @Override
         public void onBindViewHolder(DaySummaryHolder holder, int position) {
             holder.bind(mSelectedPeriodLogs.get(position));
-//            if(position %2 == 1) {
-//                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-//            } else {
-//                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-//            }
         }
 
         @Override
@@ -400,11 +391,6 @@ public class SummaryFragment extends Fragment {
         @Override
         public void onBindViewHolder(FoodSummaryHolder holder, int position) {
             holder.bind(mSelectedPeriodFoods.get(position));
-//            if(position %2 == 1) {
-//                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-//            } else {
-//                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-//            }
         }
 
         @Override
