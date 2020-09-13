@@ -77,6 +77,7 @@
                     android:ems="10"
                     android:hint="Enter food name"
                     android:padding="6dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintStart_toStartOf="@+id/fragment_edit_food_category_spinner"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_category_spinner" />
 
@@ -126,6 +127,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_calories_textview"
                     app:layout_constraintStart_toEndOf="@+id/fragment_edit_food_calories_textview"
                     app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_calories_textview" />
@@ -151,6 +153,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_protein_textview"
                     app:layout_constraintStart_toStartOf="@+id/fragment_edit_food_calories"
                     app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_protein_textview" />
@@ -176,6 +179,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_carbs_textview"
                     app:layout_constraintStart_toStartOf="@+id/fragment_edit_food_protein"
                     app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_carbs_textview" />
@@ -201,6 +205,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_fat_textview"
                     app:layout_constraintStart_toStartOf="@+id/fragment_edit_food_carbs"
                     app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_fat_textview" />
@@ -242,6 +247,7 @@
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
                     android:layout_marginTop="4dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_servings_textview" />
 
@@ -255,6 +261,7 @@
                     android:hint="@string/dialog_add_food_serving1_hint_metric"
                     android:padding="6dp"
                     android:textSize="16sp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_serving1_name"
                     app:layout_constraintStart_toEndOf="@+id/fragment_edit_food_serving1_name"
                     app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_serving1_name" />
@@ -271,6 +278,7 @@
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
                     android:layout_marginTop="4dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_serving1_name" />
 
@@ -284,6 +292,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_serving2_name"
                     app:layout_constraintStart_toEndOf="@+id/fragment_edit_food_serving2_name"
                     app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_serving2_name"
@@ -299,6 +308,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_food_serving3_name"
                     app:layout_constraintStart_toEndOf="@+id/fragment_edit_food_serving3_name"
                     app:layout_constraintTop_toTopOf="@+id/fragment_edit_food_serving3_name"
@@ -317,6 +327,7 @@
                     android:background="@drawable/card_border_grey"
                     android:padding="6dp"
                     android:layout_marginTop="4dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_edit_food_serving2_name" />
 

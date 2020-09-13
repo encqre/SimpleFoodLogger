@@ -106,6 +106,7 @@
                     android:padding="8dp"
                     tools:text="25"
                     android:textSize="20sp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintStart_toEndOf="@+id/fragment_set_macros_text_protein"
                     app:layout_constraintTop_toTopOf="parent"
                     app:suffix="%" />
@@ -148,6 +149,7 @@
                     tools:text="45"
                     android:textSize="20sp"
                     android:layout_marginTop="8dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintStart_toStartOf="@+id/fragment_set_macros_edit_protein_percent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_protein_percent"
                     app:suffix="%" />
@@ -191,6 +193,7 @@
                     tools:text="30"
                     android:textSize="20sp"
                     android:layout_marginTop="8dp"
+                    android:imeOptions="flagNoExtractUi"
                     app:layout_constraintStart_toStartOf="@+id/fragment_set_macros_edit_carbs_percent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_carbs_percent"
                     app:suffix="%" />

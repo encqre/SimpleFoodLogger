@@ -31,6 +31,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import java.util.UUID;
 
+//TODO move searchview to toolbar
+
 public class HiddenFoodsFragment extends Fragment {
 
     private static final int REQUEST_UNHIDE = 0;

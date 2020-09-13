@@ -21,7 +21,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-//TODO in landscape mode edittext is white and across whole screen? Dont need this crap
+//TODO fix autoscroll distances when in landscape mode (and probably on smaller res screens too)
 
 public class AddFoodFragment extends Fragment {
 
@@ -50,7 +50,6 @@ public class AddFoodFragment extends Fragment {
     private ConstraintLayout layoutSectionNutrition;
     private ConstraintLayout layoutSectionServings;
     private ConstraintLayout layoutSectionButtons;
-
 
     private SharedPreferences mPreferences;
     private String mUnits;

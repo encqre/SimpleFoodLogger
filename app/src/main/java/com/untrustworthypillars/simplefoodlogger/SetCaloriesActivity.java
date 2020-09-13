@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
+//TODO save state which fragment is open going to/from landscape and etc.
+
 public class SetCaloriesActivity extends AppCompatActivity {
 
     private static final String EXTRA_TITLE = "simplefoodlogger.title";

@@ -35,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:padding="8dp"
             android:background="@drawable/card_border_grey"
+            android:imeOptions="flagNoExtractUi"
             app:layout_constraintEnd_toEndOf="@+id/initial_setup_calories_set_text_upper"
             app:layout_constraintStart_toStartOf="@+id/initial_setup_calories_set_text_upper"
             app:layout_constraintTop_toBottomOf="@+id/initial_setup_calories_set_text_upper"

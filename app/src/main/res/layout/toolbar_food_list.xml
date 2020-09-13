@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:maxWidth="260dp"
             android:theme="?attr/LoggerToolbarSearchViewStyle"
+            android:imeOptions="flagNoExtractUi"
             app:iconifiedByDefault="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/toolbar_food_list_add_button"

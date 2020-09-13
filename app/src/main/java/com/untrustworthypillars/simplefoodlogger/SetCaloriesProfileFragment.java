@@ -24,6 +24,8 @@ import androidx.preference.PreferenceManager;
 
 import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 
+//TODO only save inputs going back if this in tutorial mode?
+
 public class SetCaloriesProfileFragment extends Fragment {
 
     private static final String ARG_TITLE = "title";

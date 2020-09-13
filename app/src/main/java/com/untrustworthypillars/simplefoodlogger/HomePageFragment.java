@@ -290,11 +290,6 @@ public class HomePageFragment extends Fragment {
         @Override
         public void onBindViewHolder(LogHolder holder, int position) {
             holder.bind(mSelectedDayLogs.get(position));
-//            if(position %2 == 1) {
-//                holder.itemView.setBackgroundColor(Color.rgb(245, 245, 245));
-//            } else {
-//                holder.itemView.setBackgroundColor(Color.rgb(255, 255, 255));
-//            }
         }
 
         @Override
@@ -307,6 +302,7 @@ public class HomePageFragment extends Fragment {
 
 //TODO make this whole fragment layout a scrollpane - need to test on a low res phone first if its really needed
 //TODO fix issues arising switching to landscape mode + verify landscape layouts
+//TODO verify each case where hardcoded width/height units are used. Need to check if it still looks fine on different res screens.
 //TODO fill tutorial texts once layout/design refresh is done
 //TODO Possible feature: Adding timestamps to food logs maybe?
 //TODO Possible feature: Group 1 or more food items into meals?
