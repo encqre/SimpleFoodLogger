@@ -17,15 +17,15 @@
     <string name="extended_search">Include results from USDA database</string>
     <string name="summary_tab_summary">Summary</string>
     <string name="summary_tab_foods">Food Stats</string>
-    <string name="food_list_fragment_kcal">%1$d kcal/100g</string>
-    <string name="food_list_fragment_kcal_imperial">%1$d kcal/3.5oz</string>
+    <string name="food_list_fragment_kcal">%1$d kcal / 100g</string>
+    <string name="food_list_fragment_kcal_imperial">%1$d kcal / 3.5oz</string>
     <string name="food_list_fragment_protein">Protein: %1$sg</string>
     <string name="food_list_fragment_carbs">Carbs: %1$sg</string>
     <string name="food_list_fragment_fat">Fat: %1$sg</string>
     <string name="home_fragment_goal_kcal">Calories: %1$d / %2$s</string>
-    <string name="home_fragment_goal_protein">Protein: %1$d/%2$sg</string>
-    <string name="home_fragment_goal_carbs">Carbs: %1$d/%2$sg</string>
-    <string name="home_fragment_goal_fat">Fat: %1$d/%2$sg</string>
+    <string name="home_fragment_goal_protein">%1$d / %2$s g</string>
+    <string name="home_fragment_goal_carbs">%1$d / %2$s g</string>
+    <string name="home_fragment_goal_fat">%1$d / %2$s g</string>
     <string name="home_fragment_log_title">%1$s, %2$s%3$s</string>
     <string name="home_fragment_log_kcal">%1$d kcal</string>
     <string name="set_macros_fragment_percent_macro_info"> %1$d g x %2$d kcal/g = %3$d kcal</string>
@@ -35,8 +35,8 @@
     <string name="set_macros_fragment_manual_bottom_info">Sum of calories: %1$d kcal</string>
     <string name="set_macros_fragment_manual_bottom_info2">Sum should match current target (%1$d kcal)</string>
     <string name="settings_fragment_macros_summary">Protein: %1$dg (%2$d%%)\nCarbs: %3$dg (%4$d%%)\nFat: %5$dg (%6$d%%)</string>
-    <string name="dialog_add_food_nutrition_textview_metric">"Nutrition Info (per 100g)"</string>
-    <string name="dialog_add_food_nutrition_textview_imperial">"Nutrition Info (per 3.5oz/100g)"</string>
+    <string name="dialog_add_food_nutrition_textview_metric">"Nutrition Info (per 100 g)"</string>
+    <string name="dialog_add_food_nutrition_textview_imperial">"Nutrition Info (per 3.5 oz / 100 g)"</string>
     <string name="dialog_add_food_servings_textview_metric">Serving Sizes (g)</string>
     <string name="dialog_add_food_servings_textview_imperial">Serving Sizes (oz)</string>
     <string name="dialog_add_food_serving1_hint_metric">50.0</string>

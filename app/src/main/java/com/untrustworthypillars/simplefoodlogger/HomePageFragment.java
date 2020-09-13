@@ -156,9 +156,9 @@ public class HomePageFragment extends Fragment {
         });
 
         mCaloriesText = (TextView) v.findViewById(R.id.textview_calories);
-        mProteinText = (TextView) v.findViewById(R.id.textview_protein);
-        mCarbsText = (TextView) v.findViewById(R.id.textview_carbs);
-        mFatText = (TextView) v.findViewById(R.id.textview_fat);
+        mProteinText = (TextView) v.findViewById(R.id.textview_protein_values);
+        mCarbsText = (TextView) v.findViewById(R.id.textview_carbs_values);
+        mFatText = (TextView) v.findViewById(R.id.textview_fat_values);
         mCaloriesProgress = (ProgressBar) v.findViewById(R.id.progress_bar_calories);
         mCaloriesProgress.setMax(Integer.parseInt(mCaloriesGoal));
         mProteinProgress = (ProgressBar) v.findViewById(R.id.progress_bar_protein);
@@ -262,7 +262,7 @@ public class HomePageFragment extends Fragment {
             if (mUnits.equals("Metric")) {
                 mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.valueOf(log.getSize().intValue()), "g"));
             } else {
-                mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.format("%.1f", log.getSizeImperial()), " oz"));
+                mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.format("%.1f", log.getSizeImperial()), "oz"));
             }
         }
 

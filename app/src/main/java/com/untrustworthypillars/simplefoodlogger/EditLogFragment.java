@@ -148,21 +148,21 @@ public class EditLogFragment extends Fragment {
         if (mUnits.equals("Metric")) {
             mWeight.setText(String.format("%.1f", mLog.getSize()));
             if (mFood != null) {
-                mServing1.setText(mFood.getPortion1Name() + " (" + mFood.getPortion1SizeMetric().toString() + "g)");
+                mServing1.setText(mFood.getPortion1Name() + " (" + mFood.getPortion1SizeMetric().toString() + "\u00A0g)");
                 mServing1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText(mFood.getPortion1SizeMetric().toString());
                     }
                 });
-                mServing2.setText(mFood.getPortion2Name() + " (" + mFood.getPortion2SizeMetric().toString() + "g)");
+                mServing2.setText(mFood.getPortion2Name() + " (" + mFood.getPortion2SizeMetric().toString() + "\u00A0g)");
                 mServing2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText(mFood.getPortion2SizeMetric().toString());
                     }
                 });
-                mServing3.setText(mFood.getPortion3Name() + " (" + mFood.getPortion3SizeMetric().toString() + "g)");
+                mServing3.setText(mFood.getPortion3Name() + " (" + mFood.getPortion3SizeMetric().toString() + "\u00A0g)");
                 mServing3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -179,21 +179,21 @@ public class EditLogFragment extends Fragment {
                     mServing3.setChecked(true);
                 }
             } else {
-                mServing1.setText("Small (50.0g)");
+                mServing1.setText("Small (50.0\u00A0g)");
                 mServing1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText("50.0");
                     }
                 });
-                mServing2.setText("Medium (100.0g)");
+                mServing2.setText("Medium (100.0\u00A0g)");
                 mServing2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText("100.0");
                     }
                 });
-                mServing3.setText("Large (250.0g)");
+                mServing3.setText("Large (250.0\u00A0g)");
                 mServing3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -207,21 +207,21 @@ public class EditLogFragment extends Fragment {
             mWeightTextView.setText(getString(R.string.dialog_add_log_weight_textview_imperial));
 
             if (mFood != null) {
-                mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeImperial()) + " oz)");
+                mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeImperial()) + "\u00A0oz)");
                 mServing1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText(String.format("%.1f", mFood.getPortion1SizeImperial()));
                     }
                 });
-                mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeImperial()) + " oz)");
+                mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeImperial()) + "\u00A0oz)");
                 mServing2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText(String.format("%.1f", mFood.getPortion2SizeImperial()));
                     }
                 });
-                mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeImperial()) + " oz)");
+                mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeImperial()) + "\u00A0oz)");
                 mServing3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -238,21 +238,21 @@ public class EditLogFragment extends Fragment {
                     mServing3.setChecked(true);
                 }
             } else {
-                mServing1.setText("Small (1.0 oz)");
+                mServing1.setText("Small (1.0\u00A0oz)");
                 mServing1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText("1.0");
                     }
                 });
-                mServing2.setText("Medium (3.0 oz)");
+                mServing2.setText("Medium (3.0\u00A0oz)");
                 mServing2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWeight.setText("3.0");
                     }
                 });
-                mServing3.setText("Large (8.0 oz)");
+                mServing3.setText("Large (8.0\u00A0oz)");
                 mServing3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

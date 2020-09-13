@@ -57,6 +57,7 @@ import java.util.List;
  */
 
 //TODO review common/extended foods, refresh, add extended to correct categories. Probably show all of them inside quick pick categories?
+//TODO async queries to db when searching? So that input wouldn't lag on 1-2 letter queries
 
 public class FoodListFragment extends Fragment {
 

@@ -202,30 +202,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:orientation="vertical"
                 android:background="@drawable/card_border_grey"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/fragment_add_log_weight"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_add_log_weight">
 
                 <RadioButton
                     android:id="@+id/fragment_add_log_serving1_radio_button"
                     style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxWidth="234dp"
                     android:layout_height="wrap_content"
-                    android:text="wing, bone and skin removed (125g)" />
+                    android:text="wing, bone and skin removed carefully (125g)" />
 
                 <RadioButton
                     android:id="@+id/fragment_add_log_serving2_radio_button"
                     style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxWidth="234dp"
                     android:layout_height="wrap_content"
                     android:text='medium (2.66" diameter) (242g)' />
 
                 <RadioButton
                     android:id="@+id/fragment_add_log_serving3_radio_button"
                     style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxWidth="234dp"
                     android:layout_height="wrap_content"
                     android:text='very large (12" diameter) (378g)' />
 

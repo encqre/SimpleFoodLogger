@@ -568,7 +568,7 @@ public class SummaryFragment extends Fragment {
         String text4 = "Calories: " + avgKcal.toString() + " kcal (";
         String kcalDeltaString = ((kcalDelta > 0) ? "+":"") + kcalDelta.toString();
         String text5 = " compared to daily target)\n";
-        String text6 = "Protein: " + avgProtein + "g, Carbs: " + avgCarbs + "g, Fat: " + avgFat + "g";
+        String text6 = "Protein: " + avgProtein + " g, Carbs: " + avgCarbs + " g, Fat: " + avgFat + " g";
 
         //Spannable allows to color only certain part of Text/Textview
         Spannable spannable = new SpannableString(text1 + text2 + text3 + text4 + kcalDeltaString + text5 + text6);

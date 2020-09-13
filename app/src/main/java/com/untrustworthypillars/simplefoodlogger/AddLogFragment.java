@@ -146,21 +146,21 @@ public class AddLogFragment extends Fragment {
         mServing3 = (RadioButton) v.findViewById(R.id.fragment_add_log_serving3_radio_button);
 
         if (mUnits.equals("Metric")) {
-            mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeMetric()) + "g)");
+            mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeMetric()) + "\u00A0g)");
             mServing1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mWeight.setText(mFood.getPortion1SizeMetric().toString());
                 }
             });
-            mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeMetric()) + "g)");
+            mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeMetric()) + "\u00A0g)");
             mServing2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mWeight.setText(mFood.getPortion2SizeMetric().toString());
                 }
             });
-            mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeMetric()) + "g)");
+            mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeMetric()) + "\u00A0g)");
             mServing3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -169,21 +169,21 @@ public class AddLogFragment extends Fragment {
             });
 
         } else {
-            mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeImperial()) + " oz)");
+            mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeImperial()) + "\u00A0oz)");
             mServing1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mWeight.setText(String.format("%.1f", mFood.getPortion1SizeImperial()));
                 }
             });
-            mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeImperial()) + " oz)");
+            mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeImperial()) + "\u00A0oz)");
             mServing2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mWeight.setText(String.format("%.1f", mFood.getPortion2SizeImperial()));
                 }
             });
-            mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeImperial()) + " oz)");
+            mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeImperial()) + "\u00A0oz)");
             mServing3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
