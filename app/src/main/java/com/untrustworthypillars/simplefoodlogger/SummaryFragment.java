@@ -46,8 +46,8 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  */
 
-//TODO some graphs maybe
-//TODO searchview in toolbar in the 'food stats' section?
+//TODO Possible feature: some graphs maybe
+//TODO Possible feature: searchview in toolbar in the 'food stats' section?
 
 public class SummaryFragment extends Fragment {
 
@@ -157,7 +157,7 @@ public class SummaryFragment extends Fragment {
 
         if (!mPreferences.getBoolean("tutorial_statistics_done", false)) {
             FragmentManager fm = getFragmentManager();
-            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_statistics_text));
+            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_statistics_text), getString(R.string.tutorial_statistics_title));
             dialog.setTargetFragment(SummaryFragment.this, REQUEST_TUTORIAL);
             dialog.show(fm, DIALOG_TUTORIAL);
         }

@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
 import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
+import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
 
 import java.util.UUID;
 
@@ -32,6 +34,9 @@ public class EditFoodFragment extends Fragment {
 
     private static final int REQUEST_DELETE_CUSTOM_FOOD = 0;
     private static final int REQUEST_HIDE_FOOD = 1;
+    private static final int REQUEST_TUTORIAL = 2;
+
+    private static final String DIALOG_TUTORIAL = "DialogTutorial";
 
     private UUID mFoodId;
     private int mFoodType;
@@ -460,6 +465,13 @@ public class EditFoodFragment extends Fragment {
             }
         });
 
+        if (!mPreferences.getBoolean("tutorial_edit_food_noncustom_done", false) && mFoodType != 0) {
+            FragmentManager fm = getFragmentManager();
+            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_edit_food_noncustom_text), getString(R.string.tutorial_edit_food_noncustom_title));
+            dialog.setTargetFragment(EditFoodFragment.this, REQUEST_TUTORIAL);
+            dialog.show(fm, DIALOG_TUTORIAL);
+        }
+
         return v;
     }
 
@@ -474,6 +486,10 @@ public class EditFoodFragment extends Fragment {
                 food.setHidden(true);
                 FoodManager.get(getActivity()).updateFood(food);
                 Toast.makeText(getActivity(), "Food hidden!", Toast.LENGTH_SHORT).show();
+            }
+            if (requestCode == REQUEST_TUTORIAL) {
+                mPreferences.edit().putBoolean("tutorial_edit_food_noncustom_done", true).apply();
+                return;
             }
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();

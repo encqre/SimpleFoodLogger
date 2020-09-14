@@ -13,10 +13,12 @@ import androidx.fragment.app.DialogFragment;
 public class TutorialDialog extends DialogFragment {
 
     private static final String ARG_TEXT = "text";
+    private static final String ARG_TITLE = "title";
 
-    public static TutorialDialog newInstance(String text) {
+    public static TutorialDialog newInstance(String text, String title) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_TEXT, text);
+        args.putSerializable(ARG_TITLE, title);
 
         TutorialDialog fragment = new TutorialDialog();
         fragment.setArguments(args);
@@ -26,9 +28,10 @@ public class TutorialDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String text = (String) getArguments().getSerializable(ARG_TEXT);
+        String title = (String) getArguments().getSerializable(ARG_TITLE);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Tutorial")
+        builder.setTitle(title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}})

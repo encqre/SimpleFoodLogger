@@ -48,16 +48,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Class for the Fragment of the food list/selection
- * If opened from a tab from the main activity - has a FAB that brings up AddFoodDialog.
- * If opened from PickFoodActivity, FAB will be hidden, but now it will have an app bar, which will contain
- * a button to go back to the main activity, words "Select Food" and a button to add new food to database (with text)
- *
- */
-
 //TODO review common/extended foods, refresh, add extended to correct categories. Probably show all of them inside quick pick categories?
-//TODO async queries to db when searching? So that input wouldn't lag on 1-2 letter queries
+//TODO AFTER RELEASE async queries to db when searching? So that input wouldn't lag on 1-2 letter queries
+
+//TODO If adding new food via AddLogActivity, then right after adding the food, open addLogFragment for that food
 
 public class FoodListFragment extends Fragment {
 
@@ -439,7 +433,7 @@ public class FoodListFragment extends Fragment {
 
         if (!mPreferences.getBoolean("tutorial_food_list_done", false)) {
             FragmentManager fm = getFragmentManager();
-            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_food_list_text));
+            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_food_list_text), getString(R.string.tutorial_food_list_title));
             dialog.setTargetFragment(FoodListFragment.this, REQUEST_TUTORIAL);
             dialog.show(fm, DIALOG_TUTORIAL);
         }

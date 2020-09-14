@@ -172,7 +172,7 @@ public class HomePageFragment extends Fragment {
 
         if (!mPreferences.getBoolean("tutorial_home_page_done", false)) {
             FragmentManager fm = getFragmentManager();
-            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_home_page_text));
+            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_home_page_text), getString(R.string.tutorial_home_page_title));
             dialog.setTargetFragment(HomePageFragment.this, REQUEST_TUTORIAL);
             dialog.show(fm, DIALOG_TUTORIAL);
         }
@@ -303,8 +303,8 @@ public class HomePageFragment extends Fragment {
 //TODO make this whole fragment layout a scrollpane - need to test on a low res phone first if its really needed
 //TODO fix issues arising switching to landscape mode + verify landscape layouts
 //TODO verify each case where hardcoded width/height units are used. Need to check if it still looks fine on different res screens.
-//TODO fill tutorial texts once layout/design refresh is done
 //TODO Possible feature: Adding timestamps to food logs maybe?
 //TODO Possible feature: Group 1 or more food items into meals?
+
 //TODO Put some reasonable limits for numeric inputs in all forms/layouts
 

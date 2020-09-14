@@ -23,7 +23,7 @@ import androidx.preference.PreferenceManager;
 
 import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 
-//TODO maybe add a question mark somewhere inside form, that would explain what is this, and what values are recommended.
+//TODO AFTER RELEASE maybe add a question mark somewhere inside form, that would explain what is this, and what values are recommended.
 
 public class SetMacrosFragment extends Fragment {
 
