@@ -2,8 +2,6 @@ package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.content.pm.PackageItemInfo;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -18,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
@@ -60,6 +59,9 @@ public class SetMacrosFragment extends Fragment {
     private boolean viewCreateCompleted = false;
     private boolean inSetup;
 
+    @ColorInt int redColor;
+    @ColorInt int greenColor;
+
     public static SetMacrosFragment newInstance (boolean inSetup) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_IN_SETUP, inSetup);
@@ -77,6 +79,14 @@ public class SetMacrosFragment extends Fragment {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "1999"));
+
+        if (mPreferences.getString("pref_theme", "Light theme").equals("Light theme")) {
+            redColor = getResources().getColor(R.color.red);
+            greenColor = getResources().getColor(R.color.green);
+        } else {
+            redColor = getResources().getColor(R.color.darkThemeRed);
+            greenColor = getResources().getColor(R.color.darkThemeGreen);
+        }
 
         setRecommendedMacros();
 
@@ -145,7 +155,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (mRadioRecommended.isChecked()) {
-                    mTargetProtein = Math.round((mTargetCalories * mTargetProteinPercentRecommended / 400));
+                    mTargetProtein = Math.round((mTargetCalories * mTargetProteinPercentRecommended / 400f));
                     mProteinWeightTextview.setText(mTargetProtein + "g");
                 } else {
                     if (mProteinInputPercent.length() > 0) {
@@ -153,7 +163,7 @@ public class SetMacrosFragment extends Fragment {
                     } else {
                         mTargetProteinPercent = 0;
                     }
-                    mTargetProtein = Math.round((mTargetCalories * mTargetProteinPercent / 400));
+                    mTargetProtein = Math.round((mTargetCalories * mTargetProteinPercent / 400f));
                     mProteinWeightTextview.setText(mTargetProtein + "g");
                     setBottomInfoTexts();
                 }
@@ -184,7 +194,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (mRadioRecommended.isChecked()) {
-                    mTargetCarbs = Math.round((mTargetCalories * mTargetCarbsPercentRecommended / 400));
+                    mTargetCarbs = Math.round((mTargetCalories * mTargetCarbsPercentRecommended / 400f));
                     mCarbsWeightTextview.setText(mTargetCarbs + "g");
                 } else {
                     if (mCarbsInputPercent.length() > 0) {
@@ -192,7 +202,7 @@ public class SetMacrosFragment extends Fragment {
                     } else {
                         mTargetCarbsPercent = 0;
                     }
-                    mTargetCarbs = Math.round((mTargetCalories * mTargetCarbsPercent / 400));
+                    mTargetCarbs = Math.round((mTargetCalories * mTargetCarbsPercent / 400f));
                     mCarbsWeightTextview.setText(mTargetCarbs + "g");
                     setBottomInfoTexts();
                 }
@@ -232,7 +242,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (mRadioRecommended.isChecked()) {
-                    mTargetFat = Math.round((mTargetCalories * mTargetFatPercentRecommended / 900));
+                    mTargetFat = Math.round((mTargetCalories * mTargetFatPercentRecommended / 900f));
                     mFatWeightTextview.setText(mTargetFat + "g");
                 } else {
                     if (mFatInputPercent.length() > 0) {
@@ -240,7 +250,7 @@ public class SetMacrosFragment extends Fragment {
                     } else {
                         mTargetFatPercent = 0;
                     }
-                    mTargetFat = Math.round((mTargetCalories * mTargetFatPercent / 900));
+                    mTargetFat = Math.round((mTargetCalories * mTargetFatPercent / 900f));
                     mFatWeightTextview.setText(mTargetFat + "g");
                     setBottomInfoTexts();
                 }
@@ -327,9 +337,9 @@ public class SetMacrosFragment extends Fragment {
     private void setBottomInfoTexts() {
         mBottomInfoText.setText(getString(R.string.set_macros_fragment_percent_bottom_info, mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent));
         if (Math.round(mTargetProteinPercent + mTargetCarbsPercent + mTargetFatPercent) == 100) {
-            mBottomInfoText.setTextColor(getResources().getColor(R.color.slightly_darker_green));
+            mBottomInfoText.setTextColor(greenColor);
         } else {
-            mBottomInfoText.setTextColor(getResources().getColor(R.color.red));
+            mBottomInfoText.setTextColor(redColor);
         }
     }
 

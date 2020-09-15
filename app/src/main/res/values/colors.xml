@@ -13,11 +13,9 @@
     <color name="darkGray">#3c3c3c</color>
     <color name="darkerGray">#252525</color>
     <color name="veryDarkGray">#1a1a1a</color>
-    <color name="red">#D50000</color>
-    <color name="green">#00ff00</color>
-    <color name="slightly_darker_green">#0bd400</color>
-
     <color name="foodTypeCustomColor">#9f9030</color>
+    <color name="red">#D50000</color>
+    <color name="green">#0bd400</color>
 
     <color name="darkThemeSurface">#1C1C1C</color>
     <color name="darkThemeAccent">#7986CB</color>
@@ -25,4 +23,6 @@
     <color name="darkThemeToolbar">#212121</color>
     <color name="darkThemeItem">#282828</color>
     <color name="textOnDarkestSurface">#F4F4F4</color>
+    <color name="darkThemeRed">#E64E4E</color>
+    <color name="darkThemeGreen">#81C784</color>
 </resources>

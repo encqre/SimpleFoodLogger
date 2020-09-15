@@ -24,8 +24,6 @@ import androidx.preference.PreferenceManager;
 
 import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 
-//TODO only save inputs going back if this in tutorial mode?
-
 public class SetCaloriesProfileFragment extends Fragment {
 
     private static final String ARG_TITLE = "title";
@@ -52,6 +50,8 @@ public class SetCaloriesProfileFragment extends Fragment {
     private Button mProfileManualButton;
     private Button mProfileCalculateButton;
 
+    private boolean inSetup;
+
     public static SetCaloriesProfileFragment newInstance (boolean showTitle) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_TITLE, showTitle);
@@ -65,13 +65,13 @@ public class SetCaloriesProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_set_calories_profile, container, false);
 
-        final boolean showTitle = (boolean) getArguments().getSerializable(ARG_TITLE);
+        inSetup = (boolean) getArguments().getSerializable(ARG_TITLE);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
 
         mTitleTextview = (TextView) v.findViewById(R.id.initial_setup_calories_profile_title_text);
-        if (!showTitle) {
+        if (!inSetup) {
             mTitleTextview.setVisibility(View.GONE);
         }
 
@@ -259,7 +259,7 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileManualButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, showTitle)).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, inSetup)).commit();
             }
         });
 
@@ -277,7 +277,10 @@ public class SetCaloriesProfileFragment extends Fragment {
                 } else if (mProfileHeightFtinButton.isChecked() && mProfileHeightFeet.getText().toString().equals("") && mProfileHeightIn.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill in your height", Toast.LENGTH_SHORT).show();
                 } else {
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(false, showTitle)).commit();
+                    if (!inSetup){
+                        saveAgeWeightHeight();
+                    }
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(false, inSetup)).commit();
                 }
             }
         });
@@ -287,7 +290,10 @@ public class SetCaloriesProfileFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        saveAgeWeightHeight();
+        //When in initial setup, save all inputs every time fragment gets destroyed. Otherwise, it will only be saved when pressing 'calculate'
+        if (inSetup) {
+            saveAgeWeightHeight();
+        }
         super.onDestroyView();
     }
 

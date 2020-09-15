@@ -219,7 +219,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 tools:text="Sum of percentages: 96%"
-                android:textColor="@color/slightly_darker_green"
+                android:textColor="@color/green"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_fat_percent" />
 

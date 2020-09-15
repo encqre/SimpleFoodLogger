@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -49,8 +48,6 @@ import androidx.recyclerview.widget.RecyclerView;
 //TODO Possible feature: some graphs maybe
 //TODO Possible feature: searchview in toolbar in the 'food stats' section?
 
-//TODO change red/green color in dark mode to suit dark theme better
-
 public class SummaryFragment extends Fragment {
 
     public static final int TAB_DAY_SUMMARY = 0;
@@ -85,6 +82,8 @@ public class SummaryFragment extends Fragment {
     private int selectedSortFoodParentId;
 
     @ColorInt int accentColor;
+    @ColorInt int redColor;
+    @ColorInt int greenColor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -135,6 +134,15 @@ public class SummaryFragment extends Fragment {
         Resources.Theme theme = getContext().getTheme();
         theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
         accentColor = typedValue.data;
+
+        if (mPreferences.getString("pref_theme", "Light theme").equals("Light theme")) {
+            redColor = getResources().getColor(R.color.red);
+            greenColor = getResources().getColor(R.color.green);
+        } else {
+            redColor = getResources().getColor(R.color.darkThemeRed);
+            greenColor = getResources().getColor(R.color.darkThemeGreen);
+        }
+
 
         mSummaryText = (TextView) v.findViewById(R.id.summary_text_summary);
 
@@ -576,7 +584,7 @@ public class SummaryFragment extends Fragment {
         Spannable spannable = new SpannableString(text1 + text2 + text3 + text4 + kcalDeltaString + text5 + text6);
         spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, (text1+text2).length(), 0);
         spannable.setSpan(new ForegroundColorSpan(accentColor), text1.length(), (text1 + text2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(kcalDelta > 0 ? R.color.red : R.color.green)), (text1+text2+text3+text4).length(), (text1+text2+text3+text4+kcalDeltaString).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new ForegroundColorSpan(kcalDelta > 0 ? redColor : greenColor), (text1+text2+text3+text4).length(), (text1+text2+text3+text4+kcalDeltaString).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mSummaryText.setText(spannable, TextView.BufferType.SPANNABLE);
 
         return summaryLogs;
