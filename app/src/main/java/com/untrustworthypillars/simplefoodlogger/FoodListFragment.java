@@ -47,11 +47,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 //TODO review common/extended foods, refresh, add extended to correct categories. Probably show all of them inside quick pick categories?
 //TODO AFTER RELEASE async queries to db when searching? So that input wouldn't lag on 1-2 letter queries
-
-//TODO If adding new food via AddLogActivity, then right after adding the food, open addLogFragment for that food
 
 public class FoodListFragment extends Fragment {
 
@@ -67,7 +66,6 @@ public class FoodListFragment extends Fragment {
     private static final int REQUEST_TUTORIAL = 3;
 
     private static final int NO_CATEGORY_SELECTED = 0;
-
 
     public static final String[] FOOD_CATEGORIES = new String[]{
             "Dairy & Eggs",
@@ -460,6 +458,12 @@ public class FoodListFragment extends Fragment {
             }
         } else if (requestCode == REQUEST_ADD_FOOD) {
             updateUI();
+            if (mIsCalledByPickFoodActivity && resultCode == Activity.RESULT_OK) {
+                //If food was added when adding log, launch addLogActivity right after it's created
+                UUID newFoodID = (UUID) data.getSerializableExtra(AddFoodFragment.EXTRA_NEW_FOOD_ID);
+                Intent intent = AddLogActivity.newIntent(getActivity(), newFoodID, 0, mDate);
+                startActivityForResult(intent, REQUEST_LOG);
+            }
         } else if (requestCode == REQUEST_EDIT_FOOD) {
             updateUI();
         }

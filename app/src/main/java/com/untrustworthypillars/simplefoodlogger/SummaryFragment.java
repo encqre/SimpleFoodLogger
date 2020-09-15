@@ -49,6 +49,8 @@ import androidx.recyclerview.widget.RecyclerView;
 //TODO Possible feature: some graphs maybe
 //TODO Possible feature: searchview in toolbar in the 'food stats' section?
 
+//TODO change red/green color in dark mode to suit dark theme better
+
 public class SummaryFragment extends Fragment {
 
     public static final int TAB_DAY_SUMMARY = 0;

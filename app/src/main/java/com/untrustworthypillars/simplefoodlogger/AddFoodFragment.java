@@ -1,6 +1,7 @@
 package com.untrustworthypillars.simplefoodlogger;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
@@ -26,6 +27,8 @@ import androidx.preference.PreferenceManager;
 public class AddFoodFragment extends Fragment {
 
     private static final String ARG_CATEGORY = "category";
+
+    public static final String EXTRA_NEW_FOOD_ID = "simplefoodlogger.extra_new_food_id";
 
     private int mProvidedCategory = 0;
 
@@ -361,7 +364,9 @@ public class AddFoodFragment extends Fragment {
                         FoodManager.get(getActivity()).addCustomFood(food);
                         Toast.makeText(getActivity(), "Food item added to the database!", Toast.LENGTH_SHORT).show();
 
-                        getActivity().setResult(Activity.RESULT_OK);
+                        Intent intent = new Intent();
+                        intent.putExtra(EXTRA_NEW_FOOD_ID, food.getFoodId());
+                        getActivity().setResult(Activity.RESULT_OK, intent);
                         getActivity().finish();
                     }}
             }
