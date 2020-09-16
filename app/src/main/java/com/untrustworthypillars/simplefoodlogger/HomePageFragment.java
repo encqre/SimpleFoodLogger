@@ -305,6 +305,3 @@ public class HomePageFragment extends Fragment {
 //TODO verify each case where hardcoded width/height units are used. Need to check if it still looks fine on different res screens.
 //TODO Possible feature: Adding timestamps to food logs maybe?
 //TODO Possible feature: Group 1 or more food items into meals?
-
-//TODO Put some reasonable limits for numeric inputs in all forms/layouts
-

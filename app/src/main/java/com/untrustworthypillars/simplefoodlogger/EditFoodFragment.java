@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.DecimalDigitsInputFilter;
 import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
 import com.untrustworthypillars.simplefoodlogger.reusable.TutorialDialog;
 
@@ -159,6 +161,7 @@ public class EditFoodFragment extends Fragment {
         });
         mCalories = (EditText) v.findViewById(R.id.fragment_edit_food_calories);
         mCalories.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mCalories.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,2)});
         mCalories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +178,7 @@ public class EditFoodFragment extends Fragment {
         });
         mProtein = (EditText) v.findViewById(R.id.fragment_edit_food_protein);
         mProtein.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mProtein.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
         mProtein.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,6 +195,7 @@ public class EditFoodFragment extends Fragment {
         });
         mCarbs = (EditText) v.findViewById(R.id.fragment_edit_food_carbs);
         mCarbs.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mCarbs.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
         mCarbs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,6 +212,7 @@ public class EditFoodFragment extends Fragment {
         });
         mFat = (EditText) v.findViewById(R.id.fragment_edit_food_fat);
         mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mFat.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
         mFat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,6 +244,7 @@ public class EditFoodFragment extends Fragment {
         });
         mServing1Size = (EditText) v.findViewById(R.id.fragment_edit_food_serving1_size);
         mServing1Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mServing1Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
         mServing1Size.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,6 +276,7 @@ public class EditFoodFragment extends Fragment {
         });
         mServing2Size = (EditText) v.findViewById(R.id.fragment_edit_food_serving2_size);
         mServing2Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mServing2Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
         mServing2Size.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -300,6 +308,7 @@ public class EditFoodFragment extends Fragment {
         });
         mServing3Size = (EditText) v.findViewById(R.id.fragment_edit_food_serving3_size);
         mServing3Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mServing3Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
         mServing3Size.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -355,6 +364,14 @@ public class EditFoodFragment extends Fragment {
                         mProtein.getText().toString().equals("") || mCarbs.getText().toString().equals("") ||
                         mFat.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (Float.parseFloat(mCalories.getText().toString()) >= 10000f) {
+                    Toast.makeText(getActivity(), "Calories value must be lower than 10000!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (Float.parseFloat(mProtein.getText().toString()) > 100f ||
+                        Float.parseFloat(mCarbs.getText().toString()) > 100f ||
+                        Float.parseFloat(mFat.getText().toString()) > 100f) {
+                    Toast.makeText(getActivity(), "Protein/Carbs/Fat values must not exceed 100!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (mFoodTitle.getText().toString().contains(";")) {
                     Toast.makeText(getActivity(), "Name contains illegal character ';'", Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.untrustworthypillars.simplefoodlogger.reusable.DecimalDigitsInputFilter;
 import com.untrustworthypillars.simplefoodlogger.reusable.SimpleConfirmationDialog;
 
 import java.util.Date;
@@ -106,6 +108,7 @@ public class EditLogFragment extends Fragment {
 
         mWeight = (EditText) v.findViewById(R.id.fragment_edit_log_weight);
         mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
 //        mWeight.requestFocus();
         mWeight.addTextChangedListener(new TextWatcher() {
             @Override

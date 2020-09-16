@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:text="2500"
             android:hint="2501"
+            android:maxLength="5"
             android:layout_marginTop="16dp"
             android:padding="8dp"
             android:background="@drawable/card_border_grey"
