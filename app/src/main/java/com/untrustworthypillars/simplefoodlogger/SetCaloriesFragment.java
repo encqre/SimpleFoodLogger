@@ -17,6 +17,8 @@ import androidx.preference.PreferenceManager;
 
 import com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix;
 
+import java.util.logging.Logger;
+
 public class SetCaloriesFragment extends Fragment {
 
     private static final String ARG_MANUAL = "manual?";
@@ -56,12 +58,12 @@ public class SetCaloriesFragment extends Fragment {
         if (mManual) {
             upperText = "Enter your daily calories target:";
             lowerText = "You can go back to estimate your daily calories target based on your gender, age, weight, height, activity level and goal, using Mifflin-St Jeor Equation.";
-            recommendedKcal = mPreferences.getString("pref_calories", "");
+            recommendedKcal = mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, "");
         } else {
             upperText = "Your recommended daily calories target*:";
             lowerText = "*Calculated using Mifflin-St Jeor Equation.";
             recommendedKcal = calculateKcalMifflinStJeor();
-            mPreferences.edit().putString("pref_calories_calculated", recommendedKcal).apply();
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CALORIES_CALCULATED, recommendedKcal).apply();
         }
 
         mSetKcalUpperText = (TextView) v.findViewById(R.id.initial_setup_calories_set_text_upper);
@@ -79,7 +81,6 @@ public class SetCaloriesFragment extends Fragment {
         mSetKcalBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mPreferences.edit().putString("pref_calories", mSetKcalEditText.getText().toString()).apply();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(inSetup)).commit();
             }
         });
@@ -94,7 +95,7 @@ public class SetCaloriesFragment extends Fragment {
                 } else if (Integer.parseInt(mSetKcalEditText.getText().toString()) <= 0) {
                     Toast.makeText(getActivity(), "Please enter a valid daily target calories number", Toast.LENGTH_SHORT).show();
                 } else {
-                    mPreferences.edit().putString("pref_calories", mSetKcalEditText.getText().toString()).apply();
+                    mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CALORIES, mSetKcalEditText.getText().toString()).apply();
                     getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
@@ -108,12 +109,12 @@ public class SetCaloriesFragment extends Fragment {
         float [] activityMultiplierTable = {1.2f,1.375f,1.465f,1.55f,1.725f,1.9f};
         float [] goalMutliplierTable = {1f,0.9f,0.8f,1.1f,1.2f};
 
-        String gender = mPreferences.getString("pref_gender", "Male");
-        int weight = Integer.parseInt(mPreferences.getString("pref_weight", "80"));
-        int height = Integer.parseInt(mPreferences.getString("pref_height", "175"));
-        int age = Integer.parseInt(mPreferences.getString("pref_age", "25"));
-        float activityMultiplier = activityMultiplierTable[Integer.parseInt(mPreferences.getString("pref_activity_level", "1"))];
-        float goalMultiplier = goalMutliplierTable[Integer.parseInt(mPreferences.getString("pref_goal", "1"))];
+        String gender = mPreferences.getString(LoggerSettings.PREFERENCE_GENDER, LoggerSettings.PREFERENCE_GENDER_DEFAULT);
+        int weight = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_WEIGHT, LoggerSettings.PREFERENCE_WEIGHT_DEFAULT));
+        int height = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_HEIGHT, LoggerSettings.PREFERENCE_HEIGHT_DEFAULT));
+        int age = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_AGE, LoggerSettings.PREFERENCE_AGE_DEFAULT));
+        float activityMultiplier = activityMultiplierTable[Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_ACTIVITY_LEVEL, LoggerSettings.PREFERENCE_ACTIVITY_LEVEL_DEFAULT))];
+        float goalMultiplier = goalMutliplierTable[Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_GOAL, LoggerSettings.PREFERENCE_GOAL_DEFAULT))];
 
         float estimatedKcal;
         if (gender.equals("Male")){

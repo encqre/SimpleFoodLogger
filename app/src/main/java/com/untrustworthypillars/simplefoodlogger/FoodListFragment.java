@@ -188,7 +188,7 @@ public class FoodListFragment extends Fragment {
         searchplate.getBackground().setColorFilter(getResources().getColor(R.color.lightGray), PorterDuff.Mode.MULTIPLY);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
 
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = getContext().getTheme();
@@ -429,7 +429,7 @@ public class FoodListFragment extends Fragment {
 
         updateUI();
 
-        if (!mPreferences.getBoolean("tutorial_food_list_done", false)) {
+        if (!mPreferences.getBoolean(LoggerSettings.PREFERENCE_TUTORIAL_FOOD_LIST_DONE, false)) {
             FragmentManager fm = getFragmentManager();
             TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_food_list_text), getString(R.string.tutorial_food_list_title));
             dialog.setTargetFragment(FoodListFragment.this, REQUEST_TUTORIAL);
@@ -468,7 +468,7 @@ public class FoodListFragment extends Fragment {
             updateUI();
         }
         if (requestCode == REQUEST_TUTORIAL) {
-            mPreferences.edit().putBoolean("tutorial_food_list_done", true).apply();
+            mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_TUTORIAL_FOOD_LIST_DONE, true).apply();
         }
     }
 

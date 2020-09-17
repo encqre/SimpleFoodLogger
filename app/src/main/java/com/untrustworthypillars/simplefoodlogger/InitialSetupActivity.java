@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class InitialSetupActivity extends AppCompatActivity {
 
@@ -59,7 +60,7 @@ public class InitialSetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String theme = mPreferences.getString("pref_theme", "Light theme");
+        String theme = mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT);
         if (theme.equals("Light theme")) {
             setTheme(R.style.AppTheme);
         } else if (theme.equals("Dark theme")) {
@@ -75,9 +76,9 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Somebody launched initial setup!", Toast.LENGTH_LONG).show();
 
-        if (mPreferences.getBoolean("initial_database_setup_needed", true)) {
+        if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, true)) {
             new initialDatabaseImportTask().execute();
-        } else if (mPreferences.getBoolean("initial_profile_setup_needed", true)) {
+        } else if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
             setupUnits();
         } else {
             finish();
@@ -207,10 +208,10 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            mPreferences.edit().putBoolean("initial_database_setup_needed", false).apply();
+            mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, false).apply();
             mDatabaseImportInProgress = false;
             Toast.makeText(InitialSetupActivity.this, "Initial database loading finished", Toast.LENGTH_LONG).show();
-            if (mPreferences.getBoolean("initial_profile_setup_needed", true)) {
+            if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
                 setupUnits();
             } else {
                 finish();
@@ -223,26 +224,31 @@ public class InitialSetupActivity extends AppCompatActivity {
         mUnitSetupOpen = true;
 
 
-        if (mPreferences.getString("pref_units", "not_set").equals("not_set")) {
-            mPreferences.edit().putString("pref_units", "Metric").apply();
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, "not_set").equals("not_set")) {
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS,
+                    LoggerSettings.PREFERENCE_UNITS_DEFAULT).apply();
         }
-        if (mPreferences.getString("pref_calories", "not_set").equals("not_set")) {
-            mPreferences.edit().putString("pref_calories", "2500").apply();
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, "not_set").equals("not_set")) {
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CALORIES,
+                    LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT).apply();
         }
-        if (mPreferences.getString("pref_protein", "not_set").equals("not_set")) {
-            mPreferences.edit().putString("pref_protein", "155").apply();
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, "not_set").equals("not_set")) {
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT,
+                    LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT_DEFAULT).apply();
         }
-        if (mPreferences.getString("pref_carbs", "not_set").equals("not_set")) {
-            mPreferences.edit().putString("pref_carbs", "300").apply();
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, "not_set").equals("not_set")) {
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT,
+                    LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT_DEFAULT).apply();
         }
-        if (mPreferences.getString("pref_fat", "not_set").equals("not_set")) {
-            mPreferences.edit().putString("pref_fat", "75").apply();
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, "not_set").equals("not_set")) {
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT,
+                    LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT_DEFAULT).apply();
         }
 
         //if user closes the initial setup activity from this point, since we already have some
         // values set, no need to launch the initial setup activity again when launching the app
 
-        mPreferences.edit().putBoolean("initial_profile_setup_needed", false).apply();
+        mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, false).apply();
 
         // launch units setup
 
@@ -252,14 +258,14 @@ public class InitialSetupActivity extends AppCompatActivity {
         mUnitsMetric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString("pref_units", "Metric").apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Metric").apply();
             }
         });
         mUnitsImperial = (RadioButton) findViewById(R.id.initial_setup_units_imperial);
         mUnitsImperial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString("pref_units", "Imperial").apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Imperial").apply();
             }
         });
         mUnitsContinueButton = (Button) findViewById(R.id.initial_setup_units_button_next);
@@ -273,11 +279,11 @@ public class InitialSetupActivity extends AppCompatActivity {
             }
         });
 
-        if (mPreferences.getString("pref_units", "Metric").equals("Imperial")) {
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, "Metric").equals("Imperial")) {
             mUnitsImperial.setChecked(true);
         } else {
             mUnitsMetric.setChecked(true);
-            mPreferences.edit().putString("pref_units", "Metric").apply();
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Metric").apply();
         }
     }
 

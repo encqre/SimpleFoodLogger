@@ -44,7 +44,7 @@ public class FoodManager {
         mCommonFoodDatabase = new CommonFoodDbHelper(mContext).getWritableDatabase();
         mExtendedFoodDatabase = new ExtendedFoodDbHelper(mContext).getWritableDatabase();
         mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        mRecentFoodsLength = Integer.parseInt(mPreferences.getString("pref_recent_foods_size", "10"));
+        mRecentFoodsLength = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE, LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE_DEFAULT));
     }
 
     //Add a custom food to CustomFoodDatabase

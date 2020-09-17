@@ -84,8 +84,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private int mTargetCarbsPercent;
     private int mTargetFatPercent;
 
-    //TODO move preference key strings into strings.xml
-
     private List<Food> importedCustomFoodList = new ArrayList<>();
     private List<Log> importedLogList = new ArrayList<>();
 
@@ -95,7 +93,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        mBackupLogs = (Preference) findPreference("pref_backup_logs");
+        mBackupLogs = (Preference) findPreference(LoggerSettings.PREFERENCE_BACKUP_LOGS);
         mBackupLogs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -104,9 +102,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             }
         });
-        mBackupLogs.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_logs_date", "never"));
+        mBackupLogs.setSummary("Last backup date: " + mPreferences.getString(LoggerSettings.PREFERENCE_BACKUP_LOGS_LAST_DATE, "never"));
 
-        mBackupCustomFoods = (Preference) findPreference("pref_backup_custom_foods");
+        mBackupCustomFoods = (Preference) findPreference(LoggerSettings.PREFERENCE_BACKUP_CUSTOM_FOODS);
         mBackupCustomFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -115,9 +113,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             }
         });
-        mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_custom_foods_date", "never"));
+        mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString(LoggerSettings.PREFERENCE_BACKUP_CUSTOM_FOODS_LAST_DATE, "never"));
 
-        mImportLogs = (Preference) findPreference("pref_import_logs");
+        mImportLogs = (Preference) findPreference(LoggerSettings.PREFERENCE_IMPORT_LOGS);
         mImportLogs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -127,7 +125,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        mImportCustomFoods = (Preference) findPreference("pref_import_custom_foods");
+        mImportCustomFoods = (Preference) findPreference(LoggerSettings.PREFERENCE_IMPORT_CUSTOM_FOODS);
         mImportCustomFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -137,7 +135,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        mCaloriesTarget = (Preference) findPreference("pref_calories");
+        mCaloriesTarget = (Preference) findPreference(LoggerSettings.PREFERENCE_TARGET_CALORIES);
         mCaloriesTarget.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -146,9 +144,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
-        mCaloriesTarget.setSummary(mPreferences.getString("pref_calories", "2500"));
+        mCaloriesTarget.setSummary(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT));
 
-        mMacros = (Preference) findPreference("pref_macros");
+        mMacros = (Preference) findPreference(LoggerSettings.PREFERENCE_SET_MACROS);
         mMacros.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -159,10 +157,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
         setMacrosPreferenceSummary();
 
-        mUnits = (ListPreference) findPreference("pref_units");
+        mUnits = (ListPreference) findPreference(LoggerSettings.PREFERENCE_UNITS );
         mUnits.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
-        mTheme = (ListPreference) findPreference("pref_theme");
+        mTheme = (ListPreference) findPreference(LoggerSettings.PREFERENCE_THEME);
         mTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -173,11 +171,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
         mTheme.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
 
-        mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference("pref_stats_ignore_zero_kcal_days");
-        CheckBoxPreference mProfileNeeded = (CheckBoxPreference) findPreference("initial_profile_setup_needed");
+        mStatsIgnoreZeroKcalDays = (CheckBoxPreference) findPreference(LoggerSettings.PREFERENCE_STATS_IGNORE_ZERO_KCAL_DAYS);
 
-
-        mHiddenFoods = (Preference) findPreference("pref_hidden_food_list");
+        mHiddenFoods = (Preference) findPreference(LoggerSettings.PREFERENCE_MANAGE_HIDDEN_FOODS);
         mHiddenFoods.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -188,7 +184,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
         mHiddenFoods.setSummary("Number of hidden foods: " + FoodManager.get(getActivity()).getHiddenFoods("").size());
 
-        mRecentFoodsLength = (EditTextPreference) findPreference("pref_recent_foods_size");
+        mRecentFoodsLength = (EditTextPreference) findPreference(LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE);
         mRecentFoodsLength.setOnBindEditTextListener(new EditTextPreference.OnBindEditTextListener() {
             @Override
             public void onBindEditText(@NonNull EditText editText) {
@@ -292,8 +288,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected void onPostExecute(Void result) {
             LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
             progressDialog.dismiss();
-            mPreferences.edit().putString("pref_last_backup_logs_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
-            mBackupLogs.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_logs_date", "never"));
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_BACKUP_LOGS_LAST_DATE, DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
+            mBackupLogs.setSummary("Last backup date: " + mPreferences.getString(LoggerSettings.PREFERENCE_BACKUP_LOGS_LAST_DATE, "never"));
             Toast.makeText(getActivity(), "Food logs saved to file", Toast.LENGTH_LONG).show();
 
         }
@@ -356,8 +352,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected void onPostExecute(Void result) {
             LoadingProgressDialog progressDialog = (LoadingProgressDialog) getFragmentManager().findFragmentByTag(TAG_READ_PROGRESS);
             progressDialog.dismiss();
-            mPreferences.edit().putString("pref_last_backup_custom_foods_date", DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
-            mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString("pref_last_backup_custom_foods_date", "never"));
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_BACKUP_CUSTOM_FOODS_LAST_DATE, DateFormat.format("dd MMM yyyy", new Date()).toString()).apply();
+            mBackupCustomFoods.setSummary("Last backup date: " + mPreferences.getString(LoggerSettings.PREFERENCE_BACKUP_CUSTOM_FOODS_LAST_DATE, "never"));
             Toast.makeText(getActivity(), "Custom foods saved to file", Toast.LENGTH_LONG).show();
         }
 
@@ -604,7 +600,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Toast.makeText(getActivity(), "Macronutrient targets have been updated", Toast.LENGTH_LONG).show(); //TEMP DEBUG
             }
             if (requestCode == REQUEST_CALORIES) {
-                mCaloriesTarget.setSummary(mPreferences.getString("pref_calories", "2500"));
+                mCaloriesTarget.setSummary(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT));
                 setMacrosPreferenceSummary();
                 Toast.makeText(getActivity(), "Daily calories target has been updated", Toast.LENGTH_LONG).show(); //TEMP DEBUG
             }
@@ -651,10 +647,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     public void setMacrosPreferenceSummary() {
-        mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
-        mTargetProteinPercent = Integer.parseInt(mPreferences.getString("pref_protein", "25"));
-        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString("pref_carbs", "45"));
-        mTargetFatPercent = Integer.parseInt(mPreferences.getString("pref_fat", "30"));
+        mTargetCalories = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT));
+        mTargetProteinPercent = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT_DEFAULT));
+        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT_DEFAULT));
+        mTargetFatPercent = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT_DEFAULT));
         mTargetProtein = Math.round(mTargetCalories * mTargetProteinPercent / 400f);
         mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400f);
         mTargetFat = Math.round(mTargetCalories * mTargetFatPercent / 900f);

@@ -80,31 +80,31 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileGenderMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPreferences.edit().putString("pref_gender", "Male").apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_GENDER, "Male").apply();
             }
         });
         mProfileGenderFemale = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_gender_female);
         mProfileGenderFemale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPreferences.edit().putString("pref_gender", "Female").apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_GENDER, "Female").apply();
             }
         });
 
-        if (mPreferences.getString("pref_gender", "not_set").equals("Male")) {
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_GENDER, "not_set").equals("Male")) {
             mProfileGenderMale.setChecked(true);
-        } else if (mPreferences.getString("pref_gender", "not_set").equals("Female")) {
+        } else if (mPreferences.getString(LoggerSettings.PREFERENCE_GENDER, "not_set").equals("Female")) {
             mProfileGenderFemale.setChecked(true);
         }
 
         mProfileAge = (EditText) v.findViewById(R.id.initial_setup_calories_profile_age_edittext);
         mProfileAge.setInputType(InputType.TYPE_CLASS_NUMBER);
-        mProfileAge.setText(mPreferences.getString("pref_age", ""));
+        mProfileAge.setText(mPreferences.getString(LoggerSettings.PREFERENCE_AGE, ""));
 
         mProfileWeightKg = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_weight_kg);
         mProfileWeightLbs = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_weight_lbs);
         mProfileWeightRadioGroup = (RadioGroup) v.findViewById(R.id.initial_setup_calories_profile_weight_radiogroup);
-        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT).equals("Metric")) {
             mProfileWeightKg.setChecked(true);
         } else {
             mProfileWeightLbs.setChecked(true);
@@ -112,10 +112,10 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileWeight = (EditText) v.findViewById(R.id.initial_setup_calories_profile_weight_edittext);
         mProfileWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
-            mProfileWeight.setText(mPreferences.getString("pref_weight", ""));
-        } else if (!mPreferences.getString("pref_weight", "").equals("")) {
-            mProfileWeight.setText( String.valueOf(Math.round(Float.parseFloat(mPreferences.getString("pref_weight", "0")) * 2.2)));
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT).equals("Metric")) {
+            mProfileWeight.setText(mPreferences.getString(LoggerSettings.PREFERENCE_WEIGHT, ""));
+        } else if (!mPreferences.getString(LoggerSettings.PREFERENCE_WEIGHT, "").equals("")) {
+            mProfileWeight.setText(String.valueOf(Math.round(Float.parseFloat(mPreferences.getString(LoggerSettings.PREFERENCE_WEIGHT, "0")) * 2.2)));
         } else {
             mProfileWeight.setText("");
         }
@@ -143,7 +143,7 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileHeightRadioGroup = (RadioGroup) v.findViewById(R.id.initial_setup_calories_profile_height_radiogroup);
         mProfileHeightCmButton = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_height_cm);
         mProfileHeightFtinButton = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_height_ftin);
-        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT).equals("Metric")) {
             mProfileHeightCmButton.setChecked(true);
         } else {
             mProfileHeightFtinButton.setChecked(true);
@@ -158,14 +158,14 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileHeightIn = (EditTextWithSuffix) v.findViewById(R.id.initial_setup_calories_profile_height_edittext_in);
         mProfileHeightIn.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        if (mPreferences.getString("pref_units", "Metric").equals("Metric")) {
-            mProfileHeightCm.setText(mPreferences.getString("pref_height", ""));
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT).equals("Metric")) {
+            mProfileHeightCm.setText(mPreferences.getString(LoggerSettings.PREFERENCE_HEIGHT, ""));
         } else {
             mProfileHeightCm.setVisibility(View.INVISIBLE);
             mProfileHeightFeet.setVisibility(View.VISIBLE);
             mProfileHeightIn.setVisibility(View.VISIBLE);
-            if (!mPreferences.getString("pref_height", "").equals("")) {
-                long [] ftin = cmToFtin(Integer.parseInt(mPreferences.getString("pref_height", "0")));
+            if (!mPreferences.getString(LoggerSettings.PREFERENCE_HEIGHT, "").equals("")) {
+                long [] ftin = cmToFtin(Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_HEIGHT, "0")));
                 mProfileHeightFeet.setText(String.valueOf(ftin[0]));
                 mProfileHeightIn.setText(String.valueOf(ftin[1]));
             } else {
@@ -220,7 +220,7 @@ public class SetCaloriesProfileFragment extends Fragment {
         mProfileActivitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mPreferences.edit().putString("pref_activity_level", String.valueOf(position)).apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_ACTIVITY_LEVEL, String.valueOf(position)).apply();
             }
 
             @Override
@@ -229,13 +229,13 @@ public class SetCaloriesProfileFragment extends Fragment {
             }
 
         });
-        mProfileActivitySpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_activity_level", "0")));
+        mProfileActivitySpinner.setSelection(Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_ACTIVITY_LEVEL, LoggerSettings.PREFERENCE_ACTIVITY_LEVEL_DEFAULT)));
 
         mProfileGoalSpinner = (Spinner) v.findViewById(R.id.initial_setup_calories_profile_goal_spinner);
         mProfileGoalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mPreferences.edit().putString("pref_goal", String.valueOf(position)).apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_GOAL, String.valueOf(position)).apply();
             }
 
             @Override
@@ -244,7 +244,7 @@ public class SetCaloriesProfileFragment extends Fragment {
             }
 
         });
-        mProfileGoalSpinner.setSelection(Integer.parseInt(mPreferences.getString("pref_goal", "0")));
+        mProfileGoalSpinner.setSelection(Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_GOAL, LoggerSettings.PREFERENCE_GOAL_DEFAULT)));
 
         mProfileBackButton = (Button) v.findViewById(R.id.initial_setup_calories_profile_button_back);
         mProfileBackButton.setOnClickListener(new View.OnClickListener() {
@@ -309,23 +309,23 @@ public class SetCaloriesProfileFragment extends Fragment {
 
     private void saveAgeWeightHeight() {
         //save stored age
-        mPreferences.edit().putString("pref_age", mProfileAge.getText().toString()).apply();
+        mPreferences.edit().putString(LoggerSettings.PREFERENCE_AGE, mProfileAge.getText().toString()).apply();
 
         //save stored weight
         if (!mProfileWeight.getText().toString().equals("")) {
             if (mProfileWeightKg.isChecked()) {
-                mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_WEIGHT, mProfileWeight.getText().toString()).apply();
             } else {
                 long weight = Math.round((Float.parseFloat(mProfileWeight.getText().toString()) / 2.2));
-                mPreferences.edit().putString("pref_weight", String.valueOf(weight)).apply();
+                mPreferences.edit().putString(LoggerSettings.PREFERENCE_WEIGHT, String.valueOf(weight)).apply();
             }
         } else {
-            mPreferences.edit().putString("pref_weight", mProfileWeight.getText().toString()).apply();
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_WEIGHT, mProfileWeight.getText().toString()).apply();
         }
 
         //save stored height
         if (mProfileHeightCmButton.isChecked()) {
-            mPreferences.edit().putString("pref_height", mProfileHeightCm.getText().toString()).apply();
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_HEIGHT, mProfileHeightCm.getText().toString()).apply();
         }
         if (mProfileHeightFtinButton.isChecked()) {
             int inches, feet;
@@ -339,7 +339,7 @@ public class SetCaloriesProfileFragment extends Fragment {
             } else {
                 feet = 0;
             }
-            mPreferences.edit().putString("pref_height", String.valueOf(ftinToCm(feet, inches))).apply();
+            mPreferences.edit().putString(LoggerSettings.PREFERENCE_HEIGHT, String.valueOf(ftinToCm(feet, inches))).apply();
         }
 
     }

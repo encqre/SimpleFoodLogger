@@ -125,7 +125,7 @@ public class SummaryFragment extends Fragment {
         });
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
         mLogManager = LogManager.get(getContext());
         mSummaryRecyclerView = (RecyclerView) v.findViewById(R.id.summary_recycler);
         mSummaryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -135,7 +135,7 @@ public class SummaryFragment extends Fragment {
         theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
         accentColor = typedValue.data;
 
-        if (mPreferences.getString("pref_theme", "Light theme").equals("Light theme")) {
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT).equals("Light theme")) {
             redColor = getResources().getColor(R.color.red);
             greenColor = getResources().getColor(R.color.green);
         } else {
@@ -165,7 +165,7 @@ public class SummaryFragment extends Fragment {
 
         updatePeriod();
 
-        if (!mPreferences.getBoolean("tutorial_statistics_done", false)) {
+        if (!mPreferences.getBoolean(LoggerSettings.PREFERENCE_TUTORIAL_STATISTICS_DONE, false)) {
             FragmentManager fm = getFragmentManager();
             TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_statistics_text), getString(R.string.tutorial_statistics_title));
             dialog.setTargetFragment(SummaryFragment.this, REQUEST_TUTORIAL);
@@ -293,7 +293,7 @@ public class SummaryFragment extends Fragment {
             updatePeriod();
         }
         if (requestCode == REQUEST_TUTORIAL) {
-            mPreferences.edit().putBoolean("tutorial_statistics_done", true).apply();
+            mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_TUTORIAL_STATISTICS_DONE, true).apply();
         }
     }
 
@@ -538,7 +538,7 @@ public class SummaryFragment extends Fragment {
         Float fat = 0f;
         int zeroKcalDays = 0;
 
-        if (mPreferences.getBoolean("pref_stats_ignore_zero_kcal_days", false)) {
+        if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_STATS_IGNORE_ZERO_KCAL_DAYS, false)) {
             for (int i = 0; i < summaryLogs.size(); i++) {
                 if (summaryLogs.get(i).getKcal() == 0) {
                     zeroKcalDays++;
@@ -569,12 +569,12 @@ public class SummaryFragment extends Fragment {
         fat = fat/(summaryLogs.size() - zeroKcalDays);
         Integer avgFat = fat.intValue();
 
-        Integer kcalDelta = avgKcal - Integer.parseInt(mPreferences.getString("pref_calories", "2500"));
+        Integer kcalDelta = avgKcal - Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT));
 
 
         String text1 = "Selected period: ";
         String text2 = summaryLogs.get(0).getDateText() + " - " + summaryLogs.get(summaryLogs.size() - 1).getDateText() + "\n";
-        String text3 = "Averages (" + (mPreferences.getBoolean("pref_stats_ignore_zero_kcal_days", false) ? "ex" : "in") + "cluding days with 0 kcal):\n";
+        String text3 = "Averages (" + (mPreferences.getBoolean(LoggerSettings.PREFERENCE_STATS_IGNORE_ZERO_KCAL_DAYS, false) ? "ex" : "in") + "cluding days with 0 kcal):\n";
         String text4 = "Calories: " + avgKcal.toString() + " kcal (";
         String kcalDeltaString = ((kcalDelta > 0) ? "+":"") + kcalDelta.toString();
         String text5 = " compared to daily target)\n";

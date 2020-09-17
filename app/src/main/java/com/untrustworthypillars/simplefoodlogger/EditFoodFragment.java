@@ -118,7 +118,7 @@ public class EditFoodFragment extends Fragment {
         }
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
 
         mFoodCategory = food.getCategory();
         for (int i =0; i< FOOD_CATEGORIES.length; i++) {
@@ -482,7 +482,7 @@ public class EditFoodFragment extends Fragment {
             }
         });
 
-        if (!mPreferences.getBoolean("tutorial_edit_food_noncustom_done", false) && mFoodType != 0) {
+        if (!mPreferences.getBoolean(LoggerSettings.PREFERENCE_TUTORIAL_EDIT_FOOD_NONCUSTOM_DONE, false) && mFoodType != 0) {
             FragmentManager fm = getFragmentManager();
             TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_edit_food_noncustom_text), getString(R.string.tutorial_edit_food_noncustom_title));
             dialog.setTargetFragment(EditFoodFragment.this, REQUEST_TUTORIAL);
@@ -505,7 +505,7 @@ public class EditFoodFragment extends Fragment {
                 Toast.makeText(getActivity(), "Food hidden!", Toast.LENGTH_SHORT).show();
             }
             if (requestCode == REQUEST_TUTORIAL) {
-                mPreferences.edit().putBoolean("tutorial_edit_food_noncustom_done", true).apply();
+                mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_TUTORIAL_EDIT_FOOD_NONCUSTOM_DONE, true).apply();
                 return;
             }
             getActivity().setResult(Activity.RESULT_OK);

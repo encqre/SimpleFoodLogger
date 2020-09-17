@@ -59,7 +59,7 @@ public class HiddenFoodsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_hidden_foods, container, false);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
 
         mSearchView = (SearchView) v.findViewById(R.id.fragment_hidden_foods_searchview);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

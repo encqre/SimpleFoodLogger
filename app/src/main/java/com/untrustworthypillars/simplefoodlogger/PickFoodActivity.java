@@ -36,7 +36,7 @@ public class PickFoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String theme = mPreferences.getString("pref_theme", "Light theme");
+        String theme = mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT);
         if (theme.equals("Light theme")) {
             setTheme(R.style.AppTheme);
         } else if (theme.equals("Dark theme")) {

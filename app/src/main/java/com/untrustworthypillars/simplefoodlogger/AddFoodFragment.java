@@ -78,7 +78,7 @@ public class AddFoodFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_add_food, container, false);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
 
         mProvidedCategory = (int) getArguments().getSerializable(ARG_CATEGORY);
 

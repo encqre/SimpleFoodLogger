@@ -86,7 +86,7 @@ public class AddLogFragment extends Fragment {
         }
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
 
         mDateButton = (Button) v.findViewById(R.id.fragment_add_log_date_button);
         mDateButton.setText(Calculations.dateDisplayString(mDate));

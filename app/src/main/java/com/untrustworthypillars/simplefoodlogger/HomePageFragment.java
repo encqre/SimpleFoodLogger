@@ -98,11 +98,17 @@ public class HomePageFragment extends Fragment {
 
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mCaloriesGoal = mPreferences.getString("pref_calories", "2500");
-        mProteinGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_protein", "185")) / 400f));
-        mCarbsGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_carbs", "300")) / 400f));
-        mFatGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_fat", "75")) / 900f));
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mCaloriesGoal = mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT);
+        mProteinGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal)
+                * Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT_DEFAULT))
+                / 400f));
+        mCarbsGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal)
+                * Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT_DEFAULT))
+                / 400f));
+        mFatGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal)
+                * Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT_DEFAULT))
+                / 900f));
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
 
         /*Floating action button starts a new Activity, which will launch FoodListFragment. Passing selected day as an argument */
         mLogMealFAB = (FloatingActionButton) v.findViewById(R.id.floating_button_logmeal);
@@ -170,7 +176,7 @@ public class HomePageFragment extends Fragment {
 
         updateUI();
 
-        if (!mPreferences.getBoolean("tutorial_home_page_done", false)) {
+        if (!mPreferences.getBoolean(LoggerSettings.PREFERENCE_TUTORIAL_HOME_PAGE_DONE, false)) {
             FragmentManager fm = getFragmentManager();
             TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_home_page_text), getString(R.string.tutorial_home_page_title));
             dialog.setTargetFragment(HomePageFragment.this, REQUEST_TUTORIAL);
@@ -198,7 +204,7 @@ public class HomePageFragment extends Fragment {
             updateUI();
         }
         if (requestCode == REQUEST_TUTORIAL) {
-            mPreferences.edit().putBoolean("tutorial_home_page_done", true).apply();
+            mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_TUTORIAL_HOME_PAGE_DONE, true).apply();
         }
     }
 
@@ -220,11 +226,17 @@ public class HomePageFragment extends Fragment {
     }
 
     public void updateTargets(){
-        mCaloriesGoal = mPreferences.getString("pref_calories", "2500");
-        mProteinGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_protein", "185")) / 400f));
-        mCarbsGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_carbs", "300")) / 400f));
-        mFatGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal) * Integer.parseInt(mPreferences.getString("pref_fat", "75")) / 900f));
-        mUnits = mPreferences.getString("pref_units", "Metric");
+        mCaloriesGoal = mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT);
+        mProteinGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal)
+                * Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT_DEFAULT))
+                / 400f));
+        mCarbsGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal)
+                * Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT_DEFAULT))
+                / 400f));
+        mFatGoal = String.valueOf(Math.round(Integer.parseInt(mCaloriesGoal)
+                * Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT_DEFAULT))
+                / 900f));
+        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
 
         mCaloriesProgress.setMax(Integer.parseInt(mCaloriesGoal));
         mProteinProgress.setMax(Integer.parseInt(mProteinGoal));

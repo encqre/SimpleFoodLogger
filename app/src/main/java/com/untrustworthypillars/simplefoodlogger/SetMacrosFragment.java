@@ -78,9 +78,9 @@ public class SetMacrosFragment extends Fragment {
         inSetup = (boolean) getArguments().getSerializable(ARG_IN_SETUP);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mTargetCalories = Integer.parseInt(mPreferences.getString("pref_calories", "1999"));
+        mTargetCalories = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT));
 
-        if (mPreferences.getString("pref_theme", "Light theme").equals("Light theme")) {
+        if (mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT).equals("Light theme")) {
             redColor = getResources().getColor(R.color.red);
             greenColor = getResources().getColor(R.color.green);
         } else {
@@ -90,9 +90,9 @@ public class SetMacrosFragment extends Fragment {
 
         setRecommendedMacros();
 
-        mTargetProteinPercent = Integer.parseInt(mPreferences.getString("pref_protein", String.valueOf(mTargetProteinPercentRecommended)));
-        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString("pref_carbs", String.valueOf(mTargetCarbsPercentRecommended)));
-        mTargetFatPercent = Integer.parseInt(mPreferences.getString("pref_fat", String.valueOf(mTargetFatPercentRecommended)));
+        mTargetProteinPercent = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, String.valueOf(mTargetProteinPercentRecommended)));
+        mTargetCarbsPercent = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, String.valueOf(mTargetCarbsPercentRecommended)));
+        mTargetFatPercent = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, String.valueOf(mTargetFatPercentRecommended)));
 
         mTargetProtein = Math.round(mTargetCalories * mTargetProteinPercent / 400f);
         mTargetCarbs = Math.round(mTargetCalories * mTargetCarbsPercent / 400f);
@@ -304,9 +304,9 @@ public class SetMacrosFragment extends Fragment {
                         Integer.parseInt(mFatInputPercent.getText().toString())!= 100) {
                     Toast.makeText(getActivity(), "Percentages must add up to 100%!", Toast.LENGTH_SHORT).show();
                 } else {
-                    mPreferences.edit().putString("pref_protein", mProteinInputPercent.getText().toString()).apply();
-                    mPreferences.edit().putString("pref_carbs", mCarbsInputPercent.getText().toString()).apply();
-                    mPreferences.edit().putString("pref_fat", mFatInputPercent.getText().toString()).apply();
+                    mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, mProteinInputPercent.getText().toString()).apply();
+                    mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, mCarbsInputPercent.getText().toString()).apply();
+                    mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, mFatInputPercent.getText().toString()).apply();
                     getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
                 }
@@ -363,9 +363,9 @@ public class SetMacrosFragment extends Fragment {
         float proteinPerKiloMid = 1.82f;
         float proteinPerKiloHigh = 2.2f;
         float proteinPerKilo;
-        String weight = mPreferences.getString("pref_weight", "");
-        String targetCalories = mPreferences.getString("pref_calories", "1969");
-        int activityLevel = Integer.parseInt(mPreferences.getString("pref_activity_level", "0"));
+        String weight = mPreferences.getString(LoggerSettings.PREFERENCE_WEIGHT, "");
+        String targetCalories = mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT);
+        int activityLevel = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_ACTIVITY_LEVEL, LoggerSettings.PREFERENCE_ACTIVITY_LEVEL_DEFAULT));
 
         if (weight.equals("") || Integer.parseInt(weight) == 0) {
             //If no bodyweight was entered, defaulting to recommended PFC percentages of 25/30/45
