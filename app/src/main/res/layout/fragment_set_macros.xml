@@ -95,7 +95,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/fragment_set_macros_edit_protein_percent" />
 
-                <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
+                <lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix
                     android:id="@+id/fragment_set_macros_edit_protein_percent"
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_protein_percent" />
 
-                <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
+                <lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix
                     android:id="@+id/fragment_set_macros_edit_carbs_percent"
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/fragment_set_macros_edit_carbs_percent"
                     tools:text="Fat" />
 
-                <com.untrustworthypillars.simplefoodlogger.reusable.EditTextWithSuffix
+                <lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix
                     android:id="@+id/fragment_set_macros_edit_fat_percent"
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
