@@ -350,7 +350,7 @@ public class FoodListFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query, !mIsCategoryOpen,
+                mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(query, true,
                         mTabLayout.getSelectedTabPosition() == TAB_FAVORITES,
                         mTabLayout.getSelectedTabPosition() == TAB_RECENT,
                         mIsCategoryOpen ? FOOD_CATEGORIES[mSelectedCategory] : ""));
@@ -365,7 +365,7 @@ public class FoodListFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 android.util.Log.d("onquerytextchange", newText + " " + String.valueOf(newText.length()));
                 if (newText.length() > 0) {
-                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, !mIsCategoryOpen,
+                    mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, true,
                             mTabLayout.getSelectedTabPosition() == TAB_FAVORITES,
                             mTabLayout.getSelectedTabPosition() == TAB_RECENT,
                             mIsCategoryOpen ? FOOD_CATEGORIES[mSelectedCategory] : ""));

@@ -151,7 +151,7 @@ public class InitialSetupActivity extends AppCompatActivity {
 
             List<Food> fullExtendedFoodList = fm.getExtendedFoods();
             try {
-                InputStream CSVStream = InitialSetupActivity.this.getAssets().open("FullDb-v1.csv");
+                InputStream CSVStream = InitialSetupActivity.this.getAssets().open("FullDb-v2.csv");
                 InputStreamReader reader = new InputStreamReader(CSVStream);
                 BufferedReader bufferedReader = new BufferedReader(reader);
                 while (true) {

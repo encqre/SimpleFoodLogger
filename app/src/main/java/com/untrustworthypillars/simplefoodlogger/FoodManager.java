@@ -146,6 +146,18 @@ public class FoodManager {
             cursor.close();
         }
 
+        cursor = queryExtendedFoods(ExtendedFoodTable.Cols.CATEGORY + " = ? AND " + ExtendedFoodTable.Cols.HIDDEN + " = 0", new String[] {category});
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getExtendedFood());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+
         return foods;
     }
 
