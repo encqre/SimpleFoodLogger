@@ -11,9 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
-import lt.jasinevicius.simplefoodlogger.R;
 
 import java.util.Date;
 import java.util.UUID;
@@ -35,6 +34,7 @@ public class AddLogActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
+    private Fragment addLogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,12 @@ public class AddLogActivity extends AppCompatActivity {
         Integer foodType = (Integer) getIntent().getSerializableExtra(EXTRA_FOOD_TYPE);
         Date date = (Date) getIntent().getSerializableExtra(EXTRA_DATE);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, AddLogFragment.newInstance(foodId, foodType, date)).commit();
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            addLogFragment = getSupportFragmentManager().getFragment(savedInstanceState, "addLogFragment");
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, AddLogFragment.newInstance(foodId, foodType, date)).commit();
+        }
     }
 
     @Override
@@ -80,6 +85,14 @@ public class AddLogActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        addLogFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "addLogFragment", addLogFragment);
     }
 
 }

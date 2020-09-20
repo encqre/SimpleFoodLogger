@@ -21,8 +21,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import lt.jasinevicius.simplefoodlogger.reusable.DecimalDigitsInputFilter;
 
 //TODO fix autoscroll distances when in landscape mode (and probably on smaller res screens too)
@@ -401,6 +399,7 @@ public class AddFoodFragment extends Fragment {
 
         return v;
     }
+
 
     //This function scrolls down/up to bottom of provided layout (has to be child of either scrollview itself or child its child relativeLayout)
     private void scrollUpLayout(final ConstraintLayout section){

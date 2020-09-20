@@ -19,8 +19,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix;
 
 public class SetCaloriesProfileFragment extends Fragment {

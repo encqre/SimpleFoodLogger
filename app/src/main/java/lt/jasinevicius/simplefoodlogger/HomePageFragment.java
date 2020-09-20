@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import lt.jasinevicius.simplefoodlogger.R;
 
 import lt.jasinevicius.simplefoodlogger.reusable.TutorialDialog;
 
@@ -314,7 +313,7 @@ public class HomePageFragment extends Fragment {
 }
 
 //TODO make this whole fragment layout a scrollpane - need to test on a low res phone first if its really needed
-//TODO fix issues arising switching to landscape mode + verify landscape layouts
 //TODO verify each case where hardcoded width/height units are used. Need to check if it still looks fine on different res screens.
+//TODO AFTER RELEASE fix remaining issues when switching to landscape (mostly with main activity fragments)
 //TODO Possible feature: Adding timestamps to food logs maybe?
 //TODO Possible feature: Group 1 or more food items into meals?

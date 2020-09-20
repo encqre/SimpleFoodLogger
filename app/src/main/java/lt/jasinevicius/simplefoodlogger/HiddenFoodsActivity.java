@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import lt.jasinevicius.simplefoodlogger.reusable.SimpleConfirmationDialog;
 
 

@@ -16,8 +16,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -254,13 +252,7 @@ public class InitialSetupActivity extends AppCompatActivity {
                     LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE_DEFAULT).apply();
         }
 
-        //if user closes the initial setup activity from this point, since we already have some
-        // values set, no need to launch the initial setup activity again when launching the app
-
-        mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, false).apply();
-
         // launch units setup
-
         setContentView(R.layout.initial_setup_units);
 
         mUnitsMetric = (RadioButton) findViewById(R.id.initial_setup_units_metric);
@@ -283,6 +275,11 @@ public class InitialSetupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // launch calories setup
                 mUnitSetupOpen = false;
+
+                //Once user presses contineu here, since we already have some values set,
+                //no need to launch the initial setup activity again when launching the app
+                mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, false).apply();
+
                 Intent intent = SetCaloriesActivity.newIntent(InitialSetupActivity.this, true, SetCaloriesActivity.STAGE_PROFILE);
                 startActivityForResult(intent, REQUEST_CALORIES);
             }

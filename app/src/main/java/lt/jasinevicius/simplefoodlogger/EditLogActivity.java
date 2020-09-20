@@ -11,9 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
-import lt.jasinevicius.simplefoodlogger.R;
 
 import java.util.UUID;
 
@@ -30,6 +29,7 @@ public class EditLogActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
+    private Fragment editLogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,12 @@ public class EditLogActivity extends AppCompatActivity {
 
         UUID logId = (UUID) getIntent().getSerializableExtra(EXTRA_LOG_ID);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, EditLogFragment.newInstance(logId)).commit();
-
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            editLogFragment = getSupportFragmentManager().getFragment(savedInstanceState, "editLogFragment");
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, EditLogFragment.newInstance(logId)).commit();
+        }
     }
 
     @Override
@@ -76,4 +80,11 @@ public class EditLogActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        editLogFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "editLogFragment", editLogFragment);
+    }
 }

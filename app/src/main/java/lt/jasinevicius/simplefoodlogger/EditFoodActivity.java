@@ -9,9 +9,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
-import lt.jasinevicius.simplefoodlogger.R;
 
 import java.util.UUID;
 
@@ -30,6 +29,7 @@ public class EditFoodActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
+    private Fragment editFoodFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,12 @@ public class EditFoodActivity extends AppCompatActivity {
         UUID foodId = (UUID) getIntent().getSerializableExtra(EXTRA_FOOD_ID);
         int foodType = (int) getIntent().getSerializableExtra(EXTRA_FOOD_TYPE);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, EditFoodFragment.newInstance(foodId, foodType)).commit();
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            editFoodFragment = getSupportFragmentManager().getFragment(savedInstanceState, "editFoodFragment");
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, EditFoodFragment.newInstance(foodId, foodType)).commit();
+        }
     }
 
     @Override
@@ -69,4 +74,11 @@ public class EditFoodActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        editFoodFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "editFoodFragment", editFoodFragment);
+    }
 }

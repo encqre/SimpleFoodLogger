@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

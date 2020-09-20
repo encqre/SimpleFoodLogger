@@ -27,8 +27,6 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import java.util.List;
 import java.util.UUID;
 

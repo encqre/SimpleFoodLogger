@@ -9,11 +9,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
-import lt.jasinevicius.simplefoodlogger.R;
-
-//TODO save state which fragment is open going to/from landscape and etc.
 
 public class SetCaloriesActivity extends AppCompatActivity {
 
@@ -33,6 +30,7 @@ public class SetCaloriesActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
     private boolean mShowTitle;
+    private Fragment openFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +58,20 @@ public class SetCaloriesActivity extends AppCompatActivity {
             ab.hide();
         }
 
-        switch(stage) {
-            case STAGE_PROFILE:
-                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
-                break;
-            case STAGE_CONFIRM_KCAL:
-                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, mShowTitle)).commit();
-                break;
-            default:
-                getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            openFragment = getSupportFragmentManager().getFragment(savedInstanceState, "openFragment");
+        } else {
+            switch (stage) {
+                case STAGE_PROFILE:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
+                    break;
+                case STAGE_CONFIRM_KCAL:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, mShowTitle)).commit();
+                    break;
+                default:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
+            }
         }
     }
 
@@ -90,7 +93,13 @@ public class SetCaloriesActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        openFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "openFragment", openFragment);
+    }
 }

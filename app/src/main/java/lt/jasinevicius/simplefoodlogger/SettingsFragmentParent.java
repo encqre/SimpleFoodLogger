@@ -10,8 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 /**This fragment contains toolbar and an inner fragment (SettingsFragment). The reason why nested
  * fragments are used in this case is because i found no better way to add toolbar to SettingsFragment,
  * because it extends PreferenceFragment class, so it uses a layout of which i don't have much control of */

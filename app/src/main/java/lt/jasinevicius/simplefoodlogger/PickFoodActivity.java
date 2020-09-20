@@ -10,8 +10,6 @@ import android.os.Bundle;
 
 import androidx.preference.PreferenceManager;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import java.util.Date;
 
 public class PickFoodActivity extends AppCompatActivity {

@@ -9,9 +9,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
-import lt.jasinevicius.simplefoodlogger.R;
 
 public class AddFoodActivity extends AppCompatActivity {
 
@@ -19,6 +18,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
+    private Fragment addFoodFragment;
 
 
     public static Intent newIntent(Context packageContext, int category) {
@@ -50,7 +50,12 @@ public class AddFoodActivity extends AppCompatActivity {
 
         Integer category = (Integer) getIntent().getSerializableExtra(EXTRA_CATEGORY);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, AddFoodFragment.newInstance(category)).commit();
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            addFoodFragment = getSupportFragmentManager().getFragment(savedInstanceState, "addFoodFragment");
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, AddFoodFragment.newInstance(category)).commit();
+        }
     }
 
     @Override
@@ -62,5 +67,13 @@ public class AddFoodActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        addFoodFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "addFoodFragment", addFoodFragment);
     }
 }

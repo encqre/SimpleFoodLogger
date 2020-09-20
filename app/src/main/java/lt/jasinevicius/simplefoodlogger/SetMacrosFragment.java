@@ -20,8 +20,6 @@ import androidx.annotation.ColorInt;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix;
 
 //TODO AFTER RELEASE maybe add a question mark somewhere inside form, that would explain what is this, and what values are recommended.

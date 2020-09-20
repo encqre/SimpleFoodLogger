@@ -9,9 +9,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
-import lt.jasinevicius.simplefoodlogger.R;
 
 public class SetMacrosActivity extends AppCompatActivity {
 
@@ -26,6 +25,7 @@ public class SetMacrosActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private SharedPreferences mPreferences;
     private boolean inSetup;
+    private Fragment setMacrosFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,12 @@ public class SetMacrosActivity extends AppCompatActivity {
             ab.hide();
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetMacrosFragment.newInstance(inSetup)).commit();
-
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            setMacrosFragment = getSupportFragmentManager().getFragment(savedInstanceState, "setMacrosFragment");
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetMacrosFragment.newInstance(inSetup)).commit();
+        }
     }
 
     @Override
@@ -65,7 +69,13 @@ public class SetMacrosActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        setMacrosFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
+        //Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "setMacrosFragment", setMacrosFragment);
+    }
 }

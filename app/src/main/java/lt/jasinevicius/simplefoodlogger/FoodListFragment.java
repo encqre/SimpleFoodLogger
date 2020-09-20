@@ -8,7 +8,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
-import lt.jasinevicius.simplefoodlogger.R;
 
 import lt.jasinevicius.simplefoodlogger.reusable.TutorialDialog;
 
@@ -50,7 +49,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-//TODO review common/extended foods, refresh, add extended to correct categories. Probably show all of them inside quick pick categories?
 //TODO AFTER RELEASE async queries to db when searching? So that input wouldn't lag on 1-2 letter queries
 
 public class FoodListFragment extends Fragment {

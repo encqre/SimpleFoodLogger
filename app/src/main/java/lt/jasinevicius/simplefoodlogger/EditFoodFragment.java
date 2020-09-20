@@ -22,8 +22,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import lt.jasinevicius.simplefoodlogger.reusable.DecimalDigitsInputFilter;
 import lt.jasinevicius.simplefoodlogger.reusable.SimpleConfirmationDialog;
 import lt.jasinevicius.simplefoodlogger.reusable.TutorialDialog;

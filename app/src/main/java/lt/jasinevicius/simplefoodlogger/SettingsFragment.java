@@ -24,8 +24,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import lt.jasinevicius.simplefoodlogger.R;
-
 import lt.jasinevicius.simplefoodlogger.reusable.LoadingProgressDialog;
 import lt.jasinevicius.simplefoodlogger.reusable.SimpleConfirmationDialog;
 

@@ -1,7 +1,6 @@
 package lt.jasinevicius.simplefoodlogger;
 
 import com.google.android.material.tabs.TabLayout;
-import lt.jasinevicius.simplefoodlogger.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
@@ -105,7 +104,7 @@ public class LoggerActivity extends AppCompatActivity {
             }
         });
 
-        /** Replacing blank fragment container with home fragment or previously open fragnment if activity is recreated **/
+        /** Replacing blank fragment container with home fragment or previously open fragment if activity is recreated **/
         if (savedInstanceState != null) {
             setTab(savedInstanceState.getInt(SAVED_OPEN_TAB));
         } else {

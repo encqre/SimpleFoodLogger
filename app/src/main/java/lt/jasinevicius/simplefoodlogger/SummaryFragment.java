@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-import lt.jasinevicius.simplefoodlogger.R;
 
 import lt.jasinevicius.simplefoodlogger.reusable.TutorialDialog;
 
@@ -45,6 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Class for the Fragment of the summary/statistics
  *
+
  */
 
 //TODO Possible feature: some graphs maybe
