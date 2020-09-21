@@ -3,6 +3,7 @@ package lt.jasinevicius.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageItemInfo;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
@@ -302,18 +303,22 @@ public class FoodListFragment extends Fragment {
             }
         });
 
+        float density = getActivity().getResources().getDisplayMetrics().density;
+        int screenWidthDp = getActivity().getResources().getConfiguration().screenWidthDp;
 
         if (!mIsCalledByPickFoodActivity) {
-            //set various specific toolbar layout params if fragment is accesed from main activity
+            //set various specific toolbar layout params if fragment is accessed from main activity
             backButton.setVisibility(View.INVISIBLE);
-
-            float density = getActivity().getResources().getDisplayMetrics().density;
 
             int paddingDp = 16;
             int paddingPixel = (int)(paddingDp * density);
             toolbarTitle.setPadding(paddingPixel,0,0,0);
 
-            int searchViewMaxWidthDp = 300;
+            int searchViewMaxWidthDp = screenWidthDp - 60;
+            int maxWidthPixel = (int)(searchViewMaxWidthDp * density);
+            searchView.setMaxWidth(maxWidthPixel);
+        } else {
+            int searchViewMaxWidthDp = screenWidthDp - 100;
             int maxWidthPixel = (int)(searchViewMaxWidthDp * density);
             searchView.setMaxWidth(maxWidthPixel);
         }

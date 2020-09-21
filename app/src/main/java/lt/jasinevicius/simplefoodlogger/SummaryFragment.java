@@ -43,8 +43,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Class for the Fragment of the summary/statistics
- *
-
  */
 
 //TODO Possible feature: some graphs maybe
