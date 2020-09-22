@@ -12,5 +12,12 @@
     </shape>
 </item>
 
+<item
+    android:drawable="@drawable/arrow_dropdown"
+    android:gravity="center_vertical|end"
+    android:right="12dp"
+    android:width="12dp"
+    android:height="12dp"
+    />
 
 </layer-list>
