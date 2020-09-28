@@ -171,7 +171,7 @@
             <EditText
                 android:id="@+id/fragment_add_log_weight"
                 style="@style/Widget.AppCompat.AutoCompleteTextView"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -216,7 +216,7 @@
                     android:id="@+id/fragment_add_log_serving1_radio_button"
                     style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                     android:layout_width="match_parent"
-                    android:maxWidth="184dp"
+                    android:maxWidth="234dp"
                     android:layout_height="wrap_content"
                     android:text="wing, bone and skin removed carefully (125g)" />
 
@@ -224,7 +224,7 @@
                     android:id="@+id/fragment_add_log_serving2_radio_button"
                     style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                     android:layout_width="match_parent"
-                    android:maxWidth="184dp"
+                    android:maxWidth="234dp"
                     android:layout_height="wrap_content"
                     android:text='medium (2.66" diameter) (242g)' />
 
@@ -232,7 +232,7 @@
                     android:id="@+id/fragment_add_log_serving3_radio_button"
                     style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                     android:layout_width="match_parent"
-                    android:maxWidth="184dp"
+                    android:maxWidth="234dp"
                     android:layout_height="wrap_content"
                     android:text='very large (12" diameter) (378g)' />
 

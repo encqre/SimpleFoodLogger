@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textColor="?attr/listItemTitleTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif"
         android:textColor="?attr/listItemKcalTextColor"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:typeface="monospace"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,59 +52,59 @@
         app:layout_constraintTop_toTopOf="@+id/list_item_summary_log_calories">
 
         <TextView
-            android:layout_width="18dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
             android:textColor="?attr/listItemMacroTextColor"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textAlignment="textEnd"
             android:text="P:" />
 
         <TextView
             android:id="@+id/list_item_summary_log_protein"
-                android:layout_width="36dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="?attr/listItemMacroTextColor"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textAlignment="textEnd"
                 android:text="265g" />
 
         <TextView
-                android:layout_width="18dp"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="?attr/listItemMacroTextColor"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textAlignment="textEnd"
                 android:text="C:" />
 
         <TextView
             android:id="@+id/list_item_summary_log_carbs"
-                android:layout_width="36dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="?attr/listItemMacroTextColor"
-                android:textSize="14sp"
+                android:textSize="16sp"
             android:textAlignment="textEnd"
                 android:text="323g" />
 
         <TextView
-                android:layout_width="18dp"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="?attr/listItemMacroTextColor"
-                android:textSize="14sp"
+                android:textSize="16sp"
             android:textAlignment="textEnd"
                 android:text="F:" />
 
         <TextView
             android:id="@+id/list_item_summary_log_fat"
-                android:layout_width="36dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="?attr/listItemMacroTextColor"
-                android:textSize="14sp"
+                android:textSize="16sp"
             android:textAlignment="textEnd"
                 android:text="323g" />
 
