@@ -144,184 +144,35 @@ public class EditFoodFragment extends Fragment {
         layoutSectionButtons = (ConstraintLayout) v.findViewById(R.id.fragment_edit_food_section_buttons);
 
         mFoodTitle = (EditText) v.findViewById(R.id.fragment_edit_food_name);
-        mFoodTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionGeneral);
-            }
-        });
-        mFoodTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mFoodTitle.hasFocus()) {
-                    scrollUpLayout(layoutSectionGeneral);
-                }
-            }
-        });
+
         mCalories = (EditText) v.findViewById(R.id.fragment_edit_food_calories);
         mCalories.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mCalories.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,2)});
-        mCalories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionNutrition);
-            }
-        });
-        mCalories.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mCalories.hasFocus()) {
-                    scrollUpLayout(layoutSectionNutrition);
-                }
-            }
-        });
+
         mProtein = (EditText) v.findViewById(R.id.fragment_edit_food_protein);
         mProtein.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mProtein.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-        mProtein.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionNutrition);
-            }
-        });
-        mProtein.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mProtein.hasFocus()) {
-                    scrollUpLayout(layoutSectionNutrition);
-                }
-            }
-        });
+
         mCarbs = (EditText) v.findViewById(R.id.fragment_edit_food_carbs);
         mCarbs.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mCarbs.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-        mCarbs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionServings);
-            }
-        });
-        mCarbs.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mCarbs.hasFocus()) {
-                    scrollUpLayout(layoutSectionServings);
-                }
-            }
-        });
+
         mFat = (EditText) v.findViewById(R.id.fragment_edit_food_fat);
         mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mFat.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-        mFat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionButtons);
-            }
-        });
-        mFat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mFat.hasFocus()) {
-                    scrollUpLayout(layoutSectionButtons);
-                }
-            }
-        });
+
         mServing1Name = (EditText) v.findViewById(R.id.fragment_edit_food_serving1_name);
-        mServing1Name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionButtons);
-            }
-        });
-        mServing1Name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mServing1Name.hasFocus()) {
-                    scrollUpLayout(layoutSectionButtons);
-                }
-            }
-        });
         mServing1Size = (EditText) v.findViewById(R.id.fragment_edit_food_serving1_size);
         mServing1Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mServing1Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
-        mServing1Size.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionButtons);
-            }
-        });
-        mServing1Size.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mServing1Size.hasFocus()) {
-                    scrollUpLayout(layoutSectionButtons);
-                }
-            }
-        });
         mServing2Name = (EditText) v.findViewById(R.id.fragment_edit_food_serving2_name);
-        mServing2Name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionButtons);
-            }
-        });
-        mServing2Name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mServing2Name.hasFocus()) {
-                    scrollUpLayout(layoutSectionButtons);
-                }
-            }
-        });
         mServing2Size = (EditText) v.findViewById(R.id.fragment_edit_food_serving2_size);
         mServing2Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mServing2Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
-        mServing2Size.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionButtons);
-            }
-        });
-        mServing2Size.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mServing2Size.hasFocus()) {
-                    scrollUpLayout(layoutSectionButtons);
-                }
-            }
-        });
         mServing3Name = (EditText) v.findViewById(R.id.fragment_edit_food_serving3_name);
-        mServing3Name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionButtons);
-            }
-        });
-        mServing3Name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mServing3Name.hasFocus()) {
-                    scrollUpLayout(layoutSectionButtons);
-                }
-            }
-        });
         mServing3Size = (EditText) v.findViewById(R.id.fragment_edit_food_serving3_size);
         mServing3Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mServing3Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
-        mServing3Size.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scrollUpLayout(layoutSectionButtons);
-            }
-        });
-        mServing3Size.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (mServing3Size.hasFocus()) {
-                    scrollUpLayout(layoutSectionButtons);
-                }
-            }
-        });
 
         mFoodTitle.setText(food.getTitle());
         mCalories.setText(food.getKcal().toString());
@@ -511,19 +362,4 @@ public class EditFoodFragment extends Fragment {
             getActivity().finish();
         }
     }
-    //This function scrolls down/up to bottom of provided layout (has to be child of either scrollview itself or child its child relativeLayout)
-    private void scrollUpLayout(final ConstraintLayout section){
-        scrollView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                int bottom = section.getBottom() + scrollView.getPaddingBottom();
-                int sy = scrollView.getScrollY();
-                int sh = scrollView.getHeight();
-                int delta = bottom - (sy + sh);
-                scrollView.smoothScrollBy(0, delta);
-            }
-        }, 200);
-    }
-
-
 }

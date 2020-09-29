@@ -5,14 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipToPadding="false">
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:background="?attr/genericSurfaceColor">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/fragment_set_calories_profile_bottom_buttons">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -334,7 +335,11 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </RelativeLayout>
+    </ScrollView>
+
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_set_calories_profile_bottom_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -343,8 +348,8 @@
                 android:outlineProvider="bounds"
                 android:layout_marginTop="6dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_below="@+id/fragment_set_calories_profile_section_spinners">
+                android:paddingBottom="8dp">
+<!--                android:layout_below="@+id/fragment_set_calories_profile_section_spinners">-->
 
                 <Button
                     android:id="@+id/initial_setup_calories_profile_button_back"
@@ -368,6 +373,5 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
              </androidx.constraintlayout.widget.ConstraintLayout>
-        </RelativeLayout>
-    </ScrollView>
+
 </RelativeLayout>

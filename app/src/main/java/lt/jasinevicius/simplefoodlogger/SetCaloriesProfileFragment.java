@@ -80,6 +80,7 @@ public class SetCaloriesProfileFragment extends Fragment {
                 mPreferences.edit().putString(LoggerSettings.PREFERENCE_GENDER, "Male").apply();
             }
         });
+        mProfileGenderMale.requestFocus();
         mProfileGenderFemale = (RadioButton) v.findViewById(R.id.initial_setup_calories_profile_gender_female);
         mProfileGenderFemale.setOnClickListener(new View.OnClickListener() {
             @Override

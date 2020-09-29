@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    android:background="?attr/buttonBarBackgroundColor">
 
     <ScrollView
         android:id="@+id/fragment_edit_food_scrollview"

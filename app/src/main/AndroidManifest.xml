@@ -24,25 +24,28 @@
             android:parentActivityName=".LoggerActivity">
         </activity>
         <activity android:name=".AddLogActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity android:name=".EditLogActivity"
-            android:parentActivityName=".LoggerActivity">
+            android:parentActivityName=".LoggerActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity android:name=".AddFoodActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity android:name=".EditFoodActivity"
-            android:parentActivityName=".LoggerActivity">
+            android:parentActivityName=".LoggerActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity android:name=".HiddenFoodsActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
         <activity android:name=".SetMacrosActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:parentActivityName=".LoggerActivity">
         </activity>
-        <activity android:name=".SetCaloriesActivity">
+        <activity android:name=".SetCaloriesActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
         <activity android:name=".InitialSetupActivity">
         </activity>

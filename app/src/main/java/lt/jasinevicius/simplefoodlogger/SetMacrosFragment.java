@@ -2,6 +2,7 @@ package lt.jasinevicius.simplefoodlogger;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -58,6 +59,7 @@ public class SetMacrosFragment extends Fragment {
 
     private boolean viewCreateCompleted = false;
     private boolean inSetup;
+    private int orientation;
 
     @ColorInt int redColor;
     @ColorInt int greenColor;
@@ -76,6 +78,7 @@ public class SetMacrosFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_set_macros, container, false);
 
         inSetup = (boolean) getArguments().getSerializable(ARG_IN_SETUP);
+        orientation = getResources().getConfiguration().orientation;
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mTargetCalories = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT));
@@ -178,7 +181,9 @@ public class SetMacrosFragment extends Fragment {
         mProteinInputPercent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrollUpLayout();
+                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    scrollUpLayout();
+                }
             }
         });
 
@@ -217,14 +222,16 @@ public class SetMacrosFragment extends Fragment {
         mCarbsInputPercent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrollUpLayout();
+                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    scrollUpLayout();
+                }
             }
         });
 
         mCarbsInputPercent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (mCarbsInputPercent.hasFocus()) {
+                if (mCarbsInputPercent.hasFocus() && orientation != Configuration.ORIENTATION_LANDSCAPE) {
                     scrollUpLayout();
                 }
             }
@@ -264,13 +271,15 @@ public class SetMacrosFragment extends Fragment {
         mFatInputPercent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrollUpLayout();
+                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    scrollUpLayout();
+                }
             }
         });
         mFatInputPercent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (mFatInputPercent.hasFocus()) {
+                if (mFatInputPercent.hasFocus() && orientation != Configuration.ORIENTATION_LANDSCAPE) {
                     scrollUpLayout();
                 }
             }
