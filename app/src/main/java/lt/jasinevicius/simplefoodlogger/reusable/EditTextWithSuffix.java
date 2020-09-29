@@ -29,13 +29,6 @@ public class EditTextWithSuffix extends AppCompatEditText {
         getAttributes(context, attrs, defStyleAttr);
     }
 
-//    @Override
-//    public void onDraw(Canvas c){
-//        super.onDraw(c);
-//        int suffixXPosition = (int) textPaint.measureText(getText().toString()) + getPaddingLeft();
-//        c.drawText(suffix, Math.max(suffixXPosition, suffixPadding), getBaseline(), textPaint);
-//    }
-
     //this version works with hints as well
     @Override
     public void onDraw(Canvas c) {

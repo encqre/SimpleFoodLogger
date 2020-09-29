@@ -28,8 +28,6 @@ public class Calculations {
         Integer yearnow = calnow.get(Calendar.YEAR);
         Integer day = cal.get(Calendar.DAY_OF_YEAR);
         Integer daynow = calnow.get(Calendar.DAY_OF_YEAR);
-        android.util.Log.i("TAG",year.toString() + yearnow.toString() + day.toString() + daynow.toString());
-
 
         if (!year.toString().equals(yearnow.toString())) {
             output = DateFormat.format("dd MMM yyyy, E", date).toString();

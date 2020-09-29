@@ -3,7 +3,6 @@ package lt.jasinevicius.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageItemInfo;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
@@ -173,7 +172,6 @@ public class FoodListFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (TextUtils.isEmpty(editable)) {
-                    android.util.Log.d("textwatches", "twas empty");
                     //animation for tabLayout fade in
                     Transition transition = new Fade();
                     transition.setDuration(300);
@@ -367,7 +365,6 @@ public class FoodListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                android.util.Log.d("onquerytextchange", newText + " " + String.valueOf(newText.length()));
                 if (newText.length() > 0) {
                     mFoodAdapter = new FoodAdapter(mFoodManager.getFoodsSearch(newText, true,
                             mTabLayout.getSelectedTabPosition() == TAB_FAVORITES,
@@ -631,7 +628,6 @@ public class FoodListFragment extends Fragment {
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    android.util.Log.d("clicked edit", "yep");
                     Intent intent = EditFoodActivity.newIntent(getActivity(), mFood.getFoodId(), mFood.getType());
                     startActivityForResult(intent, REQUEST_EDIT_FOOD);
                 }

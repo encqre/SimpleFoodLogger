@@ -75,7 +75,6 @@ public class HiddenFoodsFragment extends Fragment {
                 mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(newText));
                 if (mSearchView.getQuery().length() == 0) {
                     mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(""));
-                    android.util.Log.d("EMPTY TEXT CHANGE", "AA");
                 }
                 mRecyclerView.setAdapter(mFoodAdapter);
                 return false;

@@ -18,8 +18,6 @@ public class PickFoodActivity extends AppCompatActivity {
 
     private SharedPreferences mPreferences;
 
-    private int mSelectedFoodCategory = 0;
-
     public static Intent newIntent(Context packageContext, Date date) {
         Intent intent = new Intent(packageContext, PickFoodActivity.class);
         intent.putExtra(EXTRA_DATE, date);

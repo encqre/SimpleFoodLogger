@@ -404,7 +404,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean found = false;
                     for (int i = 0; i<fullLogList.size(); i++) {
                         if (el[0].equals(fullLogList.get(i).getLogId().toString())) {
-                            android.util.Log.e("Logger", el[0] + " UUID log was found in current DB!");
+//                            android.util.Log.e("Logger", el[0] + " UUID log was found in current DB!");
                             found = true;
                         }
                     }
@@ -420,7 +420,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         foundNewLog.setCarbs(Float.parseFloat(el[8]));
                         foundNewLog.setFat(Float.parseFloat(el[9]));
                         importedLogList.add(foundNewLog);
-                        android.util.Log.e("Logger", el[0] + " UUID log was not found in DB, will ask to add it");
+//                        android.util.Log.e("Logger", el[0] + " UUID log was not found in DB, will ask to add it");
                     }
                     loopCounter++;
                 }
@@ -503,7 +503,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean found = false;
                     for (int i = 0; i<fullFoodList.size(); i++) {
                         if (el[0].equals(fullFoodList.get(i).getFoodId().toString())) {
-                            android.util.Log.e("Logger", el[2] + " was found in current DB!");
+//                            android.util.Log.e("Logger", el[2] + " was found in current DB!");
                             found = true;
                         }
                     }
@@ -529,7 +529,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
                         foundNewFood.setType(0);
                         importedCustomFoodList.add(foundNewFood);
-                        android.util.Log.e("Logger", el[2] + " was not found in DB, will ask to add");
+//                        android.util.Log.e("Logger", el[2] + " was not found in DB, will ask to add");
                     }
                     loopCounter++;
                 }

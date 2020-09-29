@@ -208,7 +208,6 @@ public class FoodManager {
         String [] searchWordsArray = searchString.split("\\s+");
         String queryWhereClause = "";
         for (int i=0; i<searchWordsArray.length; i++) {
-            android.util.Log.d("SEARCHARRAY", searchWordsArray[i]);
             if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 0) { //Not including empty strings or single letter words into search words
                 searchWordsArray[i] = "\"%" + searchWordsArray[i] + "%\"";
                 if (queryWhereClause.length() < 1) {
@@ -372,7 +371,6 @@ public class FoodManager {
         String [] searchWordsArray = filterString.split("\\s+");
         String queryWhereClause = "";
         for (int i=0; i<searchWordsArray.length; i++) {
-            android.util.Log.d("SEARCHARRAY", searchWordsArray[i]);
             if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 1) { //Not including empty strings or single letter words into search words
                 searchWordsArray[i] = "\"%" + searchWordsArray[i] + "%\"";
                 if (queryWhereClause.length() < 1) {
@@ -446,10 +444,7 @@ public class FoodManager {
             updateCommonFood(food);
         } else if (food.getType() == 2) {
             updateExtendedFood(food);
-        } else {
-            android.util.Log.e("FAIL", "Failed to update food - incorrect type value: " + String.valueOf(food.getType()));
         }
-
     }
 
     public void updateCustomFood(Food food) {
@@ -614,7 +609,6 @@ public class FoodManager {
                 }
             }
         }
-        android.util.Log.i("ayyy", String.valueOf(recentFoodList.size()));
         //if 'query' is not empty, filter out only those recent foods that contain the 'query' words
         if (!query.equals("")) {
             String [] filterWordsArray = query.toLowerCase().split("\\s+");
@@ -633,7 +627,6 @@ public class FoodManager {
             }
             recentFoodList = filteredRecentFoodList;
         }
-        android.util.Log.i("ayyy-afterfilter", String.valueOf(recentFoodList.size()));
         return recentFoodList;
     }
 

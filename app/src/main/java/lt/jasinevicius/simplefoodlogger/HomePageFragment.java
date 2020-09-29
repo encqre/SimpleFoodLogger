@@ -31,7 +31,6 @@ import java.util.UUID;
 
 /**
  * Class for the Fragment of the home page
- *
  */
 
 public class HomePageFragment extends Fragment {

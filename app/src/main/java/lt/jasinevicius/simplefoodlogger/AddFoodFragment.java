@@ -12,12 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
@@ -47,11 +45,6 @@ public class AddFoodFragment extends Fragment {
     private TextView mServingSizesTextView;
     private Button mAddButton;
     private Button mCancelButton;
-    private ScrollView scrollView;
-    private ConstraintLayout layoutSectionGeneral;
-    private ConstraintLayout layoutSectionNutrition;
-    private ConstraintLayout layoutSectionServings;
-    private ConstraintLayout layoutSectionButtons;
 
     private SharedPreferences mPreferences;
     private String mUnits;
@@ -85,12 +78,6 @@ public class AddFoodFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
         mSpinner.setSelection(mProvidedCategory);
-
-        scrollView = (ScrollView) v.findViewById(R.id.fragment_add_food_scrollview);
-        layoutSectionGeneral = (ConstraintLayout) v.findViewById(R.id.fragment_add_food_section_general);
-        layoutSectionNutrition = (ConstraintLayout) v.findViewById(R.id.fragment_add_food_section_nutrition);
-        layoutSectionServings = (ConstraintLayout) v.findViewById(R.id.fragment_add_food_section_servings);
-        layoutSectionButtons = (ConstraintLayout) v.findViewById(R.id.fragment_add_food_section_buttons);
 
         mFoodTitle = (EditText) v.findViewById(R.id.fragment_add_food_name);
 

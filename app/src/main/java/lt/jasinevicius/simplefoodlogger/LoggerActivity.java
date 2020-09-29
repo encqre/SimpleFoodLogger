@@ -13,7 +13,6 @@ import java.util.Date;
 
 public class LoggerActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoggerActivity";
     private static final String SAVED_OPEN_TAB = "open_tab";
     private static final String SAVED_SELECTED_DATE = "selected_date";
     public static final int TAB_HOME = 0;

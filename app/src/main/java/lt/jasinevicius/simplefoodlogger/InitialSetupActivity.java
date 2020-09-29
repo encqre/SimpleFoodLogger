@@ -109,7 +109,7 @@ public class InitialSetupActivity extends AppCompatActivity {
                     boolean found = false;
                     for (int i = 0; i<fullCommonFoodList.size(); i++) {
                         if (el[0].equals(fullCommonFoodList.get(i).getFoodId().toString())) {
-                            android.util.Log.e("Logger", el[1] + " was found in current DB!");
+//                            android.util.Log.e("Logger", el[1] + " was found in current DB!");
                             found = true;
                         }
                     }
@@ -135,7 +135,7 @@ public class InitialSetupActivity extends AppCompatActivity {
                         foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
                         foundNewFood.setType(1);
                         fm.addCommonFood(foundNewFood);
-                        android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
+//                        android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
                     }
                     loopCounter++;
                 }
@@ -161,7 +161,7 @@ public class InitialSetupActivity extends AppCompatActivity {
                     boolean found = false;
                     for (int i = 0; i<fullExtendedFoodList.size(); i++) {
                         if (el[0].equals(fullExtendedFoodList.get(i).getFoodId().toString())) {
-                            android.util.Log.e("Logger", el[1] + " was found in current DB!");
+//                            android.util.Log.e("Logger", el[1] + " was found in current DB!");
                             found = true;
                         }
                     }
@@ -187,7 +187,7 @@ public class InitialSetupActivity extends AppCompatActivity {
                         foundNewFood.setPortion3SizeImperial(Float.parseFloat(el[18]));
                         foundNewFood.setType(2);
                         fm.addExtendedFood(foundNewFood);
-                        android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
+//                        android.util.Log.e("Logger", el[1] + " was not found in DB, now was added");
                     }
                     loopCounter++;
                 }
@@ -207,7 +207,7 @@ public class InitialSetupActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, false).apply();
             mDatabaseImportInProgress = false;
-            Toast.makeText(InitialSetupActivity.this, "Initial database loading finished", Toast.LENGTH_LONG).show();
+//            Toast.makeText(InitialSetupActivity.this, "Initial database loading finished", Toast.LENGTH_LONG).show();
             if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
                 setupUnits();
             } else {

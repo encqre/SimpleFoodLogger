@@ -103,32 +103,32 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:key="debug_category"
-        app:title="Debug options">
+<!--    <PreferenceCategory-->
+<!--        app:key="debug_category"-->
+<!--        app:title="Debug options">-->
 
-        <CheckBoxPreference
-            app:key="initial_database_setup_needed"
-            app:title="Do initial database setup"/>
+<!--        <CheckBoxPreference-->
+<!--            app:key="initial_database_setup_needed"-->
+<!--            app:title="Do initial database setup"/>-->
 
-        <CheckBoxPreference
-            app:key="initial_profile_setup_needed"
-            app:title="Do initial profile setup"/>
+<!--        <CheckBoxPreference-->
+<!--            app:key="initial_profile_setup_needed"-->
+<!--            app:title="Do initial profile setup"/>-->
 
-        <CheckBoxPreference
-            app:key="tutorial_home_page_done"
-            app:title="Home page tutorial done"/>
+<!--        <CheckBoxPreference-->
+<!--            app:key="tutorial_home_page_done"-->
+<!--            app:title="Home page tutorial done"/>-->
 
-        <CheckBoxPreference
-            app:key="tutorial_food_list_done"
-            app:title="Food list tutorial done"/>
+<!--        <CheckBoxPreference-->
+<!--            app:key="tutorial_food_list_done"-->
+<!--            app:title="Food list tutorial done"/>-->
 
-        <CheckBoxPreference
-            app:key="tutorial_statistics_done"
-            app:title="Statistics tutorial done"/>
+<!--        <CheckBoxPreference-->
+<!--            app:key="tutorial_statistics_done"-->
+<!--            app:title="Statistics tutorial done"/>-->
 
 
-    </PreferenceCategory>
+<!--    </PreferenceCategory>-->
 
 
 
