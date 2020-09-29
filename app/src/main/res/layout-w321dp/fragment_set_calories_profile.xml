@@ -3,6 +3,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipToPadding="false"
@@ -124,7 +125,7 @@
 
                 <EditText
                     android:id="@+id/initial_setup_calories_profile_age_edittext"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/card_border_grey"
@@ -150,7 +151,7 @@
 
                 <EditText
                     android:id="@+id/initial_setup_calories_profile_weight_edittext"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"
@@ -166,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/initial_setup_calories_profile_weight_edittext"
                     app:layout_constraintStart_toEndOf="@+id/initial_setup_calories_profile_weight_edittext"
                     app:layout_constraintTop_toTopOf="@+id/initial_setup_calories_profile_weight_edittext">
@@ -203,7 +204,7 @@
 
                 <EditText
                     android:id="@+id/initial_setup_calories_profile_height_edittext_cm"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/card_border_grey"
@@ -216,7 +217,7 @@
 
                 <lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix
                     android:id="@+id/initial_setup_calories_profile_height_edittext_ft"
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/card_border_grey"
@@ -230,7 +231,7 @@
 
                 <lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix
                     android:id="@+id/initial_setup_calories_profile_height_edittext_in"
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/card_border_grey"
                     android:padding="8dp"
@@ -246,7 +247,7 @@
                     android:id="@+id/initial_setup_calories_profile_height_radiogroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="@+id/initial_setup_calories_profile_height_edittext_cm"
                     app:layout_constraintStart_toStartOf="@+id/initial_setup_calories_profile_weight_radiogroup"
@@ -297,7 +298,7 @@
 
                 <Spinner
                     android:id="@+id/initial_setup_calories_profile_activity_spinner"
-                    android:layout_width="288dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/spinner_activity_levels"
                     android:background="@drawable/spinner_background_border_grey"

@@ -6,7 +6,7 @@ public class LoggerSettings {
 
     //General preferences
     public static final String PREFERENCE_THEME = "pref_theme";
-    public static final String PREFERENCE_THEME_DEFAULT = "Light theme";
+    public static final String PREFERENCE_THEME_DEFAULT = "Dark theme";
     public static final String PREFERENCE_UNITS = "pref_units";
     public static final String PREFERENCE_UNITS_DEFAULT = "Metric";
     public static final String PREFERENCE_TARGET_CALORIES = "pref_calories";

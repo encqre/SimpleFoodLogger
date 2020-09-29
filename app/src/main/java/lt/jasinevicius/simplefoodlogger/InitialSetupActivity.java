@@ -73,8 +73,6 @@ public class InitialSetupActivity extends AppCompatActivity {
         mProgressBar.setProgress(0);
         mProgressBar.setMax(100);
 
-        Toast.makeText(this, "Somebody launched initial setup!", Toast.LENGTH_LONG).show();
-
         if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, true)) {
             new initialDatabaseImportTask().execute();
         } else if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {

@@ -47,12 +47,12 @@
     <string name="dialog_add_food_serving3_hint_imperial">8.0</string>
     <string name="dialog_add_log_weight_textview_metric">Weight (g)</string>
     <string name="dialog_add_log_weight_textview_imperial">Weight (oz)</string>
-    <string name="tutorial_home_page_title">The Home Page</string>
-    <string name="tutorial_home_page_text">Thank you for downloading Simple Food Logger. This is the home page, where you can see all your logged meals for the day as well as the sum of calories and macronutrients consumed. Click the floating button with the plus sign on the bottom right corner to add a new log. You can change the date by clicking the text or the arrows on the toolbar at the top.</string>
+    <string name="tutorial_home_page_title">Home Page</string>
+    <string name="tutorial_home_page_text">Thank you for downloading Simple Food Logger. This is the home page, where you can see all your logged meals for the day as well as the sum of calories and macronutrients you have consumed. Click the floating button with the plus sign on the bottom right corner to add a new log. You can change the selected day by clicking the text or the arrows on the toolbar at the top.</string>
     <string name="tutorial_food_list_title">Adding New Log or Food Item</string>
-    <string name="tutorial_food_list_text">This is the food database. Click on a food item to add a new log. You can find specific food items by using the search in the toolbar or simply by browsing through categories or recently eaten/favorite item tabs. You can add new custom foods by clicking the plus icon in the top right corner.</string>
+    <string name="tutorial_food_list_text">This is the food database. Click on a food item to add a new log. You can find specific food items by using the search in the toolbar or simply by browsing through categories or recently eaten and favorite item tabs. You can add new custom foods by clicking the plus icon in the top right corner.</string>
     <string name="tutorial_statistics_title">Summary View</string>
-    <string name="tutorial_statistics_text">This is the summary page, where you can review consumed calories and macronutrients and your daily averages for selected time period. In the \'Food Stats\' tab, you can also review stats for each consumed food item. You can change the selected time period and sorting order by using the buttons in the toolbar at the top right corner.</string>
+    <string name="tutorial_statistics_text">This is the summary page, where you can review consumed calories and macronutrients and your daily averages for selected time period. In the \'Food Stats\' tab, you can also review stats for each consumed food item. You can change the selected time period and sorting order by using the buttons in the toolbar it the top right corner.</string>
     <string name="tutorial_edit_food_noncustom_title">Editing Non-Custom Food Items</string>
     <string name="tutorial_edit_food_noncustom_text">For all non-custom food items, you can only change the serving names or sizes. You may also choose to the option to hide non-custom food items, so that they will no longer appear in search results or when browsing food categories. You can later restore hidden food items in the settings.</string>
     <string name="list_item_food_type_custom">Custom</string>

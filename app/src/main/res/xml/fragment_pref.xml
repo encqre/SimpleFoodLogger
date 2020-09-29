@@ -10,12 +10,12 @@
 
         <Preference
             app:key="pref_calories"
-            app:title="Set daily calories target"
+            app:title="Daily calories target"
             app:summary="Current target: 2500 kcal"/>
 
         <Preference
             app:key="pref_macros"
-            app:title="Set macronutrient targets"
+            app:title="Daily macronutrient targets"
             app:summary="Protein: 200g (30%)\nCarbs: 300g (40%)\nFat: 100g (30%)"
             />
 
@@ -41,7 +41,7 @@
 
         <ListPreference
             app:key="pref_theme"
-            app:title="Select app theme"
+            app:title="App theme"
             app:entries="@array/themes"
             app:entryValues="@array/themes"/>
     </PreferenceCategory>
@@ -70,7 +70,7 @@
 
         <EditTextPreference
             app:key="pref_recent_foods_size"
-            app:title="Set recent foods list size"
+            app:title="Recent foods list size"
             app:summary="10"/>
 
 
