@@ -212,7 +212,7 @@ public class InitialSetupActivity extends AppCompatActivity {
             mDatabaseImportInProgress = false;
 //            Toast.makeText(InitialSetupActivity.this, "Initial database loading finished", Toast.LENGTH_LONG).show();
             if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
-                setupUnits();
+                setupTheme();
             } else {
                 finish();
             }
