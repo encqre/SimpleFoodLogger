@@ -126,7 +126,11 @@ public class AddLogFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Float weight = 0f;
                 if (mWeight.length() > 0) {
-                    weight = Float.parseFloat(mWeight.getText().toString());
+                    try {
+                        weight = Float.parseFloat(mWeight.getText().toString());
+                    } catch (Exception err) {
+                        weight = 0f;
+                    }
                 }
                 if (mUnits.equals("Imperial")) {
                     weight = weight*28.35f;
@@ -212,26 +216,32 @@ public class AddLogFragment extends Fragment {
                         mWeight.setText("100");
                     }
                 }
-                Float weight = Float.parseFloat(mWeight.getText().toString());
-                if (mUnits.equals("Imperial")) {
-                    weight = weight*28.35f;
-                }
-                Log log = new Log();
-                log.setDate(mDate);
-                log.setDateText();
-                log.setFood(mFood.getTitle());
-                log.setSize(weight);
-                log.setSizeImperial(weight/28.35f);
-                log.setKcal(mFood.getKcal() * weight / 100 );
-                log.setProtein(mFood.getProtein() * weight / 100);
-                log.setCarbs(mFood.getCarbs() * weight / 100 );
-                log.setFat(mFood.getFat() * weight / 100 );
-                LogManager.get(getActivity()).addLog(log);
-                FoodManager.get(getActivity()).addToRecentFoods(mFood);
-                Toast.makeText(getActivity(), "Meal logged!", Toast.LENGTH_SHORT).show();
+                if (mWeight.getText().toString().equals(".")) {
+                    Toast.makeText(getActivity(), "Invalid weight value '.' entered!", Toast.LENGTH_SHORT).show();
+                } else if (Float.parseFloat(mWeight.getText().toString()) == 0f) {
+                    Toast.makeText(getActivity(), "Weight value is zero!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Float weight = Float.parseFloat(mWeight.getText().toString());
+                    if (mUnits.equals("Imperial")) {
+                        weight = weight * 28.35f;
+                    }
+                    Log log = new Log();
+                    log.setDate(mDate);
+                    log.setDateText();
+                    log.setFood(mFood.getTitle());
+                    log.setSize(weight);
+                    log.setSizeImperial(weight / 28.35f);
+                    log.setKcal(mFood.getKcal() * weight / 100);
+                    log.setProtein(mFood.getProtein() * weight / 100);
+                    log.setCarbs(mFood.getCarbs() * weight / 100);
+                    log.setFat(mFood.getFat() * weight / 100);
+                    LogManager.get(getActivity()).addLog(log);
+                    FoodManager.get(getActivity()).addToRecentFoods(mFood);
+                    Toast.makeText(getActivity(), "Meal logged!", Toast.LENGTH_SHORT).show();
 
-                getActivity().setResult(Activity.RESULT_OK);
-                getActivity().finish();
+                    getActivity().setResult(Activity.RESULT_OK);
+                    getActivity().finish();
+                }
             }
         });
 

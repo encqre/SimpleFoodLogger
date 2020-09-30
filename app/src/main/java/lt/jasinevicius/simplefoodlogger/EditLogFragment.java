@@ -119,7 +119,11 @@ public class EditLogFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Float weight = 0f;
                 if (mWeight.length() > 0) {
-                    weight = Float.parseFloat(mWeight.getText().toString());
+                    try {
+                        weight = Float.parseFloat(mWeight.getText().toString());
+                    } catch (Exception err) {
+                        weight = 0f;
+                    }
                 }
                 if (mUnits.equals("Imperial")) {
                     weight = weight*28.35f;
@@ -278,22 +282,28 @@ public class EditLogFragment extends Fragment {
                         mWeight.setText("100");
                     }
                 }
-                Float weight = Float.parseFloat(mWeight.getText().toString());
-                if (mUnits.equals("Imperial")) {
-                    weight = weight*28.35f;
+                if (mWeight.getText().toString().equals(".")) {
+                    Toast.makeText(getActivity(), "Invalid weight value '.' entered!", Toast.LENGTH_SHORT).show();
+                } else if (Float.parseFloat(mWeight.getText().toString()) == 0f) {
+                    Toast.makeText(getActivity(), "Weight value is zero!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Float weight = Float.parseFloat(mWeight.getText().toString());
+                    if (mUnits.equals("Imperial")) {
+                        weight = weight * 28.35f;
+                    }
+                    mLog.setDate(mDate);
+                    mLog.setDateText();
+                    mLog.setKcal(mLog.getKcal() / mLog.getSize() * weight);
+                    mLog.setProtein(mLog.getProtein() / mLog.getSize() * weight);
+                    mLog.setCarbs(mLog.getCarbs() / mLog.getSize() * weight);
+                    mLog.setFat(mLog.getFat() / mLog.getSize() * weight);
+                    mLog.setSize(weight);
+                    mLog.setSizeImperial(weight / 28.35f);
+                    lm.get(getActivity()).updateLog(mLog);
+                    Toast.makeText(getActivity(), "Meal log updated!", Toast.LENGTH_SHORT).show();
+                    getActivity().setResult(Activity.RESULT_OK);
+                    getActivity().finish();
                 }
-                mLog.setDate(mDate);
-                mLog.setDateText();
-                mLog.setKcal(mLog.getKcal()/mLog.getSize() * weight);
-                mLog.setProtein(mLog.getProtein()/mLog.getSize() * weight);
-                mLog.setCarbs(mLog.getCarbs()/mLog.getSize() * weight);
-                mLog.setFat(mLog.getFat()/mLog.getSize() * weight);
-                mLog.setSize(weight);
-                mLog.setSizeImperial(weight/28.35f);
-                lm.get(getActivity()).updateLog(mLog);
-                Toast.makeText(getActivity(), "Meal log updated!", Toast.LENGTH_SHORT).show();
-                getActivity().setResult(Activity.RESULT_OK);
-                getActivity().finish();
             }
         });
 

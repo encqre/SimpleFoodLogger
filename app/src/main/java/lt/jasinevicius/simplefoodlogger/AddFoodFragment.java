@@ -130,6 +130,12 @@ public class AddFoodFragment extends Fragment {
                         mFat.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill all the fields!", Toast.LENGTH_SHORT).show();
                     return;
+                } else if (mCalories.getText().toString().equals(".") || mProtein.getText().toString().equals(".") ||
+                        mCarbs.getText().toString().equals(".") || mFat.getText().toString().equals(".") ||
+                        mServing1Size.getText().toString().equals(".") || mServing2Size.getText().toString().equals(".") ||
+                        mServing3Size.getText().toString().equals(".")){
+                    Toast.makeText(getActivity(), "Invalid value '.' entered in one or more numeric fields!", Toast.LENGTH_SHORT).show();
+                    return;
                 } else if (Float.parseFloat(mCalories.getText().toString()) >= 10000f) {
                     Toast.makeText(getActivity(), "Calories value must be lower than 10000!", Toast.LENGTH_SHORT).show();
                     return;
