@@ -9,16 +9,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="92dp"
+        android:paddingBottom="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_centerInParent="true">
 
         <TextView
-            android:id="@+id/initial_setup_units_text"
+            android:id="@+id/initial_setup_theme_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select units"
+            android:text="Select app theme"
             android:textColor="?attr/textOnGenericSurfaceColor"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,33 +26,46 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
-            android:id="@+id/initial_setup_units_radiogroup"
+            android:id="@+id/initial_setup_theme_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/initial_setup_units_text"
+            app:layout_constraintTop_toBottomOf="@+id/initial_setup_theme_text"
             android:background="@drawable/card_border_grey"
             android:padding="8dp"
-            android:layout_below="@id/initial_setup_units_text"
+            android:layout_below="@id/initial_setup_theme_text"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="16dp">
 
             <RadioButton
-                android:id="@+id/initial_setup_units_metric"
+                android:id="@+id/initial_setup_theme_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Metric" />
+                android:text="Light theme" />
 
             <RadioButton
-                android:id="@+id/initial_setup_units_imperial"
+                android:id="@+id/initial_setup_theme_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text='Imperial' />
+                android:text='Dark theme' />
 
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/initial_setup_theme_bottom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:text="*You can always change it later in the settings"
+            android:textColor="?attr/textOnGenericSurfaceColor"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/initial_setup_theme_radiogroup" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,16 +78,16 @@
         android:elevation="16dp"
         android:outlineProvider="bounds">
 
-    <Button
-        android:id="@+id/initial_setup_units_button_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Continue"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="?attr/colorAccent"
-        android:textColor="?attr/textOnAccentColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/initial_setup_theme_button_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="?attr/colorAccent"
+            android:textColor="?attr/textOnAccentColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
