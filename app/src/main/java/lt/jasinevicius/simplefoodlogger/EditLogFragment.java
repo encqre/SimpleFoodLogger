@@ -292,7 +292,7 @@ public class EditLogFragment extends Fragment {
                         weight = weight * 28.35f;
                     }
                     mLog.setDate(mDate);
-                    mLog.setDateText();
+                    mLog.setDateText(mDate);
                     mLog.setKcal(mLog.getKcal() / mLog.getSize() * weight);
                     mLog.setProtein(mLog.getProtein() / mLog.getSize() * weight);
                     mLog.setCarbs(mLog.getCarbs() / mLog.getSize() * weight);

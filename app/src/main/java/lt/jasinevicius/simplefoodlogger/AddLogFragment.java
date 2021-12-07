@@ -227,7 +227,7 @@ public class AddLogFragment extends Fragment {
                     }
                     Log log = new Log();
                     log.setDate(mDate);
-                    log.setDateText();
+                    log.setDateText(mDate);
                     log.setFood(mFood.getTitle());
                     log.setSize(weight);
                     log.setSizeImperial(weight / 28.35f);

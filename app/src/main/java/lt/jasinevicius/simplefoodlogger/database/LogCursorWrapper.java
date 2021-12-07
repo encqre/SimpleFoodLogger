@@ -27,7 +27,7 @@ public class LogCursorWrapper extends CursorWrapper {
 
         Log log = new Log(UUID.fromString(uuidString));
         log.setDate(new Date(date));
-        log.setDateText();
+        log.setDateText(new Date(date));
         log.setFood(food);
         log.setSize(size);
         log.setSizeImperial(sizeImperial);

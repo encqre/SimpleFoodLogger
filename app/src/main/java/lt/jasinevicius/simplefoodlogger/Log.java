@@ -41,13 +41,17 @@ public class Log {
         return mDateText;
     }
 
-    public void setDateText() {
+    public void setDateText(Date date) {
         Calendar cal = Calendar.getInstance();
-        cal.setTime(mDate);
-        Integer year = cal.get(Calendar.YEAR);
-        Integer month = cal.get(Calendar.MONTH);
-        Integer day = cal.get(Calendar.DAY_OF_MONTH);
-        mDateText = year.toString() + month.toString() + day.toString();
+        cal.setTime(date);
+        String year = ((Integer) cal.get(Calendar.YEAR)).toString();
+        String month = ((Integer) (cal.get(Calendar.MONTH) + 1)).toString();
+        String day = ((Integer) cal.get(Calendar.DAY_OF_MONTH)).toString();
+
+        month = (month.length() == 1) ? "0" + month : month;
+        day = (day.length() == 1) ? "0" + day : day;
+
+        mDateText = year + month + day;
     }
 
     public void setDateText(String text) {

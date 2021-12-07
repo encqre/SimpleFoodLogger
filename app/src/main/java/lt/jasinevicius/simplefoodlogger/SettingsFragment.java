@@ -411,7 +411,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (!found) {
                         Log foundNewLog = new Log(UUID.fromString(el[0]));
                         foundNewLog.setDate(new Date(Long.valueOf(el[1])));
-                        foundNewLog.setDateText();
+                        foundNewLog.setDateText(new Date(Long.valueOf(el[1])));
                         foundNewLog.setFood(el[3]);
                         foundNewLog.setSize(Float.parseFloat(el[4]));
                         foundNewLog.setSizeImperial(Float.parseFloat(el[5]));

@@ -312,5 +312,9 @@ public class HomePageFragment extends Fragment {
 }
 
 //TODO AFTER RELEASE fix remaining issues when switching to landscape (mostly with main activity fragments)
-//TODO Possible feature: Adding timestamps to food logs maybe?
-//TODO Possible feature: Group 1 or more food items into meals?
+//TODO Timestamps for food logs?
+//TODO Group 1 or more food items into meals/templates?
+//TODO Get rid of categories, switch to TAGs (favorite as a tag also?)
+//TODO Simple weight tracker (auto update recommended kcal based on weight change?)
+//TODO Sorting foods?
+//TODO Customizable number of servings, not just fixed to 3

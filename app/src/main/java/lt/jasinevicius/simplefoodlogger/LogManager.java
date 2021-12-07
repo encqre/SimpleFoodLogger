@@ -60,17 +60,21 @@ public class LogManager {
     public List<Log> getLogsDay(Date date) {
         List<Log> logs = new ArrayList<>();
 
-        /**
-         * We create a string object dateText in the form of YYYYMMDD in order to search database for specific day's logs
-         */
+        // Get the timestamps for start and end of the day
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        Integer year = cal.get(Calendar.YEAR);
-        Integer month = cal.get(Calendar.MONTH);
-        Integer day = cal.get(Calendar.DAY_OF_MONTH);
-        String dateText = year.toString() + month.toString() + day.toString();
+        // zeroing out hours/minutes, etc. to get the exact start of the day timestamp
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
 
-        LogCursorWrapper cursor = queryLogs(LogTable.Cols.DATETEXT + " = ?", new String[] {dateText});
+        long startTime = cal.getTimeInMillis();
+        long endTime = startTime + 24 * 3600 * 1000;
+
+        String queryWhereClause = LogTable.Cols.DATE + " >= " + startTime + " AND " +
+                LogTable.Cols.DATE + " < " + endTime;
+        LogCursorWrapper cursor = queryLogs(queryWhereClause,null);
 
         try {
             cursor.moveToFirst();
