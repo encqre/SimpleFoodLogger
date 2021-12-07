@@ -43,7 +43,12 @@ public class FoodManager {
         mCommonFoodDatabase = new CommonFoodDbHelper(mContext).getWritableDatabase();
         mExtendedFoodDatabase = new ExtendedFoodDbHelper(mContext).getWritableDatabase();
         mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
-        mRecentFoodsLength = Integer.parseInt(mPreferences.getString(LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE, LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE_DEFAULT));
+        mRecentFoodsLength = Integer.parseInt(
+                mPreferences.getString(
+                        LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE,
+                        LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE_DEFAULT
+                )
+        );
     }
 
     //Add a custom food to CustomFoodDatabase
@@ -121,7 +126,10 @@ public class FoodManager {
     public List<Food> getFoodsCategory(String category) {
         List<Food> foods = new ArrayList<>();
 
-        FoodCursorWrapper cursor = queryCustomFoods(DbSchema.CustomFoodTable.Cols.CATEGORY + " = ?", new String[] {category});
+        FoodCursorWrapper cursor = queryCustomFoods(
+            DbSchema.CustomFoodTable.Cols.CATEGORY + " = ?",
+            new String[] {category}
+        );
 
         try {
             cursor.moveToFirst();
@@ -133,7 +141,10 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryCommonFoods(DbSchema.CommonFoodTable.Cols.CATEGORY + " = ? AND " + DbSchema.CommonFoodTable.Cols.HIDDEN + " = 0", new String[] {category});
+        cursor = queryCommonFoods(
+            DbSchema.CommonFoodTable.Cols.CATEGORY + " = ? AND " + DbSchema.CommonFoodTable.Cols.HIDDEN + " = 0",
+            new String[] {category}
+        );
 
         try {
             cursor.moveToFirst();
@@ -145,7 +156,10 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryExtendedFoods(DbSchema.ExtendedFoodTable.Cols.CATEGORY + " = ? AND " + DbSchema.ExtendedFoodTable.Cols.HIDDEN + " = 0", new String[] {category});
+        cursor = queryExtendedFoods(
+            DbSchema.ExtendedFoodTable.Cols.CATEGORY + " = ? AND " + DbSchema.ExtendedFoodTable.Cols.HIDDEN + " = 0",
+            new String[] {category}
+        );
 
         try {
             cursor.moveToFirst();
@@ -163,7 +177,10 @@ public class FoodManager {
     public List<Food> getFoodsFavorite() {
         List<Food> foods = new ArrayList<>();
 
-        FoodCursorWrapper cursor = queryCustomFoods(DbSchema.CustomFoodTable.Cols.FAVORITE + " = 1", null);
+        FoodCursorWrapper cursor = queryCustomFoods(
+                DbSchema.CustomFoodTable.Cols.FAVORITE + " = 1",
+                null
+        );
 
         try {
             cursor.moveToFirst();
@@ -175,7 +192,10 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryCommonFoods(DbSchema.CommonFoodTable.Cols.FAVORITE + " = 1 AND " + DbSchema.CommonFoodTable.Cols.HIDDEN + " = 0", null);
+        cursor = queryCommonFoods(
+                DbSchema.CommonFoodTable.Cols.FAVORITE + " = 1 AND " + DbSchema.CommonFoodTable.Cols.HIDDEN + " = 0",
+                null
+        );
 
         try {
             cursor.moveToFirst();
@@ -187,7 +207,10 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryExtendedFoods(DbSchema.ExtendedFoodTable.Cols.FAVORITE + " = 1 AND " + DbSchema.ExtendedFoodTable.Cols.HIDDEN + " = 0", null);
+        cursor = queryExtendedFoods(
+                DbSchema.ExtendedFoodTable.Cols.FAVORITE + " = 1 AND " + DbSchema.ExtendedFoodTable.Cols.HIDDEN + " = 0",
+                null
+        );
 
         try {
             cursor.moveToFirst();
@@ -202,18 +225,25 @@ public class FoodManager {
         return foods;
     }
 
-    public List<Food> getFoodsSearch(String searchString, boolean includeExtended, boolean onlyIncludeFavorites, boolean onlyIncludeRecent, String category) {
+    public List<Food> getFoodsSearch(
+            String searchString,
+            boolean includeExtended,
+            boolean onlyIncludeFavorites,
+            boolean onlyIncludeRecent,
+            String category
+    ) {
         List<Food> foods = new ArrayList<>();
 
         String [] searchWordsArray = searchString.split("\\s+");
         String queryWhereClause = "";
         for (int i=0; i<searchWordsArray.length; i++) {
-            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 0) { //Not including empty strings or single letter words into search words
+            //Not including empty strings or single letter words into search words
+            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 0) {
                 searchWordsArray[i] = "\"%" + searchWordsArray[i] + "%\"";
                 if (queryWhereClause.length() < 1) {
-                    queryWhereClause = queryWhereClause + DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                    queryWhereClause += DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
                 } else {
-                    queryWhereClause = queryWhereClause + " AND " + DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                    queryWhereClause += " AND " + DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
                 }
             }
         }
@@ -225,10 +255,10 @@ public class FoodManager {
                 return getRecentFoods(searchString);
             }
             if (onlyIncludeFavorites) {
-                queryWhereClause = queryWhereClause + " AND " + DbSchema.CustomFoodTable.Cols.FAVORITE + " = 1";
+                queryWhereClause += " AND " + DbSchema.CustomFoodTable.Cols.FAVORITE + " = 1";
             }
             if (!category.equals("")) {
-                queryWhereClause = queryWhereClause + " AND " + DbSchema.CustomFoodTable.Cols.CATEGORY + " LIKE \"%" + category + "%\"";
+                queryWhereClause += " AND " + DbSchema.CustomFoodTable.Cols.CATEGORY + " LIKE \"%" + category + "%\"";
             }
         }
         FoodCursorWrapper cursor = queryCustomFoods(queryWhereClause, null);
@@ -243,7 +273,10 @@ public class FoodManager {
             cursor.close();
         }
 
-        cursor = queryCommonFoods(queryWhereClause + " AND " + DbSchema.CommonFoodTable.Cols.HIDDEN + " = 0", null);
+        cursor = queryCommonFoods(
+                queryWhereClause + " AND " + DbSchema.CommonFoodTable.Cols.HIDDEN + " = 0",
+                null
+        );
 
         try {
             cursor.moveToFirst();
@@ -256,7 +289,10 @@ public class FoodManager {
         }
 
         if (includeExtended) {
-            cursor = queryExtendedFoods(queryWhereClause + " AND " + DbSchema.ExtendedFoodTable.Cols.HIDDEN + " = 0", null);
+            cursor = queryExtendedFoods(
+                    queryWhereClause + " AND " + DbSchema.ExtendedFoodTable.Cols.HIDDEN + " = 0",
+                    null
+            );
 
             try {
                 cursor.moveToFirst();
@@ -287,7 +323,10 @@ public class FoodManager {
     }
 
     public Food getCustomFood(UUID id) {
-        FoodCursorWrapper cursor = queryCustomFoods(DbSchema.CustomFoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
+        FoodCursorWrapper cursor = queryCustomFoods(
+                DbSchema.CustomFoodTable.Cols.FOODID + " = ?",
+                new String[] {id.toString()}
+        );
 
         try {
             if(cursor.getCount() == 0) {
@@ -301,7 +340,10 @@ public class FoodManager {
     }
 
     public Food getCommonFood(UUID id) {
-        FoodCursorWrapper cursor = queryCommonFoods(DbSchema.CommonFoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
+        FoodCursorWrapper cursor = queryCommonFoods(
+                DbSchema.CommonFoodTable.Cols.FOODID + " = ?",
+                new String[] {id.toString()}
+        );
 
         try {
             if(cursor.getCount() == 0) {
@@ -315,7 +357,10 @@ public class FoodManager {
     }
 
     public Food getExtendedFood(UUID id) {
-        FoodCursorWrapper cursor = queryExtendedFoods(DbSchema.ExtendedFoodTable.Cols.FOODID + " = ?", new String[] {id.toString()});
+        FoodCursorWrapper cursor = queryExtendedFoods(
+                DbSchema.ExtendedFoodTable.Cols.FOODID + " = ?",
+                new String[] {id.toString()}
+        );
 
         try {
             if(cursor.getCount() == 0) {
@@ -329,7 +374,10 @@ public class FoodManager {
     }
 
     public Food getFoodByName(String foodName) {
-        FoodCursorWrapper cursor = queryCustomFoods(DbSchema.CustomFoodTable.Cols.TITLE + " = ?", new String[] {foodName});
+        FoodCursorWrapper cursor = queryCustomFoods(
+                DbSchema.CustomFoodTable.Cols.TITLE + " = ?",
+                new String[] {foodName}
+        );
 
         try {
             if(cursor.getCount() > 0) {
@@ -371,67 +419,42 @@ public class FoodManager {
         String [] searchWordsArray = filterString.split("\\s+");
         String queryWhereClause = "";
         for (int i=0; i<searchWordsArray.length; i++) {
-            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 1) { //Not including empty strings or single letter words into search words
+            //Not including empty strings or single letter words into search words
+            if (searchWordsArray[i] != "" && searchWordsArray[i].length() > 1) {
                 searchWordsArray[i] = "\"%" + searchWordsArray[i] + "%\"";
                 if (queryWhereClause.length() < 1) {
-                    queryWhereClause = queryWhereClause + DbSchema.CustomFoodTable.Cols.HIDDEN + " = 1 AND " + DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                    queryWhereClause += DbSchema.CustomFoodTable.Cols.HIDDEN + " = 1 AND " +
+                            DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
                 } else {
-                    queryWhereClause = queryWhereClause + " AND " + DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
+                    queryWhereClause += " AND " + DbSchema.CustomFoodTable.Cols.TITLE + " LIKE " + searchWordsArray[i];
                 }
             }
         }
 
-        FoodCursorWrapper cursor;
+        queryWhereClause = queryWhereClause.equals("") ? DbSchema.CommonFoodTable.Cols.HIDDEN + " = 1" : queryWhereClause;
 
-        if (queryWhereClause.equals("")) {
-            cursor = queryCommonFoods(DbSchema.CommonFoodTable.Cols.HIDDEN + " = 1", null);
+        FoodCursorWrapper cursor = queryCommonFoods(queryWhereClause, null);
 
-            try {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    foods.add(cursor.getCommonFood());
-                    cursor.moveToNext();
-                }
-            } finally {
-                cursor.close();
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getCommonFood());
+                cursor.moveToNext();
             }
+        } finally {
+            cursor.close();
+        }
 
-            cursor = queryExtendedFoods(DbSchema.ExtendedFoodTable.Cols.HIDDEN + " = 1", null);
+        cursor = queryExtendedFoods(queryWhereClause, null);
 
-            try {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    foods.add(cursor.getExtendedFood());
-                    cursor.moveToNext();
-                }
-            } finally {
-                cursor.close();
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                foods.add(cursor.getExtendedFood());
+                cursor.moveToNext();
             }
-        } else {
-
-            cursor = queryCommonFoods(queryWhereClause, null);
-
-            try {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    foods.add(cursor.getCommonFood());
-                    cursor.moveToNext();
-                }
-            } finally {
-                cursor.close();
-            }
-
-            cursor = queryExtendedFoods(queryWhereClause, null);
-
-            try {
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    foods.add(cursor.getExtendedFood());
-                    cursor.moveToNext();
-                }
-            } finally {
-                cursor.close();
-            }
+        } finally {
+            cursor.close();
         }
         
         return foods;
@@ -451,27 +474,46 @@ public class FoodManager {
         String uuidString = food.getFoodId().toString();
         ContentValues values = getContentValues(food);
 
-        mCustomFoodDatabase.update(DbSchema.CustomFoodTable.NAME, values, DbSchema.CustomFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+        mCustomFoodDatabase.update(
+                DbSchema.CustomFoodTable.NAME,
+                values,
+                DbSchema.CustomFoodTable.Cols.FOODID + " = ?",
+                new String[] {uuidString}
+        );
     }
 
     public void updateCommonFood(Food food) {
         String uuidString = food.getFoodId().toString();
         ContentValues values = getContentValues(food);
 
-        mCommonFoodDatabase.update(DbSchema.CommonFoodTable.NAME, values, DbSchema.CommonFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+        mCommonFoodDatabase.update(
+                DbSchema.CommonFoodTable.NAME,
+                values,
+                DbSchema.CommonFoodTable.Cols.FOODID + " = ?",
+                new String[] {uuidString}
+        );
     }
 
     public void updateExtendedFood(Food food) {
         String uuidString = food.getFoodId().toString();
         ContentValues values = getContentValues(food);
 
-        mExtendedFoodDatabase.update(DbSchema.ExtendedFoodTable.NAME, values, DbSchema.ExtendedFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+        mExtendedFoodDatabase.update(
+                DbSchema.ExtendedFoodTable.NAME,
+                values,
+                DbSchema.ExtendedFoodTable.Cols.FOODID + " = ?",
+                new String[] {uuidString}
+        );
     }
 
     public void deleteCustomFood(Food food) {
         String uuidString = food.getFoodId().toString();
 
-        mCustomFoodDatabase.delete(DbSchema.CustomFoodTable.NAME, DbSchema.CustomFoodTable.Cols.FOODID + " = ?", new String[] {uuidString});
+        mCustomFoodDatabase.delete(
+                DbSchema.CustomFoodTable.NAME,
+                DbSchema.CustomFoodTable.Cols.FOODID + " = ?",
+                new String[] {uuidString}
+        );
     }
 
     private FoodCursorWrapper queryCustomFoods(String whereClause, String[] whereArgs) {
