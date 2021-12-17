@@ -1,10 +1,24 @@
+# IntelliJ files
 *.iml
-.gradle
-/local.properties
-.idea
-.DS_Store
+.idea/
+
+# Trace files
+/captures
+
+# Build files
 /build
 /release
-/captures
+*.apk
+
+# Gradle files
+.gradle
+
+# Local configuration file (sdk path, etc)
+/local.properties
+
+# OS files
+.DS_Store
+
+# Other
 .externalNativeBuild
 
