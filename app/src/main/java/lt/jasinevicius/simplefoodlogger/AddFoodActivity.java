@@ -12,12 +12,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
-public class AddFoodActivity extends AppCompatActivity {
+public class AddFoodActivity extends BaseActivity {
 
     private static final String EXTRA_CATEGORY = "simplefoodlogger.category";
 
-    private Toolbar mToolbar;
-    private SharedPreferences mPreferences;
+    private Toolbar toolbar;
     private Fragment addFoodFragment;
 
 
@@ -31,18 +30,11 @@ public class AddFoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String theme = mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT);
-        if (theme.equals("Light theme")) {
-            setTheme(R.style.AppTheme);
-        } else if (theme.equals("Dark theme")) {
-            setTheme(R.style.AppThemeDark);
-        }
         setContentView(R.layout.activity_single_fragment);
 
-        mToolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
-        setSupportActionBar(mToolbar);
+        toolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
+        setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Add new custom food");

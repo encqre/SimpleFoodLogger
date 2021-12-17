@@ -3,7 +3,6 @@ package lt.jasinevicius.simplefoodlogger;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -12,35 +11,30 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
 
-public class InitialSetupActivity extends AppCompatActivity {
+public class InitialSetupActivity extends BaseActivity {
 
     private static final int REQUEST_CALORIES = 0;
     private static final int REQUEST_MACROS = 1;
 
-    private SharedPreferences mPreferences;
+    private Boolean databaseImportInProgress = false;
+    private Boolean initialSetupIsOpen = false;
 
-    private Boolean mDatabaseImportInProgress = false;
-    private Boolean mInitialSetupOpen = false;
+    private TextView progressTextview;
+    private ProgressBar progressBar;
 
-    private TextView mProgressTextview;
-    private ProgressBar mProgressBar;
+    private RadioButton unitsMetric;
+    private RadioButton unitsImperial;
+    private Button unitsContinueButton;
 
-    private RadioButton mUnitsMetric;
-    private RadioButton mUnitsImperial;
-    private Button mUnitsContinueButton;
-
-    private RadioButton mThemeLight;
-    private RadioButton mThemeDark;
-    private Button mThemeContinueButton;
+    private RadioButton themeLightButton;
+    private RadioButton themeDarkButton;
+    private Button themeContinueButton;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, InitialSetupActivity.class);
@@ -49,7 +43,7 @@ public class InitialSetupActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mDatabaseImportInProgress || mInitialSetupOpen) {
+        if (databaseImportInProgress || initialSetupIsOpen) {
             //Not allowing to close activity while database import is running to prevent bad things
             //Also when theme setup is open, because that would close the setup
         } else {
@@ -60,25 +54,18 @@ public class InitialSetupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String theme = mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT);
-        if (theme.equals("Light theme")) {
-            setTheme(R.style.AppTheme);
-        } else if (theme.equals("Dark theme")) {
-            setTheme(R.style.AppThemeDark);
-        }
         setContentView(R.layout.dialog_loading_progress);
 
-        mProgressTextview = (TextView) findViewById(R.id.dialog_loading_progress_textview);
-        mProgressTextview.setText("Performing initial setup..");
-        mProgressBar = (ProgressBar) findViewById(R.id.dialog_loading_progress_bar);
-        mProgressBar.setProgress(0);
-        mProgressBar.setMax(100);
+        progressTextview = (TextView) findViewById(R.id.dialog_loading_progress_textview);
+        progressTextview.setText("Performing initial setup..");
+        progressBar = (ProgressBar) findViewById(R.id.dialog_loading_progress_bar);
+        progressBar.setProgress(0);
+        progressBar.setMax(100);
 
-        if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, true)) {
+        if (preferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, true)) {
             new initialDatabaseImportTask().execute();
-        } else if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
+        } else if (preferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
             setupTheme();
         } else {
             finish();
@@ -89,7 +76,7 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute(){
-            mDatabaseImportInProgress = true;
+            databaseImportInProgress = true;
         }
 
         @Override
@@ -203,15 +190,15 @@ public class InitialSetupActivity extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(Void... params) {
-            mProgressBar.setProgress(mProgressBar.getProgress() + 1);
+            progressBar.setProgress(progressBar.getProgress() + 1);
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, false).apply();
-            mDatabaseImportInProgress = false;
+            preferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, false).apply();
+            databaseImportInProgress = false;
 //            Toast.makeText(InitialSetupActivity.this, "Initial database loading finished", Toast.LENGTH_LONG).show();
-            if (mPreferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
+            if (preferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
                 setupTheme();
             } else {
                 finish();
@@ -221,29 +208,29 @@ public class InitialSetupActivity extends AppCompatActivity {
 
     private void setupUnits() {
         // launch units setup
-        mInitialSetupOpen = true;
+        initialSetupIsOpen = true;
         setContentView(R.layout.initial_setup_units);
 
-        mUnitsMetric = (RadioButton) findViewById(R.id.initial_setup_units_metric);
-        mUnitsMetric.setOnClickListener(new View.OnClickListener() {
+        unitsMetric = (RadioButton) findViewById(R.id.initial_setup_units_metric);
+        unitsMetric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Metric").apply();
+                preferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Metric").apply();
             }
         });
-        mUnitsImperial = (RadioButton) findViewById(R.id.initial_setup_units_imperial);
-        mUnitsImperial.setOnClickListener(new View.OnClickListener() {
+        unitsImperial = (RadioButton) findViewById(R.id.initial_setup_units_imperial);
+        unitsImperial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Imperial").apply();
+                preferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Imperial").apply();
             }
         });
-        mUnitsContinueButton = (Button) findViewById(R.id.initial_setup_units_button_next);
-        mUnitsContinueButton.setOnClickListener(new View.OnClickListener() {
+        unitsContinueButton = (Button) findViewById(R.id.initial_setup_units_button_next);
+        unitsContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                mInitialSetupOpen = false;
+                initialSetupIsOpen = false;
                 //launch profile setup
                 Intent intent = SetCaloriesActivity.newIntent(InitialSetupActivity.this, true, SetCaloriesActivity.STAGE_PROFILE);
                 startActivityForResult(intent, REQUEST_CALORIES);
@@ -251,83 +238,83 @@ public class InitialSetupActivity extends AppCompatActivity {
             }
         });
 
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, "Metric").equals("Imperial")) {
-            mUnitsImperial.setChecked(true);
+        if (preferences.getString(LoggerSettings.PREFERENCE_UNITS, "Metric").equals("Imperial")) {
+            unitsImperial.setChecked(true);
         } else {
-            mUnitsMetric.setChecked(true);
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Metric").apply();
+            unitsMetric.setChecked(true);
+            preferences.edit().putString(LoggerSettings.PREFERENCE_UNITS, "Metric").apply();
         }
     }
 
     private void setupTheme(){
         // launch theme setup
-        mInitialSetupOpen = true;
+        initialSetupIsOpen = true;
 
         //Setup some default numbers for units/calories/PFC if they are not set yet
 
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, "not_set").equals("not_set")) {
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_UNITS,
+        if (preferences.getString(LoggerSettings.PREFERENCE_UNITS, "not_set").equals("not_set")) {
+            preferences.edit().putString(LoggerSettings.PREFERENCE_UNITS,
                     LoggerSettings.PREFERENCE_UNITS_DEFAULT).apply();
         }
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, "not_set").equals("not_set")) {
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CALORIES,
+        if (preferences.getString(LoggerSettings.PREFERENCE_TARGET_CALORIES, "not_set").equals("not_set")) {
+            preferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CALORIES,
                     LoggerSettings.PREFERENCE_TARGET_CALORIES_DEFAULT).apply();
         }
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, "not_set").equals("not_set")) {
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT,
+        if (preferences.getString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT, "not_set").equals("not_set")) {
+            preferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT,
                     LoggerSettings.PREFERENCE_TARGET_PROTEIN_PERCENT_DEFAULT).apply();
         }
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, "not_set").equals("not_set")) {
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT,
+        if (preferences.getString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT, "not_set").equals("not_set")) {
+            preferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT,
                     LoggerSettings.PREFERENCE_TARGET_CARBS_PERCENT_DEFAULT).apply();
         }
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, "not_set").equals("not_set")) {
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT,
+        if (preferences.getString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT, "not_set").equals("not_set")) {
+            preferences.edit().putString(LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT,
                     LoggerSettings.PREFERENCE_TARGET_FAT_PERCENT_DEFAULT).apply();
         }
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_THEME, "not_set").equals("not_set")) {
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_THEME,
+        if (preferences.getString(LoggerSettings.PREFERENCE_THEME, "not_set").equals("not_set")) {
+            preferences.edit().putString(LoggerSettings.PREFERENCE_THEME,
                     LoggerSettings.PREFERENCE_THEME_DEFAULT).apply();
         }
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE, "not_set").equals("not_set")) {
-            mPreferences.edit().putString(LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE,
+        if (preferences.getString(LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE, "not_set").equals("not_set")) {
+            preferences.edit().putString(LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE,
                     LoggerSettings.PREFERENCE_RECENT_FOODS_SIZE_DEFAULT).apply();
         }
 
         setContentView(R.layout.initial_setup_theme);
 
-        mThemeLight = (RadioButton) findViewById(R.id.initial_setup_theme_light);
-        mThemeLight.setOnClickListener(new View.OnClickListener() {
+        themeLightButton = (RadioButton) findViewById(R.id.initial_setup_theme_light);
+        themeLightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString(LoggerSettings.PREFERENCE_THEME, "Light theme").apply();
+                preferences.edit().putString(LoggerSettings.PREFERENCE_THEME, "Light theme").apply();
                 recreate();
             }
         });
-        mThemeDark = (RadioButton) findViewById(R.id.initial_setup_theme_dark);
-        mThemeDark.setOnClickListener(new View.OnClickListener() {
+        themeDarkButton = (RadioButton) findViewById(R.id.initial_setup_theme_dark);
+        themeDarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPreferences.edit().putString(LoggerSettings.PREFERENCE_THEME, "Dark theme").apply();
+                preferences.edit().putString(LoggerSettings.PREFERENCE_THEME, "Dark theme").apply();
                 recreate();
             }
         });
-        mThemeContinueButton = (Button) findViewById(R.id.initial_setup_theme_button_next);
-        mThemeContinueButton.setOnClickListener(new View.OnClickListener() {
+        themeContinueButton = (Button) findViewById(R.id.initial_setup_theme_button_next);
+        themeContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Once user presses continue here, since we already have some values set,
                 //no need to launch the initial setup activity again when launching the app
-                mPreferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, false).apply();
+                preferences.edit().putBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, false).apply();
                 // launch unit setup
                 setupUnits();
             }
         });
 
-        if (mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT).equals("Light theme")) {
-            mThemeLight.setChecked(true);
-        } else if (mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT).equals("Dark theme")){
-            mThemeDark.setChecked(true);
+        if (preferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT).equals("Light theme")) {
+            themeLightButton.setChecked(true);
+        } else if (preferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT).equals("Dark theme")){
+            themeDarkButton.setChecked(true);
         }
     }
 

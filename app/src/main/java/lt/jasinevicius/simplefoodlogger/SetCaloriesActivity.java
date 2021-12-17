@@ -2,17 +2,14 @@ package lt.jasinevicius.simplefoodlogger;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 
-public class SetCaloriesActivity extends AppCompatActivity {
+public class SetCaloriesActivity extends BaseActivity {
 
     private static final String EXTRA_TITLE = "simplefoodlogger.title";
     private static final String EXTRA_STAGE = "simplefoodlogger.stage";
@@ -27,34 +24,26 @@ public class SetCaloriesActivity extends AppCompatActivity {
         return intent;
     }
 
-    private Toolbar mToolbar;
-    private SharedPreferences mPreferences;
-    private boolean mShowTitle;
+    private Toolbar toolbar;
+    private boolean showTitle;
     private Fragment openFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String theme = mPreferences.getString(LoggerSettings.PREFERENCE_THEME, LoggerSettings.PREFERENCE_THEME_DEFAULT);
-        if (theme.equals("Light theme")) {
-            setTheme(R.style.AppTheme);
-        } else if (theme.equals("Dark theme")) {
-            setTheme(R.style.AppThemeDark);
-        }
         setContentView(R.layout.activity_single_fragment);
 
-        mShowTitle = (boolean) getIntent().getSerializableExtra(EXTRA_TITLE);
+        showTitle = (boolean) getIntent().getSerializableExtra(EXTRA_TITLE);
         Integer stage = (Integer) getIntent().getSerializableExtra(EXTRA_STAGE);
 
-        mToolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
-        setSupportActionBar(mToolbar);
+        toolbar = (Toolbar) findViewById(R.id.single_fragment_activity_toolbar);
+        setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Set Daily Calories Target");
         ab.setDisplayHomeAsUpEnabled(true);
-        if (mShowTitle) {
+        if (showTitle) {
             ab.hide();
         }
 
@@ -64,13 +53,13 @@ public class SetCaloriesActivity extends AppCompatActivity {
         } else {
             switch (stage) {
                 case STAGE_PROFILE:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(showTitle)).commit();
                     break;
                 case STAGE_CONFIRM_KCAL:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, mShowTitle)).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesFragment.newInstance(true, showTitle)).commit();
                     break;
                 default:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(showTitle)).commit();
             }
         }
     }
@@ -78,7 +67,7 @@ public class SetCaloriesActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         if (getSupportFragmentManager().findFragmentById(R.id.single_fragment_container).getClass().getName().equals(SetCaloriesFragment.class.getName())) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(mShowTitle)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, SetCaloriesProfileFragment.newInstance(showTitle)).commit();
         } else {
             super.onBackPressed();
         }
