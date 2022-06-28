@@ -58,6 +58,7 @@
     <string name="list_item_food_type_custom">Custom</string>
     <string name="list_item_food_type_common">Common</string>
     <string name="list_item_food_type_usda">USDA DB</string>
+    <string name="add_food_activity_title">Add new custom food</string>
     <string-array name="food_categories_array">
         <item>Dairy &amp; Eggs</item>
         <item>Meat</item>

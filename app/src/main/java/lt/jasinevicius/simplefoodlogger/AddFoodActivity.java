@@ -2,15 +2,12 @@ package lt.jasinevicius.simplefoodlogger;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 
 public class AddFoodActivity extends BaseActivity {
 
@@ -37,7 +34,7 @@ public class AddFoodActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
-        ab.setTitle("Add new custom food");
+        ab.setTitle(getString(R.string.add_food_activity_title));
         ab.setDisplayHomeAsUpEnabled(true);
 
         Integer category = (Integer) getIntent().getSerializableExtra(EXTRA_CATEGORY);
@@ -46,7 +43,10 @@ public class AddFoodActivity extends BaseActivity {
             //Restore the fragment's instance
             addFoodFragment = getSupportFragmentManager().getFragment(savedInstanceState, "addFoodFragment");
         } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, AddFoodFragment.newInstance(category)).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.single_fragment_container, AddFoodFragment.newInstance(category))
+                    .commit();
         }
     }
 
