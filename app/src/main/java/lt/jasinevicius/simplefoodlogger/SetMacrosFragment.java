@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import lt.jasinevicius.simplefoodlogger.reusable.EditTextWithSuffix;
+import lt.jasinevicius.simplefoodlogger.utils.Utils;
 
 //TODO AFTER RELEASE maybe add a question mark somewhere inside form, that would explain what is this, and what values are recommended.
 
@@ -182,7 +183,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                    scrollUpLayout();
+                    Utils.scrollUpLayout(scrollView, 200);
                 }
             }
         });
@@ -223,7 +224,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                    scrollUpLayout();
+                    Utils.scrollUpLayout(scrollView, 200);
                 }
             }
         });
@@ -232,7 +233,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (mCarbsInputPercent.hasFocus() && orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                    scrollUpLayout();
+                    Utils.scrollUpLayout(scrollView, 200);
                 }
             }
         });
@@ -272,7 +273,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                    scrollUpLayout();
+                    Utils.scrollUpLayout(scrollView, 200);
                 }
             }
         });
@@ -280,7 +281,7 @@ public class SetMacrosFragment extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (mFatInputPercent.hasFocus() && orientation != Configuration.ORIENTATION_LANDSCAPE) {
-                    scrollUpLayout();
+                    Utils.scrollUpLayout(scrollView, 200);
                 }
             }
         });
@@ -350,21 +351,6 @@ public class SetMacrosFragment extends Fragment {
         } else {
             mBottomInfoText.setTextColor(redColor);
         }
-    }
-
-    //This function scrolls down to bottom after keyboard comes up so that all field for input are visible
-    private void scrollUpLayout(){
-        scrollView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                View lastChild = scrollView.getChildAt(scrollView.getChildCount() - 1);
-                int bottom = lastChild.getBottom() + scrollView.getPaddingBottom();
-                int sy = scrollView.getScrollY();
-                int sh = scrollView.getHeight();
-                int delta = bottom - (sy + sh);
-                scrollView.smoothScrollBy(0, delta);
-            }
-        }, 200);
     }
 
     private void setRecommendedMacros(){

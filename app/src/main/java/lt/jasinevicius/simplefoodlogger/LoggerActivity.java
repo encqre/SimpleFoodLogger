@@ -16,7 +16,7 @@ public class LoggerActivity extends BaseActivity {
     public static final int TAB_SUMMARY = 2;
     public static final int TAB_SETTINGS = 3;
 
-    private static final int REQUEST_INITIAL_SETUP = 0;
+    private static final int REQUEST_SETUP = 0;
 
     private TabLayout tabLayout;
     private Date selectedDay;
@@ -39,13 +39,12 @@ public class LoggerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_logger);
-
-        if (preferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, true) ||
-                preferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true)) {
-            Intent intent = InitialSetupActivity.newIntent(LoggerActivity.this);
-            startActivityForResult(intent, REQUEST_INITIAL_SETUP);
+        if (requiresSetup()) {
+            Intent intent = SetupActivity.newIntent(LoggerActivity.this);
+            startActivityForResult(intent, REQUEST_SETUP);
         }
+
+        setContentView(R.layout.activity_logger);
 
         if (savedInstanceState != null) {
             selectedDay = (Date) savedInstanceState.getSerializable(SAVED_SELECTED_DATE);
@@ -103,7 +102,7 @@ public class LoggerActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == REQUEST_INITIAL_SETUP) {
+        if (requestCode == REQUEST_SETUP) {
             HomePageFragment homePageFragment = (HomePageFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             homePageFragment.updateTargets();
         }
@@ -117,6 +116,14 @@ public class LoggerActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
         outState.putInt(SAVED_OPEN_TAB, tabLayout.getSelectedTabPosition());
         outState.putSerializable(SAVED_SELECTED_DATE, selectedDay);
+    }
+
+    private boolean requiresSetup() {
+        return (
+            preferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_DB_SETUP_NEEDED, true) ||
+            preferences.getBoolean(LoggerSettings.PREFERENCE_INITIAL_PROFILE_SETUP_NEEDED, true) ||
+            preferences.getBoolean(LoggerSettings.PREFERENCE_MIGRATION_V1_TO_V2_NEEDED, true)
+        );
     }
 
 }

@@ -3,55 +3,76 @@ package lt.jasinevicius.simplefoodlogger;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.flexbox.FlexboxLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import lt.jasinevicius.simplefoodlogger.reusable.DecimalDigitsInputFilter;
+import lt.jasinevicius.simplefoodlogger.utils.Utils;
 
 public class AddFoodFragment extends Fragment {
 
-    private static final String ARG_CATEGORY = "category";
+    private static final int REQUEST_SELECT_TAG = 0;
+
+    private static final String DIALOG_SELECT_TAG = "SelectTagDialog";
+
+    private static final String ARG_TAG = "addFoodFragment.tag";
 
     public static final String EXTRA_NEW_FOOD_ID = "simplefoodlogger.extra_new_food_id";
 
-    private int mProvidedCategory = 0;
+    private Tag providedTag = null;
 
-    private Spinner mSpinner;
-    private EditText mFoodTitle;
-    private EditText mCalories;
-    private EditText mProtein;
-    private EditText mCarbs;
-    private EditText mFat;
-    private EditText mServing1Name;
-    private EditText mServing1Size;
-    private EditText mServing2Name;
-    private EditText mServing2Size;
-    private EditText mServing3Name;
-    private EditText mServing3Size;
-    private TextView mNutritionInfoTextView;
-    private TextView mServingSizesTextView;
-    private Button mAddButton;
-    private Button mCancelButton;
+    private EditText foodName;
+    private EditText calories;
+    private EditText protein;
+    private EditText carbs;
+    private EditText fat;
+    private TextView nutritionInfoTextView;
+    private TextView servingSizesTextView;
+    private Button saveButton;
+    private Button cancelButton;
+    private Button deleteButton;
+    private ImageButton selectTagButton;
+    private FlexboxLayout tagLayout;
+    private LinearLayout servingParentLayout;
+    private ScrollView scrollView;
+    private ArrayList<Tag> selectedTags;
 
-    private SharedPreferences mPreferences;
-    private String mUnits;
+    private SharedPreferences preferences;
+    private String units;
+    int orientation;
 
-    public static AddFoodFragment newInstance (int category) {
+    @ColorInt int textOnTagColor;
+
+    public static AddFoodFragment newInstance (Tag tag) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_CATEGORY, category);
+        args.putParcelable(ARG_TAG, tag);
 
         AddFoodFragment fragment = new AddFoodFragment();
         fragment.setArguments(args);
@@ -60,166 +81,133 @@ public class AddFoodFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_food, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_food, container, false);
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        units = preferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
+        orientation = getResources().getConfiguration().orientation;
 
-        mProvidedCategory = (int) getArguments().getSerializable(ARG_CATEGORY);
+        tagLayout = (FlexboxLayout) v.findViewById(R.id.fragment_edit_food_tag);
+        servingParentLayout = (LinearLayout) v.findViewById(R.id.fragment_edit_food_serving_vertical_layout);
+        scrollView = (ScrollView) v.findViewById(R.id.fragment_edit_food_scrollview);
 
-        mSpinner = (Spinner) v.findViewById(R.id.fragment_add_food_category_spinner);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getContext().getTheme();
+        theme.resolveAttribute(R.attr.textOnTagColor, typedValue, true);
+        textOnTagColor = typedValue.data;
 
-        //Creating adapter for spinner, using resources array as list of items and default layout for single spinner item
+        selectTagButton = (ImageButton) v.findViewById(R.id.fragment_edit_food_add_tag_button);
+        selectTagButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                SelectTagDialog dialog = SelectTagDialog.newInstance(selectedTags);
+                dialog.setTargetFragment(AddFoodFragment.this, REQUEST_SELECT_TAG);
+                dialog.show(fragmentManager, DIALOG_SELECT_TAG);
+            }
+        });
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.food_categories_array, R.layout.spinner_category_item);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
-        mSpinner.setSelection(mProvidedCategory);
-
-        mFoodTitle = (EditText) v.findViewById(R.id.fragment_add_food_name);
-
-        mCalories = (EditText) v.findViewById(R.id.fragment_add_food_calories);
-        mCalories.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mCalories.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,2)});
-
-        mProtein = (EditText) v.findViewById(R.id.fragment_add_food_protein);
-        mProtein.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mProtein.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-
-        mCarbs = (EditText) v.findViewById(R.id.fragment_add_food_carbs);
-        mCarbs.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mCarbs.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-
-        mFat = (EditText) v.findViewById(R.id.fragment_add_food_fat);
-        mFat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mFat.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
-
-        mServing1Name = (EditText) v.findViewById(R.id.fragment_add_food_serving1_name);
-        mServing1Size = (EditText) v.findViewById(R.id.fragment_add_food_serving1_size);
-        mServing1Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mServing1Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
-        mServing2Name = (EditText) v.findViewById(R.id.fragment_add_food_serving2_name);
-        mServing2Size = (EditText) v.findViewById(R.id.fragment_add_food_serving2_size);
-        mServing2Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mServing2Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
-        mServing3Name = (EditText) v.findViewById(R.id.fragment_add_food_serving3_name);
-        mServing3Size = (EditText) v.findViewById(R.id.fragment_add_food_serving3_size);
-        mServing3Size.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mServing3Size.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
-
-
-        if (mUnits.equals("Imperial")) {
-            mNutritionInfoTextView = (TextView) v.findViewById(R.id.fragment_add_food_nutrition_textview);
-            mNutritionInfoTextView.setText(getString(R.string.dialog_add_food_nutrition_textview_imperial));
-            mServingSizesTextView = (TextView) v.findViewById(R.id.fragment_add_food_servings_textview);
-            mServingSizesTextView.setText(getString(R.string.dialog_add_food_servings_textview_imperial));
-            mServing1Size.setHint(getString(R.string.dialog_add_food_serving1_hint_imperial));
-            mServing2Size.setHint(getString(R.string.dialog_add_food_serving2_hint_imperial));
-            mServing3Size.setHint(getString(R.string.dialog_add_food_serving3_hint_imperial));
+        providedTag = (Tag) getArguments().getParcelable(ARG_TAG);
+        selectedTags = new ArrayList<Tag>();
+        if (providedTag != null) {
+            selectedTags.add(providedTag);
+            createSelectedTagUIElements(providedTag);
         }
 
-        mAddButton = (Button) v.findViewById(R.id.fragment_add_food_add_button);
-        mAddButton.setOnClickListener(new View.OnClickListener() {
+        createServingUIElements(null);
+
+        foodName = (EditText) v.findViewById(R.id.fragment_edit_food_name);
+
+        calories = (EditText) v.findViewById(R.id.fragment_edit_food_calories);
+        calories.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        calories.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,2)});
+
+        protein = (EditText) v.findViewById(R.id.fragment_edit_food_protein);
+        protein.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        protein.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+
+        carbs = (EditText) v.findViewById(R.id.fragment_edit_food_carbs);
+        carbs.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        carbs.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+
+        fat = (EditText) v.findViewById(R.id.fragment_edit_food_fat);
+        fat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        fat.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(3,2)});
+
+        if (units.equals("Imperial")) {
+            nutritionInfoTextView = (TextView) v.findViewById(R.id.fragment_edit_food_nutrition_textview);
+            nutritionInfoTextView.setText(getString(R.string.dialog_add_food_nutrition_textview_imperial));
+            servingSizesTextView = (TextView) v.findViewById(R.id.fragment_edit_food_servings_textview);
+            servingSizesTextView.setText(getString(R.string.dialog_add_food_servings_textview_imperial));
+        }
+
+        saveButton = (Button) v.findViewById(R.id.fragment_edit_food_save_button);
+        saveButton.setText("Add");
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mFoodTitle.getText().toString().equals("") || mCalories.getText().toString().equals("") ||
-                        mProtein.getText().toString().equals("") || mCarbs.getText().toString().equals("") ||
-                        mFat.getText().toString().equals("")) {
+                if (foodName.getText().toString().equals("") || calories.getText().toString().equals("") ||
+                        protein.getText().toString().equals("") || carbs.getText().toString().equals("") ||
+                        fat.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Please fill all the fields!", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (mCalories.getText().toString().equals(".") || mProtein.getText().toString().equals(".") ||
-                        mCarbs.getText().toString().equals(".") || mFat.getText().toString().equals(".") ||
-                        mServing1Size.getText().toString().equals(".") || mServing2Size.getText().toString().equals(".") ||
-                        mServing3Size.getText().toString().equals(".")){
-                    Toast.makeText(getActivity(), "Invalid value '.' entered in one or more numeric fields!", Toast.LENGTH_SHORT).show();
+                } else if (calories.getText().toString().equals(".") || protein.getText().toString().equals(".") ||
+                        carbs.getText().toString().equals(".") || fat.getText().toString().equals(".")) {
+                    Toast.makeText(getActivity(), "Invalid value '.' entered in one or more numeric fields!", Toast.LENGTH_SHORT).show(); // TODO for dynamic serving fields too?
                     return;
-                } else if (Float.parseFloat(mCalories.getText().toString()) >= 10000f) {
+                } else if (Float.parseFloat(calories.getText().toString()) >= 10000f) {
                     Toast.makeText(getActivity(), "Calories value must be lower than 10000!", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (Float.parseFloat(mProtein.getText().toString()) > 100f ||
-                        Float.parseFloat(mCarbs.getText().toString()) > 100f ||
-                        Float.parseFloat(mFat.getText().toString()) > 100f) {
+                } else if (Float.parseFloat(protein.getText().toString()) > 100f ||
+                        Float.parseFloat(carbs.getText().toString()) > 100f ||
+                        Float.parseFloat(fat.getText().toString()) > 100f) {
                     Toast.makeText(getActivity(), "Protein/Carbs/Fat values must not exceed 100!", Toast.LENGTH_SHORT).show();
                     return;
+                } else if (selectedTags.size() == 0) {
+                    Toast.makeText(getActivity(), "Please select at least one tag!", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
-                    if (mFoodTitle.getText().toString().contains(";")) {
+                    if (foodName.getText().toString().contains(";")) {
                         Toast.makeText(getActivity(), "Name contains illegal character ';'", Toast.LENGTH_SHORT).show();
                     } else {
                         Food food = new Food();
-                        food.setSortID(0);
-                        food.setCategory(mSpinner.getSelectedItem().toString());
-                        food.setTitle(mFoodTitle.getText().toString());
-                        food.setKcal(Float.parseFloat(mCalories.getText().toString()));
-                        food.setProtein(Float.parseFloat(mProtein.getText().toString()));
-                        food.setCarbs(Float.parseFloat(mCarbs.getText().toString()));
-                        food.setFat(Float.parseFloat(mFat.getText().toString()));
+
+                        food.setName(foodName.getText().toString());
+                        food.setKcal(Float.parseFloat(calories.getText().toString()));
+                        food.setProtein(Float.parseFloat(protein.getText().toString()));
+                        food.setCarbs(Float.parseFloat(carbs.getText().toString()));
+                        food.setFat(Float.parseFloat(fat.getText().toString()));
                         food.setFavorite(false);
-                        food.setHidden(false);
-                        if (mServing1Name.getText().toString().equals("")) {
-                            food.setPortion1Name("Small");
-                        } else {
-                            food.setPortion1Name(mServing1Name.getText().toString());
+                        food.setPriority(Food.PRIORITY_CUSTOM);
+                        food.setConsumedCount(0);
+                        food.setLastConsumed(null);
+                        food.setTags(selectedTags);
+
+                        // set servings
+                        List<Serving> servings = new ArrayList<>();
+                        for (int i = 0; i < servingParentLayout.getChildCount(); i++) {
+                            Serving serving = new Serving();
+
+                            LinearLayout servingLayout = (LinearLayout) servingParentLayout.getChildAt(i);
+                            EditText servingNameEditText = (EditText) servingLayout.getChildAt(0);
+                            EditText servingSizeEditText = (EditText) servingLayout.getChildAt(1);
+                            String servingName = servingNameEditText.getText().toString().equals("") ?
+                                servingNameEditText.getHint().toString() :
+                                servingNameEditText.getText().toString();
+                            float servingSize = servingSizeEditText.getText().toString().equals("") ?
+                                Float.parseFloat(getResources().getString(R.string.dialog_add_food_serving_size_hint_metric)) :
+                                Float.parseFloat(servingSizeEditText.getText().toString());
+
+                            serving.setName(servingName);
+                            serving.setSize(servingSize);
+                            serving.setFoodId(food.getFoodId());
+                            serving.setType(Serving.TYPE_CUSTOM);
+                            servings.add(serving);
                         }
-                        if (mServing2Name.getText().toString().equals("")) {
-                            food.setPortion2Name("Medium");
-                        } else {
-                            food.setPortion2Name(mServing2Name.getText().toString());
-                        }
-                        if (mServing3Name.getText().toString().equals("")) {
-                            food.setPortion3Name("Large");
-                        } else {
-                            food.setPortion3Name(mServing3Name.getText().toString());
-                        }
-                        if (mUnits.equals("Metric")) {
-                            if (mServing1Size.getText().toString().equals("")) {
-                                food.setPortion1SizeMetric(50.0f);
-                                food.setPortion1SizeImperial(50.0f / 28.35f);
-                            } else {
-                                food.setPortion1SizeMetric(Float.parseFloat(mServing1Size.getText().toString()));
-                                food.setPortion1SizeImperial(Float.parseFloat(mServing1Size.getText().toString()) / 28.35f);
-                            }
-                            if (mServing2Size.getText().toString().equals("")) {
-                                food.setPortion2SizeMetric(100.0f);
-                                food.setPortion2SizeImperial(100.0f / 28.35f);
-                            } else {
-                                food.setPortion2SizeMetric(Float.parseFloat(mServing2Size.getText().toString()));
-                                food.setPortion2SizeImperial(Float.parseFloat(mServing2Size.getText().toString()) / 28.35f);
-                            }
-                            if (mServing3Size.getText().toString().equals("")) {
-                                food.setPortion3SizeMetric(250.0f);
-                                food.setPortion3SizeImperial(250.0f / 28.35f);
-                            } else {
-                                food.setPortion3SizeMetric(Float.parseFloat(mServing3Size.getText().toString()));
-                                food.setPortion3SizeImperial(Float.parseFloat(mServing3Size.getText().toString()) / 28.35f);
-                            }
-                        } else {
-                            if (mServing1Size.getText().toString().equals("")) {
-                                food.setPortion1SizeImperial(1.0f);
-                                food.setPortion1SizeMetric(28.35f);
-                            } else {
-                                food.setPortion1SizeImperial(Float.parseFloat(mServing1Size.getText().toString()));
-                                food.setPortion1SizeMetric(Float.parseFloat(mServing1Size.getText().toString()) * 28.35f);
-                            }
-                            if (mServing2Size.getText().toString().equals("")) {
-                                food.setPortion2SizeImperial(3.0f);
-                                food.setPortion2SizeMetric(3.0f * 28.35f);
-                            } else {
-                                food.setPortion2SizeImperial(Float.parseFloat(mServing2Size.getText().toString()));
-                                food.setPortion2SizeMetric(Float.parseFloat(mServing2Size.getText().toString()) * 28.35f);
-                            }
-                            if (mServing3Size.getText().toString().equals("")) {
-                                food.setPortion3SizeImperial(8.0f);
-                                food.setPortion3SizeMetric(8.0f * 28.35f);
-                            } else {
-                                food.setPortion3SizeImperial(Float.parseFloat(mServing3Size.getText().toString()));
-                                food.setPortion3SizeMetric(Float.parseFloat(mServing3Size.getText().toString()) * 28.35f);
-                            }
-                        }
-                        food.setType(0);
-                        FoodManager.get(getActivity()).addCustomFood(food);
+                        food.setServings(servings);
+
+                        food.setType(Food.TYPE_CUSTOM);
+                        FoodManager.get(getActivity()).addFood(food);
                         Toast.makeText(getActivity(), "Food item added to the database!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent();
@@ -230,8 +218,8 @@ public class AddFoodFragment extends Fragment {
             }
         });
 
-        mCancelButton = (Button) v.findViewById(R.id.fragment_add_food_cancel_button);
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton = (Button) v.findViewById(R.id.fragment_edit_food_cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().setResult(Activity.RESULT_CANCELED);
@@ -239,6 +227,285 @@ public class AddFoodFragment extends Fragment {
             }
         });
 
+        deleteButton = (Button) v.findViewById(R.id.fragment_edit_food_delete_button);
+        deleteButton.setVisibility(View.GONE);
+
         return v;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_SELECT_TAG) {
+            Tag selectedTag = (Tag) data.getParcelableExtra(SelectTagDialog.EXTRA_SELECTED_TAG);
+            selectedTags.add(selectedTag);
+            createSelectedTagUIElements(selectedTag);
+        }
+    }
+
+    private void createSelectedTagUIElements(Tag tag) {
+        LinearLayout tagContainer = new LinearLayout(getActivity());
+        TextView tagTextview = new TextView(getActivity());
+        ImageButton tagDeselectButton = new ImageButton(getActivity());
+
+        // TODO currently flexbox width is hardcoded, see if that causes problems on different screens
+        // Setup container
+        FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(
+            FlexboxLayout.LayoutParams.WRAP_CONTENT,
+            FlexboxLayout.LayoutParams.WRAP_CONTENT
+        );
+        // +button has order of 1, and seems that tag elements with order 0 would
+        // line up by addition order, so this is good enough. If not, set exact orders explicitly
+        lp.setOrder(0);
+        int marginDp = Utils.dpToPixels(getActivity(), 4);
+        lp.setMargins(marginDp, marginDp, marginDp, marginDp);
+        int paddingDp = Utils.dpToPixels(getActivity(), 8);
+        tagContainer.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
+        tagContainer.setBackground(
+            ResourcesCompat.getDrawable(
+                getResources(), R.drawable.tag_background, getActivity().getTheme()
+            )
+        );
+        tagContainer.setLayoutParams(lp);
+
+        // Setup textview
+        LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        lp2.setMargins(marginDp, 0, marginDp, 0);
+        tagTextview.setTextAppearance(
+            getActivity(), R.style.TextAppearance_MaterialComponents_Subtitle2
+        );
+        tagTextview.setText(tag.getName());
+        tagTextview.setLayoutParams(lp2);
+        tagTextview.setMaxWidth(Utils.dpToPixels(getActivity(), 240)); // TODO also hardcoded
+        tagTextview.setTextSize(14);
+        tagTextview.setTextColor(textOnTagColor);
+//        tagTextview.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+        tagContainer.addView(tagTextview);
+
+        // Setup deselect button
+        LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(
+            Utils.spToPixels(getActivity(), 20),
+            Utils.spToPixels(getActivity(), 20)
+        );
+        lp3.setMargins(0, 0, 0, 0);
+        tagDeselectButton.setLayoutParams(lp3);
+        tagDeselectButton.setImageResource(R.drawable.cancel_icon_on_tag);
+        tagDeselectButton.setBackgroundTintList(AppCompatResources.getColorStateList(
+            getActivity(), R.color.cancel_button_on_tag_color)
+        );
+        tagDeselectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayout parent = (LinearLayout) view.getParent();
+                TextView textView = (TextView) parent.getChildAt(0);
+                String tagName = textView.getText().toString();
+                for (int i=0; i < selectedTags.size(); i++) {
+                    if (selectedTags.get(i).getName().equals(tagName)) {
+                        selectedTags.remove(i);
+                    }
+                }
+
+                parent.removeAllViews();
+                tagLayout.removeView(parent);
+            }
+        });
+        tagContainer.addView(tagDeselectButton);
+
+        tagLayout.addView(tagContainer);
+    }
+
+    private void createServingUIElements(Serving serving) {
+        LinearLayout servingLayout = new LinearLayout(getActivity());
+        EditText servingNameEditText = new EditText(getActivity());
+        EditText servingSizeEditText = new EditText(getActivity());
+        ImageButton servingRemoveButton = new ImageButton(getActivity());
+        ImageButton servingAddButton = new ImageButton(getActivity());
+
+        int editTextPadding = Utils.dpToPixels(getActivity(), 6);
+        int buttonPadding = Utils.dpToPixels(getActivity(), 4);
+
+        // Setup serving layout
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        servingLayout.setLayoutParams(lp);
+
+        // Setup serving name edit text
+        LinearLayout.LayoutParams servingEditTextLP = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        servingEditTextLP.setMargins(
+            Utils.dpToPixels(getActivity(), 8),
+            Utils.dpToPixels(getActivity(), 4),
+            0,0
+        );
+        servingNameEditText.setLayoutParams(servingEditTextLP);
+        if (serving == null) {
+            servingNameEditText.setHint(getString(R.string.dialog_add_food_serving_name_hint));
+        } else {
+            servingNameEditText.setText(serving.getName());
+        }
+        servingNameEditText.setEms(10);
+        servingNameEditText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        servingNameEditText.setInputType(
+            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+        );
+
+        servingNameEditText.setPadding(editTextPadding, editTextPadding, editTextPadding,editTextPadding);
+        servingNameEditText.setTextSize(16);
+        servingNameEditText.setBackground(ResourcesCompat.getDrawable(
+            getResources(), R.drawable.card_border_grey, getActivity().getTheme()
+        ));
+        servingNameEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    Utils.scrollUpLayout(scrollView, 200);
+                }
+            }
+        });
+        servingNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (servingNameEditText.hasFocus() && orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    Utils.scrollUpLayout(scrollView, 200);
+                }
+            }
+        });
+        servingLayout.addView(servingNameEditText);
+
+        // Setup serving size edit text
+        servingSizeEditText.setLayoutParams(servingEditTextLP);
+        if (serving == null) {
+            if (units.equals("Imperial")) {
+                servingSizeEditText.setHint(getString(R.string.dialog_add_food_serving_size_hint_imperial));
+            } else {
+                servingSizeEditText.setHint(getString(R.string.dialog_add_food_serving_size_hint_metric));
+            }
+        } else {
+            if (units.equals("Imperial")) {
+                servingSizeEditText.setText(String.format("%.1f", serving.getSize() / 28.35f));
+            } else {
+                servingSizeEditText.setText(String.format("%.1f", serving.getSize()));
+            }
+        }
+        servingSizeEditText.setEms(4);
+        servingSizeEditText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        servingSizeEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        servingSizeEditText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
+        servingSizeEditText.setPadding(editTextPadding, editTextPadding, editTextPadding,editTextPadding);
+        servingSizeEditText.setTextSize(16);
+        servingSizeEditText.setBackground(ResourcesCompat.getDrawable(
+            getResources(), R.drawable.card_border_grey, getActivity().getTheme()
+        ));
+        servingSizeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    Utils.scrollUpLayout(scrollView, 200);
+                }
+            }
+        });
+        servingSizeEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (servingSizeEditText.hasFocus() && orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                    Utils.scrollUpLayout(scrollView, 200);
+                }
+            }
+        });
+        servingLayout.addView(servingSizeEditText);
+
+        // Setup add/remove serving buttons
+        LinearLayout.LayoutParams servingButtonLP = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        servingButtonLP.setMargins(
+            Utils.dpToPixels(getActivity(), 8),
+            Utils.dpToPixels(getActivity(), 6),
+            0,0
+        );
+
+        servingRemoveButton.setLayoutParams(servingButtonLP);
+        servingRemoveButton.setBackground(ResourcesCompat.getDrawable(
+            getResources(), R.drawable.tag_background, getActivity().getTheme()
+        ));
+        servingRemoveButton.setPadding(buttonPadding, buttonPadding, buttonPadding, buttonPadding);
+        servingRemoveButton.setImageResource(R.drawable.cancel_icon);
+        servingRemoveButton.setImageTintList(AppCompatResources.getColorStateList(
+            getActivity(), R.color.serving_button_tint_color)
+        );
+        servingRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayout parent = (LinearLayout) view.getParent();
+                servingParentLayout.removeView(parent);
+
+                // in case we removed last serving, make sure new last serving has visible add button
+                LinearLayout lastServing = (LinearLayout) servingParentLayout.getChildAt(servingParentLayout.getChildCount()-1);
+                lastServing.getChildAt(3).setVisibility(View.VISIBLE);
+
+                // if after removing this serving there is only one left, hide it's remove button
+                if (servingParentLayout.getChildCount() == 1) {
+                    LinearLayout lastRemainingServing = (LinearLayout) servingParentLayout.getChildAt(0);
+                    Utils.setImageButtonEnabled(
+                        getActivity(),
+                        false,
+                        (ImageButton) lastRemainingServing.getChildAt(2),
+                        R.drawable.cancel_icon
+                    );
+                }
+            }
+        });
+        if (servingParentLayout.getChildCount() == 0) {
+            // if this is the only one serving being created, hide it's remove button
+            Utils.setImageButtonEnabled(
+                getActivity(), false, servingRemoveButton, R.drawable.cancel_icon
+            );
+        } else if (servingParentLayout.getChildCount() >= 1) {
+            // enable delete button for first serving because we are adding second serving
+            LinearLayout firstServing = (LinearLayout) servingParentLayout.getChildAt(0);
+            Utils.setImageButtonEnabled(
+                getActivity(),
+                true,
+                (ImageButton) firstServing.getChildAt(2),
+                R.drawable.cancel_icon
+            );
+            // hide add button of last serving, because this serving will be new last one
+            LinearLayout lastServing = (LinearLayout) servingParentLayout.getChildAt(
+                servingParentLayout.getChildCount() - 1
+            );
+            lastServing.getChildAt(3).setVisibility(View.GONE);
+        }
+        servingLayout.addView(servingRemoveButton);
+
+        servingAddButton.setLayoutParams(servingButtonLP);
+        servingAddButton.setBackground(ResourcesCompat.getDrawable(
+            getResources(), R.drawable.tag_background, getActivity().getTheme()
+        ));
+        servingAddButton.setPadding(buttonPadding, buttonPadding, buttonPadding, buttonPadding);
+        servingAddButton.setImageResource(R.drawable.plus_sign);
+        servingAddButton.setImageTintList(AppCompatResources.getColorStateList(
+            getActivity(), R.color.serving_button_tint_color)
+        );
+        servingAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createServingUIElements(null);
+            }
+        });
+        servingLayout.addView(servingAddButton);
+
+        servingParentLayout.addView(servingLayout);
+        Utils.scrollUpLayout(scrollView, 100);
+    }
 }
+

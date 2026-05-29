@@ -40,6 +40,9 @@
         <activity android:name=".HiddenFoodsActivity"
             android:parentActivityName=".LoggerActivity">
         </activity>
+        <activity android:name=".HiddenTagsActivity"
+            android:parentActivityName=".LoggerActivity">
+        </activity>
         <activity android:name=".SetMacrosActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:parentActivityName=".LoggerActivity">
@@ -47,7 +50,7 @@
         <activity android:name=".SetCaloriesActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
-        <activity android:name=".InitialSetupActivity">
+        <activity android:name=".SetupActivity">
         </activity>
     </application>
 

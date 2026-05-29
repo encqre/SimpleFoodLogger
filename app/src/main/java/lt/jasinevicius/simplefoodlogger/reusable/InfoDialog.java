@@ -10,17 +10,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 
-public class TutorialDialog extends DialogFragment {
+public class InfoDialog extends DialogFragment {
 
     private static final String ARG_TEXT = "text";
     private static final String ARG_TITLE = "title";
 
-    public static TutorialDialog newInstance(String text, String title) {
+    public static InfoDialog newInstance(String text, String title) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_TEXT, text);
         args.putSerializable(ARG_TITLE, title);
 
-        TutorialDialog fragment = new TutorialDialog();
+        InfoDialog fragment = new InfoDialog();
         fragment.setArguments(args);
         return fragment;
     }

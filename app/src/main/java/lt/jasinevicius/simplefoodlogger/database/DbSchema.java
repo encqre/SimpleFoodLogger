@@ -1,101 +1,116 @@
 package lt.jasinevicius.simplefoodlogger.database;
 
 public class DbSchema {
-    public static final class CustomFoodTable {
-        public static final String NAME = "customFoods";
-
-        public static final class Cols {
-            public static final String FOODID = "foodid";
-            public static final String SORTID = "sortid";
-            public static final String TITLE = "title";
-            public static final String CATEGORY = "category";
-            public static final String KCAL = "kcal";
-            public static final String PROTEIN = "protein";
-            public static final String CARBS = "carbs";
-            public static final String FAT = "fat";
-            public static final String FAVORITE = "favorite";
-            public static final String HIDDEN = "hidden";
-            public static final String PORTION1NAME = "portion1name";
-            public static final String PORTION1SIZEMETRIC = "portion1sizemetric";
-            public static final String PORTION1SIZEIMPERIAL = "portion1sizeimperial";
-            public static final String PORTION2NAME = "portion2name";
-            public static final String PORTION2SIZEMETRIC = "portion2sizemetric";
-            public static final String PORTION2SIZEIMPERIAL = "portion2sizeimperial";
-            public static final String PORTION3NAME = "portion3name";
-            public static final String PORTION3SIZEMETRIC = "portion3sizemetric";
-            public static final String PORTION3SIZEIMPERIAL = "portion3sizeimperial";
-
-        }
-    }
-
-    public static final class CommonFoodTable {
-        public static final String NAME = "commonFoods";
-
-        public static final class Cols {
-            public static final String FOODID = "foodid";
-            public static final String SORTID = "sortid";
-            public static final String TITLE = "title";
-            public static final String CATEGORY = "category";
-            public static final String KCAL = "kcal";
-            public static final String PROTEIN = "protein";
-            public static final String CARBS = "carbs";
-            public static final String FAT = "fat";
-            public static final String FAVORITE = "favorite";
-            public static final String HIDDEN = "hidden";
-            public static final String PORTION1NAME = "portion1name";
-            public static final String PORTION1SIZEMETRIC = "portion1sizemetric";
-            public static final String PORTION1SIZEIMPERIAL = "portion1sizeimperial";
-            public static final String PORTION2NAME = "portion2name";
-            public static final String PORTION2SIZEMETRIC = "portion2sizemetric";
-            public static final String PORTION2SIZEIMPERIAL = "portion2sizeimperial";
-            public static final String PORTION3NAME = "portion3name";
-            public static final String PORTION3SIZEMETRIC = "portion3sizemetric";
-            public static final String PORTION3SIZEIMPERIAL = "portion3sizeimperial";
-
-        }
-    }
-
-    public static final class ExtendedFoodTable {
-        public static final String NAME = "extendedFoods";
-
-        public static final class Cols {
-            public static final String FOODID = "foodid";
-            public static final String SORTID = "sortid";
-            public static final String TITLE = "title";
-            public static final String CATEGORY = "category";
-            public static final String KCAL = "kcal";
-            public static final String PROTEIN = "protein";
-            public static final String CARBS = "carbs";
-            public static final String FAT = "fat";
-            public static final String FAVORITE = "favorite";
-            public static final String HIDDEN = "hidden";
-            public static final String PORTION1NAME = "portion1name";
-            public static final String PORTION1SIZEMETRIC = "portion1sizemetric";
-            public static final String PORTION1SIZEIMPERIAL = "portion1sizeimperial";
-            public static final String PORTION2NAME = "portion2name";
-            public static final String PORTION2SIZEMETRIC = "portion2sizemetric";
-            public static final String PORTION2SIZEIMPERIAL = "portion2sizeimperial";
-            public static final String PORTION3NAME = "portion3name";
-            public static final String PORTION3SIZEMETRIC = "portion3sizemetric";
-            public static final String PORTION3SIZEIMPERIAL = "portion3sizeimperial";
-
-        }
-    }
-
-    public static final class LogTable {
+    public static final class Logs {
         public static final String NAME = "logs";
 
         public static final class Cols {
-            public static final String LOGID = "logid";
+            public static final String LOG_ID = "log_id";
             public static final String DATE = "date";
-            public static final String DATETEXT = "datetext";
             public static final String FOOD = "food";
             public static final String SIZE = "size";
-            public static final String SIZEIMPERIAL = "sizeimperial";
             public static final String KCAL = "kcal";
             public static final String PROTEIN = "protein";
             public static final String CARBS = "carbs";
             public static final String FAT = "fat";
+        }
+    }
+
+    public static final class Foods {
+        public static final String NAME = "foods";
+
+        public static final class Cols {
+            public static final String FOOD_ID = "food_id";
+            public static final String NAME = "name";
+            public static final String KCAL = "kcal";
+            public static final String PROTEIN = "protein";
+            public static final String CARBS = "carbs";
+            public static final String FAT = "fat";
+            public static final String TYPE = "type";
+            public static final String PRIORITY = "priority";
+            public static final String FAVORITE = "favorite";
+            public static final String CONSUMED_COUNT = "consumed_count";
+            public static final String LAST_CONSUMED = "last_consumed";
+        }
+    }
+
+    public static final class Tags {
+        public static final String NAME = "tags";
+
+        public static final class Cols {
+            public static final String TAG_ID = "tag_id";
+            public static final String NAME = "name";
+            public static final String TYPE = "type";
+            public static final String ORDER_ID = "order_id";
+            public static final String COLOR = "color";
+        }
+    }
+
+    // Join table for many-to-many relationship
+    public static final class FoodTags {
+        public static final String NAME = "food_tags";
+
+        public static final class Cols {
+            public static final String FOOD_ID = "food_id";
+            public static final String TAG_ID = "tag_id";
+        }
+    }
+
+    public static final class FoodServings {
+        public static final String NAME = "food_servings";
+
+        public static final class Cols {
+            public static final String SERVING_ID = "serving_id";
+            public static final String FOOD_ID = "food_id";
+            public static final String NAME = "name";
+            public static final String SIZE = "size";
+            public static final String TYPE = "type";
+        }
+    }
+
+    public static final class Meals {
+        public static final String NAME = "meals";
+
+        public static final class Cols {
+            public static final String MEAL_ID = "meal_id";
+            public static final String NAME = "name";
+            public static final String FAVORITE = "favorite";
+            public static final String CONSUMED_COUNT = "consumed_count";
+            public static final String LAST_CONSUMED = "last_consumed";
+        }
+    }
+
+    // Join table for many-to-many relationship
+    public static final class MealFoods {
+        public static final String NAME = "meal_foods";
+
+        public static final class Cols {
+            public static final String MEAL_ID = "meal_id";
+            public static final String FOOD_ID = "food_id";
+            public static final String DEFAULT_FOOD_SIZE = "default_food_size";
+        }
+    }
+
+    // Join table for many-to-many relationship
+    public static final class MealTags {
+        public static final String NAME = "meal_tags";
+
+        public static final class Cols {
+            public static final String MEAL_ID = "meal_id";
+            public static final String TAG_ID = "tag_id";
+        }
+    }
+
+    public static final class History {
+        public static final String NAME = "history";
+
+        public static final class Cols {
+            public static final String DATE = "date";
+            public static final String WEIGHT = "weight";
+            public static final String KCAL_TARGET = "kcal_target";
+            public static final String PROTEIN_TARGET = "protein_target";
+            public static final String CARBS_TARGET = "carbs_target";
+            public static final String FAT_TARGET = "fat_target";
         }
     }
 }

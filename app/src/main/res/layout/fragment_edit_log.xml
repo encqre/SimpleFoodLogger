@@ -21,139 +21,139 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fragment_edit_log_top_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_edit_log_top_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="?attr/recyclerViewItemBackgroundColor"
+            android:elevation="16dp"
+            android:outlineProvider="bounds">
+
+            <TextView
+                android:id="@+id/fragment_edit_log_food_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="?attr/textOnGenericSurfaceColor"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:background="?attr/recyclerViewItemBackgroundColor"
-                android:elevation="16dp"
-                android:outlineProvider="bounds">
+                android:textSize="22sp"
+                android:text="Chicken Nuggets, Dos Pollos"/>
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_food_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textColor="?attr/textOnGenericSurfaceColor"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="22sp"
-                    android:text="Chicken Nuggets, Dos Pollos"/>
+            <TextView
+                android:id="@+id/fragment_edit_log_calories_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Calories:"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="18sp"
+                android:textColor="?attr/listItemTitleTextColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_food_title" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_calories_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Calories:"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textSize="18sp"
-                    android:textColor="?attr/textOnGenericSurfaceColor"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_food_title" />
+            <TextView
+                android:id="@+id/fragment_edit_log_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textColor="?listItemKcalTextColor"
+                android:layout_marginStart="16dp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_calories_textview"
+                app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_calories_textview"
+                app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_calories_textview"
+                tools:text="250.0 kcal" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_calories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:textColor="?attr/listItemKcalTextColor"
-                    android:layout_marginStart="16dp"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_calories_textview"
-                    app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_calories_textview"
-                    app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_calories_textview"
-                    tools:text="250.0 kcal" />
+            <TextView
+                android:id="@+id/fragment_edit_log_protein_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:paddingBottom="8dp"
+                android:text="Protein:"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="16sp"
+                android:textColor="?attr/listItemTitleTextColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories_textview" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_protein_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="Protein:"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textSize="16sp"
-                    android:textColor="?attr/textOnGenericSurfaceColor"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories_textview" />
+            <TextView
+                android:id="@+id/fragment_edit_log_protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="?attr/listItemMacroTextColor"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_protein_textview"
+                app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_protein_textview"
+                app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_protein_textview"
+                tools:text="12.5g" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_protein"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textColor="?attr/listItemMacroTextColor"
-                    android:textSize="16sp"
-                    android:paddingBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_protein_textview"
-                    app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_protein_textview"
-                    app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_protein_textview"
-                    tools:text="12.5g" />
+            <TextView
+                android:id="@+id/fragment_edit_log_carbs_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Carbs:"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:paddingBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="16sp"
+                android:textColor="?attr/listItemTitleTextColor"
+                app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_protein"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_carbs_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Carbs:"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="16dp"
-                    android:paddingBottom="8dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textSize="16sp"
-                    android:textColor="?attr/textOnGenericSurfaceColor"
-                    app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_protein"
-                    app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories" />
+            <TextView
+                android:id="@+id/fragment_edit_log_carbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="?attr/listItemMacroTextColor"
+                android:textSize="16sp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_carbs_textview"
+                app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_carbs_textview"
+                app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_carbs_textview"
+                tools:text="19.1g" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_carbs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textColor="?attr/listItemMacroTextColor"
-                    android:textSize="16sp"
-                    android:paddingBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_carbs_textview"
-                    app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_carbs_textview"
-                    app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_carbs_textview"
-                    tools:text="19.1g" />
+            <TextView
+                android:id="@+id/fragment_edit_log_fat_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fat:"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:paddingBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textSize="16sp"
+                android:textColor="?attr/listItemTitleTextColor"
+                app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_carbs"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_fat_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fat:"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="16dp"
-                    android:paddingBottom="8dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textSize="16sp"
-                    android:textColor="?attr/textOnGenericSurfaceColor"
-                    app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_carbs"
-                    app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_calories" />
+            <TextView
+                android:id="@+id/fragment_edit_log_fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="?attr/listItemMacroTextColor"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_fat_textview"
+                app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_fat_textview"
+                app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_fat_textview"
+                tools:text="8.2g" />
 
-                <TextView
-                    android:id="@+id/fragment_edit_log_fat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:paddingBottom="8dp"
-                    android:textColor="?attr/listItemMacroTextColor"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_fat_textview"
-                    app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_fat_textview"
-                    app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_fat_textview"
-                    tools:text="8.2g" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/fragment_edit_log_weight_textview"
@@ -163,7 +163,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:text="@string/dialog_add_log_weight_textview_metric"
                 android:textSize="16sp"
-                android:textColor="?attr/textOnGenericSurfaceColor"
+                android:textColor="?attr/listItemTitleTextColor"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_weight"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_weight" />
@@ -171,16 +171,17 @@
             <EditText
                 android:id="@+id/fragment_edit_log_weight"
                 style="@style/Widget.AppCompat.AutoCompleteTextView"
-                android:background="@drawable/card_border_grey"
-                android:padding="8dp"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/card_border_grey"
                 android:hint="100"
                 android:imeOptions="flagNoExtractUi"
+                android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/fragment_edit_log_weight_textview"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_top_parent" />
 
@@ -192,7 +193,7 @@
                 android:text="Servings"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textSize="16sp"
-                android:textColor="?attr/textOnGenericSurfaceColor"
+                android:textColor="?attr/listItemTitleTextColor"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_serving_radio_group"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_serving_radio_group" />
@@ -203,37 +204,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:orientation="vertical"
                 android:background="@drawable/card_border_grey"
+                android:orientation="vertical"
+                android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_weight"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_log_weight">
 
-                <RadioButton
-                    android:id="@+id/fragment_edit_log_serving1_radio_button"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                    android:layout_width="match_parent"
-                    android:maxWidth="184dp"
-                    android:layout_height="wrap_content"
-                    android:text="wing, bone and skin removed  carefully (125g)" />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/fragment_edit_log_serving1_radio_button"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:maxWidth="184dp"-->
+<!--                    android:text="wing, bone and skin removed carefully (125g)"-->
+<!--                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"/>-->
 
-                <RadioButton
-                    android:id="@+id/fragment_edit_log_serving2_radio_button"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                    android:layout_width="match_parent"
-                    android:maxWidth="184dp"
-                    android:layout_height="wrap_content"
-                    android:text='medium (2.66" diameter) (242g)' />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/fragment_edit_log_serving2_radio_button"-->
+<!--                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:maxWidth="184dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text='medium (2.66" diameter) (242g)' />-->
 
-                <RadioButton
-                    android:id="@+id/fragment_edit_log_serving3_radio_button"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                    android:layout_width="match_parent"
-                    android:maxWidth="184dp"
-                    android:layout_height="wrap_content"
-                    android:text='very large (12" diameter) (378g)' />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/fragment_edit_log_serving3_radio_button"-->
+<!--                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:maxWidth="184dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text='very large (12" diameter) (378g)' />-->
 
             </RadioGroup>
 
@@ -245,7 +246,7 @@
                 android:text="Date"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textSize="16sp"
-                android:textColor="?attr/textOnGenericSurfaceColor"
+                android:textColor="?attr/listItemTitleTextColor"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_log_date_button"
                 app:layout_constraintStart_toStartOf="@+id/fragment_edit_log_fake_parent"
                 app:layout_constraintTop_toTopOf="@+id/fragment_edit_log_date_button" />
@@ -275,10 +276,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="?attr/buttonBarBackgroundColor"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
         android:elevation="16dp"
-        android:outlineProvider="bounds">
+        android:outlineProvider="bounds"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <Button
             android:id="@+id/fragment_edit_log_delete_button"
@@ -292,11 +293,11 @@
 
         <Button
             android:id="@+id/fragment_edit_log_cancel_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="Cancel"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
             app:layout_constraintEnd_toStartOf="@+id/fragment_edit_log_save_button"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -305,8 +306,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="Save"
             android:backgroundTint="?attr/colorAccent"
+            android:text="Save"
             android:textColor="?attr/textOnAccentColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

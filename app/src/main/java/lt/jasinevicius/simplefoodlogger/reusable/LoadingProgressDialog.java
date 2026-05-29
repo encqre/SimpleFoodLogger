@@ -83,4 +83,9 @@ public class LoadingProgressDialog extends DialogFragment {
         updateProgress();
     }
 
+    public void updateProgress(int progress, int max, String message) {
+        mLoadingText = message;
+        updateProgress(progress, max);
+    }
+
 }

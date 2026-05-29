@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,10 +23,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.radiobutton.MaterialRadioButton;
+
 import lt.jasinevicius.simplefoodlogger.reusable.DecimalDigitsInputFilter;
 import lt.jasinevicius.simplefoodlogger.reusable.SimpleConfirmationDialog;
+import lt.jasinevicius.simplefoodlogger.utils.Utils;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class EditLogFragment extends Fragment {
@@ -36,29 +41,28 @@ public class EditLogFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_DELETE_LOG = 1;
 
-    private Log mLog;
-    private Food mFood;
-    private Date mDate;
+    private Log log;
+    private Food food;
+    private Date date;
     private LogManager lm = LogManager.get(getContext());
     private FoodManager fm;
-    private Button mDateButton;
-    private EditText mWeight;
-    private TextView mCalories;
-    private TextView mProtein;
-    private TextView mCarbs;
-    private TextView mFat;
-    private RadioGroup mServingGroup;
-    private RadioButton mServing1;
-    private RadioButton mServing2;
-    private RadioButton mServing3;
-    private TextView mWeightTextView;
-    private TextView mFoodTitle;
-    private Button mSaveButton;
-    private Button mCancelButton;
-    private Button mDeleteButton;
+    private Button dateButton;
+    private EditText weightEditText;
+    private TextView calories;
+    private TextView protein;
+    private TextView carbs;
+    private TextView fat;
+    private RadioGroup servingGroup;
+    private TextView weightTextView;
+    private TextView foodName;
+    private Button saveButton;
+    private Button cancelButton;
+    private Button deleteButton;
 
-    private SharedPreferences mPreferences;
-    private String mUnits;
+    private SharedPreferences preferences;
+    private String units;
+    private float unitMultiplier;
+    private String unitSymbol;
 
     public static EditLogFragment newInstance (UUID logId) {
         Bundle args = new Bundle();
@@ -75,41 +79,43 @@ public class EditLogFragment extends Fragment {
 
         UUID uuid = (UUID) getArguments().getSerializable(ARG_LOG);
 
-        mLog = lm.getLog(uuid);
-        mDate = mLog.getDate();
+        log = lm.getLog(uuid);
+        date = log.getDate();
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        units = preferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
+        unitMultiplier = (units.equals("Metric")) ? 1.0f : 28.35f;
+        unitSymbol = (units.equals("Metric")) ? "g" : "oz";
 
-        mDateButton = (Button) v.findViewById(R.id.fragment_edit_log_date_button);
-        mDateButton.setText(Calculations.dateDisplayString(mDate));
-        mDateButton.setOnClickListener(new View.OnClickListener() {
+        dateButton = (Button) v.findViewById(R.id.fragment_edit_log_date_button);
+        dateButton.setText(Calculations.dateDisplayString(date));
+        dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
-                DatePickerDialog dialog = DatePickerDialog.newInstance(mDate);
+                DatePickerDialog dialog = DatePickerDialog.newInstance(date);
                 dialog.setTargetFragment(EditLogFragment.this, REQUEST_DATE);
                 dialog.show(fm, DIALOG_DATE);
             }
         });
 
-        mCalories = (TextView) v.findViewById(R.id.fragment_edit_log_calories);
-        mCalories.setText(String.format("%.1f", mLog.getKcal()) + " kcal");
+        calories = (TextView) v.findViewById(R.id.fragment_edit_log_calories);
+        calories.setText(String.format("%.1f", log.getKcal()) + " kcal");
 
-        mProtein = (TextView) v.findViewById(R.id.fragment_edit_log_protein);
-        mProtein.setText(String.format("%.1f", mLog.getProtein()) + "g");
+        protein = (TextView) v.findViewById(R.id.fragment_edit_log_protein);
+        protein.setText(String.format("%.1f", log.getProtein()) + "g");
 
-        mCarbs = (TextView) v.findViewById(R.id.fragment_edit_log_carbs);
-        mCarbs.setText(String.format("%.1f", mLog.getCarbs()) + "g");
+        carbs = (TextView) v.findViewById(R.id.fragment_edit_log_carbs);
+        carbs.setText(String.format("%.1f", log.getCarbs()) + "g");
 
-        mFat = (TextView) v.findViewById(R.id.fragment_edit_log_fat);
-        mFat.setText(String.format("%.1f", mLog.getFat()) + "g");
+        fat = (TextView) v.findViewById(R.id.fragment_edit_log_fat);
+        fat.setText(String.format("%.1f", log.getFat()) + "g");
 
-        mWeight = (EditText) v.findViewById(R.id.fragment_edit_log_weight);
-        mWeight.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        mWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
+        weightEditText = (EditText) v.findViewById(R.id.fragment_edit_log_weight);
+        weightEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        weightEditText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
 //        mWeight.requestFocus();
-        mWeight.addTextChangedListener(new TextWatcher() {
+        weightEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //nothing
@@ -118,20 +124,19 @@ public class EditLogFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Float weight = 0f;
-                if (mWeight.length() > 0) {
+                if (weightEditText.length() > 0) {
                     try {
-                        weight = Float.parseFloat(mWeight.getText().toString());
+                        weight = Float.parseFloat(weightEditText.getText().toString());
                     } catch (Exception err) {
                         weight = 0f;
                     }
                 }
-                if (mUnits.equals("Imperial")) {
-                    weight = weight*28.35f;
-                }
-                mCalories.setText(String.format("%.1f",(mLog.getKcal()/mLog.getSize() * weight)) + " kcal");
-                mProtein.setText(String.format("%.1f",(mLog.getProtein()/mLog.getSize() * weight)) + "g");
-                mCarbs.setText(String.format("%.1f", (mLog.getCarbs()/mLog.getSize() * weight)) + "g");
-                mFat.setText(String.format("%.1f", (mLog.getFat()/mLog.getSize() * weight)) + "g");
+                weight *= unitMultiplier;
+
+                calories.setText(String.format("%.1f",(log.getKcal()/ log.getSize() * weight)) + " kcal");
+                protein.setText(String.format("%.1f",(log.getProtein()/ log.getSize() * weight)) + "g");
+                carbs.setText(String.format("%.1f", (log.getCarbs()/ log.getSize() * weight)) + "g");
+                fat.setText(String.format("%.1f", (log.getFat()/ log.getSize() * weight)) + "g");
             }
 
             @Override
@@ -141,165 +146,64 @@ public class EditLogFragment extends Fragment {
         });
 
         /**Trying to get Food by food name in the log to set correct serving sizes. If not found,
-         * will set portion sizes to defaults - 50/100/250g*/
+         * will add the default serving only */
         fm = FoodManager.get(getContext());
-        mFood = fm.getFoodByName(mLog.getFood());
+        food = fm.getFoodByName(log.getFood());
 
-        mServingGroup = (RadioGroup) v.findViewById(R.id.fragment_edit_log_serving_radio_group);
-        mServing1 = (RadioButton) v.findViewById(R.id.fragment_edit_log_serving1_radio_button);
-        mServing2 = (RadioButton) v.findViewById(R.id.fragment_edit_log_serving2_radio_button);
-        mServing3 = (RadioButton) v.findViewById(R.id.fragment_edit_log_serving3_radio_button);
-
-
-        if (mUnits.equals("Metric")) {
-            mWeight.setText(String.format("%.1f", mLog.getSize()));
-            if (mFood != null) {
-                mServing1.setText(mFood.getPortion1Name() + " (" + mFood.getPortion1SizeMetric().toString() + "\u00A0g)");
-                mServing1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText(mFood.getPortion1SizeMetric().toString());
-                    }
-                });
-                mServing2.setText(mFood.getPortion2Name() + " (" + mFood.getPortion2SizeMetric().toString() + "\u00A0g)");
-                mServing2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText(mFood.getPortion2SizeMetric().toString());
-                    }
-                });
-                mServing3.setText(mFood.getPortion3Name() + " (" + mFood.getPortion3SizeMetric().toString() + "\u00A0g)");
-                mServing3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText(mFood.getPortion3SizeMetric().toString());
-                    }
-                });
-
-                /**If food weight in the log matches one of the portion sizes, set its radio button as checked*/
-                if (mLog.getSize().equals(mFood.getPortion1SizeMetric())) {
-                    mServing1.setChecked(true);
-                } else if (mLog.getSize().equals(mFood.getPortion2SizeMetric())) {
-                    mServing2.setChecked(true);
-                } else if (mLog.getSize().equals(mFood.getPortion3SizeMetric())) {
-                    mServing3.setChecked(true);
-                }
-            } else {
-                mServing1.setText("Small (50.0\u00A0g)");
-                mServing1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText("50.0");
-                    }
-                });
-                mServing2.setText("Medium (100.0\u00A0g)");
-                mServing2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText("100.0");
-                    }
-                });
-                mServing3.setText("Large (250.0\u00A0g)");
-                mServing3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText("250.0");
-                    }
-                });
+        servingGroup = (RadioGroup) v.findViewById(R.id.fragment_edit_log_serving_radio_group);
+        if (food != null) {
+            List<Serving> servings = food.getServings();
+            for (Serving serving : servings) {
+                addServingRadioButton(serving);
             }
         } else {
-            mWeight.setText(String.format("%.1f", mLog.getSizeImperial()));
-            mWeightTextView = (TextView) v.findViewById(R.id.fragment_edit_log_weight_textview);
-            mWeightTextView.setText(getString(R.string.dialog_add_log_weight_textview_imperial));
+            addServingRadioButton(null);
+        }
 
-            if (mFood != null) {
-                mServing1.setText(mFood.getPortion1Name() + " (" + String.format("%.1f", mFood.getPortion1SizeImperial()) + "\u00A0oz)");
-                mServing1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText(String.format("%.1f", mFood.getPortion1SizeImperial()));
-                    }
-                });
-                mServing2.setText(mFood.getPortion2Name() + " (" + String.format("%.1f", mFood.getPortion2SizeImperial()) + "\u00A0oz)");
-                mServing2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText(String.format("%.1f", mFood.getPortion2SizeImperial()));
-                    }
-                });
-                mServing3.setText(mFood.getPortion3Name() + " (" + String.format("%.1f", mFood.getPortion3SizeImperial()) + "\u00A0oz)");
-                mServing3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText(String.format("%.1f", mFood.getPortion3SizeImperial()));
-                    }
-                });
+        if (units.equals("Imperial")) {
+            weightTextView = (TextView) v.findViewById(R.id.fragment_edit_log_weight_textview);
+            weightTextView.setText(getString(R.string.dialog_add_log_weight_textview_imperial));
+        }
+        weightEditText.setText(String.format("%.1f", log.getSize()/unitMultiplier));
 
-                /**If food weight in the log matches one of the portion sizes, set its radio button as checked*/
-                if (mLog.getSizeImperial().equals(mFood.getPortion1SizeImperial())) {
-                    mServing1.setChecked(true);
-                } else if (mLog.getSizeImperial().equals(mFood.getPortion2SizeImperial())) {
-                    mServing2.setChecked(true);
-                } else if (mLog.getSizeImperial().equals(mFood.getPortion3SizeImperial())) {
-                    mServing3.setChecked(true);
+        if (food != null) {
+            for (int i = 0; i < food.getServings().size(); i++) {
+                if (log.getSize().equals(food.getServings().get(i).getSize())) {
+                    ((RadioButton) servingGroup.getChildAt(i)).setChecked(true);
+                    break;
                 }
-            } else {
-                mServing1.setText("Small (1.0\u00A0oz)");
-                mServing1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText("1.0");
-                    }
-                });
-                mServing2.setText("Medium (3.0\u00A0oz)");
-                mServing2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText("3.0");
-                    }
-                });
-                mServing3.setText("Large (8.0\u00A0oz)");
-                mServing3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mWeight.setText("8.0");
-                    }
-                });
             }
         }
 
-        mFoodTitle = (TextView) v.findViewById(R.id.fragment_edit_log_food_title);
-        mFoodTitle.setText(mLog.getFood());
+        foodName = (TextView) v.findViewById(R.id.fragment_edit_log_food_title);
+        foodName.setText(log.getFood());
 
-        mSaveButton = (Button) v.findViewById(R.id.fragment_edit_log_save_button);
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
+        saveButton = (Button) v.findViewById(R.id.fragment_edit_log_save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mWeight.getText().toString().equals("")) {
-                    if (mUnits.equals("Imperial")) {
-                        mWeight.setText("3.5");
+                if (weightEditText.getText().toString().equals("")) {
+                    if (units.equals("Imperial")) {
+                        weightEditText.setText("3.5");
                     } else {
-                        mWeight.setText("100");
+                        weightEditText.setText("100");
                     }
                 }
-                if (mWeight.getText().toString().equals(".")) {
+                if (weightEditText.getText().toString().equals(".")) {
                     Toast.makeText(getActivity(), "Invalid weight value '.' entered!", Toast.LENGTH_SHORT).show();
-                } else if (Float.parseFloat(mWeight.getText().toString()) == 0f) {
+                } else if (Float.parseFloat(weightEditText.getText().toString()) == 0f) {
                     Toast.makeText(getActivity(), "Weight value is zero!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Float weight = Float.parseFloat(mWeight.getText().toString());
-                    if (mUnits.equals("Imperial")) {
-                        weight = weight * 28.35f;
-                    }
-                    mLog.setDate(mDate);
-                    mLog.setDateText(mDate);
-                    mLog.setKcal(mLog.getKcal() / mLog.getSize() * weight);
-                    mLog.setProtein(mLog.getProtein() / mLog.getSize() * weight);
-                    mLog.setCarbs(mLog.getCarbs() / mLog.getSize() * weight);
-                    mLog.setFat(mLog.getFat() / mLog.getSize() * weight);
-                    mLog.setSize(weight);
-                    mLog.setSizeImperial(weight / 28.35f);
-                    lm.get(getActivity()).updateLog(mLog);
+                    Float weight = Float.parseFloat(weightEditText.getText().toString());
+                    weight *= unitMultiplier;
+
+                    log.setDate(date);
+                    log.setKcal(log.getKcal() / log.getSize() * weight);
+                    log.setProtein(log.getProtein() / log.getSize() * weight);
+                    log.setCarbs(log.getCarbs() / log.getSize() * weight);
+                    log.setFat(log.getFat() / log.getSize() * weight);
+                    log.setSize(weight);
+                    lm.get(getActivity()).updateLog(log);
                     Toast.makeText(getActivity(), "Meal log updated!", Toast.LENGTH_SHORT).show();
                     getActivity().setResult(Activity.RESULT_OK);
                     getActivity().finish();
@@ -307,8 +211,8 @@ public class EditLogFragment extends Fragment {
             }
         });
 
-        mCancelButton = (Button) v.findViewById(R.id.fragment_edit_log_cancel_button);
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton = (Button) v.findViewById(R.id.fragment_edit_log_cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().setResult(Activity.RESULT_CANCELED);
@@ -316,8 +220,8 @@ public class EditLogFragment extends Fragment {
             }
         });
 
-        mDeleteButton = (Button) v.findViewById(R.id.fragment_edit_log_delete_button);
-        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+        deleteButton = (Button) v.findViewById(R.id.fragment_edit_log_delete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = "Are you sure you want to delete this log?";
@@ -337,15 +241,44 @@ public class EditLogFragment extends Fragment {
             return;
         }
         if (requestCode == REQUEST_DATE) {
-            mDate = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
-            mDateButton.setText(Calculations.dateDisplayString(mDate));
+            date = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
+            dateButton.setText(Calculations.dateDisplayString(date));
         }
         if (requestCode == REQUEST_DELETE_LOG) {
-            lm.deleteLog(mLog);
+            lm.deleteLog(log);
             Toast.makeText(getActivity(), "Log deleted!", Toast.LENGTH_SHORT).show();
 
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
         }
+    }
+
+    private void addServingRadioButton(Serving addServing) {
+        if (addServing == null) {
+            addServing = new Serving();
+            addServing.setName(getString(R.string.dialog_add_food_serving_name_hint));
+            addServing.setSize(Float.parseFloat(getString(R.string.dialog_add_food_serving_size_hint_metric)));
+        }
+        final Serving serving = addServing;
+
+        MaterialRadioButton servingButton = new MaterialRadioButton(getActivity());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        servingButton.setLayoutParams(lp);
+        servingButton.setMaxWidth(Utils.dpToPixels(getActivity(), 234));
+        servingButton.setText(
+            serving.getName() + " (" +
+                String.format("%.1f", serving.getSize()/unitMultiplier) + "\u00A0" + unitSymbol + ")");
+
+        servingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weightEditText.setText(String.format("%.1f", serving.getSize()/unitMultiplier));
+            }
+        });
+        servingGroup.addView(servingButton);
     }
 }

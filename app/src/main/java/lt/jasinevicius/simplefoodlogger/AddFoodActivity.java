@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment;
 
 public class AddFoodActivity extends BaseActivity {
 
-    private static final String EXTRA_CATEGORY = "simplefoodlogger.category";
+    private static final String EXTRA_TAG = "simplefoodlogger.tag";
 
     private Toolbar toolbar;
     private Fragment addFoodFragment;
 
 
-    public static Intent newIntent(Context packageContext, int category) {
+    public static Intent newIntent(Context packageContext, Tag tag) {
         Intent intent = new Intent(packageContext, AddFoodActivity.class);
-        intent.putExtra(EXTRA_CATEGORY, category);
+        intent.putExtra(EXTRA_TAG, tag);
 
         return intent;
     }
@@ -37,7 +37,7 @@ public class AddFoodActivity extends BaseActivity {
         ab.setTitle(getString(R.string.add_food_activity_title));
         ab.setDisplayHomeAsUpEnabled(true);
 
-        Integer category = (Integer) getIntent().getSerializableExtra(EXTRA_CATEGORY);
+        Tag tag = (Tag) getIntent().getParcelableExtra(EXTRA_TAG);
 
         if (savedInstanceState != null) {
             //Restore the fragment's instance
@@ -45,7 +45,7 @@ public class AddFoodActivity extends BaseActivity {
         } else {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.single_fragment_container, AddFoodFragment.newInstance(category))
+                    .replace(R.id.single_fragment_container, AddFoodFragment.newInstance(tag))
                     .commit();
         }
     }

@@ -5,11 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +15,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -34,73 +29,58 @@ import java.util.UUID;
 
 public class HiddenFoodsFragment extends Fragment {
 
-    private static final int REQUEST_UNHIDE = 0;
-    private static final int REQUEST_UNHIDE_ALL = 1;
+    private static final int REQUEST_RESTORE = 0;
+    private static final int REQUEST_RESTORE_ALL = 1;
 
     private static final String ARG_FOOD = "food";
     private static final String ARG_FOOD_TYPE = "foodtype";
 
-    private SearchView mSearchView;
-    private RecyclerView mRecyclerView;
-    private FoodAdapter mFoodAdapter;
-    private FoodManager mFoodManager;
+    private SearchView searchView;
+    private RecyclerView recyclerView;
+    private FoodAdapter foodAdapter;
+    private FoodManager fm;
 
-    private SharedPreferences mPreferences;
-    private String mUnits;
-
-    private float logicalDensity;
-    @ColorInt int foodTypeCustomColor;
-    @ColorInt int foodTypeCommonColor;
-    @ColorInt int foodTypeUSDAColor;
+    private SharedPreferences preferences;
+    private String units;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_hidden_foods, container, false);
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUnits = mPreferences.getString(LoggerSettings.PREFERENCE_UNITS, LoggerSettings.PREFERENCE_UNITS_DEFAULT);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        units = preferences.getString(
+            LoggerSettings.PREFERENCE_UNITS,
+            LoggerSettings.PREFERENCE_UNITS_DEFAULT
+        );
 
-        mSearchView = (SearchView) v.findViewById(R.id.fragment_hidden_foods_searchview);
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView = (SearchView) v.findViewById(R.id.fragment_hidden_foods_searchview);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(query));
-                mRecyclerView.setAdapter(mFoodAdapter);
+                foodAdapter = new FoodAdapter(fm.getHiddenFoods(query));
+                recyclerView.setAdapter(foodAdapter);
 
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(newText));
-                if (mSearchView.getQuery().length() == 0) {
-                    mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(""));
+                foodAdapter = new FoodAdapter(fm.getHiddenFoods(newText));
+                if (searchView.getQuery().length() == 0) {
+                    foodAdapter = new FoodAdapter(fm.getHiddenFoods(""));
                 }
-                mRecyclerView.setAdapter(mFoodAdapter);
+                recyclerView.setAdapter(foodAdapter);
                 return false;
             }
         });
 
-        mFoodManager = FoodManager.get(getContext());
+        fm = FoodManager.get(getContext());
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        logicalDensity = metrics.density; //this density represents number of pixels per 1 dp unit
+        recyclerView = (RecyclerView) v.findViewById(R.id.fragment_hidden_foods_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = getContext().getTheme();
-        theme.resolveAttribute(R.attr.foodTypeCustomColor, typedValue, true);
-        foodTypeCustomColor = typedValue.data;
-        theme.resolveAttribute(R.attr.foodTypeCommonColor, typedValue, true);
-        foodTypeCommonColor = typedValue.data;
-        theme.resolveAttribute(R.attr.foodTypeUSDAColor, typedValue, true);
-        foodTypeUSDAColor = typedValue.data;
-
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_hidden_foods_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(""));
-        mRecyclerView.setAdapter(mFoodAdapter);
+        foodAdapter = new FoodAdapter(fm.getHiddenFoods(null));
+        recyclerView.setAdapter(foodAdapter);
 
 
         return v;
@@ -111,49 +91,57 @@ public class HiddenFoodsFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        if (requestCode == REQUEST_UNHIDE) {
-            mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(mSearchView.getQuery().toString()));
-            mRecyclerView.setAdapter(mFoodAdapter);
+        if (requestCode == REQUEST_RESTORE) {
+            foodAdapter = new FoodAdapter(fm.getHiddenFoods(searchView.getQuery().toString()));
+            recyclerView.setAdapter(foodAdapter);
             Toast.makeText(getActivity(), "Food item was restored", Toast.LENGTH_SHORT).show();
         }
-        if (requestCode == REQUEST_UNHIDE_ALL) {
-            unhideAllFoods();
+        if (requestCode == REQUEST_RESTORE_ALL) {
+            restoreAllFoods();
             Toast.makeText(getActivity(), "All hidden foods have been restored", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void unhideAllFoods() {
-        List<Food> allHiddenFoods = mFoodManager.getHiddenFoods("");
-        for (int i = 0; i < allHiddenFoods.size(); i++) {
-            Food food = allHiddenFoods.get(i);
-            food.setHidden(false);
-            mFoodManager.updateFood(food);
+    public void restoreAllFoods() {
+        List<Food> allHiddenFoods = fm.getHiddenFoods(null);
+        for (Food food : allHiddenFoods) {
+            restoreFood(food);
         }
         //Refreshing the list
-        mFoodAdapter = new FoodAdapter(mFoodManager.getHiddenFoods(mSearchView.getQuery().toString()));
-        mRecyclerView.setAdapter(mFoodAdapter);
+        foodAdapter = new FoodAdapter(fm.getHiddenFoods(searchView.getQuery().toString()));
+        recyclerView.setAdapter(foodAdapter);
+    }
+
+    public void restoreFood(Food food) {
+        if (food.getType() == Food.TYPE_DEFAULT_HIDDEN) {
+            food.setType(Food.TYPE_DEFAULT);
+        } else if (food.getType() == Food.TYPE_DEFAULT_MODIFIED_HIDDEN) {
+            food.setType(Food.TYPE_DEFAULT_MODIFIED);
+        }
+        food.setServings(fm.getFoodServings(food.getFoodId())); // due to lazy loading of servings
+        fm.updateFood(food);
     }
 
     private class FoodHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mFoodTitleTextView;
-        private TextView mFoodCalories;
-        private TextView mFoodProtein;
-        private TextView mFoodCarbs;
-        private TextView mFoodFat;
+        private TextView foodNameTextView;
+        private TextView foodKcal;
+        private TextView foodProtein;
+        private TextView foodCarbs;
+        private TextView foodFat;
         private ImageView favoriteStar;
         private FrameLayout editButton;
         private TextView foodTypeText;
-        private Food mFood;
+        private Food food;
 
         public FoodHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_food, parent, false));
             itemView.setOnClickListener(this);
 
-            mFoodTitleTextView = (TextView) itemView.findViewById(R.id.list_item_food_name);
-            mFoodCalories = (TextView) itemView.findViewById(R.id.list_item_food_calories);
-            mFoodProtein = (TextView) itemView.findViewById(R.id.list_item_food_protein);
-            mFoodCarbs = (TextView) itemView.findViewById(R.id.list_item_food_carbs);
-            mFoodFat = (TextView) itemView.findViewById(R.id.list_item_food_fat);
+            foodNameTextView = (TextView) itemView.findViewById(R.id.list_item_food_name);
+            foodKcal = (TextView) itemView.findViewById(R.id.list_item_food_calories);
+            foodProtein = (TextView) itemView.findViewById(R.id.list_item_food_protein);
+            foodCarbs = (TextView) itemView.findViewById(R.id.list_item_food_carbs);
+            foodFat = (TextView) itemView.findViewById(R.id.list_item_food_fat);
 
             favoriteStar = (ImageView) itemView.findViewById(R.id.list_item_food_favorite);
             editButton = (FrameLayout) itemView.findViewById(R.id.list_item_food_edit);
@@ -162,42 +150,25 @@ public class HiddenFoodsFragment extends Fragment {
         }
 
         public void bind(Food food) {
-            mFood = food;
-            mFoodTitleTextView.setText(food.getTitle());
+            this.food = food;
+            foodNameTextView.setText(food.getName());
             favoriteStar.setVisibility(View.GONE);
             editButton.setVisibility(View.GONE);
-            if (mUnits.equals("Metric")) {
-                mFoodCalories.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
+            foodTypeText.setVisibility(View.GONE);
+            if (units.equals("Metric")) {
+                foodKcal.setText(getString(R.string.food_list_fragment_kcal, food.getKcal().intValue()));
             } else {
-                mFoodCalories.setText(getString(R.string.food_list_fragment_kcal_imperial, food.getKcal().intValue()));
+                foodKcal.setText(getString(R.string.food_list_fragment_kcal_imperial, food.getKcal().intValue()));
             }
-            GradientDrawable gradientDrawable = (GradientDrawable) foodTypeText.getBackground();
-            switch (food.getType()) {
-                case 0:
-                    foodTypeText.setText(getString(R.string.list_item_food_type_custom));
-                    foodTypeText.setTextColor(foodTypeCustomColor);
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeCustomColor);
-                    break;
-                case 1:
-                    foodTypeText.setText(getString(R.string.list_item_food_type_common));
-                    foodTypeText.setTextColor(foodTypeCommonColor);
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeCommonColor);
-                    break;
-                case 2:
-                    foodTypeText.setText(getString(R.string.list_item_food_type_usda));
-                    foodTypeText.setTextColor(foodTypeUSDAColor);
-                    gradientDrawable.setStroke((int)Math.ceil(1 * logicalDensity), foodTypeUSDAColor);
-                    break;
-            }
-            mFoodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
-            mFoodCarbs.setText(getString(R.string.food_list_fragment_carbs, food.getCarbs().toString()));
-            mFoodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));
+            foodProtein.setText(getString(R.string.food_list_fragment_protein, food.getProtein().toString()));
+            foodCarbs.setText(getString(R.string.food_list_fragment_carbs, food.getCarbs().toString()));
+            foodFat.setText(getString(R.string.food_list_fragment_fat, food.getFat().toString()));
         }
 
         /*When food item is clicked, SimpleDialog is launched for confirmation*/
         public void onClick(View v) {
-            SimpleDialog dialog = SimpleDialog.newInstance(mFood.getFoodId(), mFood.getType());
-            dialog.setTargetFragment(HiddenFoodsFragment.this, REQUEST_UNHIDE);
+            SimpleDialog dialog = SimpleDialog.newInstance(food.getFoodId(), food.getType());
+            dialog.setTargetFragment(HiddenFoodsFragment.this, REQUEST_RESTORE);
             dialog.show(getFragmentManager(), "OnClick");
         }
 
@@ -205,10 +176,10 @@ public class HiddenFoodsFragment extends Fragment {
 
     private class FoodAdapter extends RecyclerView.Adapter<FoodHolder> {
 
-        private List<Food> mFoods;
+        private List<Food> foods;
 
         public FoodAdapter(List<Food> foods) {
-            mFoods = foods;
+            this.foods = foods;
         }
 
         @Override
@@ -220,20 +191,20 @@ public class HiddenFoodsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(FoodHolder holder, int position) {
-            holder.bind(mFoods.get(position));
+            holder.bind(foods.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return mFoods.size();
+            return foods.size();
         }
     }
 
     public static class SimpleDialog extends DialogFragment {
         Food food;
-        public static SimpleDialog newInstance (UUID foodid, int foodType) {
+        public static SimpleDialog newInstance (UUID foodId, int foodType) {
             Bundle args = new Bundle();
-            args.putSerializable(ARG_FOOD, foodid);
+            args.putSerializable(ARG_FOOD, foodId);
             args.putInt(ARG_FOOD_TYPE, foodType);
 
             SimpleDialog fragment = new SimpleDialog();
@@ -243,26 +214,32 @@ public class HiddenFoodsFragment extends Fragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             UUID foodId = (UUID) getArguments().getSerializable(ARG_FOOD);
-            int foodType = getArguments().getInt(ARG_FOOD_TYPE);
-            food = FoodManager.get(getActivity()).getFood(foodId, foodType);
+            food = FoodManager.get(getActivity()).getFood(foodId);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Restore food item?")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            food.setHidden(false);
-                            FoodManager.get(getActivity()).updateFood(food);
-                            sendResult(Activity.RESULT_OK);
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (food.getType() == Food.TYPE_DEFAULT_HIDDEN) {
+                            food.setType(Food.TYPE_DEFAULT);
+                        } else if (food.getType() == Food.TYPE_DEFAULT_MODIFIED_HIDDEN) {
+                            food.setType(Food.TYPE_DEFAULT_MODIFIED);
                         }
-                    })
-                    .setMessage(food.getTitle())
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            sendResult(Activity.RESULT_CANCELED);
-                        }
-                    });
+                        food.setServings(
+                            FoodManager.get(getActivity()).getFoodServings(food.getFoodId())
+                        ); // due to lazy loading of servings
+                        FoodManager.get(getActivity()).updateFood(food);
+                        sendResult(Activity.RESULT_OK);
+                    }
+                })
+                .setMessage(food.getName())
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendResult(Activity.RESULT_CANCELED);
+                    }
+                });
             return builder.create();
         }
 

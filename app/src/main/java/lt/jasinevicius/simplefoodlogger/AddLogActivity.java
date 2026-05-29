@@ -20,13 +20,11 @@ import java.util.UUID;
 public class AddLogActivity extends BaseActivity {
 
     private static final String EXTRA_FOOD_ID = "simplefoodlogger.food_id";
-    private static final String EXTRA_FOOD_TYPE = "simplefoodlogger.food_type";
     private static final String EXTRA_DATE = "simplefoodlogger.date";
 
-    public static Intent newIntent(Context packageContext, UUID foodId, int foodType, Date date) {
+    public static Intent newIntent(Context packageContext, UUID foodId, Date date) {
         Intent intent = new Intent(packageContext, AddLogActivity.class);
         intent.putExtra(EXTRA_FOOD_ID, foodId);
-        intent.putExtra(EXTRA_FOOD_TYPE, foodType);
         intent.putExtra(EXTRA_DATE, date);
 
         return intent;
@@ -49,14 +47,16 @@ public class AddLogActivity extends BaseActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         UUID foodId = (UUID) getIntent().getSerializableExtra(EXTRA_FOOD_ID);
-        Integer foodType = (Integer) getIntent().getSerializableExtra(EXTRA_FOOD_TYPE);
         Date date = (Date) getIntent().getSerializableExtra(EXTRA_DATE);
 
         if (savedInstanceState != null) {
             //Restore the fragment's instance
             addLogFragment = getSupportFragmentManager().getFragment(savedInstanceState, "addLogFragment");
         } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, AddLogFragment.newInstance(foodId, foodType, date)).commit();
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.single_fragment_container, AddLogFragment.newInstance(foodId, date))
+                .commit();
         }
     }
 

@@ -164,7 +164,7 @@ public class Calculations {
         String monthString = month < 10 ? "0"+month.toString() : month.toString();
         Integer day = cal.get(Calendar.DAY_OF_MONTH);
         String dayString = day < 10 ? "0"+day.toString() : day.toString();
-        String dateText = year.toString() + "." + monthString + "." + dayString;
+//        String dateText = year.toString() + "." + monthString + "." + dayString;
 
 
         for (int i = 0; i<logs.size(); i++) {
@@ -181,7 +181,6 @@ public class Calculations {
         daysLog.setCarbs(carbs);
         daysLog.setFat(fat);
         daysLog.setDate(logDate);
-        daysLog.setDateText(dateText);
 
         return daysLog;
     }

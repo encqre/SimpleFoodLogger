@@ -56,7 +56,6 @@
             app:summary="When calculating average calories and macronutrients for selected time period, ignore days with 0 calories consumed"
             />
 
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -68,12 +67,15 @@
             app:title="View/restore hidden food items"
             app:summary="Number of hidden foods: 24"/>
 
+        <Preference
+            app:key="pref_hidden_tags"
+            app:title="View/restore hidden tags"
+            app:summary="Number of hidden tags: 24"/>
+
         <EditTextPreference
             app:key="pref_recent_foods_size"
             app:title="Recent foods list size"
             app:summary="10"/>
-
-
 
     </PreferenceCategory>
 
@@ -82,24 +84,15 @@
         app:title="Backup/Import">
 
         <Preference
-            app:key="pref_backup_logs"
-            app:title="Backup food logs to a CSV file"
+            app:key="pref_backup"
+            app:title="Backup data to a file"
             app:summary="Last backup date: 2018 December 12"/>
 
         <Preference
-            app:key="pref_backup_custom_foods"
-            app:title="Backup custom foods to a CSV file"
-            app:summary="Last backup date: 2018 December 12"/>
+            app:key="pref_import_backup"
+            app:title="Import data from a backup file"
+            app:summary="Select a file from which data should be imported"/>
 
-        <Preference
-            app:key="pref_import_logs"
-            app:title="Import food logs from a backup file"
-            app:summary="Select a CSV file from which food logs should be imported"/>
-
-        <Preference
-            app:key="pref_import_custom_foods"
-            app:title="Import custom foods from a backup file"
-            app:summary="Select a CSV file from which custom foods should be imported"/>
 
     </PreferenceCategory>
 

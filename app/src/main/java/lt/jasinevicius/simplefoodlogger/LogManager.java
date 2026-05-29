@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import lt.jasinevicius.simplefoodlogger.database.LogCursorWrapper;
 import lt.jasinevicius.simplefoodlogger.database.LogDbHelper;
-import lt.jasinevicius.simplefoodlogger.database.DbSchema.LogTable;
+import lt.jasinevicius.simplefoodlogger.database.DbSchema.Logs;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,8 +19,8 @@ import java.util.UUID;
 public class LogManager {
     private static LogManager sLogManager;
 
-    private Context mContext;
-    private SQLiteDatabase mLogDatabase;
+    private Context context;
+    private SQLiteDatabase logDb;
 
     public static LogManager get(Context context) {
         if (sLogManager == null) {
@@ -29,21 +29,25 @@ public class LogManager {
         return sLogManager;
     }
 
-    private LogManager(Context context) {
-        mContext = context.getApplicationContext();
-        mLogDatabase = new LogDbHelper(mContext).getWritableDatabase();
+    private LogManager(Context ctx) {
+        context = ctx.getApplicationContext();
+        logDb = new LogDbHelper(context).getWritableDatabase();
     }
 
     public void addLog(Log l) {
         ContentValues values = getContentValues(l);
 
-        mLogDatabase.insert(LogTable.NAME, null, values);
+        logDb.insert(Logs.NAME, null, values);
     }
 
-    public List<Log> getLogs() {
+    public List<Log> getLogs(
+        String whereClause,
+        String[] whereArgs,
+        String orderBy
+    ) {
         List<Log> logs = new ArrayList<>();
 
-        LogCursorWrapper cursor = queryLogs(null, null);
+        LogCursorWrapper cursor = queryLogs(whereClause, whereArgs, orderBy);
 
         try {
             cursor.moveToFirst();
@@ -57,7 +61,7 @@ public class LogManager {
         return logs;
     }
 
-    public List<Log> getLogsDay(Date date) {
+    public List<Log> getLogsForDay(Date date) {
         List<Log> logs = new ArrayList<>();
 
         // Get the timestamps for start and end of the day
@@ -72,33 +76,23 @@ public class LogManager {
         long startTime = cal.getTimeInMillis();
         long endTime = startTime + 24 * 3600 * 1000;
 
-        String queryWhereClause = LogTable.Cols.DATE + " >= " + startTime + " AND " +
-                LogTable.Cols.DATE + " < " + endTime;
-        LogCursorWrapper cursor = queryLogs(queryWhereClause,null);
+        String whereClause = Logs.Cols.DATE + " >= " + startTime + " AND " +
+            Logs.Cols.DATE + " < " + endTime;
 
-        try {
-            cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
-                logs.add(cursor.getLog());
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-        return logs;
+        return getLogs(whereClause, null, null);
     }
 
     public Log getLog(UUID id) {
-        LogCursorWrapper cursor = queryLogs(LogTable.Cols.LOGID + " = ?", new String[] {id.toString()});
 
-        try {
-            if(cursor.getCount() == 0) {
-                return null;
-            }
-            cursor.moveToFirst();
-            return cursor.getLog();
-        } finally {
-            cursor.close();
+        String whereClause = Logs.Cols.LOG_ID + " = ?";
+        String[] whereArgs = {id.toString()};
+
+        List<Log> logs = getLogs(whereClause, whereArgs, null);
+
+        if (logs.size() >= 1) {
+            return logs.get(0);
+        } else {
+            return null;
         }
     }
 
@@ -106,40 +100,42 @@ public class LogManager {
         String uuidString = log.getLogId().toString();
         ContentValues values = getContentValues(log);
 
-        mLogDatabase.update(LogTable.NAME, values, LogTable.Cols.LOGID + " = ?", new String[] {uuidString});
+        logDb.update(            Logs.NAME,
+            values,
+            Logs.Cols.LOG_ID + " = ?",
+            new String[] {uuidString}
+        );
     }
 
     public void deleteLog(Log log) {
         String uuidString = log.getLogId().toString();
 
-        mLogDatabase.delete(LogTable.NAME, LogTable.Cols.LOGID + " = ?", new String[] {uuidString});
+        logDb.delete(Logs.NAME, Logs.Cols.LOG_ID + " = ?", new String[] {uuidString});
     }
 
-    private LogCursorWrapper queryLogs(String whereClause, String[] whereArgs) {
-        Cursor cursor = mLogDatabase.query(
-                LogTable.NAME,
+    private LogCursorWrapper queryLogs(String whereClause, String[] whereArgs, String orderBy) {
+        Cursor cursor = logDb.query(
+                Logs.NAME,
                 null, //columns - null selects all columns
                 whereClause,
                 whereArgs,
                 null,
                 null,
-                null
+                orderBy
         );
         return new LogCursorWrapper(cursor);
     }
 
     private static ContentValues getContentValues(Log log) {
         ContentValues values = new ContentValues();
-        values.put(LogTable.Cols.LOGID, log.getLogId().toString());
-        values.put(LogTable.Cols.DATE, log.getDate().getTime());
-        values.put(LogTable.Cols.DATETEXT, log.getDateText());
-        values.put(LogTable.Cols.FOOD, log.getFood());
-        values.put(LogTable.Cols.SIZE, log.getSize());
-        values.put(LogTable.Cols.SIZEIMPERIAL, log.getSizeImperial());
-        values.put(LogTable.Cols.KCAL, log.getKcal());
-        values.put(LogTable.Cols.PROTEIN, log.getProtein());
-        values.put(LogTable.Cols.CARBS, log.getCarbs());
-        values.put(LogTable.Cols.FAT, log.getFat());
+        values.put(Logs.Cols.LOG_ID, log.getLogId().toString());
+        values.put(Logs.Cols.DATE, log.getDate().getTime());
+        values.put(Logs.Cols.FOOD, log.getFood());
+        values.put(Logs.Cols.SIZE, log.getSize());
+        values.put(Logs.Cols.KCAL, log.getKcal());
+        values.put(Logs.Cols.PROTEIN, log.getProtein());
+        values.put(Logs.Cols.CARBS, log.getCarbs());
+        values.put(Logs.Cols.FAT, log.getFat());
 
         return values;
     }

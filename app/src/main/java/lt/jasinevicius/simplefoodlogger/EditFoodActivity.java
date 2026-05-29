@@ -45,9 +45,14 @@ public class EditFoodActivity extends BaseActivity {
 
         if (savedInstanceState != null) {
             //Restore the fragment's instance
-            editFoodFragment = getSupportFragmentManager().getFragment(savedInstanceState, "editFoodFragment");
+            editFoodFragment = getSupportFragmentManager().getFragment(
+                savedInstanceState, "editFoodFragment"
+            );
         } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.single_fragment_container, EditFoodFragment.newInstance(foodId, foodType)).commit();
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.single_fragment_container, EditFoodFragment.newInstance(foodId))
+                .commit();
         }
     }
 

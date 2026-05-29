@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import lt.jasinevicius.simplefoodlogger.reusable.TutorialDialog;
+import lt.jasinevicius.simplefoodlogger.reusable.InfoDialog;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -177,7 +177,7 @@ public class HomePageFragment extends Fragment {
 
         if (!mPreferences.getBoolean(LoggerSettings.PREFERENCE_TUTORIAL_HOME_PAGE_DONE, false)) {
             FragmentManager fm = getFragmentManager();
-            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_home_page_text), getString(R.string.tutorial_home_page_title));
+            InfoDialog dialog = InfoDialog.newInstance(getString(R.string.tutorial_home_page_text), getString(R.string.tutorial_home_page_title));
             dialog.setTargetFragment(HomePageFragment.this, REQUEST_TUTORIAL);
             dialog.show(fm, DIALOG_TUTORIAL);
         }
@@ -209,7 +209,7 @@ public class HomePageFragment extends Fragment {
 
     /**Method used to update UI elements of home page after something changes */
     private void updateUI() {
-        List<Log> logs = mLogManager.getLogsDay(mSelectedDay);
+        List<Log> logs = mLogManager.getLogsForDay(mSelectedDay);
         mLogAdapter = new LogAdapter(logs);
         mLogRecyclerView.setAdapter(mLogAdapter);
 
@@ -273,7 +273,7 @@ public class HomePageFragment extends Fragment {
             if (mUnits.equals("Metric")) {
                 mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.valueOf(log.getSize().intValue()), "g"));
             } else {
-                mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.format("%.1f", log.getSizeImperial()), "oz"));
+                mFoodTitleTextView.setText(getString(R.string.home_fragment_log_title, log.getFood(), String.format("%.1f", log.getSize()/28.35f), "oz"));
             }
         }
 
@@ -314,7 +314,5 @@ public class HomePageFragment extends Fragment {
 //TODO AFTER RELEASE fix remaining issues when switching to landscape (mostly with main activity fragments)
 //TODO Timestamps for food logs?
 //TODO Group 1 or more food items into meals/templates?
-//TODO Get rid of categories, switch to TAGs (favorite as a tag also?)
+//TODO Favorite as a tag?
 //TODO Simple weight tracker (auto update recommended kcal based on weight change?)
-//TODO Sorting foods?
-//TODO Customizable number of servings, not just fixed to 3

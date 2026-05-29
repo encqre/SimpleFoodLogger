@@ -23,16 +23,22 @@
     <attr format="color" name="recyclerViewItemSeparatorColor"/>
     <attr format="color" name="cardBorderColor"/>
     <attr format="color" name="buttonBarBackgroundColor"/>
+    <attr format="color" name="tagBackgroundColor"/>
+    <attr format="color" name="tagSearchBarBackgroundColor"/>
+    <attr format="color" name="cancelButtonOnTagBackgroundColor"/>
 
     <!--  Generic text color attributes  -->
     <attr format="color" name="textOnGenericSurfaceColor"/>
     <attr format="color" name="textOnRecyclerViewBackgroundColor"/>
     <attr format="color" name="textOnToolbarColor"/>
     <attr format="color" name="textOnAccentColor"/>
+    <attr format="color" name="textOnTagColor"/>
 
     <!--  Food type color attributes  -->
     <attr format="color" name="foodTypeCustomColor"/>
     <attr format="color" name="foodTypeCommonColor"/>
     <attr format="color" name="foodTypeUSDAColor"/>
 
+    <!-- TEST text appearance-->
+    <attr format="reference" name="testSomeKindOfTextAppearance"/>
 </resources>

@@ -28,6 +28,10 @@
         <item name="foodTypeUSDAColor">@color/veryDarkGray</item>
         <item name="cardBorderColor">@color/slightlyLightGray</item>
         <item name="buttonBarBackgroundColor">@color/white</item>
+        <item name="tagBackgroundColor">@color/lightGray</item>
+        <item name="tagSearchBarBackgroundColor">@color/white</item>
+        <item name="textOnTagColor">@color/darkerGray</item>
+        <item name="cancelButtonOnTagBackgroundColor">@color/slightlyDarkGray</item>
     </style>
 
     <!-- Dark application theme -->
@@ -60,6 +64,10 @@
         <item name="cardBorderColor">@color/slightlyDarkGray</item>
         <item name="colorSurface">@color/black</item>
         <item name="buttonBarBackgroundColor">@color/darkThemeToolbar</item>
+        <item name="tagBackgroundColor">@color/darkGray</item>
+        <item name="tagSearchBarBackgroundColor">@color/darkerGray</item>
+        <item name="textOnTagColor">@color/lightGray</item>
+        <item name="cancelButtonOnTagBackgroundColor">@color/slightlyLightGray</item>
     </style>
 
     <!-- Tab Layout styles -->

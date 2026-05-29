@@ -1,29 +1,36 @@
 package lt.jasinevicius.simplefoodlogger;
 
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class Food {
 
-    private int mType;  // 0 - custom entry, 1 - common DB, 2 - extended DB
-    private UUID mFoodId;
-    private int mSortID; //Might be used in the future for sorting
-    private String mTitle;
-    private String mCategory;
-    private Float mKcal;
-    private Float mProtein;
-    private Float mCarbs;
-    private Float mFat;
-    private boolean mFavorite;
-    private boolean mHidden;
-    private String mPortion1Name;
-    private Float mPortion1SizeMetric;
-    private Float mPortion1SizeImperial;
-    private String mPortion2Name;
-    private Float mPortion2SizeMetric;
-    private Float mPortion2SizeImperial;
-    private String mPortion3Name;
-    private Float mPortion3SizeMetric;
-    private Float mPortion3SizeImperial;
+    public static final int TYPE_CUSTOM = 0;
+    public static final int TYPE_DEFAULT = 1;
+    public static final int TYPE_DEFAULT_MODIFIED = 2;
+    public static final int TYPE_DEFAULT_HIDDEN = 3;
+    public static final int TYPE_DEFAULT_MODIFIED_HIDDEN = 4;
+
+    public static final int PRIORITY_CUSTOM = 0;
+    public static final int PRIORITY_COMMON_MODIFIED = 100;
+    public static final int PRIORITY_COMMON = 200;
+    public static final int PRIORITY_DEFAULT_MODIFIED = 900;
+    public static final int PRIORITY_DEFAULT = 1000;
+
+    private UUID foodId;
+    private String name;
+    private Float kcal;
+    private Float protein;
+    private Float carbs;
+    private Float fat;
+    private int type;
+    private int priority; // for now - to display more relevant default food higher. Lower is better
+    private boolean isFavorite;
+    private int consumedCount;
+    private Date lastConsumed;
+    private List<Tag> tags;
+    private List<Serving> servings;
 
 
     public Food() {
@@ -31,162 +38,122 @@ public class Food {
     }
 
     public Food(UUID id) {
-        mFoodId = id;
-    }
-
-    public int getType() {
-        return mType;
-    }
-
-    public void setType(int type) {
-        mType = type;
+        foodId = id;
     }
 
     public UUID getFoodId() {
-        return mFoodId;
+        return foodId;
     }
 
-    public int getSortID() {
-        return mSortID;
+    public String getName() {
+        return name;
     }
 
-    public void setSortID(int sortID) {
-        mSortID = sortID;
-    }
-
-    public String getTitle() {
-        return mTitle;
-    }
-
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
-    public String getCategory() {
-        return mCategory;
-    }
-
-    public void setCategory(String category) {
-        mCategory = category;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Float getKcal() {
-        return mKcal;
+        return kcal;
     }
 
     public void setKcal(Float kcal) {
-        mKcal = kcal;
+        this.kcal = kcal;
     }
 
     public Float getProtein() {
-        return mProtein;
+        return protein;
     }
 
     public void setProtein(Float protein) {
-        mProtein = protein;
+        this.protein = protein;
     }
 
     public Float getCarbs() {
-        return mCarbs;
+        return carbs;
     }
 
     public void setCarbs(Float carbs) {
-        mCarbs = carbs;
+        this.carbs = carbs;
     }
 
     public Float getFat() {
-        return mFat;
+        return fat;
     }
 
     public void setFat(Float fat) {
-        mFat = fat;
+        this.fat = fat;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public boolean isFavorite() {
-        return mFavorite;
+        return isFavorite;
     }
 
-    public void setFavorite(boolean favorite) {
-        mFavorite = favorite;
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
-    public boolean isHidden() {
-        return mHidden;
+    public int getConsumedCount() {
+        return consumedCount;
     }
 
-    public void setHidden(boolean hidden) {
-        mHidden = hidden;
+    public void setConsumedCount(int consumedCount) {
+        this.consumedCount = consumedCount;
     }
 
-    public String getPortion1Name() {
-        return mPortion1Name;
+    public Date getLastConsumed() {
+        return lastConsumed;
     }
 
-    public void setPortion1Name(String portion1Name) {
-        mPortion1Name = portion1Name;
+    public void setLastConsumed(Date lastConsumed) {
+        this.lastConsumed = lastConsumed;
     }
 
-    public Float getPortion1SizeMetric() {
-        return mPortion1SizeMetric;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public void setPortion1SizeMetric(Float portion1SizeMetric) {
-        mPortion1SizeMetric = portion1SizeMetric;
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
-    public Float getPortion1SizeImperial() {
-        return mPortion1SizeImperial;
+    public void addTag(Tag tag) {
+        tags.add(tag);
     }
 
-    public void setPortion1SizeImperial(Float portion1SizeImperial) {
-        mPortion1SizeImperial = portion1SizeImperial;
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
     }
 
-    public String getPortion2Name() {
-        return mPortion2Name;
+    public List<Serving> getServings() {
+        return servings;
     }
 
-    public void setPortion2Name(String portion2Name) {
-        mPortion2Name = portion2Name;
+    public void setServings(List<Serving> servings) {
+        this.servings = servings;
     }
 
-    public Float getPortion2SizeMetric() {
-        return mPortion2SizeMetric;
+    public void addServing(Serving serving) {
+        servings.add(serving);
     }
 
-    public void setPortion2SizeMetric(Float portion2SizeMetric) {
-        mPortion2SizeMetric = portion2SizeMetric;
-    }
-
-    public Float getPortion2SizeImperial() {
-        return mPortion2SizeImperial;
-    }
-
-    public void setPortion2SizeImperial(Float portion2SizeImperial) {
-        mPortion2SizeImperial = portion2SizeImperial;
-    }
-
-    public String getPortion3Name() {
-        return mPortion3Name;
-    }
-
-    public void setPortion3Name(String portion3Name) {
-        mPortion3Name = portion3Name;
-    }
-
-    public Float getPortion3SizeMetric() {
-        return mPortion3SizeMetric;
-    }
-
-    public void setPortion3SizeMetric(Float portion3SizeMetric) {
-        mPortion3SizeMetric = portion3SizeMetric;
-    }
-
-    public Float getPortion3SizeImperial() {
-        return mPortion3SizeImperial;
-    }
-
-    public void setPortion3SizeImperial(Float portion3SizeImperial) {
-        mPortion3SizeImperial = portion3SizeImperial;
+    public void removeServing(Serving serving) {
+        servings.remove(serving);
     }
 }

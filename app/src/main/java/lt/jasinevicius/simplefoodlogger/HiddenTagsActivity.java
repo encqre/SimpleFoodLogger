@@ -15,10 +15,10 @@ import androidx.preference.PreferenceManager;
 import lt.jasinevicius.simplefoodlogger.reusable.SimpleConfirmationDialog;
 
 
-public class HiddenFoodsActivity extends BaseActivity {
+public class HiddenTagsActivity extends BaseActivity {
 
     public static Intent newIntent(Context packageContext) {
-        Intent intent = new Intent(packageContext, HiddenFoodsActivity.class);
+        Intent intent = new Intent(packageContext, HiddenTagsActivity.class);
         return intent;
     }
 
@@ -36,11 +36,11 @@ public class HiddenFoodsActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
-        ab.setTitle("Hidden Foods");
+        ab.setTitle("Hidden Tags");
         ab.setDisplayHomeAsUpEnabled(true);
 
         getSupportFragmentManager().beginTransaction().replace(
-            R.id.single_fragment_container, new HiddenFoodsFragment()
+            R.id.single_fragment_container, new HiddenTagsFragment()
         ).commit();
 
     }
@@ -49,13 +49,13 @@ public class HiddenFoodsActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_unhide_all:
-                HiddenFoodsFragment frag = (HiddenFoodsFragment) getSupportFragmentManager()
+                HiddenTagsFragment frag = (HiddenTagsFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.single_fragment_container);
-                String message = "Are you sure you want to restore all hidden food items?";
-                String title = "Restore all hidden foods?";
+                String message = "Are you sure you want to restore all hidden tags?";
+                String title = "Restore all hidden tags?";
                 SimpleConfirmationDialog dialog = SimpleConfirmationDialog.newInstance(message, title);
                 dialog.setTargetFragment(frag, REQUEST_RESTORE_ALL);
-                dialog.show(getSupportFragmentManager(), "restore_all_foods");
+                dialog.show(getSupportFragmentManager(), "restore_all_tags");
                 return true;
             case android.R.id.home:
                 //override toolbar back button to do same as bottom(hard) back button
@@ -69,7 +69,7 @@ public class HiddenFoodsActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.hidden_foods_activity, menu);
+        getMenuInflater().inflate(R.menu.hidden_tags_activity, menu);
 
         return true;
     }

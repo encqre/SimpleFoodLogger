@@ -9,113 +9,81 @@ import java.util.UUID;
 
 public class Log {
 
-    private UUID mLogId;
-    private Date mDate;
-    private String mDateText;
-    private String mFood;
-    private Float mSize;
-    private Float mSizeImperial;
-    private Float mKcal;
-    private Float mProtein;
-    private Float mCarbs;
-    private Float mFat;
+    private UUID logId;
+    private Date date;
+    private String food;
+    private Float size;
+    private Float kcal;
+    private Float protein;
+    private Float carbs;
+    private Float fat;
 
     public Log() {
         this(UUID.randomUUID());
     }
 
     public Log(UUID id) {
-        mLogId = id;
+        logId = id;
     }
 
     public UUID getLogId() {
-        return mLogId;
+        return logId;
     }
 
     public Date getDate() {
-        return mDate;
-    }
-
-    public String getDateText() {
-
-        return mDateText;
-    }
-
-    public void setDateText(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        String year = ((Integer) cal.get(Calendar.YEAR)).toString();
-        String month = ((Integer) (cal.get(Calendar.MONTH) + 1)).toString();
-        String day = ((Integer) cal.get(Calendar.DAY_OF_MONTH)).toString();
-
-        month = (month.length() == 1) ? "0" + month : month;
-        day = (day.length() == 1) ? "0" + day : day;
-
-        mDateText = year + month + day;
-    }
-
-    public void setDateText(String text) {
-        mDateText = text;
+        return date;
     }
 
     public void setDate(Date date) {
-        mDate = date;
+        this.date = date;
     }
 
     public String getFood() {
-        return mFood;
+        return food;
     }
 
     public void setFood(String food) {
-        mFood = food;
+        this.food = food;
     }
 
     public Float getSize() {
-        return mSize;
+        return size;
     }
 
     public void setSize(Float size) {
-        mSize = size;
-    }
-
-    public Float getSizeImperial() {
-        return mSizeImperial;
-    }
-
-    public void setSizeImperial(Float sizeImperial) {
-        mSizeImperial = sizeImperial;
+        this.size = size;
     }
 
     public Float getKcal() {
-        return mKcal;
+        return kcal;
     }
 
     public void setKcal(Float kcal) {
-        mKcal = kcal;
+        this.kcal = kcal;
     }
 
     public Float getProtein() {
-        return mProtein;
+        return protein;
     }
 
     public void setProtein(Float protein) {
-        mProtein = protein;
+        this.protein = protein;
     }
 
     public Float getCarbs() {
-        return mCarbs;
+        return carbs;
     }
 
     public void setCarbs(Float carbs) {
-        mCarbs = carbs;
+        this.carbs = carbs;
     }
 
     public Float getFat() {
-        return mFat;
+        return fat;
     }
 
     public void setFat(Float fat) {
-        mFat = fat;
+        this.fat = fat;
     }
 
     public static List<Log> sortByDateOld(List<Log> summaryLogs) {

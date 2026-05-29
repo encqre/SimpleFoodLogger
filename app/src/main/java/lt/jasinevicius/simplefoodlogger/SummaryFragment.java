@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
-import lt.jasinevicius.simplefoodlogger.reusable.TutorialDialog;
+import lt.jasinevicius.simplefoodlogger.reusable.InfoDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -167,7 +167,7 @@ public class SummaryFragment extends Fragment {
 
         if (!mPreferences.getBoolean(LoggerSettings.PREFERENCE_TUTORIAL_STATISTICS_DONE, false)) {
             FragmentManager fm = getFragmentManager();
-            TutorialDialog dialog = TutorialDialog.newInstance(getString(R.string.tutorial_statistics_text), getString(R.string.tutorial_statistics_title));
+            InfoDialog dialog = InfoDialog.newInstance(getString(R.string.tutorial_statistics_text), getString(R.string.tutorial_statistics_title));
             dialog.setTargetFragment(SummaryFragment.this, REQUEST_TUTORIAL);
             dialog.show(fm, DIALOG_TUTORIAL);
         }
@@ -317,7 +317,7 @@ public class SummaryFragment extends Fragment {
         }
 
         public void bind(Log summaryLog) {
-            mDateText.setText(summaryLog.getDateText());
+            mDateText.setText(Calculations.dateToDateTextEqualLengthString(summaryLog.getDate()));
             mCaloriesText.setText(summaryLog.getKcal().intValue() + " kcal");
             mProteinText.setText(summaryLog.getProtein().intValue() + "g");
             mCarbsText.setText(summaryLog.getCarbs().intValue() + "g");
@@ -524,7 +524,7 @@ public class SummaryFragment extends Fragment {
         String endDateText = Calculations.dateToDateText(end); //convert to dateText to allow easy comparison
 
         while (!dayDateText.equals(endDateText)) {
-            List<Log> dayLogs = mLogManager.getLogsDay(start); //fetches list of logs for one day
+            List<Log> dayLogs = mLogManager.getLogsForDay(start); //fetches list of logs for one day
             Log newLog = Calculations.summarizeDayLogs(dayLogs, start); //call method to summarize one day list of logs into one Summary Log
 
             summaryLogs.add(newLog);
@@ -573,7 +573,8 @@ public class SummaryFragment extends Fragment {
 
 
         String text1 = "Selected period: ";
-        String text2 = summaryLogs.get(0).getDateText() + " - " + summaryLogs.get(summaryLogs.size() - 1).getDateText() + "\n";
+        String text2 = Calculations.dateToDateTextEqualLengthString(summaryLogs.get(0).getDate()) +
+            " - " + Calculations.dateToDateTextEqualLengthString(summaryLogs.get(summaryLogs.size() - 1).getDate()) + "\n";
         String text3 = "Averages (" + (mPreferences.getBoolean(LoggerSettings.PREFERENCE_STATS_IGNORE_ZERO_KCAL_DAYS, false) ? "ex" : "in") + "cluding days with 0 kcal):\n";
         String text4 = "Calories: " + avgKcal.toString() + " kcal (";
         String kcalDeltaString = ((kcalDelta > 0) ? "+":"") + kcalDelta.toString();
@@ -607,7 +608,7 @@ public class SummaryFragment extends Fragment {
         String endDateText = Calculations.dateToDateText(end); //convert to dateText to allow easy comparison
 
         while (!dayDateText.equals(endDateText)) {
-            List<Log> dayLogs = mLogManager.getLogsDay(start); //fetches list of logs for one day
+            List<Log> dayLogs = mLogManager.getLogsForDay(start); //fetches list of logs for one day
 
             /**Logic for the below for loop which cycles through list of one day logs - grab the food name of each log,
              * and cycle through List of FoodSummary. If we find a match for the food - increment count and add calories and weight.
